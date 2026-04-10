@@ -5,6 +5,7 @@
  */
 
 #include "spi_com.h"
+#include "kvstore.h"
 
 void init_spi_client()
 {
@@ -33,6 +34,9 @@ static uint8_t lpc_calc_checksum(uint8_t *buffer, int len)
 
 #define SPI_DEBUG_ENABLED 0
 #define SPI_PRINTF_ENABLED 0
+
+static uint8_t kv_read_buf[KV_MAX_NAME_LEN];
+static uint8_t kv_value_write_buf[KV_MAX_VALUE_LEN];
 
 /* note that this runs in a timer interrupt:
    - no sleep_ms() calls
@@ -154,6 +158,41 @@ void handle_spi_commands(battery_info_s *battery_info)
       brightness = 80;
     set_display_backlight(brightness);
   }
+  else if (spi_command == 'u') {
+    // toggle USB muxing modes
+    uint8_t port1_mode = spi_arg1 & 0x4; // lower nybble
+    uint8_t port2_mode = (spi_arg1>>4) & 0x4; // upper nybble
+    switch (port2_mode) {
+    case 0:
+      // usb2: sysctl external
+      gpio_ext_uswitch_enable(0);
+      gpio_ext_uswitch_enable(1);
+      gpio_ext_uswitch_enable(2);
+      break;
+    case 1:
+      // usb2: host, sysctl internal
+      gpio_ext_uswitch_disable(0);
+      gpio_ext_uswitch_disable(1);
+      gpio_ext_uswitch_disable(2);
+      break;
+    case 2:
+      // usb2: EDL external
+      gpio_ext_uswitch_enable(0);
+      gpio_ext_uswitch_disable(1);
+      gpio_ext_uswitch_enable(2);
+      break;
+    }
+    switch (port1_mode) {
+    case 0:
+      // usb1: host
+      gpio_ext_uswitch_enable(3);
+      break;
+    case 1:
+      // usb1: SoC UART
+      gpio_ext_uswitch_disable(3);
+      break;
+    }
+  }
   else if (spi_command == 'G') {
     // set GPIO *high*
     // cmd_number:
@@ -184,6 +223,79 @@ void handle_spi_commands(battery_info_s *battery_info)
     case 2:
       gpio_put(PIN_1V1_ENABLE, 0);
       break;
+    }
+  }
+  else if (spi_command == 's') {
+    // read string value from key
+    uint8_t kv_len = spi_arg1;
+    // host wants to read a string whose key name is spi_arg1 characters long
+    if (kv_len == 0 || kv_len > KV_MAX_NAME_LEN) {
+      // TODO: error!
+    } else {
+      for (uint8_t i = 0; i < kv_len; i++) {
+        uint8_t rx = (uint8_t)spi_get_hw(spi1)->dr;
+        kv_read_buf[i] = rx;
+      }
+      // look up in table
+      int found_slot = kv_lookup_str(kv_read_buf, kv_len);
+      // send response
+      if (found_slot >= 0 && found_slot < KV_MAX_ENTRIES) {
+        struct kv_entry* kv = kv_get(found_slot);
+        if (kv != NULL) {
+          // send the string. the first byte is the length,
+          // last byte is a checksum
+          uint8_t res_buf[KV_MAX_VALUE_LEN+2];
+          res_buf[0] = kv->value_len;
+          memcpy(res_buf+1, kv->value, kv->value_len);
+          res_buf[kv->value_len+1] = lpc_calc_checksum(res_buf, kv->value_len+1);
+          spi_write_blocking(spi1, res_buf, kv->value_len+2);
+        } else {
+          // TODO: report error!
+          uint8_t res = 0;
+          spi_write_blocking(spi1, &res, 1);
+          return;
+        }
+      } else {
+        // TODO: report error!
+        uint8_t res = 0;
+        spi_write_blocking(spi1, &res, 1);
+        return;
+      }
+    }
+  }
+  else if (spi_command == 'S') {
+    // write value for key
+    uint8_t kv_len = spi_arg1;
+    // host wants to write a string whose key name is spi_arg1 characters long
+    if (kv_len == 0 || kv_len > KV_MAX_NAME_LEN) {
+      // TODO: error!
+      uint8_t res = 0;
+      spi_write_blocking(spi1, &res, 1);
+      return;
+    } else {
+      // read the key name
+      for (uint8_t i = 0; i < kv_len; i++) {
+        uint8_t rx = (uint8_t)spi_get_hw(spi1)->dr;
+        kv_read_buf[i] = rx;
+      }
+      // read the value (length byte first)
+      uint8_t val_len = (uint8_t)spi_get_hw(spi1)->dr;
+      if (val_len == 0 || val_len > KV_MAX_VALUE_LEN) {
+        // TODO: error!
+        uint8_t res = 0;
+        spi_write_blocking(spi1, &res, 1);
+        return;
+      } else {
+        for (uint8_t i = 0; i < val_len; i++) {
+          uint8_t rx = (uint8_t)spi_get_hw(spi1)->dr;
+          kv_value_write_buf[i] = rx;
+        }
+        // store the value
+        kv_update_str(kv_read_buf, kv_len, kv_value_write_buf, val_len);
+        uint8_t res = val_len;
+        spi_write_blocking(spi1, &res, 1);
+        return;
+      }
     }
   }
 

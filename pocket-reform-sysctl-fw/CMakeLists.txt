@@ -22,6 +22,7 @@ add_executable(${PROJECT}
 	src/sysctl.c
 	src/ext_gpio.c
 	src/altmode.c
+	src/kvstore.c
 	src/max17320.c
 	src/mp2650.c
 	src/fusb302b.c

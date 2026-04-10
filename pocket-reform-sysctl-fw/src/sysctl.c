@@ -17,6 +17,7 @@
 #include "tusb.h"
 #include "reform_stdio_usb.h"
 #include "altmode.h"
+#include "kvstore.h"
 
 static uint8_t mps_fault_last = 0;
 battery_info_s battery_info = {0};
@@ -1038,14 +1039,32 @@ void handle_usb_commands()
       gpio_ext_uswitch_enable(2);
       gpio_put(PIN_USB_SRC_ENABLE, 0);
     }
+    else if (usb_c == 'e') {
+      printf("# [acm_command] uswitch0,1,2 = 1,0,1 (edl usb external)\n");
+      gpio_ext_uswitch_enable(0);
+      gpio_ext_uswitch_disable(1);
+      gpio_ext_uswitch_enable(2);
+      gpio_put(PIN_USB_SRC_ENABLE, 0);
+    }
     else if (usb_c == ';') {
       uint8_t buf[4] = {0,0,0,0};
       int res = tmuxhs4446_read(buf);
       printf("# [acm_command] tmux read = len: %d bytes: %02x %02x %02x\n", res, buf[0], buf[1], buf[2]);
     }
-    else if (usb_c == 't') {
-      printf("# [acm_command] pd alt mode test\n");
-      pd_test(1);
+    else if (usb_c == 'k') {
+      // dump the key-value store
+      int count = 0;
+      for (int i = 0; i < KV_MAX_ENTRIES; i++) {
+        struct kv_entry* kv = kv_get(i);
+        if (kv) {
+					char key[KV_MAX_NAME_LEN+1];
+					char val[KV_VALUE_STR_LEN+1];
+					kv_get_key_str(i, key);
+					kv_get_value_str(i, val);
+          printf("# [kv:%03d] %s: \"%s\"\n", i, key, val);
+        }
+      }
+      printf("# [kv] number of entries: %d.\n", count);
     }
   }
 }
