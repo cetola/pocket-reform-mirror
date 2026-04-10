@@ -225,7 +225,7 @@ void handle_spi_commands(battery_info_s *battery_info)
       break;
     }
   }
-  else if (spi_command == 's') {
+  else if (spi_command == '?') {
     // read string value from key
     uint8_t kv_len = spi_arg1;
     // host wants to read a string whose key name is spi_arg1 characters long
@@ -263,7 +263,7 @@ void handle_spi_commands(battery_info_s *battery_info)
       }
     }
   }
-  else if (spi_command == 'S') {
+  else if (spi_command == '!') {
     // write value for key
     uint8_t kv_len = spi_arg1;
     // host wants to write a string whose key name is spi_arg1 characters long

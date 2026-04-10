@@ -1,5 +1,6 @@
 #include "uart_com.h"
 #include "pd_com.h"
+#include "kvstore.h"
 
 void handle_uart_commands(battery_info_s *battery_info)
 {
@@ -194,6 +195,16 @@ void handle_commands(char chr, battery_info_s *battery_info)
 					gpio_put(PIN_1V1_ENABLE, 0);
 					break;
 				}
+			} else if (uart_state.remote_cmd == '?') {
+				// read kv value
+				uart_state.kv_key_len = uart_state.cmd_number;
+				uart_state.kv_count = 0;
+				uart_state.cmd_state = ST_EXPECT_KV_KEY_CHAR;
+			} else if (uart_state.remote_cmd == '!') {
+				// read kv value
+				uart_state.kv_value_len = uart_state.cmd_number;
+				uart_state.kv_count = 0;
+				uart_state.cmd_state = ST_EXPECT_KV_VALUE_CHAR;
 			} else {
 				snprintf(uart_buffer, UART_BUFSZ, "error:command\r\n");
 				uart_puts(UART_ID, uart_buffer);
@@ -203,6 +214,44 @@ void handle_commands(char chr, battery_info_s *battery_info)
 			uart_state.cmd_number = CMD_NUMBER_INVALID;
 		} else {
 			uart_state.cmd_state = ST_SYNTAX_ERROR;
+		}
+		// end of ST_EXPECT_RETURN
+	} else if (uart_state.cmd_state == ST_EXPECT_KV_KEY_CHAR) {
+		if (uart_state.kv_count < uart_state.kv_key_len) {
+			uart_state.kv_key[uart_state.kv_count] = chr;
+			uart_state.kv_count++;
+		} else {
+			// key read, respond
+			char val_str[KV_VALUE_STR_LEN];
+			int slot = kv_lookup_str((uint8_t*)uart_state.kv_key, uart_state.kv_key_len);
+			int val_len = kv_get_value_str(slot, val_str);
+			if (val_len > 0) {
+				snprintf(uart_buffer, UART_BUFSZ, "%04d:%s\r\n", val_len, val_str);
+			} else {
+				snprintf(uart_buffer, UART_BUFSZ, "error:command\r\n");
+			}
+			uart_puts(UART_ID, uart_buffer);
+			// done.
+			// we keep the kv_key around for the '!' command.
+			uart_state.cmd_state = ST_EXPECT_DIGIT_0;
+			uart_state.cmd_number = CMD_NUMBER_INVALID;
+		}
+	} else if (uart_state.cmd_state == ST_EXPECT_KV_VALUE_CHAR) {
+		if (uart_state.kv_count < uart_state.kv_value_len) {
+			uart_state.kv_value[uart_state.kv_count] = chr;
+			uart_state.kv_count++;
+		} else {
+			// value read, store
+			int result = kv_update_str((uint8_t*)uart_state.kv_key, uart_state.kv_key_len, (uint8_t*)uart_state.kv_value, uart_state.kv_value_len);
+			// acknowledge
+			if (result >= 0) {
+				snprintf(uart_buffer, UART_BUFSZ, "stored:%d\r\n", result);
+			} else {
+				snprintf(uart_buffer, UART_BUFSZ, "error:%d\r\n", result);
+			}
+			// done
+			uart_state.cmd_state = ST_EXPECT_DIGIT_0;
+			uart_state.cmd_number = CMD_NUMBER_INVALID;
 		}
 	}
 }
