@@ -16,6 +16,7 @@
 #include "hardware/xosc.h"
 #include "tusb.h"
 #include "reform_stdio_usb.h"
+#include "altmode.h"
 
 static uint8_t mps_fault_last = 0;
 battery_info_s battery_info = {0};
@@ -526,9 +527,90 @@ void som_power_indication() {
   pwm_set_freq_duty(PIN_LED_B_PWM_SLICE, PIN_LED_B_PWM_CHAN, 25000, battery_info.som_is_powered ? 30 : 0);
 }
 
+void turn_som_power_on_v20()
+{
+  printf("# [action] turn_som_power_on_v20\n");
+
+  set_boot_magic();
+
+  gpio_set_dir(PIN_USB_LOADER_SW, GPIO_OUT);
+  gpio_put(PIN_USB_LOADER_SW, 1);
+
+  gpio_ext_enable(GPIO_EXT_5V_EN);
+  gpio_ext_enable(GPIO_EXT_3V3_EN);
+  gpio_ext_enable(GPIO_EXT_HUB_PWR_EN);
+  gpio_ext_enable(GPIO_EXT_PCIE_PWR_EN);
+  gpio_ext_disable(GPIO_EXT_USWITCH_OFF);
+  set_display_backlight(30);
+
+  // Modem
+  gpio_put(PIN_FLIGHTMODE, 1);  // active low
+  gpio_put(PIN_MODEM_RESET, 1); // active low
+  gpio_put(PIN_MODEM_POWER, 1); // active high
+  gpio_put(PIN_PHONE_DPR, 1);   // active high
+
+  // Display reset (deassert)
+  // TODO backlight?
+  gpio_ext_enable(GPIO_EXT_DISP_RESET_N);
+  gpio_ext_enable(GPIO_EXT_DISP_BL_PWR_EN);
+  gpio_ext_enable(GPIO_EXT_DISP_1EN_2BL);
+
+  if (!battery_info.som_is_powered) {
+    // reset display + modem (active low)
+    // unless this is a warm reboot of sysctl
+    gpio_ext_disable(GPIO_EXT_DISP_RESET_N);
+    gpio_put(PIN_MODEM_RESET, 0);
+    busy_wait_us(20*1000);
+    gpio_ext_enable(GPIO_EXT_DISP_RESET_N);
+    gpio_put(PIN_MODEM_RESET, 1);
+  }
+
+  battery_info.som_is_powered = true;
+  som_power_indication();
+  init_spi_client();
+}
+
+void turn_som_power_off_v20()
+{
+  printf("# [action] turn_som_power_off\n");
+  battery_info.som_is_powered = false;
+
+  clear_boot_magic();
+
+  // Modem
+  gpio_put(PIN_FLIGHTMODE, 0);  // active low
+  gpio_put(PIN_MODEM_RESET, 0); // active low
+  gpio_put(PIN_MODEM_POWER, 0); // active high
+  gpio_put(PIN_PHONE_DPR, 0);   // active high
+
+  // Display reset (assert)
+  gpio_ext_disable(GPIO_EXT_DISP_RESET_N);
+  gpio_ext_disable(GPIO_EXT_DISP_BL_PWR_EN);
+  gpio_ext_disable(GPIO_EXT_DISP_1EN_2BL);
+
+  // Power rails
+  gpio_ext_disable(GPIO_EXT_5V_EN);
+  gpio_ext_disable(GPIO_EXT_3V3_EN);
+  gpio_ext_disable(GPIO_EXT_HUB_PWR_EN);
+  gpio_ext_disable(GPIO_EXT_PCIE_PWR_EN);
+  gpio_ext_disable(GPIO_EXT_USWITCH_OFF);
+
+  // TODO
+  gpio_put(PIN_USB_LOADER_SW, 0);
+  gpio_set_dir(PIN_USB_LOADER_SW, GPIO_IN);
+
+  set_display_backlight(0);
+
+  som_power_indication();
+}
+
 void turn_som_power_on()
 {
   printf("# [action] turn_som_power_on\n");
+
+  // TODO: FIXME: define for mb version, or detect it
+  turn_som_power_on_v20();
+  return;
 
   gpio_put(PIN_PWREN_LATCH, 0);
 
@@ -576,6 +658,11 @@ void turn_som_power_on()
 void turn_som_power_off()
 {
   printf("# [action] turn_som_power_off\n");
+
+  // TODO: FIXME: define for mb version, or detect it
+  turn_som_power_off_v20();
+  return;
+
   battery_info.som_is_powered = false;
 
   clear_boot_magic();
@@ -618,7 +705,7 @@ void som_wake()
 // mostly adapted from pico-extras/src/rp2_common/pico_sleep/sleep.c
 void enter_powersave(void) {
   printf("# [enter_powersave]\n");
-	// wake on gpio interrupt, mode level (vs edge) and active low
+  // wake on gpio interrupt, mode level (vs edge) and active low
   uint32_t event = IO_BANK0_DORMANT_WAKE_INTE0_GPIO0_LEVEL_LOW_BITS;
 
   cancel_repeating_timer(&spi_timer);
@@ -639,13 +726,13 @@ void enter_powersave(void) {
 
   // CLK_SYS = CLK_REF
   clock_configure(clk_sys, CLOCKS_CLK_SYS_CTRL_SRC_VALUE_CLK_REF, 0, src_hz, src_hz);
-  
+
   clock_configure(clk_rtc,
                   0, // No GLMUX
                   CLOCKS_CLK_RTC_CTRL_AUXSRC_VALUE_ROSC_CLKSRC_PH,
                   src_hz,
                   46875);
-  
+
   // CLK PERI = clk_sys. Used as reference clock for Peripherals. No dividers so just select and enable
   clock_configure(clk_peri,
                   0,
@@ -710,6 +797,7 @@ void setup_gpios()
   gpio_set_function(PIN_LED_B, GPIO_FUNC_PWM);
 
   // Power regulator pins
+  // TODO: FIXME: v10 only
   gpio_init(PIN_1V1_ENABLE);
   gpio_init(PIN_3V3_ENABLE);
   gpio_init(PIN_5V_ENABLE);
@@ -731,6 +819,7 @@ void setup_gpios()
   gpio_put(PIN_SOM_WAKE, 0);
 
   // Display control pins
+  // TODO: FIXME: v10 only
   gpio_init(PIN_DISP_RESET);
   gpio_init(PIN_DISP_EN);
   gpio_set_dir(PIN_DISP_EN, GPIO_OUT);
@@ -761,13 +850,20 @@ void setup_gpios()
   gpio_put(PIN_LED_G, 0);
 
   // USB charger-port power rail
+  // FIXME TODO v20
   gpio_init(PIN_USB_SRC_ENABLE);
   gpio_set_dir(PIN_USB_SRC_ENABLE, GPIO_OUT);
-  gpio_put(PIN_USB_SRC_ENABLE, 0);
+  gpio_put(PIN_USB_SRC_ENABLE, 1);
 
   gpio_init(PIN_FUSB_INT);
   gpio_set_pulls(PIN_FUSB_INT, true, false); // pullup
   gpio_set_dir(PIN_FUSB_INT, GPIO_IN);
+
+  // TODO v20 only
+  gpio_init(PIN_USB_LOADER_SW);
+  gpio_set_dir(PIN_USB_LOADER_SW, GPIO_IN);
+  gpio_init(PIN_V20_DP_HPD);
+  gpio_set_dir(PIN_V20_DP_HPD, GPIO_IN);
 }
 
 void setup() {
@@ -780,6 +876,16 @@ void setup() {
 
   printf("# [reset] cause: %#.8x\n", (uint16_t)vreg_and_chip_reset_hw->chip_reset);
   printf("# [reset] magic: %#.8x%.8x\n", (uint16_t)watchdog_hw->scratch[2], (uint16_t)watchdog_hw->scratch[3]);
+
+  // TODO: FIXME: v20 only
+  if (!gpio_ext_setup()) {
+    printf("# [setup] error: gpio_ext_setup() failed. PCA9557 not responding?\n");
+  }
+  // TODO: FIXME: v20 only
+  if (!gpio_ext_uswitch_setup()) {
+    printf("# [setup] error: gpio_ext_uswitch_setup() failed. PCA9536 not responding?\n");
+  }
+
   // if this is a warm boot, then we need to avoid latching the PWR and display
   // pins.
   if (syscon_warm_boot())
@@ -833,48 +939,113 @@ void handle_usb_commands()
         disp_bl_percent = 100;
       set_display_backlight(disp_bl_percent);
     }
-    else if (usb_c == 'g')
-    {
-      printf("# [acm_command] PIN_3V3_ENABLE=0\n");
-      gpio_put(PIN_3V3_ENABLE, 0);
-    }
-    else if (usb_c == 'G')
-    {
-      printf("# [acm_command] PIN_3V3_ENABLE=1\n");
-      gpio_put(PIN_3V3_ENABLE, 1);
-    }
-    else if (usb_c == 'h')
-    {
-      printf("# [acm_command] PIN_1V1_ENABLE=0\n");
-      gpio_put(PIN_1V1_ENABLE, 0);
-    }
-    else if (usb_c == 'H')
-    {
-      printf("# [acm_command] PIN_1V1_ENABLE=1\n");
-      gpio_put(PIN_1V1_ENABLE, 1);
-    }
     else if (usb_c == 'd')
     {
       printf("# [acm_command] PIN_DISP_RESET=0\n");
       gpio_put(PIN_DISP_RESET, 0);
+      gpio_ext_enable(GPIO_EXT_DISP_RESET_N);
     }
     else if (usb_c == 'D')
     {
       printf("# [acm_command] PIN_DISP_RESET=1\n");
       gpio_put(PIN_DISP_RESET, 1);
+      gpio_ext_disable(GPIO_EXT_DISP_RESET_N);
     }
     else if (usb_c == 'w')
     {
       printf("# [acm_command] SOM wake\n");
       // wake SoC
       gpio_put(PIN_DISP_RESET, 1);
-      gpio_put(PIN_3V3_ENABLE, 1);
-      gpio_put(PIN_1V1_ENABLE, 1);
+      //gpio_put(PIN_3V3_ENABLE, 1);
+      //gpio_put(PIN_1V1_ENABLE, 1);
       som_wake();
     }
     else if (usb_c == 's') {
       printf("# [acm_command] powersave\n");
       enter_powersave();
+    }
+    else if (usb_c == 'L') {
+      printf("# [acm_command] PIN_USB_LOADER_SW = 1\n");
+      gpio_set_dir(PIN_USB_LOADER_SW, GPIO_OUT);
+      gpio_put(PIN_USB_LOADER_SW, 1);
+    }
+    else if (usb_c == 'l') {
+      printf("# [acm_command] PIN_USB_LOADER_SW = 0\n");
+      gpio_set_dir(PIN_USB_LOADER_SW, GPIO_OUT);
+      gpio_put(PIN_USB_LOADER_SW, 0);
+    }
+    else if (usb_c == 'm') {
+      printf("# [acm_command] dp conf = 110\n");
+      altmode_set(0b110);
+    }
+    else if (usb_c == 'M') {
+      printf("# [acm_command] dp conf = 111\n");
+      altmode_set(0b111);
+    }
+    else if (usb_c == 'c') {
+      printf("# [acm_command] dp conf = 100\n");
+      altmode_set(0b100);
+    }
+    else if (usb_c == 'C') {
+      printf("# [acm_command] dp conf = 101\n");
+      altmode_set(0b101);
+    }
+    else if (usb_c == 'z') {
+      printf("# [acm_command] dp conf = 000\n");
+      altmode_set(0b000);
+    }
+    else if (usb_c == 'Z') {
+      printf("# [acm_command] dp conf = 010\n");
+      altmode_set(0b010);
+    }
+    else if (usb_c == 'h') {
+      printf("# [acm_command] dp hpd = Z\n");
+      gpio_set_dir(PIN_V20_DP_HPD, GPIO_IN);
+    }
+    else if (usb_c == 'H') {
+      printf("# [acm_command] dp hpd = 1\n");
+      gpio_set_dir(PIN_V20_DP_HPD, GPIO_OUT);
+      gpio_put(PIN_V20_DP_HPD, 1);
+    }
+    else if (usb_c == 'i') {
+      printf("# [acm_command] dp hpd = 0\n");
+      gpio_set_dir(PIN_V20_DP_HPD, GPIO_OUT);
+      gpio_put(PIN_V20_DP_HPD, 0);
+    }
+    else if (usb_c == 'u') {
+      // host on USB1
+      printf("# [acm_command] uswitch4 = 0\n");
+      bool res = gpio_ext_uswitch_disable(3);
+      printf("# [acm_command] uswitch4 res: %d\n", res);
+    }
+    else if (usb_c == 'U') {
+      // present UART on USB1
+      printf("# [acm_command] uswitch4 = 1\n");
+      bool res = gpio_ext_uswitch_enable(3);
+      printf("# [acm_command] uswitch4 res: %d\n", res);
+    }
+    else if (usb_c == 'x') {
+      printf("# [acm_command] uswitch0,1,2 = 0 (sysctl usb internal)\n");
+      gpio_ext_uswitch_disable(0);
+      gpio_ext_uswitch_disable(1);
+      gpio_ext_uswitch_disable(2);
+      gpio_put(PIN_USB_SRC_ENABLE, 1); // enable 5v power on port 2
+    }
+    else if (usb_c == 'X') {
+      printf("# [acm_command] uswitch0,1,2 = 1 (sysctl usb external)\n");
+      gpio_ext_uswitch_enable(0);
+      gpio_ext_uswitch_enable(1);
+      gpio_ext_uswitch_enable(2);
+      gpio_put(PIN_USB_SRC_ENABLE, 0);
+    }
+    else if (usb_c == ';') {
+      uint8_t buf[4] = {0,0,0,0};
+      int res = tmuxhs4446_read(buf);
+      printf("# [acm_command] tmux read = len: %d bytes: %02x %02x %02x\n", res, buf[0], buf[1], buf[2]);
+    }
+    else if (usb_c == 't') {
+      printf("# [acm_command] pd alt mode test\n");
+      pd_test(1);
     }
   }
 }
@@ -962,7 +1133,8 @@ void loop()
       // on battery, conserve power and halt.
       // It will exit powersave when detecting a USB-C PD plug event
       // or keyboard interaction.
-      enter_powersave();
+      // FIXME powersave turned off for debugging
+      //enter_powersave();
     }
   }
 }

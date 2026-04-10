@@ -16,10 +16,9 @@
 #include "hardware/structs/watchdog.h"
 #include "hardware/structs/vreg_and_chip_reset.h"
 
-// #define OTG_AS_5V // WARNING: defining this requires the hardware mod described in https://source.mnt.re/reform/pocket-reform/-/issues/3
+#define OTG_AS_5V // WARNING: defining this requires the hardware mod described in https://source.mnt.re/reform/pocket-reform/-/issues/3
 // #define FACTORY_MODE // turn device on immediately after starting sysctl
-//#define ACM_ENABLED // usb serial control for debugging
-// #define PREF_DISPLAY_V2 // backlight control for second type of display, TOP070F01A (not LT070ME05000)
+#define ACM_ENABLED // usb serial control for debugging
 
 #define FW_STRING1 "PREF1SYS"
 #define FW_STRING2 "R1"
@@ -32,6 +31,7 @@
 #define PIN_KBD_UART_TX 4
 #define PIN_KBD_UART_RX 5
 #define PIN_WOWWAN 6
+// TODO: FIXME: DISP_2_PWM on v20
 #define PIN_DISP_EN 7
 #define PIN_SOM_MOSI 8
 #define PIN_SOM_SS0 9
@@ -51,11 +51,17 @@
 #define PIN_SOM_WAKE 19
 #define PIN_MODEM_RESET 20
 #define PIN_1V1_ENABLE 23
+// TODO: FIXME: DP_HPD on v20 (input)
 #define PIN_3V3_ENABLE 24
+#define PIN_V20_DP_HPD 24
+// TODO: FIXME: KICKSTART on v20 (input)
 #define PIN_5V_ENABLE 25
 #define PIN_PHONE_DPR 27
 #define PIN_USB_SRC_ENABLE 28
+// NC on v20
 #define PIN_PWREN_LATCH 29
+// NC on v10, EDL/USB bootloader enable on v20
+#define PIN_USB_LOADER_SW 26
 
 // FUSB302B USB-PD controller
 #define FUSB_ADDR 0x22
@@ -66,6 +72,12 @@
 // MP2650 charger
 // https://www.monolithicpower.com/en/documentview/productdocument/index/version/2/document_type/Datasheet/lang/en/sku/MP2650GV/document_id/9664/
 #define MPS_ADDR 0x5c
+#define TMUX_ADDR 0x54
+// PCA9536DP GPIO extender (for USWITCHes)
+#define PCA9536_ADDR 0x41
+// PCA9557PW GPIO extender
+#define PCA9557_ADDR 0x19
+// TODO eeprom: 0x50/0x58
 
 #define I2C_TIMEOUT (1000 * 500)
 
@@ -113,6 +125,7 @@ typedef struct battery_info_s
 #include "spi_com.h"
 #include "max17320.h"
 #include "mp2650.h"
+#include "ext_gpio.h"
 
 // Shared functions with communication classes
 void som_wake();
