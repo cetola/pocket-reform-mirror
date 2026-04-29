@@ -258,13 +258,14 @@ void matrix_render(struct CharacterMatrix *matrix) {
 
   // Move to the home position
   send_cmd3(PageAddr, 0, MatrixRows - 1);
-  send_cmd3(ColumnAddr, 0, (MatrixCols * FontWidth) - 1);
+  send_cmd3(ColumnAddr, 0, DisplayWidth - 1);
 
-  uint8_t buf[1 + MatrixRows * MatrixCols * FontWidth];
+  uint8_t buf[1 + MatrixRows * DisplayWidth];
   buf[0] = 0x40;
 
   int i = 1;
   for (uint8_t row = 0; row < MatrixRows; ++row) {
+    // Characters matrix width: 21 chars * 6px = 126.
     for (uint8_t col = 0; col < MatrixCols; ++col) {
       const uint8_t *glyph = font + (matrix->display[row][col] * FontWidth);
       const uint8_t invert = matrix->invert[row][col];
@@ -275,8 +276,12 @@ void matrix_render(struct CharacterMatrix *matrix) {
         buf[i++] = colBits;
       }
     }
+
+    // Remaining last 2 columns (127 and 128). Set blank.
+    buf[i++] = 0;
+    buf[i++] = 0;
   }
-  i2c_write_blocking_until(i2c0, SSD1306_ADDRESS, buf, 1 + MatrixRows * MatrixCols * FontWidth, false, make_timeout_time_ms(OLED_I2C_TIMEOUT));
+  i2c_write_blocking_until(i2c0, SSD1306_ADDRESS, buf, 1 + MatrixRows * DisplayWidth, false, make_timeout_time_ms(OLED_I2C_TIMEOUT));
 
   matrix->dirty = false;
 done:
@@ -289,13 +294,36 @@ void matrix_render_direct(const uint8_t* bitmap) {
 
   // Move to the home position
   send_cmd3(PageAddr, 0, MatrixRows - 1);
-  send_cmd3(ColumnAddr, 0, (MatrixCols * FontWidth) - 1);
+  send_cmd3(ColumnAddr, 0, DisplayWidth - 1);
 
   // FIXME
   //bitmap[0] = 0x40;
   i2c_write_blocking_until(i2c0, SSD1306_ADDRESS, bitmap, 1 + MatrixRows * DisplayWidth, false, make_timeout_time_ms(OLED_I2C_TIMEOUT));
 
 done:
+  return;
+}
+
+// bytes[0] is page, bytes[1] is column, rest are data bytes
+void matrix_render_direct_offset(uint8_t* bytes, uint16_t bufsize)
+{
+  gfx_on();
+
+  uint8_t page = bytes[0];
+  uint8_t col = bytes[1];
+
+  // limit to end of given page(row)
+  bufsize -= 2;
+  if (col + bufsize > DisplayWidth) bufsize = DisplayWidth - col;
+
+  send_cmd3(PageAddr, page, page);
+  send_cmd3(ColumnAddr, col, col + bufsize - 1);
+
+  // reuse bytes[1] for the mandatory 0x40 and pass it to the oled display
+  bytes[1] = 0x40;
+  i2c_write_blocking_until(i2c0, SSD1306_ADDRESS, &bytes[1], 1+bufsize, false, make_timeout_time_ms(OLED_I2C_TIMEOUT));
+
+  done:
   return;
 }
 

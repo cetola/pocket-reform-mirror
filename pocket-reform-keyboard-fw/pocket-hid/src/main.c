@@ -627,16 +627,17 @@ uint16_t tud_hid_get_report_cb(uint8_t instance, uint8_t report_id, hid_report_t
   return 0;
 }
 
-#define CMD_TEXT_FRAME      "OLED"     // fill the screen with a single wall of text
-#define CMD_OLED_CLEAR      "WCLR"     // clear the oled display
-#define CMD_OLED_BITMAP     "WBIT"     // (u16 offset, u8 bytes...) write raw bytes into the oled framebuffer
-#define CMD_POWER_OFF       "PWR0"     // turn off power rails
-#define CMD_RGB_BACKLIGHT   "LRGB"     // keyboard backlight rgb
-#define CMD_RGB_BRT         "LBRT"     // keyboard backlight brightness
-#define CMD_RGB_SAT         "LSAT"     // keyboard backlight saturation
-#define CMD_RGB_HUE         "LHUE"     // keyboard backlight saturation
-#define CMD_RGB_BITMAP      "XRGB"     // push rgb backlight bitmap
-#define CMD_LOGO            "LOGO"     // play logo animation
+#define CMD_TEXT_FRAME         "OLED"     // fill the screen with a single wall of text
+#define CMD_OLED_CLEAR         "WCLR"     // clear the oled display
+#define CMD_OLED_BITMAP        "WBIT"     // (u16 offset, u8 bytes...) write raw bytes into the oled framebuffer
+#define CMD_OLED_BITMAP_OFFSET "WBIO"     // experiment with (u8 page, u8 col, u8 bytes)
+#define CMD_POWER_OFF          "PWR0"     // turn off power rails
+#define CMD_RGB_BACKLIGHT      "LRGB"     // keyboard backlight rgb
+#define CMD_RGB_BRT            "LBRT"     // keyboard backlight brightness
+#define CMD_RGB_SAT            "LSAT"     // keyboard backlight saturation
+#define CMD_RGB_HUE            "LHUE"     // keyboard backlight saturation
+#define CMD_RGB_BITMAP         "XRGB"     // push rgb backlight bitmap
+#define CMD_LOGO               "LOGO"     // play logo animation
 
 // Invoked when received SET_REPORT control request or
 // received data on OUT endpoint ( Report ID = 0, Type = 0 )
@@ -692,6 +693,9 @@ void tud_hid_set_report_cb(uint8_t instance, uint8_t report_id, hid_report_type_
       else if (cmd == strnstr(cmd, CMD_OLED_BITMAP, 4)) {
         // render a monochrome (1-bit) bitmap to the OLED display
         matrix_render_direct(&buffer[4]);
+      }
+      else if (cmd == strnstr(cmd, CMD_OLED_BITMAP_OFFSET, 4)) {
+        matrix_render_direct_offset(&buffer[4], bufsize-4);
       }
       else if (cmd == strnstr(cmd, CMD_RGB_BITMAP, 4)) {
         // set a row of keyboard LEDs at once as 12 "pixels"
