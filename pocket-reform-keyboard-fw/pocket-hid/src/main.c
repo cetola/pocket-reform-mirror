@@ -1,7 +1,7 @@
 /*
   SPDX-License-Identifier: GPL-3.0-or-later
   MNT Pocket Reform Keyboard/Trackball Controller Firmware for RP2040
-  Copyright 2021-2024 MNT Research GmbH (mntre.com)
+  Copyright 2021-2025 MNT Research GmbH (mntre.com)
 
   TinyUSB callbacks/code based on code
   Copyright 2019 Ha Thach (tinyusb.org)
@@ -25,51 +25,17 @@
 
 #include "usb_descriptors.h"
 #include "oled.h"
+#include "leds.h"
 #include "menu.h"
 #include "remote.h"
-#include "keyboard.h"
-
-#include "ws2812.pio.h"
-
-#define KBD_VARIANT_QWERTY_US_ANRI
-#define KBD_COLS 12
-#define KBD_ROWS 6
-#define KBD_MATRIX_SZ KBD_COLS * KBD_ROWS + 4
-#define TRACKBALL_FACTOR 2
-
 #ifdef KBD_VARIANT_QWERTY_US_ANRI
   #include "matrix_anri.h"
 #else
   #include "matrix.h"
 #endif
-
-#define PIN_SDA 0
-#define PIN_SCL 1
-
-#define PIN_UART_TX 4
-#define PIN_UART_RX 5
-
-#define PIN_ROW1 19
-#define PIN_ROW2 20
-#define PIN_ROW3 23
-#define PIN_ROW4 22
-#define PIN_ROW5 21
-#define PIN_ROW6 18
-
-#define PIN_COL1 6
-#define PIN_COL2 7
-#define PIN_COL3 8
-#define PIN_COL4 9
-#define PIN_COL5 10
-#define PIN_COL6 11
-#define PIN_COL7 12
-#define PIN_COL8 13
-#define PIN_COL9 14
-#define PIN_COL10 15
-#define PIN_COL11 16
-#define PIN_COL12 17
-
-#define PIN_LEDS 24
+#include "keyboard.h"
+#include "pins.h"
+#include "ws2812.pio.h"
 
 #define ADDR_SENSOR (0x79)
 
@@ -78,15 +44,13 @@ static uint8_t pressed_scancodes[MAX_SCANCODES] = {0,0,0,0,0,0};
 static int pressed_keys = 0;
 static volatile uint32_t led_value = 0;
 
-int led_brightness = 0;
-int led_saturation = 255;
-int led_hue = 127;
+static bool hid_task(struct repeating_timer *t);
+static int process_keyboard(uint8_t* resulting_scancodes);
+static int poll_trackball(void);
 
-bool hid_task(struct repeating_timer *t);
-int process_keyboard(uint8_t* resulting_scancodes);
-int poll_trackball(void);
-void enter_menu_mode(void);
-void exit_menu_mode(void);
+static void service_menu(void);
+static void enter_menu_mode(void);
+static void exit_menu_mode(void);
 
 #define UART_ID uart1
 #define BAUD_RATE 115200
@@ -95,17 +59,27 @@ void exit_menu_mode(void);
 #define PARITY    UART_PARITY_NONE
 
 // can be used as a global clock, incrementing around every ~5ms
-int hid_task_counter = 0;
-int trackball_motion = 0;
-int request_enter_menu_mode = 0;
-int request_exit_menu_mode = 0;
-int request_menu_function = 0;
-int active_menu_mode = 0;
-bool hyper_key = 0; // holding HYPER?
-bool shift_key = 0; // holding SHIFT?
-uint8_t last_menu_key = 0;
-double tb_nx = 0;
-double tb_ny = 0;
+static int hid_task_counter = 0;
+static int trackball_motion = 0;
+static bool hyper_key = 0; // holding HYPER?
+static bool shift_key = 0; // holding SHIFT?
+static double tb_nx = 0;
+static double tb_ny = 0;
+
+// This state machine describes the global interaction state of the
+// OLED-displayed menu.
+enum MenuState {
+  MENU_STATE_INACTIVE, // not displayed
+  MENU_STATE_ACTIVE,   // displayed and the user is interacting
+  MENU_STATE_ENTER,    // the user has requested the menu be displayed
+  MENU_STATE_EXIT      // the menu interaction is over
+};
+static enum MenuState menu_state = MENU_STATE_INACTIVE;
+
+// The next menu item (by key code) to invoke
+static int request_menu_function = 0;
+// The last key pressed while the menu was active
+static uint8_t last_menu_key = 0;
 
 static inline uint32_t board_millis(void) {
   return to_ms_since_boot(get_absolute_time());
@@ -127,49 +101,22 @@ int main(void)
 
   gpio_init(PIN_LEDS);
   gpio_set_dir(PIN_LEDS, true); // output
+  gpio_init(PIN_LEDS_PWR_EN);
+  gpio_set_dir(PIN_LEDS_PWR_EN, true); // output
+  gpio_put(PIN_LEDS_PWR_EN, 0);
 
-  gpio_init(PIN_COL1);
-  gpio_set_dir(PIN_COL1, true);
-  gpio_init(PIN_COL2);
-  gpio_set_dir(PIN_COL2, true);
-  gpio_init(PIN_COL3);
-  gpio_set_dir(PIN_COL3, true);
-  gpio_init(PIN_COL4);
-  gpio_set_dir(PIN_COL4, true);
-  gpio_init(PIN_COL5);
-  gpio_set_dir(PIN_COL5, true);
-  gpio_init(PIN_COL6);
-  gpio_set_dir(PIN_COL6, true);
-  gpio_init(PIN_COL7);
-  gpio_set_dir(PIN_COL7, true);
-  gpio_init(PIN_COL8);
-  gpio_set_dir(PIN_COL8, true);
-  gpio_init(PIN_COL9);
-  gpio_set_dir(PIN_COL9, true);
-  gpio_init(PIN_COL10);
-  gpio_set_dir(PIN_COL10, true);
-  gpio_init(PIN_COL11);
-  gpio_set_dir(PIN_COL11, true);
-  gpio_init(PIN_COL12);
-  gpio_set_dir(PIN_COL12, true);
+  /* Configure columns to output, bring low */
+  gpio_init_mask(PIN_COL_MASK);
+  gpio_set_dir_out_masked(PIN_COL_MASK);
+  gpio_put_masked(PIN_COL_MASK, 0);
 
-  gpio_init(PIN_ROW1);
-  gpio_set_dir(PIN_ROW1, false);
+  /* Configure rows as input and enable pull-downs */
+  gpio_init_mask(PIN_ROW_MASK);
   gpio_pull_down(PIN_ROW1);
-  gpio_init(PIN_ROW2);
-  gpio_set_dir(PIN_ROW2, false);
   gpio_pull_down(PIN_ROW2);
-  gpio_init(PIN_ROW3);
-  gpio_set_dir(PIN_ROW3, false);
   gpio_pull_down(PIN_ROW3);
-  gpio_init(PIN_ROW4);
-  gpio_set_dir(PIN_ROW4, false);
   gpio_pull_down(PIN_ROW4);
-  gpio_init(PIN_ROW5);
-  gpio_set_dir(PIN_ROW5, false);
   gpio_pull_down(PIN_ROW5);
-  gpio_init(PIN_ROW6);
-  gpio_set_dir(PIN_ROW6, false);
   gpio_pull_down(PIN_ROW6);
 
   i2c_init(i2c0, 400 * 1000);
@@ -185,13 +132,8 @@ int main(void)
   buf[1] = 0x01;
   i2c_write_blocking(i2c0, ADDR_SENSOR, buf, 2, false);
 
-  PIO pio = pio0;
-  uint sm = 0;
-  uint offset = (uint)pio_add_program(pio, &ws2812_program);
-
-  ws2812_program_init(pio, sm, offset, PIN_LEDS, 800000, false);
-
-  led_set_brightness(0x0);
+  led_init();
+  led_turn_off();
 
   gfx_init();
 
@@ -225,7 +167,7 @@ int main(void)
   }
   if (remote_get_power_state()) {
     // initial backlight color
-    led_set(KBD_DEFAULT_BACKLIGHT_COLOR);
+    led_set_rgb(KBD_DEFAULT_BACKLIGHT_COLOR);
   }
 
   unsigned int cycles = 0;
@@ -241,22 +183,7 @@ int main(void)
     trackball_motion = poll_trackball();
 
     // service menu requests
-    if (request_enter_menu_mode) {
-      enter_menu_mode();
-      request_enter_menu_mode = 0;
-    }
-    if (request_exit_menu_mode) {
-      exit_menu_mode();
-      request_exit_menu_mode = 0;
-    }
-    if (request_menu_function) {
-      int stay_menu = execute_menu_function(request_menu_function);
-      request_menu_function = 0;
-      // exit menu mode
-      if (!stay_menu) {
-        exit_menu_mode();
-      }
-    }
+    service_menu();
 
     // notifications / page refreshing
     cycles++;
@@ -270,7 +197,7 @@ int main(void)
       // if device is off and user is pressing random keys,
       // show a hint for turning on the device
       if (!remote_get_power_state()) {
-        if (pressed_keys>0 && !active_menu_mode && !hyper_key && !last_menu_key) {
+        if (pressed_keys>0 && menu_state != MENU_STATE_ACTIVE && !hyper_key && !last_menu_key) {
           execute_menu_function(KEY_H);
         }
       }
@@ -366,21 +293,39 @@ bool tud_hid_trackball_report(uint8_t report_id,
   return tud_hid_report(report_id, &report, sizeof(report));
 }
 
-uint8_t matrix_debounce[KBD_COLS*KBD_ROWS];
-uint8_t matrix_state[KBD_COLS*KBD_ROWS];
+static uint8_t matrix_debounce[KBD_COLS*KBD_ROWS];
+static uint8_t matrix_state[KBD_COLS*KBD_ROWS];
 
-uint32_t hyper_enter_long_press_start_ms = 0;
+static uint32_t hyper_enter_long_press_start_ms = 0;
 
-uint8_t* active_matrix = matrix;
+static uint8_t* active_matrix = matrix;
+
+static void service_menu() {
+  // These items should be in this order, because the state
+  // transitions in each clause may trigger a transition to the next
+  // clause.
+  if (menu_state == MENU_STATE_ENTER) {
+    enter_menu_mode();
+  }
+  if (request_menu_function != 0) {
+    if (!execute_menu_function(request_menu_function)) {
+      menu_state = MENU_STATE_EXIT;
+    }
+    request_menu_function = 0;
+  }
+  if (menu_state == MENU_STATE_EXIT) {
+    exit_menu_mode();
+  }
+}
 
 // enter the menu
-void enter_menu_mode(void) {
-  active_menu_mode = 1;
+static void enter_menu_mode(void) {
+  menu_state = MENU_STATE_ACTIVE;
   reset_and_render_menu();
 }
 
-void exit_menu_mode(void) {
-  active_menu_mode = 0;
+static void exit_menu_mode(void) {
+  menu_state = MENU_STATE_INACTIVE;
 }
 
 void reset_keyboard_state(void) {
@@ -394,7 +339,7 @@ void reset_keyboard_state(void) {
 
 // this is called in a timer interrupt, no sleep() functions
 // allowed!
-int process_keyboard(uint8_t* resulting_scancodes) {
+static int process_keyboard(uint8_t* resulting_scancodes) {
   // how many keys are pressed this round
   uint8_t total_pressed = 0;
   uint8_t used_key_codes = 0;
@@ -404,18 +349,7 @@ int process_keyboard(uint8_t* resulting_scancodes) {
   }
 
   for (int x = 0; x < KBD_COLS; x++) {
-    gpio_put(PIN_COL1, 0);
-    gpio_put(PIN_COL2, 0);
-    gpio_put(PIN_COL3, 0);
-    gpio_put(PIN_COL4, 0);
-    gpio_put(PIN_COL5, 0);
-    gpio_put(PIN_COL6, 0);
-    gpio_put(PIN_COL7, 0);
-    gpio_put(PIN_COL8, 0);
-    gpio_put(PIN_COL9, 0);
-    gpio_put(PIN_COL10, 0);
-    gpio_put(PIN_COL11, 0);
-    gpio_put(PIN_COL12, 0);
+    uint32_t rows = 0;
 
     switch (x) {
     case 0: gpio_put(PIN_COL1, 1); break;
@@ -435,6 +369,11 @@ int process_keyboard(uint8_t* resulting_scancodes) {
     // wait for signal to stabilize
     busy_wait_us(1);
 
+    rows = gpio_get_all();
+
+    // clear the column pin for idle/the next iteration
+    gpio_put_masked(PIN_COL_MASK, 0);
+
     for (int y = 0; y < KBD_ROWS; y++) {
       uint8_t keycode;
       int loc = y*KBD_COLS+x;
@@ -443,12 +382,12 @@ int process_keyboard(uint8_t* resulting_scancodes) {
       uint8_t debounced_pressed = 0;
 
       switch (y) {
-      case 0:  pressed = gpio_get(PIN_ROW1); break;
-      case 1:  pressed = gpio_get(PIN_ROW2); break;
-      case 2:  pressed = gpio_get(PIN_ROW3); break;
-      case 3:  pressed = gpio_get(PIN_ROW4); break;
-      case 4:  pressed = gpio_get(PIN_ROW5); break;
-      case 5:  pressed = gpio_get(PIN_ROW6); break;
+      case 0:  pressed = (rows & (1u<<PIN_ROW1)) != 0; break;
+      case 1:  pressed = (rows & (1u<<PIN_ROW2)) != 0; break;
+      case 2:  pressed = (rows & (1u<<PIN_ROW3)) != 0; break;
+      case 3:  pressed = (rows & (1u<<PIN_ROW4)) != 0; break;
+      case 4:  pressed = (rows & (1u<<PIN_ROW5)) != 0; break;
+      case 5:  pressed = (rows & (1u<<PIN_ROW6)) != 0; break;
       }
 
       // shift new state as bit into debounce "register"
@@ -468,8 +407,8 @@ int process_keyboard(uint8_t* resulting_scancodes) {
         // hyper + enter? open OLED menu
         if (keycode == KEY_ENTER && hyper_key) {
           if (!last_menu_key) {
-            if (!active_menu_mode) {
-              request_enter_menu_mode = 1;
+            if (menu_state != MENU_STATE_ACTIVE) {
+              menu_state = MENU_STATE_ENTER;
             }
             uint32_t now_ms = board_millis();
             if (!now_ms) now_ms++;
@@ -481,7 +420,7 @@ int process_keyboard(uint8_t* resulting_scancodes) {
             if (now_ms - hyper_enter_long_press_start_ms > 1000) {
               // turn on computer after 2 seconds of holding hyper + enter
               request_menu_function = KEY_1;
-              request_exit_menu_mode = 1;
+              menu_state = MENU_STATE_EXIT;
               last_menu_key = KEY_1;
               hyper_enter_long_press_start_ms = 0;
             }
@@ -490,7 +429,7 @@ int process_keyboard(uint8_t* resulting_scancodes) {
           hyper_key = 1;
           active_matrix = matrix_fn;
         } else {
-          if (active_menu_mode) {
+          if (menu_state == MENU_STATE_ACTIVE) {
             // not holding the same key?
             if (last_menu_key != keycode) {
               // hyper/menu functions
@@ -535,20 +474,20 @@ int process_keyboard(uint8_t* resulting_scancodes) {
   return used_key_codes;
 }
 
-int scroll_toggle = 0;
+static int scroll_toggle = 0;
 
-int tb_btn_left = 0;
-int tb_btn_right = 0;
-int tb_btn_scroll = 0;
-int tb_btn_middle = 0;
+static int tb_btn_left = 0;
+static int tb_btn_right = 0;
+static int tb_btn_scroll = 0;
+static int tb_btn_middle = 0;
 // TODO: implement HID commands to update these
-int tb_btn_left_idx = KBD_COLS*5+4;
-int tb_btn_right_idx = KBD_COLS*5+8;
-int tb_btn_scroll_idx = KBD_COLS*5+7;
-int tb_btn_middle_idx = KBD_COLS*5+3;
+static int tb_btn_left_idx = KBD_COLS*5+4;
+static int tb_btn_right_idx = KBD_COLS*5+8;
+static int tb_btn_scroll_idx = KBD_COLS*5+7;
+static int tb_btn_middle_idx = KBD_COLS*5+3;
 
 // returns motion yes/no
-int poll_trackball()
+static int poll_trackball()
 {
   tb_btn_left = matrix_state[tb_btn_left_idx]>0;
   tb_btn_middle = matrix_state[tb_btn_middle_idx]>0;
@@ -647,50 +586,9 @@ static void send_hid_report(uint8_t report_id)
   }
 }
 
-void led_task(uint32_t color) {
-  uint32_t pixel_grb = color;
-
-  for (int y=0; y<6; y++) {
-    int w = 12;
-    if (y==5) w = 4;
-    for (int x=0; x<w; x++) {
-      pio_sm_put_blocking(pio0, 0, pixel_grb << 8u);
-    }
-  }
-}
-
-uint8_t led_rgb_buf[12*3*6];
-
-void led_bitmap(uint8_t row, const uint8_t* row_rgb) {
-  // row = 5 -> commit
-  if (row > 5) return;
-
-  uint8_t* store = &led_rgb_buf[row*3*12];
-  int offset = 0;
-  for (int x=0; x<3*12; x++) {
-    if (row == 5 && x == 0*3) offset = 3*3;
-    if (row == 5 && x == 2*3) offset = 7*3;
-    store[x] = row_rgb[x+offset];
-    if (row == 5 && x == 4*3) break;
-  }
-
-  if (row == 5) {
-    for (int y=0; y<6; y++) {
-      int w = 12;
-      if (y==5) w = 4;
-      uint8_t* bitmap = &led_rgb_buf[y*3*12];
-      for (int x=0; x<w; x++) {
-        uint32_t pixel_grb = (uint32_t)((bitmap[1]<<16u) | (bitmap[2]<<8u) | bitmap[0]);
-        pio_sm_put_blocking(pio0, 0, pixel_grb << 8u);
-        bitmap+=3;
-      }
-    }
-  }
-}
-
 // Every 5ms, we will sent 1 report for each HID profile (keyboard, mouse etc ..)
 // tud_hid_report_complete_cb() is used to send the next report after previous one is complete
-bool hid_task(__unused struct repeating_timer *t)
+static bool hid_task(__unused struct repeating_timer *t)
 {
   tud_task();
   pressed_keys = process_keyboard(pressed_scancodes);
@@ -700,116 +598,6 @@ bool hid_task(__unused struct repeating_timer *t)
 
   // timer should continue calling us
   return true;
-}
-
-typedef struct RgbColor
-{
-  unsigned char r;
-  unsigned char g;
-  unsigned char b;
-} RgbColor;
-
-typedef struct HsvColor
-{
-  unsigned char h;
-  unsigned char s;
-  unsigned char v;
-} HsvColor;
-
-RgbColor HsvToRgb(HsvColor hsv)
-{
-  RgbColor rgb;
-  unsigned char region, remainder, p, q, t;
-
-  if (hsv.s == 0)
-    {
-      rgb.r = hsv.v;
-      rgb.g = hsv.v;
-      rgb.b = hsv.v;
-      return rgb;
-    }
-
-  region = hsv.h / 43;
-  remainder = (unsigned char)((hsv.h - (region * 43)) * 6);
-
-  p = (unsigned char)((hsv.v * (255 - hsv.s)) >> 8);
-  q = (unsigned char)((hsv.v * (255 - ((hsv.s * remainder) >> 8))) >> 8);
-  t = (unsigned char)((hsv.v * (255 - ((hsv.s * (255 - remainder)) >> 8))) >> 8);
-
-  switch (region)
-    {
-    case 0:
-      rgb.r = hsv.v; rgb.g = t; rgb.b = p;
-      break;
-    case 1:
-      rgb.r = q; rgb.g = hsv.v; rgb.b = p;
-      break;
-    case 2:
-      rgb.r = p; rgb.g = hsv.v; rgb.b = t;
-      break;
-    case 3:
-      rgb.r = p; rgb.g = q; rgb.b = hsv.v;
-      break;
-    case 4:
-      rgb.r = t; rgb.g = p; rgb.b = hsv.v;
-      break;
-    default:
-      rgb.r = hsv.v; rgb.g = p; rgb.b = q;
-      break;
-    }
-
-  return rgb;
-}
-
-void led_set(uint32_t rgb) {
-  led_task(rgb);
-}
-
-void led_set_hsv() {
-  HsvColor hsv;
-  RgbColor rgb;
-  hsv.h = (unsigned char)led_hue;
-  hsv.s = (unsigned char)led_saturation;
-  hsv.v = (unsigned char)led_brightness;
-
-  rgb = HsvToRgb(hsv);
-  led_set((uint32_t)((rgb.r<<16u)|(rgb.g<<8u)|(rgb.b)));
-}
-
-void led_mod_brightness(int d) {
-  led_brightness+=d;
-  if (led_brightness>0xff) led_brightness = 0xff;
-  if (led_brightness<0) led_brightness = 0;
-  led_set_hsv();
-}
-
-void led_mod_hue(int d) {
-  led_hue+=d;
-  if (led_hue>0xff) led_hue = 0xff;
-  if (led_hue<0) led_hue = 0;
-  led_set_hsv();
-}
-
-void led_mod_saturation(int d) {
-  led_saturation+=d;
-  if (led_saturation>0xff) led_saturation = 0xff;
-  if (led_saturation<0) led_saturation = 0;
-  led_set_hsv();
-}
-
-void led_set_saturation(int s) {
-  led_saturation = s;
-}
-
-void led_set_brightness(int b) {
-  led_brightness = b;
-  led_set_hsv();
-}
-
-void led_cycle_hue() {
-  led_hue++;
-  if (led_hue>0xff) led_hue = 0;
-  led_set_hsv();
 }
 
 // Invoked when sent REPORT successfully to host
@@ -822,8 +610,7 @@ void tud_hid_report_complete_cb(uint8_t instance, uint8_t const* report, uint16_
 
   uint8_t next_report_id = report[0] + 1;
 
-  if (next_report_id < REPORT_ID_COUNT)
-  {
+  if (next_report_id < REPORT_ID_COUNT) {
     send_hid_report(next_report_id);
   }
 }
@@ -847,12 +634,12 @@ uint16_t tud_hid_get_report_cb(uint8_t instance, uint8_t report_id, hid_report_t
 #define CMD_OLED_CLEAR      "WCLR"     // clear the oled display
 #define CMD_OLED_BITMAP     "WBIT"     // (u16 offset, u8 bytes...) write raw bytes into the oled framebuffer
 #define CMD_POWER_OFF       "PWR0"     // turn off power rails
-#define CMD_BACKLIGHT       "LITE"     // keyboard backlight level
 #define CMD_RGB_BACKLIGHT   "LRGB"     // keyboard backlight rgb
+#define CMD_RGB_BRT         "LBRT"     // keyboard backlight brightness
+#define CMD_RGB_SAT         "LSAT"     // keyboard backlight saturation
+#define CMD_RGB_HUE         "LHUE"     // keyboard backlight saturation
 #define CMD_RGB_BITMAP      "XRGB"     // push rgb backlight bitmap
 #define CMD_LOGO            "LOGO"     // play logo animation
-#define CMD_OLED_BRITE      "OBRT"     // OLED brightness level
-#define CMD_OLED_BRITE2     "OBR2"     // OLED brightness level
 
 // Invoked when received SET_REPORT control request or
 // received data on OUT endpoint ( Report ID = 0, Type = 0 )
@@ -863,8 +650,8 @@ void tud_hid_set_report_cb(uint8_t instance, uint8_t report_id, hid_report_type_
 
   if (bufsize < 5) return;
 
-  if (report_type == 2) {
-    // Big Reform style
+  if (report_type == HID_REPORT_TYPE_OUTPUT) {
+    // TODO this should really be REPORT_ID_KEYBOARD instead of 'x'
     if (report_id == 'x') {
       const char* cmd = (const char*)buffer;
 
@@ -875,6 +662,7 @@ void tud_hid_set_report_cb(uint8_t instance, uint8_t report_id, hid_report_type_
       gfx_flush();*/
 
       if (cmd == strnstr(cmd, CMD_TEXT_FRAME, 4)) {
+        // print up to 4 lines (with 21 chars each) of text
         gfx_clear();
         gfx_on();
 
@@ -894,58 +682,50 @@ void tud_hid_set_report_cb(uint8_t instance, uint8_t report_id, hid_report_type_
         gfx_flush();
       }
       else if (cmd == strnstr(cmd, CMD_POWER_OFF, 4)) {
+        // power the computer off
         reset_menu();
         remote_turn_off_som();
         reset_keyboard_state();
       }
       else if (cmd == strnstr(cmd, CMD_OLED_CLEAR, 4)) {
+        // clear the OLED display
         gfx_clear();
         gfx_flush();
       }
       else if (cmd == strnstr(cmd, CMD_OLED_BITMAP, 4)) {
+        // render a monochrome (1-bit) bitmap to the OLED display
         matrix_render_direct(&buffer[4]);
       }
       else if (cmd == strnstr(cmd, CMD_RGB_BITMAP, 4)) {
+        // set a row of keyboard LEDs at once as 12 "pixels"
         // row, data (12 * 3 rgb bytes)
         led_bitmap(buffer[4], &buffer[5]);
       }
       else if (cmd == strnstr(cmd, CMD_RGB_BACKLIGHT, 4)) {
-        uint32_t pixel_grb = (uint32_t)((buffer[5]<<16u) | (buffer[6]<<8u) | buffer[4]);
-        led_set(pixel_grb);
+        // set a uniform colored RGB backlight
+        uint32_t pixel_rgb = (uint32_t)((buffer[6]<<16u) | (buffer[5]<<8u) | buffer[4]);
+        led_set_rgb(pixel_rgb);
+      }
+      else if (cmd == strnstr(cmd, CMD_RGB_BRT, 4)) {
+        // modify brightness component of RGB backlight
+        int val = (int)buffer[4];
+        led_set_brightness(val);
+      }
+      else if (cmd == strnstr(cmd, CMD_RGB_SAT, 4)) {
+        // modify saturation component of RGB backlight
+        int val = (int)buffer[4];
+        led_set_saturation(val);
+      }
+      else if (cmd == strnstr(cmd, CMD_RGB_HUE, 4)) {
+        // modify hue component of RGB backlight
+        int val = (int)buffer[4];
+        led_set_hue(val);
       }
       else if (cmd == strnstr(cmd, CMD_LOGO, 4)) {
         anim_hello();
       }
-      else if (cmd == strnstr(cmd, CMD_OLED_BRITE, 4)) {
-        uint8_t val = (uint8_t)atoi((const char*)&buffer[4]);
-        gfx_poke(0,0,'0'+(val/100));
-        gfx_poke(1,0,'0'+((val%100)/10));
-        gfx_poke(2,0,'0'+(val%10));
-        gfx_flush();
-        gfx_contrast(val);
-      }
-      else if (cmd == strnstr(cmd, CMD_OLED_BRITE2, 4)) {
-        uint8_t val = (uint8_t)atoi((const char*)&buffer[4]);
-        gfx_poke(0,0,'0'+(val/100));
-        gfx_poke(1,0,'0'+((val%100)/10));
-        gfx_poke(2,0,'0'+(val%10));
-        gfx_flush();
-        gfx_precharge(val);
-      }
     }
   }
-
-  /*if (report_type == HID_REPORT_TYPE_OUTPUT)
-  {
-    // Set keyboard LED e.g Capslock, Numlock etc...
-    if (report_id == REPORT_ID_KEYBOARD)
-    {
-      // bufsize should be (at least) 1
-      if ( bufsize < 1 ) return;
-
-      //uint8_t const kbd_leds = buffer[0];
-    }
-  }*/
 }
 
 // TODO

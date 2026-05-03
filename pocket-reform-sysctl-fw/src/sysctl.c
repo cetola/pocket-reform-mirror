@@ -12,6 +12,7 @@
 #include "tusb.h"
 #include "reform_stdio_usb.h"
 
+static uint8_t mps_fault_last = 0;
 battery_info_s battery_info = {0};
 int disp_bl_percent = 100;
 
@@ -119,6 +120,7 @@ static void derive_emergency_charge_necessary(void) {
 void charger_init()
 {
   // TODO: check all MP2650 registers, esp. 4, 7, b
+  mps_fault_last = 0;
 
   mps_read_buf(MPS_REGSTART_STATUS, sizeof(mps_reg_status.all_regs), mps_reg_status.all_regs);
   derive_emergency_charge_necessary();
@@ -141,6 +143,10 @@ void charger_init()
   mps_reg_config.config0.susp_en = 0;
   mps_reg_config.config0.ntc_gcomp_sel = 0;  // disable OTG pin
   mps_write_byte(MPS_REG_CONFIG0, mps_reg_config.config0.reg_byte);
+
+  // 160sec watchdog
+  mps_reg_config.config1.wtd = 3;
+  mps_write_byte(MPS_REG_CONFIG1, mps_reg_config.config1.reg_byte);
 
   mps_read_buf(MPS_REGSTART_LIMITS, sizeof(mps_reg_limits.all_regs), mps_reg_limits.all_regs);
   mps_read_buf(MPS_REGSTART_STATUS, sizeof(mps_reg_status.all_regs), mps_reg_status.all_regs);
@@ -172,6 +178,11 @@ void charger_tick() {
   if (old_config3 != mps_reg_config.config3.reg_byte) {
     mps_write_byte(MPS_REG_CONFIG3, mps_reg_config.config3.reg_byte);
   }
+
+  // TODO: do this only every X seconds, maybe up to 100?
+  // clear watchdog
+  mps_reg_config.config0.wtd_rst = 1;
+  mps_write_byte(MPS_REG_CONFIG0, mps_reg_config.config0.reg_byte);
 }
 
 // current in 10mA units
@@ -187,6 +198,7 @@ void charger_enable_charge(int current) {
   mps_reg_config.config0.chg_en = 1;
   mps_reg_config.config0.susp_en = 0;
   mps_write_byte(MPS_REG_CONFIG0, mps_reg_config.config0.reg_byte);
+  mps_fault_last = 0;
 
   gpio_put(PIN_LED_R, 1);
 }
@@ -402,6 +414,9 @@ void charger_dump(battery_info_s *battery_info)
   }
 
   mps_read_buf(MPS_REGSTART_STATUS, sizeof(mps_reg_status.all_regs), mps_reg_status.all_regs);
+  if (mps_reg_status.fault.reg_byte != 0) {
+    mps_fault_last = mps_reg_status.fault.reg_byte;
+  }
 
   // Read ADC values and update stuff every 100ms
   if (battery_info->ticks % 1000 != 0) {
@@ -470,6 +485,8 @@ void charger_led_indication(battery_info_s *battery_info) {
     float sine_val = sin(phase);
     float normalized = (sine_val + 1.0f) / 2.0f;
     float breathing_curve = normalized * normalized;
+    // 10%..100% brightness (i.e. never completely off)
+    breathing_curve = 0.1f + (breathing_curve * 0.9f);
     uint16_t pwm_level = (uint16_t)(breathing_curve * pwm_max);
     pwm_set_chan_level(PIN_LED_R_PWM_SLICE, PIN_LED_R_PWM_CHAN, pwm_level);
     phase += 0.02f;
@@ -575,7 +592,9 @@ void turn_som_power_off()
 
 void som_wake()
 {
-  // TODO: toggle gpio 19!
+  gpio_put(PIN_SOM_WAKE, 1);
+  sleep_ms(5);
+  gpio_put(PIN_SOM_WAKE, 0);
   uart_puts(uart0, "wake\r\n");
 }
 
@@ -638,6 +657,11 @@ void setup()
   gpio_init(PIN_PWREN_LATCH);
   gpio_set_dir(PIN_PWREN_LATCH, 1);
   gpio_put(PIN_PWREN_LATCH, 0);
+
+  // SoM / SoC wake GPIO
+  gpio_init(PIN_SOM_WAKE);
+  gpio_set_dir(PIN_SOM_WAKE, GPIO_OUT);
+  gpio_put(PIN_SOM_WAKE, 0);
 
   // Display control pins
   gpio_init(PIN_DISP_RESET);
@@ -706,11 +730,7 @@ void handle_usb_commands()
     printf("# [acm_command] '%c'\n", usb_c);
     if (usb_c == '1')
     {
-      if (battery_info.som_is_powered) {
-        turn_som_power_on(true);
-      } else {
-        turn_som_power_on(false);
-      }
+      turn_som_power_on();
     }
     else if (usb_c == '0')
     {
@@ -790,12 +810,13 @@ void loop()
   if (battery_info.ticks % 10000 == 0)
   {
     // TODO: print adc_charge_c adc_discharge_c
-    printf("# %s %s %s chg=%1x mps_flt=%02x input=%dmV@%dmA charge=%dmA discharge=%dmA p=%0.2fW ttempty=%umin\n",
+    printf("# %s %s %s chg=%1x mps_flt=%02x/%02x input=%dmV@%dmA charge=%dmA discharge=%dmA p=%0.2fW ttempty=%umin\n",
             battery_info.som_is_powered ? "ON" : "OFF",
             mps_reg_status.status.acok ? "AC" : "BAT",
             mps_reg_config.config0.chg_en ? "CHG" : "",
             mps_reg_status.status.chg_stat,
             mps_reg_status.fault.reg_byte,
+            mps_fault_last,
             mps_word_to_12800(mps_reg_adc.input_v),
             mps_word_to_3200(mps_reg_adc.input_i),
             mps_word_to_6400(mps_reg_adc.bat_charge_i),
