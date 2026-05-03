@@ -30,6 +30,7 @@ add_executable(${PROJECT}
 	src/spi_com.c
 	src/uart_com.c
 	src/pd_com.c
+  src/cli.c
 	src/usb_descriptors.c
 	"${CMAKE_CURRENT_BINARY_DIR}/inc-generated/ds20-descriptor.h"
 	"${SHARED_FW_SRC}/reset_interface.c"
