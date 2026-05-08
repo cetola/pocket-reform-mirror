@@ -28,7 +28,7 @@
 
 #define eightcc(a, b, c, d, e, f, g, h) ((uint64_t)(a) | ((uint64_t)(b) << 8) | ((uint64_t)(c) << 16) | ((uint64_t)(d) << 24) | ((uint64_t)(e) << 32) | ((uint64_t)(f) << 40) | ((uint64_t)(g) << 48) | ((uint64_t)(h) << 56))
 
-#define CLI_BUFSZ 0
+#define CLI_BUFSZ 128
 #define CLI_MAX_PAREN 2
 #define CLI_MAX_WORD_LEN 8
 #define CLI_MAX_LIST_WORDS 4

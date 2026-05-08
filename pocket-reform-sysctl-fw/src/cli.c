@@ -8,47 +8,62 @@
 #define CLI_ST_HEX 3
 #define CLI_ST_ERROR 5
 
-static uint8_t cli_state = CLI_ST_INIT;
-static int8_t cli_word_idx;
-static uint64_t cli_error = 0;
-static uint64_t cli_word;
-static uint64_t cli_list[CLI_MAX_LIST_WORDS];
-static char cli_out[CLI_BUFSZ];
-static struct cli_vars[CLI_MAX_VARS];
-static int cli_num_vars;
+static uint8_t cli_state = CLI_ST_LIST;
+static int8_t cli_word_idx; // current index of word in current list
+static int8_t cli_paren; // current level of nesting
+static uint64_t cli_err; // current error code
+static uint64_t cli_word; // current word (its value)
+static int8_t cli_word_len; // current word's length (number of characters)
+static uint64_t cli_list[CLI_MAX_LIST_WORDS]; // current list
+static char cli_out[CLI_BUFSZ]; // output buffer
+static struct cli_var cli_vars[CLI_MAX_VARS]; // known variables (named words)
+static int cli_num_vars; // number of known variables
+
+void cli_reset() {
+	cli_err = 0;
+	cli_word = 0;
+	cli_word_len = 0;
+	cli_paren = 0;
+	cli_word_idx = -1;
+	cli_state = CLI_ST_LIST;
+}
+
+void cli_reset_error() {
+  cli_err = 0;
+  cli_out[0] = 0;
+}
 
 void cli_init() {
-  cli_num_vars = 0;
+	cli_num_vars = 0;
 
-  cli_vars[cli_num_vars++] = {
+	cli_vars[cli_num_vars++] = (struct cli_var) {
     .word = eightcc('p','o','w','e','r','o','n',0),
-    .func = turn_som_power_on_v20,
+    .func = turn_som_power_on,
     .num_args = 0,
   };
-  cli_vars[cli_num_vars++] = {
+  cli_vars[cli_num_vars++] = (struct cli_var) {
     .word = eightcc('1','p',0,0,0,0,0,0),
     .func = turn_som_power_on,
     .num_args = 0,
   };
-  cli_vars[cli_num_vars++] = {
-    .word = eightcc('0','p',0,0,0,0,0,0),
+	cli_vars[cli_num_vars++] = (struct cli_var) {
+    .word = eightcc('p','o','w','e','r','o','f','f'),
     .func = turn_som_power_off,
     .num_args = 0,
   };
-}
+	cli_vars[cli_num_vars++] = (struct cli_var){
+		.word = eightcc('0', 'p', 0, 0, 0, 0, 0, 0),
+		.func = turn_som_power_off,
+		.num_args = 0,
+	};
 
-void cli_reset() {
-  cli_word_idx = -1;
-  cli_state = CLI_ST_INIT;
-}
-
-void cli_reset_error() {
-  cli_error = 0;
-  cli_out[0] = 0;
+	cli_reset();
+	cli_reset_error();
 }
 
 void cli_error(uint64_t err) {
-  snprintf(cli_out, CLI_BUFSZ, "(err %lld)", cli_error);
+	cli_err = err;
+  snprintf(cli_out, CLI_BUFSZ, "(err %llu)", cli_err);
   cli_reset();
 }
 
@@ -65,8 +80,9 @@ void cli_eval() {
     struct cli_var* var = &cli_vars[i];
     if (op == var->word && num_args == var->num_args) {
       if (var->func) {
-        if (var->num_args == 1) {
-          ((void*)(uint64_t*))(var->func)(cli_list[1]);
+	      if (var->num_args == 1) {
+		      void (*func)(uint64_t) = var->func;
+		      func(cli_list[1]);
         }
       }
     }
@@ -86,7 +102,7 @@ void cli_char(char c) {
       cli_error(CLI_ERR_MAX_WORD);
       return;
     }
-    if (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z') {
+    if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) {
       cli_state = CLI_ST_WORD;
       cli_word = (uint64_t)c;
       return;
@@ -109,7 +125,7 @@ void cli_char(char c) {
     }
     if (c == '(') {
       cli_state = CLI_ST_LIST;
-      cli_num_words = 0;
+      cli_word_idx = 0;
       cli_paren++;
       /* TODO switch current list! */
       if (cli_paren > CLI_MAX_PAREN) {
