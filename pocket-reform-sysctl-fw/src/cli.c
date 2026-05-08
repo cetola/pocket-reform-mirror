@@ -68,6 +68,7 @@ void cli_error(uint64_t err) {
 }
 
 void cli_eval() {
+	printf("[cli_eval] %d", cli_word_idx);
   if (cli_word_idx < 0) {
     cli_error(CLI_ERR_SYNTAX);
     return;
@@ -93,7 +94,9 @@ char *cli_get_out() {
 	return cli_out;
 }
 
-void cli_char(char c) {
+void cli_char(char c)
+{
+	printf("[cli_char] state:%d c:'%c'", cli_state, c);
   if (cli_state == CLI_ST_LIST) {
     if (c == ' ') return;
     if (c == ')') {
@@ -153,9 +156,12 @@ void cli_char(char c) {
     cli_error(CLI_ERR_SYNTAX);
     return;
   } else if (cli_state == CLI_ST_WORD) {
-    if (c == ' ') {
+    if (c == ' ' || c == ')') {
       cli_state = CLI_ST_LIST;
       cli_list[cli_word_idx] = cli_word;
+      if (c == ')') {
+        cli_eval();
+      }
       return;
     }
     cli_word = (cli_word << 8) + c;
