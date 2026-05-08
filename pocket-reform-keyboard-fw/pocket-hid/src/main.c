@@ -28,14 +28,14 @@
 #include "leds.h"
 #include "menu.h"
 #include "remote.h"
+#include "keyboard.h"
+#include "pins.h"
+#include "ws2812.pio.h"
 #ifdef KBD_VARIANT_QWERTY_US_ANRI
   #include "matrix_anri.h"
 #else
   #include "matrix.h"
 #endif
-#include "keyboard.h"
-#include "pins.h"
-#include "ws2812.pio.h"
 
 #define ADDR_SENSOR (0x79)
 
