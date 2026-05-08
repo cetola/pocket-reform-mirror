@@ -2,6 +2,7 @@
 #define _EXT_GPIO_H
 
 #include <stdint.h>
+#include <stdbool.h>
 
 #define GPIO_EXT_DISP_1EN_2BL 0
 #define GPIO_EXT_5V_EN 1
