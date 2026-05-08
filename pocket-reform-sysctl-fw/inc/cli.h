@@ -1,6 +1,8 @@
 #ifndef MNTSC_CLI_H
 #define MNTSC_CLI_H
 
+#include <stdint.h>
+
 /*
   goals:
   - in sc: proper command parser that supersedes the legacy lpc protocol
@@ -32,6 +34,7 @@
 #define CLI_MAX_PAREN 2
 #define CLI_MAX_WORD_LEN 8
 #define CLI_MAX_LIST_WORDS 4
+#define CLI_MAX_VARS 64
 #define CLI_ERR_MAX_PAREN fourcc('m','a','x','p') /* nesting too deep */
 #define CLI_ERR_MAX_WORD  fourcc('w','l','e','n') /* word too long */
 #define CLI_ERR_MAX_LIST  fourcc('l','l','e','n') /* list too long */
@@ -43,6 +46,12 @@ struct cli_var {
   uint8_t num_args;
 };
 
-#define CLI_MAX_VARS 64
+void cli_reset();
+void cli_reset_error();
+void cli_init();
+void cli_char(char c);
+// TODO should this be a streaming output?
+// TODO: len/err/success indicatin
+char* cli_get_out();
 
 #endif

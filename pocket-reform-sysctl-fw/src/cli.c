@@ -63,7 +63,7 @@ void cli_init() {
 
 void cli_error(uint64_t err) {
 	cli_err = err;
-  snprintf(cli_out, CLI_BUFSZ, "(err %llu)", cli_err);
+  snprintf(cli_out, CLI_BUFSZ, "(err %llu)\n", cli_err);
   cli_reset();
 }
 
@@ -87,6 +87,10 @@ void cli_eval() {
       }
     }
   }
+}
+
+char *cli_get_out() {
+	return cli_out;
 }
 
 void cli_char(char c) {
