@@ -6,7 +6,7 @@
 #include <ctype.h>
 #include <stdint.h>
 
-/*#include "pico/stdlib.h"
+#include "pico/stdlib.h"
 #include "pico/binary_info.h"
 #include "hardware/i2c.h"
 #include "hardware/spi.h"
@@ -16,7 +16,7 @@
 #include "hardware/pwm.h"
 #include "hardware/watchdog.h"
 #include "hardware/structs/watchdog.h"
-#include "hardware/structs/vreg_and_chip_reset.h"*/
+#include "hardware/structs/vreg_and_chip_reset.h"
 
 #define OTG_AS_5V // WARNING: defining this requires the hardware mod described in https://source.mnt.re/reform/pocket-reform/-/issues/3
 // #define FACTORY_MODE // turn device on immediately after starting sysctl

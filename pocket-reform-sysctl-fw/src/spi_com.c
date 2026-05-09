@@ -5,7 +5,7 @@
  */
 
 #include "spi_com.h"
-#include "kvstore.h"
+#include "cli.h"
 
 void init_spi_client()
 {
@@ -35,276 +35,37 @@ static uint8_t lpc_calc_checksum(uint8_t *buffer, int len)
 #define SPI_DEBUG_ENABLED 0
 #define SPI_PRINTF_ENABLED 0
 
-static uint8_t kv_read_buf[KV_MAX_NAME_LEN];
-static uint8_t kv_value_write_buf[KV_MAX_VALUE_LEN];
-
 /* note that this runs in a timer interrupt:
    - no sleep_ms() calls
    - don't run longer than 4ms
 */
 void handle_spi_commands(battery_info_s *battery_info)
 {
-  uint8_t spi_command = 0;
-  uint8_t spi_arg1 = 0;
-  uint8_t spi_buf[SPI_BUF_LEN]; // normally 8 bytes
-  int spi_rxlen = 0;
-  bool deferred_power_off = false;
-
   if (!battery_info->som_is_powered) return;
-  if (!spi_is_readable(spi1)) return;
 
-  // non blocking read
-  for (uint8_t i = 0; i < 4; i++) {
-    // read a byte (but don't write a byte)
+  while (spi_is_readable(spi1)) {
     uint8_t rx = (uint8_t)spi_get_hw(spi1)->dr;
-    spi_buf[i] = rx;
-    spi_rxlen++;
+    cli_char(rx);
+    int resp_len = cli_get_out_pos();
+    char *cli_out_buf = cli_get_out();
+
+    if (resp_len > 0) {
+	    for (int i=0; i<resp_len; i++) {
+		    spi_get_hw(spi1)->dr = cli_out_buf[i];
+	    }
+		  spi_get_hw(spi1)->dr = lpc_calc_checksum((uint8_t*)cli_out_buf, resp_len);
+	    cli_reset_out();
+    }
   }
 
-  // commands are always 4 bytes, starting with 0xb5
-  // dump the buffer to serial
-  if (SPI_DEBUG_ENABLED || spi_buf[0] != 0xb5 || spi_rxlen != 4) {
-    if (SPI_PRINTF_ENABLED || SPI_DEBUG_ENABLED) {
-      printf("# [spi rx %d] ", spi_rxlen);
-      for (int i = 0; i < spi_rxlen; i++) {
-        printf("%2x ", spi_buf[i]);
-      }
-      printf("\t");
-      for (int i = 0; i < spi_rxlen; i++) {
-        if (spi_buf[i] >= 32) {
-          printf("%c", spi_buf[i]);
-        } else {
-          printf(".");
-        }
-      }
-      printf("\n");
-      printf("# [spi resync]\n");
-    }
+  // TODO lpc_calc_checksum(spi_buf, SPI_BUF_LEN);
+
+  /*
     // reset SPI0 block
     // this is a workaround for confusion with
     // software spi from BPI-CM4 where we get
     // bit-shifted bytes
     init_spi_client();
     return;
-  }
-
-  spi_command = spi_buf[1];
-  spi_arg1 = spi_buf[2];
-
-  // clear receive buffer, reuse as send buffer
-  memset(spi_buf, 0, SPI_BUF_LEN);
-
-  if (spi_command == 'f') {
-    // return firmware version and api info
-    if (spi_arg1 == 0) memcpy(spi_buf, FW_STRING1, MIN(SPI_BUF_LEN, sizeof(FW_STRING1)));
-    else if (spi_arg1 == 1) memcpy(spi_buf, FW_STRING2, MIN(SPI_BUF_LEN, sizeof(FW_STRING2)));
-    else memcpy(spi_buf, MNTRE_FIRMWARE_VERSION, MIN(SPI_BUF_LEN, sizeof(MNTRE_FIRMWARE_VERSION)));
-  }
-  else if (spi_command == 'q') {
-    // execute status query command
-    uint8_t percentage = (uint8_t)battery_info->charge_percentage;
-    int16_t voltsInt = (int16_t)(battery_info->battery_volts * 1000.0);
-    int16_t currentInt = (int16_t)(battery_info->battery_amps * 1000.0);
-
-    spi_buf[0] = (uint8_t)voltsInt;
-    spi_buf[1] = (uint8_t)(voltsInt >> 8);
-    spi_buf[2] = (uint8_t)currentInt;
-    spi_buf[3] = (uint8_t)(currentInt >> 8);
-    spi_buf[4] = (uint8_t)percentage;
-    // TODO "state" not implemented
-    spi_buf[5] = (uint8_t)0;
-  }
-  else if (spi_command == 'v') {
-    // get cell voltage
-    if (spi_arg1 == 0) {
-      // pack 0
-      int volts = battery_info->cell1_volts;
-      spi_buf[0] = (uint8_t)volts;
-      spi_buf[1] = (uint8_t)(volts >> 8);
-
-      volts = battery_info->cell2_volts;
-      spi_buf[2] = (uint8_t)volts;
-      spi_buf[3] = (uint8_t)(volts >> 8);
-    }
-  }
-  else if (spi_command == 'c') {
-    // get calculated capacity (emulated)
-    uint16_t cap_accu = (uint16_t)BATTERY_CAPACITY_MILLIAMP_HOURS * (((float)battery_info->charge_percentage) / 100.0);
-    uint16_t cap_min = (uint16_t)0;
-    uint16_t cap_max = (uint16_t)BATTERY_CAPACITY_MILLIAMP_HOURS;
-
-    spi_buf[0] = (uint8_t)cap_accu;
-    spi_buf[1] = (uint8_t)(cap_accu >> 8);
-    spi_buf[2] = (uint8_t)cap_min;
-    spi_buf[3] = (uint8_t)(cap_min >> 8);
-    spi_buf[4] = (uint8_t)cap_max;
-    spi_buf[5] = (uint8_t)(cap_max >> 8);
-  }
-  else if (spi_command == 'p') {
-    // toggle system power off
-    if (spi_arg1 == 1) {
-      deferred_power_off = true;
-    }
-  }
-  else if (spi_command == 'z') {
-    // pass message byte (spi_arg1) directly to uart (implemented for Desktop Reform control panel)
-    /* TODO: not yet implemented */
-  }
-  else if (spi_command == 'b') {
-    // only for display v2
-    unsigned int brightness = spi_arg1;
-    // 80% is a limit of the hardware (above, the backlight can flicker)
-    if (brightness > 80)
-      brightness = 80;
-    set_display_backlight(brightness);
-  }
-  else if (spi_command == 'u') {
-    // toggle USB muxing modes
-    uint8_t port1_mode = spi_arg1 & 0x4; // lower nybble
-    uint8_t port2_mode = (spi_arg1>>4) & 0x4; // upper nybble
-    switch (port2_mode) {
-    case 0:
-      // usb2: sysctl external
-      gpio_ext_uswitch_enable(0);
-      gpio_ext_uswitch_enable(1);
-      gpio_ext_uswitch_enable(2);
-      break;
-    case 1:
-      // usb2: host, sysctl internal
-      gpio_ext_uswitch_disable(0);
-      gpio_ext_uswitch_disable(1);
-      gpio_ext_uswitch_disable(2);
-      break;
-    case 2:
-      // usb2: EDL external
-      gpio_ext_uswitch_enable(0);
-      gpio_ext_uswitch_disable(1);
-      gpio_ext_uswitch_enable(2);
-      break;
-    }
-    switch (port1_mode) {
-    case 0:
-      // usb1: host
-      gpio_ext_uswitch_enable(3);
-      break;
-    case 1:
-      // usb1: SoC UART
-      gpio_ext_uswitch_disable(3);
-      break;
-    }
-  }
-  else if (spi_command == 'G') {
-    // set GPIO *high*
-    // cmd_number:
-    switch (spi_arg1) {
-    case 0:
-      // 0: Display Panel Reset (active low)
-      gpio_put(PIN_DISP_RESET, 1);
-      break;
-    case 1:
-      gpio_put(PIN_3V3_ENABLE, 1);
-      break;
-    case 2:
-      gpio_put(PIN_1V1_ENABLE, 1);
-      break;
-    }
-  }
-  else if (spi_command == 'g') {
-    // set GPIO *low*
-    // cmd_number:
-    switch (spi_arg1) {
-    case 0:
-      // 0: Display Panel Reset (active low)
-      gpio_put(PIN_DISP_RESET, 0);
-      break;
-    case 1:
-      gpio_put(PIN_3V3_ENABLE, 0);
-      break;
-    case 2:
-      gpio_put(PIN_1V1_ENABLE, 0);
-      break;
-    }
-  }
-  else if (spi_command == '?') {
-    // read string value from key
-    uint8_t kv_len = spi_arg1;
-    // host wants to read a string whose key name is spi_arg1 characters long
-    if (kv_len == 0 || kv_len > KV_MAX_NAME_LEN) {
-      // TODO: error!
-    } else {
-      for (uint8_t i = 0; i < kv_len; i++) {
-        uint8_t rx = (uint8_t)spi_get_hw(spi1)->dr;
-        kv_read_buf[i] = rx;
-      }
-      // look up in table
-      int found_slot = kv_lookup_str(kv_read_buf, kv_len);
-      // send response
-      if (found_slot >= 0 && found_slot < KV_MAX_ENTRIES) {
-        struct kv_entry* kv = kv_get(found_slot);
-        if (kv != NULL) {
-          // send the string. the first byte is the length,
-          // last byte is a checksum
-          uint8_t res_buf[KV_MAX_VALUE_LEN+2];
-          res_buf[0] = kv->value_len;
-          memcpy(res_buf+1, kv->value, kv->value_len);
-          res_buf[kv->value_len+1] = lpc_calc_checksum(res_buf, kv->value_len+1);
-          spi_write_blocking(spi1, res_buf, kv->value_len+2);
-        } else {
-          // TODO: report error!
-          uint8_t res = 0;
-          spi_write_blocking(spi1, &res, 1);
-          return;
-        }
-      } else {
-        // TODO: report error!
-        uint8_t res = 0;
-        spi_write_blocking(spi1, &res, 1);
-        return;
-      }
-    }
-  }
-  else if (spi_command == '!') {
-    // write value for key
-    uint8_t kv_len = spi_arg1;
-    // host wants to write a string whose key name is spi_arg1 characters long
-    if (kv_len == 0 || kv_len > KV_MAX_NAME_LEN) {
-      // TODO: error!
-      uint8_t res = 0;
-      spi_write_blocking(spi1, &res, 1);
-      return;
-    } else {
-      // read the key name
-      for (uint8_t i = 0; i < kv_len; i++) {
-        uint8_t rx = (uint8_t)spi_get_hw(spi1)->dr;
-        kv_read_buf[i] = rx;
-      }
-      // read the value (length byte first)
-      uint8_t val_len = (uint8_t)spi_get_hw(spi1)->dr;
-      if (val_len == 0 || val_len > KV_MAX_VALUE_LEN) {
-        // TODO: error!
-        uint8_t res = 0;
-        spi_write_blocking(spi1, &res, 1);
-        return;
-      } else {
-        for (uint8_t i = 0; i < val_len; i++) {
-          uint8_t rx = (uint8_t)spi_get_hw(spi1)->dr;
-          kv_value_write_buf[i] = rx;
-        }
-        // store the value
-        kv_update_str(kv_read_buf, kv_len, kv_value_write_buf, val_len);
-        uint8_t res = val_len;
-        spi_write_blocking(spi1, &res, 1);
-        return;
-      }
-    }
-  }
-
-  spi_buf[SPI_BUF_LEN-1] = lpc_calc_checksum(spi_buf, SPI_BUF_LEN);
-
-  if (deferred_power_off) {
-    turn_som_power_off();
-  } else {
-    /* send response to host (8 bytes) and discard response */
-    spi_write_blocking(spi1, (const uint8_t*)spi_buf, SPI_BUF_LEN);
-  }
+  */
 }

@@ -16,12 +16,13 @@
 #include "hardware/xosc.h"
 #include "tusb.h"
 #include "reform_stdio_usb.h"
-#include "altmode.h"
-#include "kvstore.h"
+//#include "altmode.h"
+//#include "kvstore.h"
+#include "cli.h"
+#include "hwapi_pocket.h"
 
 static uint8_t mps_fault_last = 0;
-battery_info_s battery_info = {0};
-int disp_bl_percent = 100;
+static battery_info_s battery_info = {0};
 static struct repeating_timer spi_timer;
 
 // The Pico boot rom uses watchdog scratch registers 0, 1, 4, 5, 6, and 7.
@@ -911,161 +912,14 @@ void handle_usb_commands()
   int usb_c = getchar_timeout_us(0);
   if (usb_c != PICO_ERROR_TIMEOUT && isprint(usb_c))
   {
-    printf("# [acm_command] '%c'\n", usb_c);
-    if (usb_c == '1')
-    {
-      turn_som_power_on();
-    }
-    else if (usb_c == '0')
-    {
-      turn_som_power_off();
-    }
-    else if (usb_c == 'p')
-    {
-      battery_info.print_pack_info = !battery_info.print_pack_info;
-    }
-    else if (usb_c == '-')
-    {
-      // only for PREF_DISPLAY_V2
-      disp_bl_percent -= 5;
-      if (disp_bl_percent < 0)
-        disp_bl_percent = 0;
-      set_display_backlight(disp_bl_percent);
-    }
-    else if (usb_c == '+')
-    {
-      // only for PREF_DISPLAY_V2
-      disp_bl_percent += 5;
-      if (disp_bl_percent > 100)
-        disp_bl_percent = 100;
-      set_display_backlight(disp_bl_percent);
-    }
-    else if (usb_c == 'd')
-    {
-      printf("# [acm_command] PIN_DISP_RESET=0\n");
-      gpio_put(PIN_DISP_RESET, 0);
-      gpio_ext_enable(GPIO_EXT_DISP_RESET_N);
-    }
-    else if (usb_c == 'D')
-    {
-      printf("# [acm_command] PIN_DISP_RESET=1\n");
-      gpio_put(PIN_DISP_RESET, 1);
-      gpio_ext_disable(GPIO_EXT_DISP_RESET_N);
-    }
-    else if (usb_c == 'w')
-    {
-      printf("# [acm_command] SOM wake\n");
-      // wake SoC
-      gpio_put(PIN_DISP_RESET, 1);
-      //gpio_put(PIN_3V3_ENABLE, 1);
-      //gpio_put(PIN_1V1_ENABLE, 1);
-      som_wake();
-    }
-    else if (usb_c == 's') {
-      printf("# [acm_command] powersave\n");
-      enter_powersave();
-    }
-    else if (usb_c == 'L') {
-      printf("# [acm_command] PIN_USB_LOADER_SW = 1\n");
-      gpio_set_dir(PIN_USB_LOADER_SW, GPIO_OUT);
-      gpio_put(PIN_USB_LOADER_SW, 1);
-    }
-    else if (usb_c == 'l') {
-      printf("# [acm_command] PIN_USB_LOADER_SW = 0\n");
-      gpio_set_dir(PIN_USB_LOADER_SW, GPIO_OUT);
-      gpio_put(PIN_USB_LOADER_SW, 0);
-    }
-    else if (usb_c == 'm') {
-      printf("# [acm_command] dp conf = 110\n");
-      altmode_set(0b110);
-    }
-    else if (usb_c == 'M') {
-      printf("# [acm_command] dp conf = 111\n");
-      altmode_set(0b111);
-    }
-    else if (usb_c == 'c') {
-      printf("# [acm_command] dp conf = 100\n");
-      altmode_set(0b100);
-    }
-    else if (usb_c == 'C') {
-      printf("# [acm_command] dp conf = 101\n");
-      altmode_set(0b101);
-    }
-    else if (usb_c == 'z') {
-      printf("# [acm_command] dp conf = 000\n");
-      altmode_set(0b000);
-    }
-    else if (usb_c == 'Z') {
-      printf("# [acm_command] dp conf = 010\n");
-      altmode_set(0b010);
-    }
-    else if (usb_c == 'h') {
-      printf("# [acm_command] dp hpd = Z\n");
-      gpio_set_dir(PIN_V20_DP_HPD, GPIO_IN);
-    }
-    else if (usb_c == 'H') {
-      printf("# [acm_command] dp hpd = 1\n");
-      gpio_set_dir(PIN_V20_DP_HPD, GPIO_OUT);
-      gpio_put(PIN_V20_DP_HPD, 1);
-    }
-    else if (usb_c == 'i') {
-      printf("# [acm_command] dp hpd = 0\n");
-      gpio_set_dir(PIN_V20_DP_HPD, GPIO_OUT);
-      gpio_put(PIN_V20_DP_HPD, 0);
-    }
-    else if (usb_c == 'u') {
-      // host on USB1
-      printf("# [acm_command] uswitch4 = 0\n");
-      bool res = gpio_ext_uswitch_disable(3);
-      printf("# [acm_command] uswitch4 res: %d\n", res);
-    }
-    else if (usb_c == 'U') {
-      // present UART on USB1
-      printf("# [acm_command] uswitch4 = 1\n");
-      bool res = gpio_ext_uswitch_enable(3);
-      printf("# [acm_command] uswitch4 res: %d\n", res);
-    }
-    else if (usb_c == 'x') {
-      printf("# [acm_command] uswitch0,1,2 = 0 (sysctl usb internal)\n");
-      gpio_ext_uswitch_disable(0);
-      gpio_ext_uswitch_disable(1);
-      gpio_ext_uswitch_disable(2);
-      gpio_put(PIN_USB_SRC_ENABLE, 1); // enable 5v power on port 2
-    }
-    else if (usb_c == 'X') {
-      printf("# [acm_command] uswitch0,1,2 = 1 (sysctl usb external)\n");
-      gpio_ext_uswitch_enable(0);
-      gpio_ext_uswitch_enable(1);
-      gpio_ext_uswitch_enable(2);
-      gpio_put(PIN_USB_SRC_ENABLE, 0);
-    }
-    else if (usb_c == 'e') {
-      printf("# [acm_command] uswitch0,1,2 = 1,0,1 (edl usb external)\n");
-      gpio_ext_uswitch_enable(0);
-      gpio_ext_uswitch_disable(1);
-      gpio_ext_uswitch_enable(2);
-      gpio_put(PIN_USB_SRC_ENABLE, 0);
-    }
-    else if (usb_c == ';') {
-      uint8_t buf[4] = {0,0,0,0};
-      int res = tmuxhs4446_read(buf);
-      printf("# [acm_command] tmux read = len: %d bytes: %02x %02x %02x\n", res, buf[0], buf[1], buf[2]);
-    }
-    else if (usb_c == 'k') {
-      // dump the key-value store
-      int count = 0;
-      for (int i = 0; i < KV_MAX_ENTRIES; i++) {
-        struct kv_entry* kv = kv_get(i);
-        if (kv) {
-					char key[KV_MAX_NAME_LEN+1];
-					char val[KV_VALUE_STR_LEN+1];
-					kv_get_key_str(i, key);
-					kv_get_value_str(i, val);
-          printf("# [kv:%03d] %s: \"%s\"\n", i, key, val);
-        }
-      }
-      printf("# [kv] number of entries: %d.\n", count);
-    }
+    //printf("# [acm_command] '%c'\n", usb_c);
+    cli_char(usb_c);
+    int resp_len = cli_get_out_pos();
+    char *cli_out_buf = cli_get_out();
+    if (resp_len > 0) {
+	    printf("%s\n", cli_out_buf);
+	    cli_reset_out();
+	  }
   }
 }
 
@@ -1169,7 +1023,10 @@ void mntre_reset_callback(void) {
 
 bool spi_commands_task(__unused struct repeating_timer *t) {
   // handle commands from SoM
+  // TODO: pass cli state/handle
+#ifndef ACM_ENABLED
   handle_spi_commands(&battery_info);
+#endif
   // timer should continue calling us
   return true;
 }
@@ -1180,6 +1037,13 @@ int main()
   //set_sys_clock_48mhz();
   setup_gpios();
   setup();
+  // TODO: cli state/handle
+  cli_init();
+  // TODO: pass cli state/handle
+  hwapi_pocket_init(&battery_info);
+
+  // by default, present sysctl usb to SoC USB internally
+	hwapi_set_usb_mode(1, 1);
 
   // call SPI task every 5 ms to ensure response time
   add_repeating_timer_ms(-5, spi_commands_task, NULL, &spi_timer);

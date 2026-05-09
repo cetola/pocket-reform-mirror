@@ -6,36 +6,43 @@
 
 void turn_som_power_off()
 {
-	printf("[cli_stub] turn_som_power_off()\n");
+	printf("[cli_stub] turn_som_power_off()");
 }
 void turn_som_power_on()
 {
-	printf("[cli_stub] turn_som_power_on()\n");
+	printf("[cli_stub] turn_som_power_on()");
 }
 
 /* end stubs */
 
+void cli_test(char *str)
+{
+	printf("> %s", str);
+	int len = strlen(str);
+	for (int i = 0; i < len; i++) {
+		cli_char(str[i]);
+	}
+	printf("%s\n\n", cli_get_out());
+	cli_reset_out();
+}
+
 int main(int argc, char **argv)
 {
 	cli_init();
-	cli_char('(');
-	cli_char(')');
-	printf("[cli_out] %s\n", cli_get_out());
-	cli_reset_error();
-	cli_char('(');
-	cli_char('h');
-	cli_char(')');
-	printf("[cli_out] %s\n", cli_get_out());
-	cli_reset_error();
-	cli_char('(');
-	cli_char('p');
-	cli_char('o');
-	cli_char('w');
-	cli_char('e');
-	cli_char('r');
-	cli_char('o');
-	cli_char('f');
-	cli_char('f');
-	cli_char(')');
+	cli_test("()\n");
+	cli_test("(h)\n");
+	cli_test("(poweroff)\n");
+	cli_test("(vars 0)\n");
+	cli_test("vars 2\n");
+	cli_test("vars 2 1\n");
+	cli_test("vars 10\n");
+	cli_test("1p\n");
+	cli_test("(set hello 12345678)\n");
+	cli_test("vars\n");
+	cli_test("hello\n");
+	cli_test("(hello)\n");
+	cli_test("(set hello #ffaabbcc)\n");
+	cli_test("vars\n");
+	cli_test("hello\n");
 	return 0;
 }
