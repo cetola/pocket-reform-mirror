@@ -24,7 +24,7 @@ void cli_reset() {
 	cli_word = 0;
 	cli_word_len = 0;
 	cli_paren = 0;
-	cli_word_idx = -1;
+	cli_word_idx = 0;
 	cli_state = CLI_ST_LIST;
 }
 
@@ -63,31 +63,41 @@ void cli_init() {
 
 void cli_error(uint64_t err) {
 	cli_err = err;
-  snprintf(cli_out, CLI_BUFSZ, "(err %llu)\n", cli_err);
+	
+  snprintf(cli_out, CLI_BUFSZ, "(err %c%c%c%c)\n", (char)cli_err, (char)(cli_err>>8), (char)(cli_err>>16), (char)(cli_err>>24));
   cli_reset();
 }
 
 void cli_eval() {
-	printf("[cli_eval] %d", cli_word_idx);
+	printf("[cli_eval] %d\n", cli_word_idx);
   if (cli_word_idx < 0) {
     cli_error(CLI_ERR_SYNTAX);
     return;
   }
   // word 0 is the operation (function pointer)
   uint64_t op = cli_list[0];
-  int num_args = cli_word_idx-1;
+  int num_args = cli_word_idx - 1;
+	printf("[cli_eval] op: 0x%llx num_args: %d\n", op, num_args);
   /* TODO make list introspectable */
   for (int i=0; i<cli_num_vars; i++) {
     struct cli_var* var = &cli_vars[i];
+		printf("[cli_eval] candidate: 0x%llx\n", var->word);
     if (op == var->word && num_args == var->num_args) {
+			printf("[cli_eval] word %d matches var table entry %d\n", cli_word_idx, i);
       if (var->func) {
-	      if (var->num_args == 1) {
+	      if (var->num_args == 0) {
+		      void (*func)(void) = var->func;
+		      func();
+					return;
+        } else if (var->num_args == 1) {
 		      void (*func)(uint64_t) = var->func;
 		      func(cli_list[1]);
+					return;
         }
       }
     }
   }
+	cli_error(CLI_ERR_UNDEFINED);
 }
 
 char *cli_get_out() {
@@ -96,7 +106,7 @@ char *cli_get_out() {
 
 void cli_char(char c)
 {
-	printf("[cli_char] state:%d c:'%c'", cli_state, c);
+	printf("[cli_char] state:%d c:'%c'\n", cli_state, c);
   if (cli_state == CLI_ST_LIST) {
     if (c == ' ') return;
     if (c == ')') {
@@ -104,7 +114,6 @@ void cli_char(char c)
       return;
     }
     /* start a new word */
-    cli_word_idx++;
     if (cli_word_idx >= CLI_MAX_LIST_WORDS) {
       cli_error(CLI_ERR_MAX_WORD);
       return;
@@ -112,6 +121,7 @@ void cli_char(char c)
     if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) {
       cli_state = CLI_ST_WORD;
       cli_word = (uint64_t)c;
+      cli_word_len = 1;
       return;
     }
     /* index 0 must be a word (callable) */
@@ -147,7 +157,7 @@ void cli_char(char c)
       return;
     } else if (c == ' ' || c == ')') {
       cli_state = CLI_ST_LIST;
-      cli_list[cli_word_idx] = cli_word;
+      cli_list[cli_word_idx++] = cli_word;
       if (c == ')') {
         cli_eval();
       }
@@ -157,15 +167,18 @@ void cli_char(char c)
     return;
   } else if (cli_state == CLI_ST_WORD) {
     if (c == ' ' || c == ')') {
-      cli_state = CLI_ST_LIST;
-      cli_list[cli_word_idx] = cli_word;
+	    cli_state = CLI_ST_LIST;
+	    printf("[cli_word] storing word at idx %d\n", cli_word_idx);
+      cli_list[cli_word_idx++] = cli_word;
       if (c == ')') {
         cli_eval();
       }
       return;
     }
-    cli_word = (cli_word << 8) + c;
+    cli_word |= (uint64_t)c << (cli_word_len*8);
     cli_word_len++;
+    printf("[cli_word] 0x%llx (len: %d)\n", cli_word, cli_word_len);
+    
     if (cli_word_len > CLI_MAX_WORD_LEN) {
       cli_error(CLI_ERR_MAX_WORD);
       return;

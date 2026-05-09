@@ -39,6 +39,7 @@
 #define CLI_ERR_MAX_WORD  fourcc('w','l','e','n') /* word too long */
 #define CLI_ERR_MAX_LIST  fourcc('l','l','e','n') /* list too long */
 #define CLI_ERR_SYNTAX    fourcc('s','n','t','x')
+#define CLI_ERR_UNDEFINED fourcc('u','n','d','f')
 
 struct cli_var {
   uint64_t word;
