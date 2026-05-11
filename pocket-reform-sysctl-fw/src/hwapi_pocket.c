@@ -158,7 +158,7 @@ uint64_t hwapi_get_pack_capacity_full(/*uint64_t pack_id*/) {
 
 double hwapi_get_sys_volts(/*uint64_t pack_id*/) {
   // TODO
-  return 0;
+  return battery_info->input_volts;
 }
 
 double hwapi_get_sys_amps(/*uint64_t pack_id*/) {
@@ -173,16 +173,16 @@ void hwapi_pocket_init(battery_info_s *binfo) {
   battery_info = binfo;
 
   /* register all available functions */
-  cli_add_func("set-rail", hwapi_set_rail, 2);
-  cli_add_func("set-gpio", hwapi_set_gpio, 2);
-  cli_add_func("set-usb\0", hwapi_set_usb_mode, 1);
-  cli_add_func("cell-vlt", hwapi_get_cell_volts, 1);
-  cli_add_func("pack-vlt", hwapi_get_pack_volts, 1);
-  cli_add_func("pack-amp", hwapi_get_pack_amps, 1);
-  cli_add_func("pack-cap", hwapi_get_pack_charge, 1);
-  cli_add_func("pack-max", hwapi_get_pack_capacity_full, 1);
-  cli_add_func("sys-vlt\0", hwapi_get_sys_volts, 0);
-  cli_add_func("sys-amp\0", hwapi_get_sys_amps, 0);
+  cli_add_func("set-rail", hwapi_set_rail, 2, CLI_TYPE_UINT64);
+  cli_add_func("set-gpio", hwapi_set_gpio, 2, CLI_TYPE_UINT64);
+  cli_add_func("set-usb\0", hwapi_set_usb_mode, 1, CLI_TYPE_UINT64);
+  cli_add_func("cell-vlt", hwapi_get_cell_volts, 1, CLI_TYPE_DOUBLE);
+  cli_add_func("pack-vlt", hwapi_get_pack_volts, 1, CLI_TYPE_DOUBLE);
+  cli_add_func("pack-amp", hwapi_get_pack_amps, 1, CLI_TYPE_DOUBLE);
+  cli_add_func("pack-cap", hwapi_get_pack_charge, 1, CLI_TYPE_DOUBLE);
+  cli_add_func("pack-max", hwapi_get_pack_capacity_full, 1, CLI_TYPE_UINT64);
+  cli_add_func("sys-vlt\0", hwapi_get_sys_volts, 0, CLI_TYPE_DOUBLE);
+  cli_add_func("sys-amp\0", hwapi_get_sys_amps, 0, CLI_TYPE_DOUBLE);
 
   // TODO: DP/altmode_set configs
   // altmode_set(0b110);
@@ -206,11 +206,11 @@ void hwapi_pocket_init(battery_info_s *binfo) {
   cli_add_word("cell-cnt", 2);
 
   /* legacy API commands */
-  cli_add_func("0p\0\0\0\0\0\0", turn_som_power_off, 0);
-  cli_add_func("1p\0\0\0\0\0\0", turn_som_power_on, 0);
-  cli_add_func("0q\0\0\0\0\0\0\0", hwapi_legacy_q, 0);
-  cli_add_func("0v\0\0\0\0\0\0\0", hwapi_legacy_v, 0);
-  cli_add_func("0c\0\0\0\0\0\0\0", hwapi_legacy_c, 0);
+  cli_add_func("0p\0\0\0\0\0\0", turn_som_power_off, 0, CLI_TYPE_UINT64);
+  cli_add_func("1p\0\0\0\0\0\0", turn_som_power_on, 0, CLI_TYPE_UINT64);
+  cli_add_func("0q\0\0\0\0\0\0\0", hwapi_legacy_q, 0, CLI_TYPE_UINT64);
+  cli_add_func("0v\0\0\0\0\0\0\0", hwapi_legacy_v, 0, CLI_TYPE_UINT64);
+  cli_add_func("0c\0\0\0\0\0\0\0", hwapi_legacy_c, 0, CLI_TYPE_UINT64);
   cli_add_word("0f\0\0\0\0\0\0", eightcc("OUTDATED"));
   cli_add_word("1f\0\0\0\0\0\0", eightcc("LPC     "));
   cli_add_word("2f\0\0\0\0\0\0", eightcc("DRIVER  "));

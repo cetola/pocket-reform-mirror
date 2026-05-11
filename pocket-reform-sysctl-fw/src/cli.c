@@ -39,18 +39,15 @@ void cli_reset_out() {
 }
 
 /* returns number of chars still available in output buffer */
-int cli_out_available()
-{
+int cli_out_available() {
   return CLI_BUFSZ - cli_out_pos;
 }
 
-char *cli_out_ptr()
-{
+char *cli_out_ptr() {
   return &cli_out[cli_out_pos];
 }
 
-int cli_get_out_pos()
-{
+int cli_get_out_pos() {
   return cli_out_pos;
 }
 
@@ -72,8 +69,7 @@ char* eightcc_to_str(uint64_t word, char buf[static 9]) {
   return buf;
 }
 
-int cli_out_str(char *str)
-{
+int cli_out_str(char *str) {
   uint32_t len = snprintf(cli_out_ptr(), cli_out_available(), "%s", str);
   if (len < strlen(str)) {
     return 0;
@@ -85,28 +81,25 @@ int cli_out_str(char *str)
 void cli_error(uint64_t err) {
   cli_err = err;
   char buf[5];
-  snprintf(cli_out, CLI_BUFSZ, "(err %s)\n", fourcc_to_str(err, buf));
+  cli_out_pos = snprintf(cli_out, CLI_BUFSZ, "(err %s)\n", fourcc_to_str(err, buf));
   cli_reset();
 }
 
-int cli_out_int64(int64_t number)
-{
+int cli_out_int64(int64_t number) {
   char buf[22]; // -9223372036854775808
   snprintf(buf, sizeof(buf), "%lld", number);
   buf[sizeof(buf)-1] = 0;
   return cli_out_str(buf);
 }
 
-int cli_out_uint64(uint64_t number)
-{
+int cli_out_uint64(uint64_t number) {
   char buf[22]; // 18446744073709551616
   snprintf(buf, sizeof(buf), "%llu", number);
   buf[sizeof(buf)-1] = 0;
   return cli_out_str(buf);
 }
 
-int cli_out_double(double number)
-{
+int cli_out_double(double number) {
   char buf[32]; // TODO: max output size of a double?
   snprintf(buf, sizeof(buf), "%10.10f", number);
   buf[sizeof(buf)-1] = 0;
@@ -114,14 +107,13 @@ int cli_out_double(double number)
 }
 
 // TODO generalize for any list?
-void cli_list_vars(int64_t offset, int64_t limit_)
-{
+uint64_t cli_list_vars(int64_t offset, int64_t limit_) {
 #ifdef CLI_DEBUG_EVAL
   printf("[cli_list_vars] offset: %lld limit: %lld\n", offset, limit_);
 #endif
   if (offset >= cli_num_vars || offset < 0 || limit_ < 0) {
     cli_error(CLI_ERR_ARGS);
-    return;
+    return 0;
   }
   int64_t limit = cli_num_vars - offset;
   // caller wants less entries than there are
@@ -137,32 +129,31 @@ void cli_list_vars(int64_t offset, int64_t limit_)
     char buf[9];
     if (!cli_out_str(eightcc_to_str(cli_vars[i].word, buf))) {
       cli_err = CLI_ERR_MAX_OUT;
-      return;
+      return 0;
     }
     if (i < offset + limit - 1) cli_out_str(" ");
   }
   cli_out_str(")");
+  return 1;
 }
 
-int cli_word_valid(uint64_t word)
-{
+int cli_word_valid(uint64_t word) {
   return ((word & 0xff) >= 'a' || (word & 0xff) <= 'z') || ((word & 0xff) >= 'A' || (word & 0xff) <= 'Z');
 }
 
-void cli_set_var_uint64(uint64_t word, uint64_t value)
-{
+uint64_t cli_set_var_uint64(uint64_t word, uint64_t value) {
 #ifdef CLI_DEBUG_EVAL
   char buf[9];
   printf("[cli_set_var_uint64] %s 0x%llx\n", eightcc_to_str(word, buf), value);
 #endif
   if (!cli_word_valid(word)) {
     cli_error(CLI_ERR_ARGS);
-    return;
+    return 0;
   }
   for (int i = 0; i < cli_num_vars; i++) {
     if (cli_vars[i].word == word) {
       cli_vars[i].value_u64 = value;
-      return;
+      return value;
     }
   }
   cli_vars[cli_num_vars++] = (struct cli_var)
@@ -171,11 +162,10 @@ void cli_set_var_uint64(uint64_t word, uint64_t value)
     .value_u64 = value,
     .type = CLI_TYPE_UINT64
   };
-  cli_out_uint64(value);
+  return value;
 }
 
-int cli_add_func(char word[static 9], void *funcptr, uint8_t num_args)
-{
+int cli_add_func(char word[static 9], void *funcptr, uint8_t num_args, uint8_t return_type) {
   if (cli_num_vars >= CLI_MAX_VARS) {
     return 0;
   }
@@ -184,12 +174,12 @@ int cli_add_func(char word[static 9], void *funcptr, uint8_t num_args)
     .type = CLI_TYPE_FUNC,
     .func = funcptr,
     .num_args = num_args,
+    .return_type = return_type,
   };
   return cli_num_vars;
 }
 
-int cli_add_word(char word[static 9], uint64_t value)
-{
+int cli_add_word(char word[static 9], uint64_t value) {
   if (cli_num_vars >= CLI_MAX_VARS) {
     return 0;
   }
@@ -206,8 +196,8 @@ void cli_init() {
   cli_reset_out();
   cli_num_vars = 0;
 
-  cli_add_func("vars\0\0\0\0", cli_list_vars, 2);
-  cli_add_func("set\0\0\0\0\0", cli_set_var_uint64, 2);
+  cli_add_func("vars\0\0\0\0", cli_list_vars, 2, CLI_TYPE_UINT64);
+  cli_add_func("set\0\0\0\0\0", cli_set_var_uint64, 2, CLI_TYPE_UINT64);
 }
 
 void cli_eval() {
@@ -238,19 +228,31 @@ void cli_eval() {
           // if an arg is passed, set it
           args[j] = cli_list[j + 1];
         }
-        void (*func)(uint64_t, uint64_t, uint64_t, uint64_t) = var->func;
-        func(args[0], args[1], args[2], args[3]);
+        if (var->return_type == CLI_TYPE_UINT64) {
+          uint64_t (*func)(uint64_t, uint64_t, uint64_t, uint64_t) = var->func;
+          uint64_t result = func(args[0], args[1], args[2], args[3]);
+          cli_out_uint64(result);
+          return;
+        } else if (var->return_type == CLI_TYPE_INT64) {
+          int64_t (*func)(uint64_t, uint64_t, uint64_t, uint64_t) = var->func;
+          int64_t result = func(args[0], args[1], args[2], args[3]);
+          cli_out_int64(result);
+          return;
+        } else if (var->return_type == CLI_TYPE_DOUBLE) {
+          double (*func)(uint64_t, uint64_t, uint64_t, uint64_t) = var->func;
+          double result = func(args[0], args[1], args[2], args[3]);
+          cli_out_double(result);
+          return;
+        }
         return;
       }
       if (var->type == CLI_TYPE_UINT64) {
         cli_out_uint64(var->value_u64);
         return;
-      }
-      if (var->type == CLI_TYPE_INT64) {
+      } else if (var->type == CLI_TYPE_INT64) {
         cli_out_int64(var->value_i64);
         return;
-      }
-      if (var->type == CLI_TYPE_DOUBLE) {
+      } else if (var->type == CLI_TYPE_DOUBLE) {
         cli_out_double(var->value_dbl);
         return;
       }
@@ -263,10 +265,9 @@ char *cli_get_out() {
   return cli_out;
 }
 
-void cli_char(char c)
-{
+void cli_char(char c) {
 #ifdef CLI_DEBUG_STATE
-  printf("[cli_char] state:%d c:'%c' word:%d\n", cli_state, c, cli_word_idx);
+  printf("[cli_char] state:%d c:%d word:%d\n", cli_state, c, cli_word_idx);
 #endif
   if (cli_state == CLI_ST_LIST) {
     if (c == ' ') return;

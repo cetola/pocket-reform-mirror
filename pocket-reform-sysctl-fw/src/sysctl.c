@@ -7,6 +7,7 @@
   https://git.clarahobbs.com/pd-buddy/pd-buddy-firmware/src/branch/master/lib/src/fusb302b.c
  */
 #include <math.h>
+#include <stdio.h>
 #include "sysctl.h"
 #include "pico/divider.h"
 #include "pico/stdlib.h"
@@ -872,17 +873,18 @@ void setup() {
 
 void handle_usb_commands() {
   int usb_c = getchar_timeout_us(0);
-  if (usb_c != PICO_ERROR_TIMEOUT && isprint(usb_c))
-    {
-      //printf("# [acm_command] '%c'\n", usb_c);
-      cli_char(usb_c);
-      int resp_len = cli_get_out_pos();
-      char *cli_out_buf = cli_get_out();
-      if (resp_len > 0) {
-        printf("%s\n", cli_out_buf);
-        cli_reset_out();
-      }
+  if (usb_c != PICO_ERROR_TIMEOUT) {
+    if (usb_c == 13) usb_c = 10;
+    putchar(usb_c);
+    //printf("# [acm_command] '%c'\n", usb_c);
+    cli_char(usb_c);
+    int resp_len = cli_get_out_pos();
+    char *cli_out_buf = cli_get_out();
+    if (resp_len > 0) {
+      printf("%s\n", cli_out_buf);
+      cli_reset_out();
     }
+  }
 }
 
 void usb_host_5v_enable() {
@@ -932,6 +934,7 @@ void loop() {
   charger_led_indication(&battery_info);
 
   // every 1000ms: report to serial
+#if 0
   if (battery_info.ticks % (1000*TICK_MS) == 0) {
     // TODO: print adc_charge_c adc_discharge_c
     printf("# %s %s %s chg=%1x mps_flt=%02x/%02x input=%0.2fmV@%0.2fmA charge=%0.2fmA discharge=%0.2fmA p=%0.2fW ttempty=%umin battery=%0.4fV@%0.4fmA battery_avg=%0.4fmA battery_pwr=%0.4fmW\n",
@@ -953,6 +956,7 @@ void loop() {
            battery_info.gauge_avg_milliamps*battery_info.battery_volts
            );
   }
+#endif
 
   // TODO somehow sleep_us can prevent UART handling for up to 10 seconds after startup/reset?!
   if (can_sleep) {
@@ -1001,7 +1005,7 @@ int main() {
   hwapi_pocket_init(&battery_info);
 
   // by default, present sysctl usb to SoC USB internally
-  hwapi_set_usb_mode(1, 1);
+  //hwapi_set_usb_mode(1, 1);
 
   // call SPI task every 5 ms to ensure response time
   add_repeating_timer_ms(-5, spi_commands_task, NULL, &spi_timer);
