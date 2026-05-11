@@ -25,11 +25,11 @@ static int cli_num_vars; // number of known variables
 
 /* resets input/parser state. call cli_reset_out() to reset output state! */
 void cli_reset() {
-	cli_word = 0;
-	cli_word_len = 0;
-	cli_paren = 0;
-	cli_word_idx = 0;
-	cli_state = CLI_ST_LIST;
+  cli_word = 0;
+  cli_word_len = 0;
+  cli_paren = 0;
+  cli_word_idx = 0;
+  cli_state = CLI_ST_LIST;
 }
 
 void cli_reset_out() {
@@ -41,173 +41,173 @@ void cli_reset_out() {
 /* returns number of chars still available in output buffer */
 int cli_out_available()
 {
-	return CLI_BUFSZ - cli_out_pos;
+  return CLI_BUFSZ - cli_out_pos;
 }
 
 char *cli_out_ptr()
 {
-	return &cli_out[cli_out_pos];
+  return &cli_out[cli_out_pos];
 }
 
 int cli_get_out_pos()
 {
-	return cli_out_pos;
+  return cli_out_pos;
 }
 
 char* fourcc_to_str(uint32_t word, char buf[static 5]) {
-	for (int i = 0; i < 5; i++) {
-		buf[i] = word&0xff;
-		word >>= 8;
-	}
-	buf[4] = 0;
-	return buf;
+  for (int i = 0; i < 5; i++) {
+    buf[i] = word&0xff;
+    word >>= 8;
+  }
+  buf[4] = 0;
+  return buf;
 }
 
 char* eightcc_to_str(uint64_t word, char buf[static 9]) {
-	for (int i = 0; i < 8; i++) {
-		buf[i] = word&0xff;
-		word >>= 8;
-	}
-	buf[8] = 0;
-	return buf;
+  for (int i = 0; i < 8; i++) {
+    buf[i] = word&0xff;
+    word >>= 8;
+  }
+  buf[8] = 0;
+  return buf;
 }
 
 int cli_out_str(char *str)
 {
-	uint32_t len = snprintf(cli_out_ptr(), cli_out_available(), "%s", str);
-	if (len < strlen(str)) {
-		return 0;
-	}
-	cli_out_pos += len;
-	return len;
+  uint32_t len = snprintf(cli_out_ptr(), cli_out_available(), "%s", str);
+  if (len < strlen(str)) {
+    return 0;
+  }
+  cli_out_pos += len;
+  return len;
 }
 
 void cli_error(uint64_t err) {
-	cli_err = err;
-	char buf[5];
+  cli_err = err;
+  char buf[5];
   snprintf(cli_out, CLI_BUFSZ, "(err %s)\n", fourcc_to_str(err, buf));
   cli_reset();
 }
 
 int cli_out_int64(int64_t number)
 {
-	char buf[22]; // -9223372036854775808
-	snprintf(buf, sizeof(buf), "%lld", number);
-	buf[sizeof(buf)-1] = 0;
-	return cli_out_str(buf);
+  char buf[22]; // -9223372036854775808
+  snprintf(buf, sizeof(buf), "%lld", number);
+  buf[sizeof(buf)-1] = 0;
+  return cli_out_str(buf);
 }
 
 int cli_out_uint64(uint64_t number)
 {
-	char buf[22]; // 18446744073709551616
-	snprintf(buf, sizeof(buf), "%llu", number);
-	buf[sizeof(buf)-1] = 0;
-	return cli_out_str(buf);
+  char buf[22]; // 18446744073709551616
+  snprintf(buf, sizeof(buf), "%llu", number);
+  buf[sizeof(buf)-1] = 0;
+  return cli_out_str(buf);
 }
 
 int cli_out_double(double number)
 {
-	char buf[32]; // TODO: max output size of a double?
-	snprintf(buf, sizeof(buf), "%10.10f", number);
-	buf[sizeof(buf)-1] = 0;
-	return cli_out_str(buf);
+  char buf[32]; // TODO: max output size of a double?
+  snprintf(buf, sizeof(buf), "%10.10f", number);
+  buf[sizeof(buf)-1] = 0;
+  return cli_out_str(buf);
 }
 
 // TODO generalize for any list?
 void cli_list_vars(int64_t offset, int64_t limit_)
 {
 #ifdef CLI_DEBUG_EVAL
-	printf("[cli_list_vars] offset: %lld limit: %lld\n", offset, limit_);
-#endif	
-	if (offset >= cli_num_vars || offset < 0 || limit_ < 0) {
-		cli_error(CLI_ERR_ARGS);
-		return;
-	}
-	int64_t limit = cli_num_vars - offset;
-	// caller wants less entries than there are
-	if (limit_ && limit_ < limit) {
-		limit = limit_;
-	}
-	cli_out_str("(list ");
-	cli_out_int64(offset);
-	cli_out_str(" ");
-	cli_out_int64(limit);
-	cli_out_str(" ");
-	for (int i = offset; i < offset + limit; i++) {
-		char buf[9];
-		if (!cli_out_str(eightcc_to_str(cli_vars[i].word, buf))) {
-			cli_err = CLI_ERR_MAX_OUT;
-			return;
-		}
-		if (i < offset + limit - 1) cli_out_str(" ");
-	}
-	cli_out_str(")");
+  printf("[cli_list_vars] offset: %lld limit: %lld\n", offset, limit_);
+#endif
+  if (offset >= cli_num_vars || offset < 0 || limit_ < 0) {
+    cli_error(CLI_ERR_ARGS);
+    return;
+  }
+  int64_t limit = cli_num_vars - offset;
+  // caller wants less entries than there are
+  if (limit_ && limit_ < limit) {
+    limit = limit_;
+  }
+  cli_out_str("(list ");
+  cli_out_int64(offset);
+  cli_out_str(" ");
+  cli_out_int64(limit);
+  cli_out_str(" ");
+  for (int i = offset; i < offset + limit; i++) {
+    char buf[9];
+    if (!cli_out_str(eightcc_to_str(cli_vars[i].word, buf))) {
+      cli_err = CLI_ERR_MAX_OUT;
+      return;
+    }
+    if (i < offset + limit - 1) cli_out_str(" ");
+  }
+  cli_out_str(")");
 }
 
 int cli_word_valid(uint64_t word)
 {
-	return ((word & 0xff) >= 'a' || (word & 0xff) <= 'z') || ((word & 0xff) >= 'A' || (word & 0xff) <= 'Z');
+  return ((word & 0xff) >= 'a' || (word & 0xff) <= 'z') || ((word & 0xff) >= 'A' || (word & 0xff) <= 'Z');
 }
 
 void cli_set_var_uint64(uint64_t word, uint64_t value)
 {
 #ifdef CLI_DEBUG_EVAL
-	char buf[9];
-	printf("[cli_set_var_uint64] %s 0x%llx\n", eightcc_to_str(word, buf), value);
-#endif	
-	if (!cli_word_valid(word)) {
-		cli_error(CLI_ERR_ARGS);
-		return;
-	}
-	for (int i = 0; i < cli_num_vars; i++) {
-		if (cli_vars[i].word == word) {
-			cli_vars[i].value_u64 = value;
-			return;
-		}
-	}
-	cli_vars[cli_num_vars++] = (struct cli_var)
-	{
-		.word = word,
-		.value_u64 = value,
-		.type = CLI_TYPE_UINT64
-	};
-	cli_out_uint64(value);
+  char buf[9];
+  printf("[cli_set_var_uint64] %s 0x%llx\n", eightcc_to_str(word, buf), value);
+#endif
+  if (!cli_word_valid(word)) {
+    cli_error(CLI_ERR_ARGS);
+    return;
+  }
+  for (int i = 0; i < cli_num_vars; i++) {
+    if (cli_vars[i].word == word) {
+      cli_vars[i].value_u64 = value;
+      return;
+    }
+  }
+  cli_vars[cli_num_vars++] = (struct cli_var)
+  {
+    .word = word,
+    .value_u64 = value,
+    .type = CLI_TYPE_UINT64
+  };
+  cli_out_uint64(value);
 }
 
 int cli_add_func(char word[static 9], void *funcptr, uint8_t num_args)
 {
-	if (cli_num_vars >= CLI_MAX_VARS) {
-		return 0;
-	}
-	cli_vars[cli_num_vars++] = (struct cli_var){
-		.word = eightcc(word),
-		.type = CLI_TYPE_FUNC,
-		.func = funcptr,
-		.num_args = num_args,
-	};
-	return cli_num_vars;
+  if (cli_num_vars >= CLI_MAX_VARS) {
+    return 0;
+  }
+  cli_vars[cli_num_vars++] = (struct cli_var){
+    .word = eightcc(word),
+    .type = CLI_TYPE_FUNC,
+    .func = funcptr,
+    .num_args = num_args,
+  };
+  return cli_num_vars;
 }
 
 int cli_add_word(char word[static 9], uint64_t value)
 {
-	if (cli_num_vars >= CLI_MAX_VARS) {
-		return 0;
-	}
-	cli_vars[cli_num_vars++] = (struct cli_var){
-		.word = eightcc(word),
-		.type = CLI_TYPE_UINT64,
-		.value_u64 = value,
-	};
-	return cli_num_vars;
+  if (cli_num_vars >= CLI_MAX_VARS) {
+    return 0;
+  }
+  cli_vars[cli_num_vars++] = (struct cli_var){
+    .word = eightcc(word),
+    .type = CLI_TYPE_UINT64,
+    .value_u64 = value,
+  };
+  return cli_num_vars;
 }
 
 void cli_init() {
-	cli_reset();
-	cli_reset_out();
-	cli_num_vars = 0;
-	
-	cli_add_func("vars\0\0\0\0", cli_list_vars, 2);
-	cli_add_func("set\0\0\0\0\0", cli_set_var_uint64, 2);
+  cli_reset();
+  cli_reset_out();
+  cli_num_vars = 0;
+
+  cli_add_func("vars\0\0\0\0", cli_list_vars, 2);
+  cli_add_func("set\0\0\0\0\0", cli_set_var_uint64, 2);
 }
 
 void cli_eval() {
@@ -226,53 +226,53 @@ void cli_eval() {
 #endif
   for (int i=0; i < cli_num_vars; i++) {
     struct cli_var* var = &cli_vars[i];
-		//printf("[cli_eval] candidate: 0x%llx\n", var->word);
+    //printf("[cli_eval] candidate: 0x%llx\n", var->word);
     if (op == var->word) {
 #ifdef CLI_DEBUG_EVAL
-			printf("[cli_eval] word %d matches var table entry %d, type %d\n", cli_word_idx, i, var->type);
+      printf("[cli_eval] word %d matches var table entry %d, type %d\n", cli_word_idx, i, var->type);
 #endif
-			if (var->type == CLI_TYPE_FUNC && var->func) {
-				// maximum 4 args, all default to 0
-				uint64_t args[4] = { 0, 0, 0, 0 };
-				for (int j = 0; j < num_args && j < 4; j++) {
-					// if an arg is passed, set it
-					args[j] = cli_list[j + 1];
-				}
-				void (*func)(uint64_t, uint64_t, uint64_t, uint64_t) = var->func;
-				func(args[0], args[1], args[2], args[3]);
-				return;
-			}
-			if (var->type == CLI_TYPE_UINT64) {
-				cli_out_uint64(var->value_u64);
-				return;
-			}
-			if (var->type == CLI_TYPE_INT64) {
-				cli_out_int64(var->value_i64);
-				return;
-			}
-			if (var->type == CLI_TYPE_DOUBLE) {
-				cli_out_double(var->value_dbl);
-				return;
-			}
+      if (var->type == CLI_TYPE_FUNC && var->func) {
+        // maximum 4 args, all default to 0
+        uint64_t args[4] = { 0, 0, 0, 0 };
+        for (int j = 0; j < num_args && j < 4; j++) {
+          // if an arg is passed, set it
+          args[j] = cli_list[j + 1];
+        }
+        void (*func)(uint64_t, uint64_t, uint64_t, uint64_t) = var->func;
+        func(args[0], args[1], args[2], args[3]);
+        return;
+      }
+      if (var->type == CLI_TYPE_UINT64) {
+        cli_out_uint64(var->value_u64);
+        return;
+      }
+      if (var->type == CLI_TYPE_INT64) {
+        cli_out_int64(var->value_i64);
+        return;
+      }
+      if (var->type == CLI_TYPE_DOUBLE) {
+        cli_out_double(var->value_dbl);
+        return;
+      }
     }
   }
-	cli_error(CLI_ERR_UNDEFINED);
+  cli_error(CLI_ERR_UNDEFINED);
 }
 
 char *cli_get_out() {
-	return cli_out;
+  return cli_out;
 }
 
 void cli_char(char c)
 {
 #ifdef CLI_DEBUG_STATE
-	printf("[cli_char] state:%d c:'%c' word:%d\n", cli_state, c, cli_word_idx);
-#endif	
+  printf("[cli_char] state:%d c:'%c' word:%d\n", cli_state, c, cli_word_idx);
+#endif
   if (cli_state == CLI_ST_LIST) {
     if (c == ' ') return;
     if (c == ')' || (c == '\n' && cli_paren == 0)) {
-	    cli_eval();
-	    cli_reset();
+      cli_eval();
+      cli_reset();
       return;
     }
     /* start a new word */
@@ -287,15 +287,15 @@ void cli_char(char c)
       return;
     }
     if (c >= '0' && c <= '9') {
-	    if (cli_word_idx == 0) {
-		    /* for backwards compat (old LPC API), the first word can start with a single digit */
-			  cli_state = CLI_ST_WORD;
-				cli_word = (uint64_t)c;
-				cli_word_len = 1;
-		  } else {
-			  cli_state = CLI_ST_NUMBER;
-				cli_word = (uint64_t)(c-'0');
-			}
+      if (cli_word_idx == 0) {
+        /* for backwards compat (old LPC API), the first word can start with a single digit */
+        cli_state = CLI_ST_WORD;
+        cli_word = (uint64_t)c;
+        cli_word_len = 1;
+      } else {
+        cli_state = CLI_ST_NUMBER;
+        cli_word = (uint64_t)(c-'0');
+      }
       return;
     }
     if (c == '(') {
@@ -329,7 +329,7 @@ void cli_char(char c)
       cli_list[cli_word_idx++] = cli_word;
       if (c == ')' || (c == '\n' && cli_paren == 0)) {
         cli_eval();
-				cli_reset();
+        cli_reset();
       }
       return;
     }
@@ -337,14 +337,14 @@ void cli_char(char c)
     return;
   } else if (cli_state == CLI_ST_WORD) {
     if (c == ' ' || c == ')' || c == '\n') {
-	    cli_state = CLI_ST_LIST;
+      cli_state = CLI_ST_LIST;
 #ifdef CLI_DEBUG_STATE
-	    printf("[cli_word] storing word at idx %d\n", cli_word_idx);
+      printf("[cli_word] storing word at idx %d\n", cli_word_idx);
 #endif
       cli_list[cli_word_idx++] = cli_word;
       if (c == ')' || (c == '\n' && cli_paren == 0)) {
         cli_eval();
-				cli_reset();
+        cli_reset();
       }
       return;
     }
@@ -386,7 +386,7 @@ void cli_char(char c)
       cli_list[cli_word_idx++] = cli_word;
       if (c == ')' || (c == '\n' && cli_paren == 0)) {
         cli_eval();
-				cli_reset();
+        cli_reset();
         return;
       }
       return;

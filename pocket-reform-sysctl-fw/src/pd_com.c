@@ -13,66 +13,66 @@
 
 static void print_src_fixed_pdo(int number, uint32_t pdo)
 {
-    unsigned int tmp;
+  unsigned int tmp;
 
-    /* Voltage */
-    unsigned int voltage = PD_PDO_SRC_FIXED_VOLTAGE_GET(pdo);
+  /* Voltage */
+  unsigned int voltage = PD_PDO_SRC_FIXED_VOLTAGE_GET(pdo);
 
-    /* Maximum Current */
-    unsigned int current = PD_PDO_SRC_FIXED_CURRENT_GET(pdo);
+  /* Maximum Current */
+  unsigned int current = PD_PDO_SRC_FIXED_CURRENT_GET(pdo);
 
-    printf("pd_src_fixed_pdo#%d: V=%d.%02d Imax=%d.%02d",
-        number, PD_PDV_V(voltage), PD_PDV_CV(voltage), PD_PDI_A(current), PD_PDI_CA(current));
+  printf("pd_src_fixed_pdo#%d: V=%d.%02d Imax=%d.%02d",
+         number, PD_PDV_V(voltage), PD_PDV_CV(voltage), PD_PDI_A(current), PD_PDI_CA(current));
 
-    /* Peak Current */
-    tmp = (pdo & PD_PDO_SRC_FIXED_PEAK_CURRENT) >> PD_PDO_SRC_FIXED_PEAK_CURRENT_SHIFT;
-    if (tmp)
+  /* Peak Current */
+  tmp = (pdo & PD_PDO_SRC_FIXED_PEAK_CURRENT) >> PD_PDO_SRC_FIXED_PEAK_CURRENT_SHIFT;
+  if (tmp)
     {
-        printf(" peak=%u", tmp);
+      printf(" peak=%u", tmp);
     }
 
-    /* Dual-Role Data */
-    tmp = (pdo & PD_PDO_SRC_FIXED_DUAL_ROLE_DATA) >> PD_PDO_SRC_FIXED_DUAL_ROLE_DATA_SHIFT;
-    if (tmp)
+  /* Dual-Role Data */
+  tmp = (pdo & PD_PDO_SRC_FIXED_DUAL_ROLE_DATA) >> PD_PDO_SRC_FIXED_DUAL_ROLE_DATA_SHIFT;
+  if (tmp)
     {
-        printf(" dual_role_data");
+      printf(" dual_role_data");
     }
 
-    /* Dual-role power */
-    tmp = (pdo & PD_PDO_SRC_FIXED_DUAL_ROLE_PWR) >> PD_PDO_SRC_FIXED_DUAL_ROLE_PWR_SHIFT;
-    if (tmp)
+  /* Dual-role power */
+  tmp = (pdo & PD_PDO_SRC_FIXED_DUAL_ROLE_PWR) >> PD_PDO_SRC_FIXED_DUAL_ROLE_PWR_SHIFT;
+  if (tmp)
     {
-        printf(" dual_role_pwr");
+      printf(" dual_role_pwr");
     }
 
-    /* USB Suspend Supported */
-    tmp = (pdo & PD_PDO_SRC_FIXED_USB_SUSPEND) >> PD_PDO_SRC_FIXED_USB_SUSPEND_SHIFT;
-    if (tmp)
+  /* USB Suspend Supported */
+  tmp = (pdo & PD_PDO_SRC_FIXED_USB_SUSPEND) >> PD_PDO_SRC_FIXED_USB_SUSPEND_SHIFT;
+  if (tmp)
     {
-        printf(" usb_suspend");
+      printf(" usb_suspend");
     }
 
-    /* USB Communications Capable */
-    tmp = (pdo & PD_PDO_SRC_FIXED_USB_COMMS) >> PD_PDO_SRC_FIXED_USB_COMMS_SHIFT;
-    if (tmp)
+  /* USB Communications Capable */
+  tmp = (pdo & PD_PDO_SRC_FIXED_USB_COMMS) >> PD_PDO_SRC_FIXED_USB_COMMS_SHIFT;
+  if (tmp)
     {
-        printf(" usb_comms");
+      printf(" usb_comms");
     }
 
-    /* Unchunked Extended Messages Supported */
-    tmp = (pdo & PD_PDO_SRC_FIXED_UNCHUNKED_EXT_MSG) >> PD_PDO_SRC_FIXED_UNCHUNKED_EXT_MSG_SHIFT;
-    if (tmp)
+  /* Unchunked Extended Messages Supported */
+  tmp = (pdo & PD_PDO_SRC_FIXED_UNCHUNKED_EXT_MSG) >> PD_PDO_SRC_FIXED_UNCHUNKED_EXT_MSG_SHIFT;
+  if (tmp)
     {
-        printf(" unchunked");
+      printf(" unchunked");
     }
 
-    /* Unconstrained Power */
-    tmp = (pdo & PD_PDO_SRC_FIXED_UNCONSTRAINED) >> PD_PDO_SRC_FIXED_UNCONSTRAINED_SHIFT;
-    if (tmp)
+  /* Unconstrained Power */
+  tmp = (pdo & PD_PDO_SRC_FIXED_UNCONSTRAINED) >> PD_PDO_SRC_FIXED_UNCONSTRAINED_SHIFT;
+  if (tmp)
     {
-        printf(" unconstrained");
+      printf(" unconstrained");
     }
-    printf("\n");
+  printf("\n");
 }
 
 unsigned int t = 0;
@@ -105,19 +105,19 @@ unsigned int pd_get_state_for_debug() {
 
 static void pd_set_fusb_switches() {
   uint8_t buf = 0 \
-    | (pd_ccpin == 1 ? FUSB_SWITCHES0_MEAS_CC1 : 0) \
-    | (pd_ccpin == 2 ? FUSB_SWITCHES0_MEAS_CC2 : 0) \
-    | (pd_powerrole == PD_POWERROLE_SINK ? (FUSB_SWITCHES0_PDWN_2|FUSB_SWITCHES0_PDWN_1) : (FUSB_SWITCHES0_PU_EN1|FUSB_SWITCHES0_PU_EN2)) \
+                | (pd_ccpin == 1 ? FUSB_SWITCHES0_MEAS_CC1 : 0) \
+                | (pd_ccpin == 2 ? FUSB_SWITCHES0_MEAS_CC2 : 0) \
+                | (pd_powerrole == PD_POWERROLE_SINK ? (FUSB_SWITCHES0_PDWN_2|FUSB_SWITCHES0_PDWN_1) : (FUSB_SWITCHES0_PU_EN1|FUSB_SWITCHES0_PU_EN2)) \
   ;
   fusb_write_byte(FUSB_SWITCHES0, buf);
 
   // Uses pd_ccpin as TXCC1/TXCC2.
   buf = 0 \
-    | FUSB_SWITCHES1_AUTO_CRC
-    | FUSB_SWITCHES1_SPECREV_REV2_0 \
-    | ((pd_datarole == PD_DATAROLE_DFP) ? FUSB_SWITCHES1_DATAROLE_SRC_DFP : FUSB_SWITCHES1_DATAROLE_SNK_UFP) \
-    | ((pd_powerrole == PD_POWERROLE_SOURCE) ? FUSB_SWITCHES1_POWERROLE : 0) \
-    | pd_ccpin
+        | FUSB_SWITCHES1_AUTO_CRC
+        | FUSB_SWITCHES1_SPECREV_REV2_0 \
+        | ((pd_datarole == PD_DATAROLE_DFP) ? FUSB_SWITCHES1_DATAROLE_SRC_DFP : FUSB_SWITCHES1_DATAROLE_SNK_UFP) \
+        | ((pd_powerrole == PD_POWERROLE_SOURCE) ? FUSB_SWITCHES1_POWERROLE : 0) \
+        | pd_ccpin
   ;
 
   fusb_write_byte(FUSB_SWITCHES1, buf);
@@ -165,11 +165,11 @@ static struct picked_pdo pick_pdo(union pd_msg *msg) {
       //    slightly higher power at 9V than at 20V. but then we still want 20V.
       if (voltage > picked.voltage
           && (
-             picked.voltage < 9
-          || picked.max_power < 10
-          || max_power >= (picked.max_power - 10)
-        )
-      ) {
+              picked.voltage < 9
+              || picked.max_power < 10
+              || max_power >= (picked.max_power - 10)
+              )
+          ) {
         picked.pdo_num = i + 1;
         picked.voltage = voltage;
         picked.max_current = max_current;
@@ -287,33 +287,33 @@ static bool pd_comm_pd(battery_info_s* battery_info) {
       // data messages
       switch (msgtype) {
       case PD_MSGTYPE_D_SOURCE_CAPABILITIES:
-      {
-        struct picked_pdo picked = pick_pdo(&rx_msg);
-        // FIXME: what about headroom for passing power to other USB devices?
-        requested_current = picked.max_current;
-        if (requested_current > 300) {
-          requested_current = 300;
+        {
+          struct picked_pdo picked = pick_pdo(&rx_msg);
+          // FIXME: what about headroom for passing power to other USB devices?
+          requested_current = picked.max_current;
+          if (requested_current > 300) {
+            requested_current = 300;
+          }
+
+          printf("# [pd] requesting PDO %u, %u V (max %u mA) at %u mA\n", picked.pdo_num, picked.voltage, picked.max_current * 10, requested_current * 10);
+
+          tx.hdr = PD_MSGTYPE_D_REQUEST | PD_NUMOBJ(1) | pd_datarole | (pd_powerrole << PD_HDR_POWERROLE_SHIFT) | PD_SPECREV_2_0;
+
+          tx.hdr &= ~PD_HDR_MESSAGEID;
+          tx.hdr |= (tx_id_count % 8) << PD_HDR_MESSAGEID_SHIFT;
+
+          tx.obj[0] = PD_RDO_FV_MAX_CURRENT_SET(requested_current)
+                      | PD_RDO_FV_CURRENT_SET(requested_current)
+                      | PD_RDO_USB_COMMS
+                      | PD_RDO_NO_USB_SUSPEND
+                      | PD_RDO_OBJPOS_SET(picked.pdo_num);
+
+          fusb_send_message(&tx);
+
+          tx_id_count++;
+
+          return true;
         }
-
-        printf("# [pd] requesting PDO %u, %u V (max %u mA) at %u mA\n", picked.pdo_num, picked.voltage, picked.max_current * 10, requested_current * 10);
-
-        tx.hdr = PD_MSGTYPE_D_REQUEST | PD_NUMOBJ(1) | pd_datarole | (pd_powerrole << PD_HDR_POWERROLE_SHIFT) | PD_SPECREV_2_0;
-
-        tx.hdr &= ~PD_HDR_MESSAGEID;
-        tx.hdr |= (tx_id_count % 8) << PD_HDR_MESSAGEID_SHIFT;
-
-        tx.obj[0] = PD_RDO_FV_MAX_CURRENT_SET(requested_current)
-          | PD_RDO_FV_CURRENT_SET(requested_current)
-          | PD_RDO_USB_COMMS
-          | PD_RDO_NO_USB_SUSPEND
-          | PD_RDO_OBJPOS_SET(picked.pdo_num);
-
-        fusb_send_message(&tx);
-
-        tx_id_count++;
-
-        return true;
-      }
 
       case PD_MSGTYPE_D_REQUEST:  // only from sinks
       default:
@@ -341,56 +341,56 @@ static bool pd_comm_pd(battery_info_s* battery_info) {
 
       switch (vsid) {
       case PD_VSID_USBPD:  // USB-PD Standard "Vendor" ID
-      {
-        switch (vdm_header & 0x1F) {
-        case PD_VDM_USBPD_DISCOVER_IDENTITY:
-          printf("# [pd] replying to Discover Identity\n");
-          tx.hdr = PD_MSGTYPE_D_VENDOR_DEFINED | PD_NUMOBJ(4) | pd_datarole | (pd_powerrole << PD_HDR_POWERROLE_SHIFT) | PD_SPECREV_2_0;
-          tx.hdr &= ~PD_HDR_MESSAGEID;
-          tx.hdr |= (tx_id_count % 8) << PD_HDR_MESSAGEID_SHIFT;
+        {
+          switch (vdm_header & 0x1F) {
+          case PD_VDM_USBPD_DISCOVER_IDENTITY:
+            printf("# [pd] replying to Discover Identity\n");
+            tx.hdr = PD_MSGTYPE_D_VENDOR_DEFINED | PD_NUMOBJ(4) | pd_datarole | (pd_powerrole << PD_HDR_POWERROLE_SHIFT) | PD_SPECREV_2_0;
+            tx.hdr &= ~PD_HDR_MESSAGEID;
+            tx.hdr |= (tx_id_count % 8) << PD_HDR_MESSAGEID_SHIFT;
 
-          // VDM Header
-          tx.obj[0] = (PD_VSID_USBPD << PD_VSID__SHIFT) | PD_VDM_HEADER_STRUCTURED | PD_VDM_HEADER_TYPE_ACK | PD_VDM_USBPD_DISCOVER_IDENTITY;
-          // ID VDO: USB Host capable; Product Type (DFP) = 010; Connector Type = 10; plus VID
-          // bit 26: modal operation
-          tx.obj[1] = 0x81400000 | USB_VID_PIDCODES | (1<<26);
-          // Certification stat VDO
-          tx.obj[2] = 0;
-          // Product VDO: v1.0; plus PID
-          tx.obj[3] = 0x01000000 | USB_PID_MNT_POCKET_REFORM_SYSCTL_10;
+            // VDM Header
+            tx.obj[0] = (PD_VSID_USBPD << PD_VSID__SHIFT) | PD_VDM_HEADER_STRUCTURED | PD_VDM_HEADER_TYPE_ACK | PD_VDM_USBPD_DISCOVER_IDENTITY;
+            // ID VDO: USB Host capable; Product Type (DFP) = 010; Connector Type = 10; plus VID
+            // bit 26: modal operation
+            tx.obj[1] = 0x81400000 | USB_VID_PIDCODES | (1<<26);
+            // Certification stat VDO
+            tx.obj[2] = 0;
+            // Product VDO: v1.0; plus PID
+            tx.obj[3] = 0x01000000 | USB_PID_MNT_POCKET_REFORM_SYSCTL_10;
 
-          fusb_send_message(&tx);
-          tx_id_count++;
+            fusb_send_message(&tx);
+            tx_id_count++;
 
-          return true;
-        case PD_VDM_USBPD_DISCOVER_SVIDS:
-          printf("# [pd] replying to Discover SVIDs\n");
+            return true;
+          case PD_VDM_USBPD_DISCOVER_SVIDS:
+            printf("# [pd] replying to Discover SVIDs\n");
 
-          // only one VDO
-          tx.hdr = PD_MSGTYPE_D_VENDOR_DEFINED | PD_NUMOBJ(2) | pd_datarole | (pd_powerrole << PD_HDR_POWERROLE_SHIFT) | PD_SPECREV_2_0;
-          tx.hdr &= ~PD_HDR_MESSAGEID;
-          tx.hdr |= (tx_id_count % 8) << PD_HDR_MESSAGEID_SHIFT;
+            // only one VDO
+            tx.hdr = PD_MSGTYPE_D_VENDOR_DEFINED | PD_NUMOBJ(2) | pd_datarole | (pd_powerrole << PD_HDR_POWERROLE_SHIFT) | PD_SPECREV_2_0;
+            tx.hdr &= ~PD_HDR_MESSAGEID;
+            tx.hdr |= (tx_id_count % 8) << PD_HDR_MESSAGEID_SHIFT;
 
-          // VDM Header
-          tx.obj[0] = (PD_VSID_USBPD << PD_VSID__SHIFT) | PD_VDM_HEADER_STRUCTURED | PD_VDM_HEADER_TYPE_ACK | PD_VDM_USBPD_DISCOVER_SVIDS;
-          // ID VDO: USB Host capable; Product Type (DFP) = 010; Connector Type = 10; plus VID
+            // VDM Header
+            tx.obj[0] = (PD_VSID_USBPD << PD_VSID__SHIFT) | PD_VDM_HEADER_STRUCTURED | PD_VDM_HEADER_TYPE_ACK | PD_VDM_USBPD_DISCOVER_SVIDS;
+            // ID VDO: USB Host capable; Product Type (DFP) = 010; Connector Type = 10; plus VID
 
-          // VDM
-          // for enter/exit:
-          // 001 – 110 = Index into the list of Vendor Defined Objects (VDOs) to identify the desired Mode VDO.
-          tx.obj[1] = 0xff01;
-          tx.obj[2] = 0;
-          tx.obj[3] = 0;
+            // VDM
+            // for enter/exit:
+            // 001 – 110 = Index into the list of Vendor Defined Objects (VDOs) to identify the desired Mode VDO.
+            tx.obj[1] = 0xff01;
+            tx.obj[2] = 0;
+            tx.obj[3] = 0;
 
-          fusb_send_message(&tx);
-          tx_id_count++;
-          return true;
-        default:
-          printf("# [pd] [vdm] rejecting unknown vdm_header 0x%lx\n", vdm_header & 0x1F);
-          pd_send_not_supported();
-          return false;
+            fusb_send_message(&tx);
+            tx_id_count++;
+            return true;
+          default:
+            printf("# [pd] [vdm] rejecting unknown vdm_header 0x%lx\n", vdm_header & 0x1F);
+            pd_send_not_supported();
+            return false;
+          }
         }
-      }
       case 0xff01: { // DisplayPort
         switch (vdm_header & 0x1F) {
         case PD_VDM_USBPD_DISCOVER_MODES:
@@ -751,7 +751,7 @@ bool pd_tick(battery_info_s* battery_info) {
     }
 
 #ifdef FACTORY_MODE
-    #pragma message "[mode] FACTORY MODE compiled in!"
+#pragma message "[mode] FACTORY MODE compiled in!"
     // in factory mode, turn on power immediately to be able to flash
     // the keyboard
     if (factory_turn_on_once) {
@@ -800,7 +800,7 @@ bool pd_tick(battery_info_s* battery_info) {
     pd_state = PD_STATE_SETUP;
   }
 
-out:
+ out:
   bool can_sleep = t > 0;
   t++;
 

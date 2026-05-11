@@ -5,7 +5,7 @@
 
   fusb_read/write functions based on:
   https://git.clarahobbs.com/pd-buddy/pd-buddy-firmware/src/branch/master/lib/src/fusb302b.c
-*/
+ */
 #include <math.h>
 #include "sysctl.h"
 #include "pico/divider.h"
@@ -30,20 +30,17 @@ static struct repeating_timer spi_timer;
 // A _real_ power-on reset clears these registers, so if our magic is left over
 // then we have either been updated while the system is on, or have run into an
 // event with probability 2**-64.
-bool syscon_warm_boot()
-{
+bool syscon_warm_boot() {
   return (watchdog_hw->scratch[2] == BOOT_MAGIC_2 &&
           watchdog_hw->scratch[3] == BOOT_MAGIC_3);
 }
 
-void set_boot_magic()
-{
+void set_boot_magic() {
   watchdog_hw->scratch[2] = BOOT_MAGIC_2;
   watchdog_hw->scratch[3] = BOOT_MAGIC_3;
 }
 
-void clear_boot_magic()
-{
+void clear_boot_magic() {
   watchdog_hw->scratch[2] = BOOT_MAGIC_OFF;
   watchdog_hw->scratch[3] = BOOT_MAGIC_OFF;
 }
@@ -59,30 +56,27 @@ void clear_boot_magic()
  *
  *  @return 1: Success; <0: Error
  */
-int32_t pwm_set_freq_duty(uint32_t slice_num, uint32_t chan, uint32_t freq, int duty_cycle)
-{
+int32_t pwm_set_freq_duty(uint32_t slice_num, uint32_t chan, uint32_t freq, int duty_cycle) {
   uint8_t clk_divider = 0;
   uint32_t wrap = 0;
   uint32_t clock = clock_get_hz(clk_sys);
 
-  if (freq < 8 || freq > clock)
+  if (freq < 8 || freq > clock) {
     /* This is the frequency range of generating a PWM
        in RP2040 at 125MHz */
     return -1;
+  }
 
-  for (clk_divider = 1; clk_divider < UINT8_MAX; clk_divider++)
-  {
+  for (clk_divider = 1; clk_divider < UINT8_MAX; clk_divider++) {
     /* Find clock_division to fit current frequency */
     uint32_t clock_div = div_u32u32(clock, clk_divider);
     wrap = div_u32u32(clock_div, freq);
-    if (div_u32u32(clock_div, UINT16_MAX) <= freq && wrap <= UINT16_MAX)
-    {
+    if (div_u32u32(clock_div, UINT16_MAX) <= freq && wrap <= UINT16_MAX) {
       break;
     }
   }
 
-  if (clk_divider < UINT8_MAX)
-  {
+  if (clk_divider < UINT8_MAX) {
     /* Only considering whole number division */
     pwm_set_clkdiv_int_frac(slice_num, clk_divider, 0);
     pwm_set_enabled(slice_num, true);
@@ -90,8 +84,9 @@ int32_t pwm_set_freq_duty(uint32_t slice_num, uint32_t chan, uint32_t freq, int 
     pwm_set_chan_level(slice_num, chan,
                        (uint16_t)div_u32u32((((uint16_t)(duty_cycle == 100 ? (wrap + 1) : wrap)) * duty_cycle), 100));
   }
-  else
+  else {
     return -2;
+  }
 
   return 1;
 }
@@ -99,8 +94,7 @@ int32_t pwm_set_freq_duty(uint32_t slice_num, uint32_t chan, uint32_t freq, int 
 // this functionality is only for the second type of display for Pocket Reform
 // that will ship in late 2024 (TOP070F01A)
 // called from timer interrupt, no sleep allowed here!
-void set_display_backlight(int percent)
-{
+void set_display_backlight(int percent) {
   // DISP_EN = 7 = PWM3 B
   gpio_set_function(PIN_DISP_EN, GPIO_FUNC_PWM);
   pwm_set_freq_duty(pwm_gpio_to_slice_num(PIN_DISP_EN), pwm_gpio_to_channel(PIN_DISP_EN), 100000, percent);
@@ -126,8 +120,7 @@ static void derive_emergency_charge_necessary(void) {
   }
 }
 
-void charger_init()
-{
+void charger_init() {
   // TODO: check all MP2650 registers, esp. 4, 7, b
   mps_fault_last = 0;
 
@@ -227,12 +220,10 @@ void charger_disable_charge() {
   gpio_put(PIN_LED_R, 0);
 }
 
-void gauge_tick(battery_info_s *battery_info)
-{
+void gauge_tick(battery_info_s *battery_info) {
   // read devname to identify if communication works
   uint16_t max17320_devname = max_read_word(0x21);
-  if (max17320_devname == 0x4209 || max17320_devname == 0x420a || max17320_devname == 0x420b)
-  {
+  if (max17320_devname == 0x4209 || max17320_devname == 0x420a || max17320_devname == 0x420b) {
     battery_info->max17320_devname = max17320_devname;
   } else {
     printf("# [battery] [ERROR] gauge did not respond\n");
@@ -294,22 +285,20 @@ void gauge_tick(battery_info_s *battery_info)
   float rep_time_to_empty = max_word_to_time(max_read_word(0x11));
   float rep_time_to_full = max_word_to_time(max_read_word(0x20));
 
-	battery_info->battery_amps = -current/1000.0;
+  battery_info->battery_amps = -current/1000.0;
   battery_info->battery_volts = vpack/1000.0;
-	battery_info->gauge_avg_milliamps = avg_current;
+  battery_info->gauge_avg_milliamps = avg_current;
 
   battery_info->charge_percentage = (int)rep_percentage;
   // charger mostly doesn't charge to >98%
-  if (battery_info->charge_percentage >= 98)
-  {
+  if (battery_info->charge_percentage >= 98) {
     battery_info->charge_percentage = 100;
   }
   battery_info->cell1_volts = cell1;
   battery_info->cell2_volts = cell2;
   battery_info->time_to_empty = rep_time_to_empty;
 
-  if (battery_info->print_pack_info)
-  {
+  if (battery_info->print_pack_info) {
     printf("[pack_info]\n");
     printf("comm_stat = 0x%04x\n", comm_stat);
     printf("packcfg = 0x%04x\n", packcfg);
@@ -328,64 +317,49 @@ void gauge_tick(battery_info_s *battery_info)
     printf("prot_status = 0x%04x\n", prot_status);
 
     printf("prot_status_meaning = \"");
-    if (prot_status & (1 << 14))
-    {
+    if (prot_status & (1 << 14)) {
       printf("too hot, ");
     }
-    if (prot_status & (1 << 13))
-    {
+    if (prot_status & (1 << 13)) {
       printf("full, ");
     }
-    if (prot_status & (1 << 12))
-    {
+    if (prot_status & (1 << 12)) {
       printf("too cold for charge, ");
     }
-    if (prot_status & (1 << 11))
-    {
+    if (prot_status & (1 << 11)) {
       printf("overvoltage, ");
     }
-    if (prot_status & (1 << 10))
-    {
+    if (prot_status & (1 << 10)) {
       printf("overcharge current, ");
     }
-    if (prot_status & (1 << 9))
-    {
+    if (prot_status & (1 << 9)) {
       printf("qoverflow, ");
     }
-    if (prot_status & (1 << 8))
-    {
+    if (prot_status & (1 << 8)) {
       printf("prequal timeout, ");
     }
-    if (prot_status & (1 << 7))
-    {
+    if (prot_status & (1 << 7)) {
       printf("imbalance, ");
     }
-    if (prot_status & (1 << 6))
-    {
+    if (prot_status & (1 << 6)) {
       printf("perm fail, ");
     }
-    if (prot_status & (1 << 5))
-    {
+    if (prot_status & (1 << 5)) {
       printf("die hot, ");
     }
-    if (prot_status & (1 << 4))
-    {
+    if (prot_status & (1 << 4)) {
       printf("too hot for discharge, ");
     }
-    if (prot_status & (1 << 3))
-    {
+    if (prot_status & (1 << 3)) {
       printf("undervoltage, ");
     }
-    if (prot_status & (1 << 2))
-    {
+    if (prot_status & (1 << 2)) {
       printf("overdischarge current, ");
     }
-    if (prot_status & (1 << 1))
-    {
+    if (prot_status & (1 << 1)) {
       printf("resdfault, ");
     }
-    if (prot_status & (1 << 0))
-    {
+    if (prot_status & (1 << 0)) {
       printf("ship, ");
     }
     printf("\"\n");
@@ -406,8 +380,7 @@ void gauge_tick(battery_info_s *battery_info)
     printf("rep_time_to_full_sec = %f\n", rep_time_to_full);
   }
 
-  if (status & 0x0002)
-  {
+  if (status & 0x0002) {
     printf("# POR, clearing status\n");
     max_write_word(0x61, 0x0000);
     max_write_word(0x61, 0x0000);
@@ -419,8 +392,7 @@ void gauge_init() {
   gauge_tick(&battery_info);
 }
 
-void charger_dump(battery_info_s *battery_info)
-{
+void charger_dump(battery_info_s *battery_info) {
   // TODO: if max reports overvoltage (disbalanced cells),
   // can we lower the charging voltage temporarily?
   // alternatively, the current
@@ -508,7 +480,7 @@ void charger_led_indication(battery_info_s *battery_info) {
     pwm_set_chan_level(PIN_LED_R_PWM_SLICE, PIN_LED_R_PWM_CHAN, pwm_level);
     phase += 0.02f;
     if (phase > 2.0f * M_PI) {
-        phase = 0.0f;
+      phase = 0.0f;
     }
   } else {
     phase = 0.0f;
@@ -529,8 +501,7 @@ void som_power_indication() {
   pwm_set_freq_duty(PIN_LED_B_PWM_SLICE, PIN_LED_B_PWM_CHAN, 25000, battery_info.som_is_powered ? 30 : 0);
 }
 
-void turn_som_power_on_v20()
-{
+void turn_som_power_on_v20() {
   printf("# [action] turn_som_power_on_v20\n");
 
   set_boot_magic();
@@ -572,8 +543,7 @@ void turn_som_power_on_v20()
   init_spi_client();
 }
 
-void turn_som_power_off_v20()
-{
+void turn_som_power_off_v20() {
   printf("# [action] turn_som_power_off\n");
   battery_info.som_is_powered = false;
 
@@ -606,8 +576,7 @@ void turn_som_power_off_v20()
   som_power_indication();
 }
 
-void turn_som_power_on()
-{
+void turn_som_power_on() {
   printf("# [action] turn_som_power_on\n");
 
   // TODO: FIXME: define for mb version, or detect it
@@ -656,9 +625,8 @@ void turn_som_power_on()
   in the spi command handler, no sleep is allowed here.
   if delays should become necessary, they have to be
   busy loops.
-*/
-void turn_som_power_off()
-{
+ */
+void turn_som_power_off() {
   printf("# [action] turn_som_power_off\n");
 
   // TODO: FIXME: define for mb version, or detect it
@@ -693,8 +661,7 @@ void turn_som_power_off()
   som_power_indication();
 }
 
-void som_wake()
-{
+void som_wake() {
   gpio_put(PIN_SOM_WAKE, 1);
   busy_wait_us(5*1000);
   gpio_put(PIN_SOM_WAKE, 0);
@@ -765,8 +732,7 @@ void enter_powersave(void) {
   }
 }
 
-void setup_gpios()
-{
+void setup_gpios() {
   // UART to keyboard
   uart_init(UART_ID, BAUD_RATE);
   uart_set_format(UART_ID, DATA_BITS, STOP_BITS, PARITY);
@@ -872,7 +838,7 @@ void setup() {
   // reset if main loop is stuck for 10000ms
   watchdog_enable(10000, 1);
   init_spi_client();
-  
+
   tusb_init();
   reform_stdio_usb_init();
 
@@ -890,15 +856,12 @@ void setup() {
 
   // if this is a warm boot, then we need to avoid latching the PWR and display
   // pins.
-  if (syscon_warm_boot())
-  {
+  if (syscon_warm_boot()) {
     // on by default after reboot
     printf("# [reset] watchdog scratch had valid on magic, restoring power.\n");
     battery_info.som_is_powered = true;
     turn_som_power_on();
-  }
-  else
-  {
+  } else {
     // off by default
     turn_som_power_off();
   }
@@ -907,20 +870,19 @@ void setup() {
   pd_init();
 }
 
-void handle_usb_commands()
-{
+void handle_usb_commands() {
   int usb_c = getchar_timeout_us(0);
   if (usb_c != PICO_ERROR_TIMEOUT && isprint(usb_c))
-  {
-    //printf("# [acm_command] '%c'\n", usb_c);
-    cli_char(usb_c);
-    int resp_len = cli_get_out_pos();
-    char *cli_out_buf = cli_get_out();
-    if (resp_len > 0) {
-	    printf("%s\n", cli_out_buf);
-	    cli_reset_out();
-	  }
-  }
+    {
+      //printf("# [acm_command] '%c'\n", usb_c);
+      cli_char(usb_c);
+      int resp_len = cli_get_out_pos();
+      char *cli_out_buf = cli_get_out();
+      if (resp_len > 0) {
+        printf("%s\n", cli_out_buf);
+        cli_reset_out();
+      }
+    }
 }
 
 void usb_host_5v_enable() {
@@ -943,8 +905,7 @@ void usb_host_5v_disable() {
 
 #define TICK_MS 1
 
-void loop()
-{
+void loop() {
   bool can_sleep = true;
 
   watchdog_update();
@@ -964,16 +925,14 @@ void loop()
   battery_info.ticks++;
 
   // every 100ms: query gauge, update battery status
-  if (battery_info.ticks % (100*TICK_MS) == 0)
-  {
+  if (battery_info.ticks % (100*TICK_MS) == 0) {
     gauge_tick(&battery_info);
   }
   charger_dump(&battery_info);
   charger_led_indication(&battery_info);
 
   // every 1000ms: report to serial
-  if (battery_info.ticks % (1000*TICK_MS) == 0)
-  {
+  if (battery_info.ticks % (1000*TICK_MS) == 0) {
     // TODO: print adc_charge_c adc_discharge_c
     printf("# %s %s %s chg=%1x mps_flt=%02x/%02x input=%0.2fmV@%0.2fmA charge=%0.2fmA discharge=%0.2fmA p=%0.2fW ttempty=%umin battery=%0.4fV@%0.4fmA battery_avg=%0.4fmA battery_pwr=%0.4fmW\n",
            battery_info.som_is_powered ? "ON" : "OFF",
@@ -1031,8 +990,7 @@ bool spi_commands_task(__unused struct repeating_timer *t) {
   return true;
 }
 
-int main()
-{
+int main() {
   // TODO: saves a bit of power, but causes ROSC dormant trouble
   //set_sys_clock_48mhz();
   setup_gpios();
@@ -1043,15 +1001,14 @@ int main()
   hwapi_pocket_init(&battery_info);
 
   // by default, present sysctl usb to SoC USB internally
-	hwapi_set_usb_mode(1, 1);
+  hwapi_set_usb_mode(1, 1);
 
   // call SPI task every 5 ms to ensure response time
   add_repeating_timer_ms(-5, spi_commands_task, NULL, &spi_timer);
 
   printf("# [pocket_sysctl] entering main loop\n");
 
-  while (true)
-  {
+  while (true) {
     loop();
   }
 

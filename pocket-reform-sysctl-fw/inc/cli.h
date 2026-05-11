@@ -24,7 +24,7 @@
   - paren counter
   - if newline and paren counter = 0 -> eval
 
-*/
+ */
 
 #define fourcc(str) ((uint64_t)(str[0]) | ((uint64_t)(str[1]) << 8) | ((uint64_t)(str[2]) << 16) | ((uint64_t)(str[3]) << 24))
 
@@ -53,12 +53,12 @@
 #define CLI_TYPE_FUNC 5
 
 struct cli_var {
-	uint64_t word;
-	uint64_t value_u64;
-	int64_t value_i64;
-	double value_dbl;
-	void *func;
-	uint8_t type;
+  uint64_t word;
+  uint64_t value_u64;
+  int64_t value_i64;
+  double value_dbl;
+  void *func;
+  uint8_t type;
   uint8_t num_args;
 };
 

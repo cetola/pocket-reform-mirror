@@ -21,22 +21,19 @@
 
 #include <pd.h>
 
-bool fusb_read_buf(uint8_t addr, uint8_t size, uint8_t *buf)
-{
+bool fusb_read_buf(uint8_t addr, uint8_t size, uint8_t *buf) {
   if (1 != i2c_write_timeout_us(i2c0, FUSB_ADDR, &addr, 1, true, I2C_TIMEOUT)) {
     return false;
   }
   return size == i2c_read_timeout_us(i2c0, FUSB_ADDR, buf, size, false, I2C_TIMEOUT);
 }
 
-bool fusb_write_byte(uint8_t addr, uint8_t byte)
-{
+bool fusb_write_byte(uint8_t addr, uint8_t byte) {
   uint8_t buf[2] = {addr, byte};
   return 2 == i2c_write_timeout_us(i2c0, FUSB_ADDR, buf, 2, false, I2C_TIMEOUT);
 }
 
-bool fusb_write_buf(uint8_t addr, uint8_t size, const uint8_t *buf)
-{
+bool fusb_write_buf(uint8_t addr, uint8_t size, const uint8_t *buf) {
   uint8_t txbuf[size + 1];
   txbuf[0] = addr;
   for (int i = 0; i < size; i++) {
@@ -45,8 +42,7 @@ bool fusb_write_buf(uint8_t addr, uint8_t size, const uint8_t *buf)
   return size + 1 == i2c_write_timeout_us(i2c0, FUSB_ADDR, txbuf, size + 1, false, I2C_TIMEOUT);
 }
 
-bool fusb_send_message(const union pd_msg *msg)
-{
+bool fusb_send_message(const union pd_msg *msg) {
   /* Token sequences for the FUSB302B */
   static uint8_t sop_seq[5] = {
     FUSB_FIFO_TX_SOP1,
@@ -81,8 +77,7 @@ bool fusb_send_message(const union pd_msg *msg)
   return fusb_write_buf(FUSB_FIFOS, 4, eop_seq);
 }
 
-bool fusb_read_message(union pd_msg *msg)
-{
+bool fusb_read_message(union pd_msg *msg) {
   uint8_t rxb[4] = {0};
 
   /* If this isn't an SOP message, return error.
@@ -108,7 +103,7 @@ bool fusb_read_message(union pd_msg *msg)
   uint8_t numobj = PD_NUMOBJ_GET(msg);
   /* If there is at least one data object, read the data objects */
   printf("# [fusb] rxb 0x%02x msgtype 0x%02x msgid %d role %s numobj %d size %d\n",
-          rxb[0], PD_MSGTYPE_GET(msg), PD_MESSAGEID_GET(msg), PD_POWERROLE_STR(msg), numobj, numobj * 4);
+         rxb[0], PD_MSGTYPE_GET(msg), PD_MESSAGEID_GET(msg), PD_POWERROLE_STR(msg), numobj, numobj * 4);
   if (numobj > 0) {
     if (!fusb_read_buf(FUSB_FIFOS, numobj * 4, msg->bytes + 2)) {
       return false;

@@ -7,8 +7,7 @@
 #include "spi_com.h"
 #include "cli.h"
 
-void init_spi_client()
-{
+void init_spi_client() {
   gpio_set_function(PIN_SOM_MOSI, GPIO_FUNC_SPI);
   gpio_set_function(PIN_SOM_MISO, GPIO_FUNC_SPI);
   gpio_set_function(PIN_SOM_SS0, GPIO_FUNC_SPI);
@@ -23,8 +22,7 @@ void init_spi_client()
   printf("# [spi] init_spi_client done\n");
 }
 
-static uint8_t lpc_calc_checksum(uint8_t *buffer, int len)
-{
+static uint8_t lpc_calc_checksum(uint8_t *buffer, int len) {
   uint8_t sum = 0;
   for (int i=0; i<len-1; i++) {
     sum = sum ^ buffer[i];
@@ -38,9 +36,8 @@ static uint8_t lpc_calc_checksum(uint8_t *buffer, int len)
 /* note that this runs in a timer interrupt:
    - no sleep_ms() calls
    - don't run longer than 4ms
-*/
-void handle_spi_commands(battery_info_s *battery_info)
-{
+ */
+void handle_spi_commands(battery_info_s *battery_info) {
   if (!battery_info->som_is_powered) return;
 
   while (spi_is_readable(spi1)) {
@@ -50,11 +47,11 @@ void handle_spi_commands(battery_info_s *battery_info)
     char *cli_out_buf = cli_get_out();
 
     if (resp_len > 0) {
-	    for (int i=0; i<resp_len; i++) {
-		    spi_get_hw(spi1)->dr = cli_out_buf[i];
-	    }
-		  spi_get_hw(spi1)->dr = lpc_calc_checksum((uint8_t*)cli_out_buf, resp_len);
-	    cli_reset_out();
+      for (int i=0; i<resp_len; i++) {
+        spi_get_hw(spi1)->dr = cli_out_buf[i];
+      }
+      spi_get_hw(spi1)->dr = lpc_calc_checksum((uint8_t*)cli_out_buf, resp_len);
+      cli_reset_out();
     }
   }
 
@@ -65,7 +62,7 @@ void handle_spi_commands(battery_info_s *battery_info)
     // this is a workaround for confusion with
     // software spi from BPI-CM4 where we get
     // bit-shifted bytes
-    init_spi_client();
-    return;
-  */
+       init_spi_client();
+       return;
+   */
 }

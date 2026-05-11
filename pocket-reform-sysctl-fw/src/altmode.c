@@ -13,21 +13,21 @@ int tmuxhs4446_read(uint8_t* buf) {
 }
 
 bool altmode_enable_dp(int flipped) {
-	uint8_t conf2 = 1;
-	uint8_t conf1 = 1;
-	uint8_t conf0 = flipped?1:0;
+  uint8_t conf2 = 1;
+  uint8_t conf1 = 1;
+  uint8_t conf0 = flipped?1:0;
 
-	printf("# [altmode] enable_dp, flipped: %d\n", flipped);
-	bool res = tmuxhs4446_write((conf2<<2)|(conf1<<1)|conf0);
-	printf("# [altmode] enable_dp, result: %d\n", res);
+  printf("# [altmode] enable_dp, flipped: %d\n", flipped);
+  bool res = tmuxhs4446_write((conf2<<2)|(conf1<<1)|conf0);
+  printf("# [altmode] enable_dp, result: %d\n", res);
 
-	return res;
+  return res;
 }
 
 bool altmode_set(uint8_t conf) {
-	printf("# [altmode] altmode_set, conf: %d\n", conf);
-	bool res = tmuxhs4446_write(conf);
-	printf("# [altmode] altmode_set, result: %d\n", res);
+  printf("# [altmode] altmode_set, conf: %d\n", conf);
+  bool res = tmuxhs4446_write(conf);
+  printf("# [altmode] altmode_set, result: %d\n", res);
 
-	return res;
+  return res;
 }

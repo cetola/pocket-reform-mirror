@@ -99,26 +99,26 @@
 
 typedef struct battery_info_s
 {
-    bool som_is_powered;
+  bool som_is_powered;
 
-    // reported by charger
-    float battery_volts;
-    float battery_amps;
-    float input_volts;
+  // reported by charger
+  float battery_volts;
+  float battery_amps;
+  float input_volts;
 
-    // reported by balancer
-    float cell1_volts;
-    float cell2_volts;
-    int charge_percentage;
-    float time_to_empty;
-    float gauge_avg_milliamps;
-    float gauge_vpack;
+  // reported by balancer
+  float cell1_volts;
+  float cell2_volts;
+  int charge_percentage;
+  float time_to_empty;
+  float gauge_avg_milliamps;
+  float gauge_vpack;
 
-    // metadata
-    bool emergency_charge_necessary;
-    bool print_pack_info;
-    uint16_t max17320_devname;
-    uint16_t ticks;
+  // metadata
+  bool emergency_charge_necessary;
+  bool print_pack_info;
+  uint16_t max17320_devname;
+  uint16_t ticks;
 } battery_info_s;
 
 #include "fusb302b.h"

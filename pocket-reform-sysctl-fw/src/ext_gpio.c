@@ -23,9 +23,9 @@ bool gpio_ext_uswitch_setup() {
     IO2: USWITCH_3
     IO1: USWITCH_2
     IO0: USWITCH_1
-  */
+   */
 
-	// default: all USWITCHes connect D to D2
+  // default: all USWITCHes connect D to D2
   gpio_ext_uswitch_state = 0b1111;
 
   // config: all outputs
@@ -45,15 +45,15 @@ bool gpio_ext_uswitch_disable(uint8_t bit) {
 }
 
 bool gpio_ext_setup() {
-	/*
-		7: USWITCH_OFF
-		6: PCIE_PWR_EN
-		5: DISP_BL_PWR_EN
-		4: ~DISP_RESET
-		3: HUB_PWR_EN
-		2: 3V3_ENABLE
-		1: 5V_ENABLE
-		0: DISP_1EN_2BL (open drain?)
+  /*
+    7: USWITCH_OFF
+    6: PCIE_PWR_EN
+    5: DISP_BL_PWR_EN
+    4: ~DISP_RESET
+    3: HUB_PWR_EN
+    2: 3V3_ENABLE
+    1: 5V_ENABLE
+    0: DISP_1EN_2BL (open drain?)
    */
 
   gpio_ext_state = 0b00000000;
