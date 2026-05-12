@@ -90,9 +90,9 @@ char* hwapi_legacy_kbd_c() {
 uint64_t hwapi_set_backlight([[maybe_unused]] struct cli_context* ctx, uint64_t brightness) {
   // only for display v2
   // 80% is a limit of the hardware (above, the backlight can flicker)
-  if (brightness > 80)
-    brightness = 80;
+  if (brightness > 80) brightness = 80;
   set_display_backlight(brightness);
+  cli_add_word("blgt\0\0\0\0", brightness);
   return brightness;
 }
 
@@ -100,8 +100,10 @@ uint64_t hwapi_set_rail([[maybe_unused]] struct cli_context* ctx, uint64_t rail,
   if (rail == 0) {
     if (state == 0) {
       turn_som_power_off();
+      cli_add_word("rail-0\0\0", 0);
     } else {
       turn_som_power_on();
+      cli_add_word("rail-0\0\0", 1);
     }
   }
   return state;
@@ -112,12 +114,7 @@ uint64_t hwapi_set_gpio([[maybe_unused]] struct cli_context* ctx, uint64_t id, u
   case 0:
     // 0: Display Panel Reset (active low)
     gpio_put(PIN_DISP_RESET, high);
-    break;
-  case 1:
-    gpio_put(PIN_3V3_ENABLE, high);
-    break;
-  case 2:
-    gpio_put(PIN_1V1_ENABLE, high);
+    cli_add_word("gpio-0\0\0", high);
     break;
   }
   return high;
@@ -132,51 +129,57 @@ uint64_t hwapi_set_usb_mode([[maybe_unused]] struct cli_context* ctx, uint64_t p
       gpio_ext_uswitch_enable(0);
       gpio_ext_uswitch_enable(1);
       gpio_ext_uswitch_enable(2);
+      cli_add_word("usbmux-1", 0);
       break;
     case 1:
       // usb2: host, sysctl internal
       gpio_ext_uswitch_disable(0);
       gpio_ext_uswitch_disable(1);
       gpio_ext_uswitch_disable(2);
+      cli_add_word("usbmux-1", 1);
       break;
     case 2:
       // usb2: EDL external
       gpio_ext_uswitch_enable(0);
       gpio_ext_uswitch_disable(1);
       gpio_ext_uswitch_enable(2);
+      cli_add_word("usbmux-1", 2);
       break;
     }
   }
   if (port == 0) {
     switch (mode) {
     case 0:
-      // usb1: host
-      gpio_ext_uswitch_enable(3);
-      break;
-    case 1:
       // usb1: SoC UART
       gpio_ext_uswitch_disable(3);
+      cli_add_word("usbmux-0", 0);
+      break;
+    case 1:
+      // usb1: host
+      gpio_ext_uswitch_enable(3);
+      cli_add_word("usbmux-0", 1);
       break;
     }
   }
   return mode;
 }
 
-double hwapi_get_cell_volts([[maybe_unused]] struct cli_context* ctx, uint64_t cell_id) {
-  if (cell_id == 2) return battery_info->cell1_volts;
+uint64_t hwapi_get_cell_mv([[maybe_unused]] struct cli_context* ctx, uint64_t cell_id) {
+  if (cell_id == 1) return battery_info->cell1_volts;
+  // TODO misnomer, actually mV
   return battery_info->cell1_volts;
 }
 
-double hwapi_get_pack_volts([[maybe_unused]] struct cli_context* ctx /*uint64_t pack_id*/) {
+uint64_t hwapi_get_pack_mv([[maybe_unused]] struct cli_context* ctx /*uint64_t pack_id*/) {
   // TODO what about pack_volts?
-  return battery_info->battery_volts;
+  return battery_info->battery_volts * 1000;
 }
 
-double hwapi_get_pack_amps([[maybe_unused]] struct cli_context* ctx /*uint64_t pack_id*/) {
-  return battery_info->battery_amps;
+uint64_t hwapi_get_pack_ma([[maybe_unused]] struct cli_context* ctx /*uint64_t pack_id*/) {
+  return battery_info->battery_amps * 1000;
 }
 
-double hwapi_get_pack_charge([[maybe_unused]] struct cli_context* ctx /*uint64_t pack_id*/) {
+uint64_t hwapi_get_pack_charge([[maybe_unused]] struct cli_context* ctx /*uint64_t pack_id*/) {
   return battery_info->charge_percentage;
 }
 
@@ -185,12 +188,12 @@ uint64_t hwapi_get_pack_capacity_full([[maybe_unused]] struct cli_context* ctx /
   return 0;
 }
 
-double hwapi_get_sys_volts([[maybe_unused]] struct cli_context* ctx /*uint64_t pack_id*/) {
+uint64_t hwapi_get_sys_mv([[maybe_unused]] struct cli_context* ctx /*uint64_t pack_id*/) {
   // TODO
   return battery_info->input_volts;
 }
 
-double hwapi_get_sys_amps([[maybe_unused]] struct cli_context* ctx /*uint64_t pack_id*/) {
+uint64_t hwapi_get_sys_ma([[maybe_unused]] struct cli_context* ctx /*uint64_t pack_id*/) {
   // TODO
   // also: input amps?
   return 0;
@@ -206,13 +209,13 @@ void hwapi_pocket_init(battery_info_s *binfo) {
   cli_add_func("set-gpio", hwapi_set_gpio, 2, CLI_TYPE_UINT64);
   cli_add_func("set-usb\0", hwapi_set_usb_mode, 1, CLI_TYPE_UINT64);
   cli_add_func("set-blgt", hwapi_set_backlight, 1, CLI_TYPE_UINT64);
-  cli_add_func("cell-vlt", hwapi_get_cell_volts, 1, CLI_TYPE_DOUBLE);
-  cli_add_func("pack-vlt", hwapi_get_pack_volts, 1, CLI_TYPE_DOUBLE);
-  cli_add_func("pack-amp", hwapi_get_pack_amps, 1, CLI_TYPE_DOUBLE);
-  cli_add_func("pack-cap", hwapi_get_pack_charge, 1, CLI_TYPE_DOUBLE);
+  cli_add_func("cell-mv\0", hwapi_get_cell_mv, 1, CLI_TYPE_UINT64);
+  cli_add_func("pack-mv\0", hwapi_get_pack_mv, 1, CLI_TYPE_UINT64);
+  cli_add_func("pack-ma\0", hwapi_get_pack_ma, 1, CLI_TYPE_UINT64);
+  cli_add_func("pack-crg", hwapi_get_pack_charge, 1, CLI_TYPE_UINT64);
   cli_add_func("pack-max", hwapi_get_pack_capacity_full, 1, CLI_TYPE_UINT64);
-  cli_add_func("sys-vlt\0", hwapi_get_sys_volts, 0, CLI_TYPE_DOUBLE);
-  cli_add_func("sys-amp\0", hwapi_get_sys_amps, 0, CLI_TYPE_DOUBLE);
+  cli_add_func("sys-mv\0\0", hwapi_get_sys_mv, 0, CLI_TYPE_UINT64);
+  cli_add_func("sys-ma\0\0", hwapi_get_sys_ma, 0, CLI_TYPE_UINT64);
 
   // TODO: DP/altmode_set configs
   // altmode_set(0b110);
@@ -236,8 +239,8 @@ void hwapi_pocket_init(battery_info_s *binfo) {
   cli_add_word("cell-cnt", 2);
 
   /* legacy API commands */
-  cli_add_func("0p\0\0\0\0\0\0", turn_som_power_off, 0, CLI_TYPE_UINT64);
-  cli_add_func("1p\0\0\0\0\0\0", turn_som_power_on, 0, CLI_TYPE_UINT64);
+  cli_add_func("0p\0\0\0\0\0\0", turn_som_power_off, 0, CLI_TYPE_VOID);
+  cli_add_func("1p\0\0\0\0\0\0", turn_som_power_on, 0, CLI_TYPE_VOID);
   cli_add_func("0q\0\0\0\0\0\0\0", hwapi_legacy_q, 0, CLI_TYPE_UINT64);
   cli_add_func("0v\0\0\0\0\0\0\0", hwapi_legacy_v, 0, CLI_TYPE_UINT64);
   cli_add_func("0c\0\0\0\0\0\0\0", hwapi_legacy_c, 0, CLI_TYPE_UINT64);

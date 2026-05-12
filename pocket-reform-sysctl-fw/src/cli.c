@@ -143,14 +143,24 @@ uint64_t cli_set_var_uint64(struct cli_context* ctx, uint64_t word, uint64_t val
   printf("[cli_set_var_uint64] %s 0x%llx\n", eightcc_to_str(word, buf), value);
 #endif
   if (!cli_word_valid(word)) {
-    cli_error(ctx, CLI_ERR_ARGS);
+    if (ctx) cli_error(ctx, CLI_ERR_ARGS);
     return 0;
   }
   for (uint32_t i = 0; i < cli_num_vars; i++) {
     if (cli_vars[i].word == word) {
+      // prevent overwriting of funcs
+      // TODO: polish, might be ok for user funcs
+      if (cli_vars[i].type == CLI_TYPE_FUNC) {
+	if (ctx) cli_error(ctx, CLI_ERR_ARGS);
+	return 0;
+      }
       cli_vars[i].value_u64 = value;
       return value;
     }
+  }
+  if (cli_num_vars >= CLI_MAX_VARS) {
+    if (ctx) cli_error(ctx, CLI_ERR_MAX_LIST);
+    return 0;
   }
   cli_vars[cli_num_vars++] = (struct cli_var)
   {
@@ -166,6 +176,7 @@ int cli_add_func(char word[static 9], void* funcptr, uint8_t num_args, uint8_t r
   if (cli_num_vars >= CLI_MAX_VARS) {
     return 0;
   }
+  // TODO overwrite existing func/var!
   cli_vars[cli_num_vars++] = (struct cli_var){
     .word = eightcc(word),
     .type = CLI_TYPE_FUNC,
@@ -177,15 +188,7 @@ int cli_add_func(char word[static 9], void* funcptr, uint8_t num_args, uint8_t r
 }
 
 int cli_add_word(char word[static 9], uint64_t value) {
-  if (cli_num_vars >= CLI_MAX_VARS) {
-    return 0;
-  }
-  cli_vars[cli_num_vars++] = (struct cli_var){
-    .word = eightcc(word),
-    .type = CLI_TYPE_UINT64,
-    .value_u64 = value,
-  };
-  return cli_num_vars;
+  return cli_set_var_uint64(NULL, eightcc(word), value);
 }
 
 void cli_init_env() {
@@ -247,6 +250,10 @@ void cli_eval(struct cli_context* ctx) {
           char* (*func)(void*, uint64_t, uint64_t, uint64_t, uint64_t) = var->func;
           char* result = func(ctx, args[0], args[1], args[2], args[3]);
           cli_out_str(ctx, result);
+          return;
+        } else if (var->return_type == CLI_TYPE_VOID) {
+          void (*func)(void*, uint64_t, uint64_t, uint64_t, uint64_t) = var->func;
+          func(ctx, args[0], args[1], args[2], args[3]);
           return;
         }
         return;

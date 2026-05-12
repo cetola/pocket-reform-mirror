@@ -8,6 +8,7 @@
 #include "cli.h"
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 
 static struct cli_context spi_cli_ctx;
 
@@ -85,7 +86,7 @@ void handle_spi_commands(battery_info_s *battery_info) {
         }
         spi_get_hw(spi1)->dr = (uint32_t)cli_out_buf[i];
         // discard read
-        __unused uint8_t rx = (uint8_t)spi_get_hw(spi1)->dr;
+        [[maybe_unused]] uint8_t rx = (uint8_t)spi_get_hw(spi1)->dr;
       }
       printf("# [spi<] %s\n", cli_out_buf);
       cli_err = cli_get_err(&spi_cli_ctx);
@@ -95,11 +96,17 @@ void handle_spi_commands(battery_info_s *battery_info) {
 
 #if SPI_DEBUG_ENABLED
   if (valid_c > 0) {
-    //printf("# [spirx:str] '%s'\n", rx_buf);
-    printf("# [spirx:hex] ");
+    printf("# [spirx] ");
     for (int i = 0; i < raw_c; i++) {
       printf("%02x ", rx_buf[i]);
       if (i % 8 == 7) printf("  ");
+    }
+    for (int i = 0; i < raw_c; i++) {
+      if (isprint(rx_buf[i])) {
+	printf("%c", rx_buf[i]);
+      } else {
+	printf(".");
+      }
     }
     //printf("\n# [spitx] total delays: %d us\n", total_delays);
     printf("\n");
@@ -113,7 +120,7 @@ void handle_spi_commands(battery_info_s *battery_info) {
 
     // drain RX
     while (spi_is_readable(spi1)) {
-      __unused uint8_t rx = (uint8_t)spi_get_hw(spi1)->dr;
+      [[maybe_unused]] uint8_t rx = (uint8_t)spi_get_hw(spi1)->dr;
     }
 
     // reset SPI0 block

@@ -50,7 +50,8 @@
 #define CLI_TYPE_DOUBLE 2
 #define CLI_TYPE_STR256 3
 #define CLI_TYPE_STR1024 4
-#define CLI_TYPE_FUNC 5
+#define CLI_TYPE_VOID 5
+#define CLI_TYPE_FUNC 6
 
 struct cli_var {
   uint64_t word;
