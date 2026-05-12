@@ -58,7 +58,7 @@ uint64_t hwapi_legacy_c() {
   return eightcc(buf);
 }
 
-uint64_t hwapi_legacy_b(uint64_t brightness) {
+uint64_t hwapi_set_backlight(uint64_t brightness) {
   // only for display v2
   // 80% is a limit of the hardware (above, the backlight can flicker)
   if (brightness > 80)
@@ -176,6 +176,7 @@ void hwapi_pocket_init(battery_info_s *binfo) {
   cli_add_func("set-rail", hwapi_set_rail, 2, CLI_TYPE_UINT64);
   cli_add_func("set-gpio", hwapi_set_gpio, 2, CLI_TYPE_UINT64);
   cli_add_func("set-usb\0", hwapi_set_usb_mode, 1, CLI_TYPE_UINT64);
+  cli_add_func("set-blgt", hwapi_set_backlight, 1, CLI_TYPE_UINT64);
   cli_add_func("cell-vlt", hwapi_get_cell_volts, 1, CLI_TYPE_DOUBLE);
   cli_add_func("pack-vlt", hwapi_get_pack_volts, 1, CLI_TYPE_DOUBLE);
   cli_add_func("pack-amp", hwapi_get_pack_amps, 1, CLI_TYPE_DOUBLE);
@@ -214,6 +215,4 @@ void hwapi_pocket_init(battery_info_s *binfo) {
   cli_add_word("0f\0\0\0\0\0\0", eightcc("OUTDATED"));
   cli_add_word("1f\0\0\0\0\0\0", eightcc("LPC     "));
   cli_add_word("2f\0\0\0\0\0\0", eightcc("DRIVER  "));
-
-  // TODO: b?
 }

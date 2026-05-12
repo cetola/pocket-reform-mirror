@@ -22,16 +22,16 @@ void init_spi_client() {
   printf("# [spi] init_spi_client done\n");
 }
 
-static uint8_t lpc_calc_checksum(uint8_t *buffer, int len) {
+/*static uint8_t lpc_calc_checksum(uint8_t *buffer, int len) {
   uint8_t sum = 0;
   for (int i=0; i<len-1; i++) {
     sum = sum ^ buffer[i];
   }
   return sum;
-}
+}*/
 
-#define SPI_DEBUG_ENABLED 0
-#define SPI_PRINTF_ENABLED 0
+#define SPI_DEBUG_ENABLED 1
+#define MAX_TXN_SZ 8*4
 
 /* note that this runs in a timer interrupt:
    - no sleep_ms() calls
@@ -40,29 +40,81 @@ static uint8_t lpc_calc_checksum(uint8_t *buffer, int len) {
 void handle_spi_commands(battery_info_s *battery_info) {
   if (!battery_info->som_is_powered) return;
 
-  while (spi_is_readable(spi1)) {
-    uint8_t rx = (uint8_t)spi_get_hw(spi1)->dr;
-    cli_char(rx);
-    int resp_len = cli_get_out_pos();
-    char *cli_out_buf = cli_get_out();
+#if SPI_DEBUG_ENABLED
+  char rx_buf[MAX_TXN_SZ+1];
+  memset(rx_buf, 0, MAX_TXN_SZ+1);
+#endif
+  int total_delays = 0;
 
+  int j = 0;
+  int raw_c = 0;
+  int valid_c = 0;
+  while (spi_is_readable(spi1)) {
+    j++;
+    if (j >= MAX_TXN_SZ) break;
+    uint8_t rx = (uint8_t)spi_get_hw(spi1)->dr;
+    raw_c++;
+    spi_get_hw(spi1)->dr = 0xff;
+
+    // 0xb5 is a legacy command header, TBD if we should still support it
+    if (rx != 0 && rx != 0xff) {
+      rx_buf[valid_c++] = rx;
+    }
+  }
+
+  uint64_t cli_err = 0;
+  for (int j = 0; j < valid_c; j++) {
+    cli_char(rx_buf[j]);
+    int resp_len = cli_get_out_pos();
     if (resp_len > 0) {
-      for (int i=0; i<resp_len; i++) {
-        spi_get_hw(spi1)->dr = cli_out_buf[i];
+      char *cli_out_buf = cli_get_out();
+      for (int i = 0; i < resp_len; i++) {
+        int delayed = 0;
+        while (!spi_is_writable(spi1)) {
+          // wait up to 1ms for other side to receive
+          busy_wait_us(100);
+          delayed++;
+          total_delays += 100;
+          if (delayed > 10) break;
+        }
+        spi_get_hw(spi1)->dr = (uint32_t)cli_out_buf[i];
+        // discard read
+        __unused uint8_t rx = (uint8_t)spi_get_hw(spi1)->dr;
       }
-      spi_get_hw(spi1)->dr = lpc_calc_checksum((uint8_t*)cli_out_buf, resp_len);
+      printf("# < %s\n", cli_out_buf);
+      cli_err = cli_get_err();
       cli_reset_out();
     }
   }
 
-  // TODO lpc_calc_checksum(spi_buf, SPI_BUF_LEN);
+#if SPI_DEBUG_ENABLED
+  if (valid_c > 0) {
+    //printf("# [spirx:str] '%s'\n", rx_buf);
+    printf("# [spirx:hex] ");
+    for (int i = 0; i < raw_c; i++) {
+      printf("%02x ", rx_buf[i]);
+      if (i % 8 == 7) printf("  ");
+    }
+    //printf("\n# [spitx] total delays: %d us\n", total_delays);
+    printf("\n");
+  }
+#endif
 
-  /*
+  if (cli_err) {
+    printf("# cli err %llu\n", cli_err);
+    cli_reset();
+    cli_reset_out();
+
+    // drain RX
+    while (spi_is_readable(spi1)) {
+      __unused uint8_t rx = (uint8_t)spi_get_hw(spi1)->dr;
+    }
+
     // reset SPI0 block
     // this is a workaround for confusion with
     // software spi from BPI-CM4 where we get
     // bit-shifted bytes
-       init_spi_client();
-       return;
-   */
+    init_spi_client();
+    printf("\n");
+  }
 }

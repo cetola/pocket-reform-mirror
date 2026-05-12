@@ -78,30 +78,34 @@ int cli_out_str(char *str) {
   return len;
 }
 
+uint64_t cli_get_err() {
+  return cli_err;
+}
+
 void cli_error(uint64_t err) {
   cli_err = err;
   char buf[5];
-  cli_out_pos = snprintf(cli_out, CLI_BUFSZ, "(err %s)\n", fourcc_to_str(err, buf));
+  cli_out_pos = snprintf(cli_out, CLI_BUFSZ, "(err %s)", fourcc_to_str(err, buf));
   cli_reset();
 }
 
 int cli_out_int64(int64_t number) {
-  char buf[22]; // -9223372036854775808
-  snprintf(buf, sizeof(buf), "%lld", number);
+  char buf[22]; // (i64 -9223372036854775808)
+  snprintf(buf, sizeof(buf), "(i64 %lld)", number);
   buf[sizeof(buf)-1] = 0;
   return cli_out_str(buf);
 }
 
 int cli_out_uint64(uint64_t number) {
-  char buf[22]; // 18446744073709551616
-  snprintf(buf, sizeof(buf), "%llu", number);
+  char buf[22+6]; // (u64 18446744073709551616)
+  snprintf(buf, sizeof(buf), "(u64 %llu)", number);
   buf[sizeof(buf)-1] = 0;
   return cli_out_str(buf);
 }
 
 int cli_out_double(double number) {
-  char buf[32]; // TODO: max output size of a double?
-  snprintf(buf, sizeof(buf), "%10.10f", number);
+  char buf[32+6]; // TODO: max output size of a double?
+  snprintf(buf, sizeof(buf), "(f64 %10.10f)", number);
   buf[sizeof(buf)-1] = 0;
   return cli_out_str(buf);
 }
@@ -202,7 +206,7 @@ void cli_init() {
 
 void cli_eval() {
 #ifdef CLI_DEBUG_EVAL
-  printf("[cli_eval] cli_word_idx: %d\n", cli_word_idx);
+  //printf("# [cli_eval] cli_word_idx: %d\n", cli_word_idx);
 #endif
   if (cli_word_idx <= 0) {
     return;
@@ -212,14 +216,14 @@ void cli_eval() {
   int num_args = cli_word_idx - 1;
 #ifdef CLI_DEBUG_EVAL
   char buf[9];
-  printf("[cli_eval] op: 0x%llx (%s) arity: %d\n", op, eightcc_to_str(op, buf), num_args);
+  printf("# [cli_eval] op: 0x%llx (%s) arity: %d\n", op, eightcc_to_str(op, buf), num_args);
 #endif
   for (int i=0; i < cli_num_vars; i++) {
     struct cli_var* var = &cli_vars[i];
-    //printf("[cli_eval] candidate: 0x%llx\n", var->word);
+    //printf("# [cli_eval] candidate: 0x%llx\n", var->word);
     if (op == var->word) {
 #ifdef CLI_DEBUG_EVAL
-      printf("[cli_eval] word %d matches var table entry %d, type %d\n", cli_word_idx, i, var->type);
+      //printf("# [cli_eval] word %d matches var table entry %d, type %d\n", cli_word_idx, i, var->type);
 #endif
       if (var->type == CLI_TYPE_FUNC && var->func) {
         // maximum 4 args, all default to 0
@@ -267,7 +271,7 @@ char *cli_get_out() {
 
 void cli_char(char c) {
 #ifdef CLI_DEBUG_STATE
-  printf("[cli_char] state:%d c:%d word:%d\n", cli_state, c, cli_word_idx);
+  printf("# [cli] s:%d c:%d w:%d\n", cli_state, c, cli_word_idx);
 #endif
   if (cli_state == CLI_ST_LIST) {
     if (c == ' ') return;
@@ -340,7 +344,7 @@ void cli_char(char c) {
     if (c == ' ' || c == ')' || c == '\n') {
       cli_state = CLI_ST_LIST;
 #ifdef CLI_DEBUG_STATE
-      printf("[cli_word] storing word at idx %d\n", cli_word_idx);
+      printf("# [cli_word] storing word at idx %d\n", cli_word_idx);
 #endif
       cli_list[cli_word_idx++] = cli_word;
       if (c == ')' || (c == '\n' && cli_paren == 0)) {
@@ -352,7 +356,7 @@ void cli_char(char c) {
     cli_word |= (uint64_t)c << (cli_word_len*8);
     cli_word_len++;
 #ifdef CLI_DEBUG_STATE
-    printf("[cli_word] 0x%llx (len: %d)\n", cli_word, cli_word_len);
+    printf("# [cli_word] 0x%llx (len: %d)\n", cli_word, cli_word_len);
 #endif
 
     if (cli_word_len > CLI_MAX_WORD_LEN) {

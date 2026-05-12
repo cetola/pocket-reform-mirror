@@ -69,6 +69,7 @@ void cli_init();
 void cli_char(char c);
 char* cli_get_out();
 int cli_get_out_pos();
+uint64_t cli_get_err();
 int cli_add_func(char word[static 9], void *funcptr, uint8_t num_args, uint8_t return_type);
 int cli_add_word(char word[static 9], uint64_t value);
 

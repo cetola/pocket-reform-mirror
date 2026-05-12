@@ -907,6 +907,8 @@ void usb_host_5v_disable() {
 
 #define TICK_MS 1
 
+__unused static int cs_state_prev = 0;
+
 void loop() {
   bool can_sleep = true;
 
@@ -918,6 +920,15 @@ void loop() {
 #ifdef ACM_ENABLED
   // handle commands over usb serial
   handle_usb_commands();
+#endif
+
+  // for SPI CS signal debugging
+#if 0
+  int cs_state = gpio_get(PIN_SOM_SS0);
+  if (cs_state != cs_state_prev) {
+    printf("# cs = %d\n", cs_state);
+  }
+  cs_state_prev = cs_state;
 #endif
 
   if (!pd_tick(&battery_info)) {
@@ -984,14 +995,15 @@ void mntre_reset_callback(void) {
   gpio_put(PIN_PWREN_LATCH, 0);
 }
 
-bool spi_commands_task(__unused struct repeating_timer *t) {
+// from pico-sdk docs:
+// https://www.raspberrypi.com/documentation/pico-sdk/hardware.html#function-documentation-10
+// IRQ handlers set up with gpio_set_irq... are acknowledged automatically.
+void spi_commands_task(__unused unsigned int a, __unused long unsigned int b) {
   // handle commands from SoM
   // TODO: pass cli state/handle
-#ifndef ACM_ENABLED
+  irq_set_enabled(IO_IRQ_BANK0, false);
   handle_spi_commands(&battery_info);
-#endif
-  // timer should continue calling us
-  return true;
+  irq_set_enabled(IO_IRQ_BANK0, true);
 }
 
 int main() {
@@ -1008,7 +1020,8 @@ int main() {
   //hwapi_set_usb_mode(1, 1);
 
   // call SPI task every 5 ms to ensure response time
-  add_repeating_timer_ms(-5, spi_commands_task, NULL, &spi_timer);
+  //add_repeating_timer_ms(-5, spi_commands_task, NULL, &spi_timer);
+  gpio_set_irq_enabled_with_callback(PIN_SOM_SS0, GPIO_IRQ_EDGE_FALL, true, &spi_commands_task);
 
   printf("# [pocket_sysctl] entering main loop\n");
 
