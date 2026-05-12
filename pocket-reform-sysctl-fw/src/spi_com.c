@@ -6,6 +6,10 @@
 
 #include "spi_com.h"
 #include "cli.h"
+#include <stdio.h>
+#include <string.h>
+
+static struct cli_context spi_cli_ctx;
 
 void init_spi_client() {
   gpio_set_function(PIN_SOM_MOSI, GPIO_FUNC_SPI);
@@ -19,6 +23,8 @@ void init_spi_client() {
   spi_set_slave(spi1, true);
   spi_set_format(spi1, 8, SPI_CPOL_0, SPI_CPHA_1, SPI_MSB_FIRST);
 
+  cli_init(&spi_cli_ctx);
+  
   printf("# [spi] init_spi_client done\n");
 }
 
@@ -64,10 +70,10 @@ void handle_spi_commands(battery_info_s *battery_info) {
 
   uint64_t cli_err = 0;
   for (int j = 0; j < valid_c; j++) {
-    cli_char(rx_buf[j]);
-    int resp_len = cli_get_out_pos();
+    cli_char(&spi_cli_ctx, rx_buf[j]);
+    int resp_len = cli_get_out_pos(&spi_cli_ctx);
     if (resp_len > 0) {
-      char *cli_out_buf = cli_get_out();
+      char *cli_out_buf = cli_get_out(&spi_cli_ctx);
       for (int i = 0; i < resp_len; i++) {
         int delayed = 0;
         while (!spi_is_writable(spi1)) {
@@ -81,9 +87,9 @@ void handle_spi_commands(battery_info_s *battery_info) {
         // discard read
         __unused uint8_t rx = (uint8_t)spi_get_hw(spi1)->dr;
       }
-      printf("# < %s\n", cli_out_buf);
-      cli_err = cli_get_err();
-      cli_reset_out();
+      printf("# [spi<] %s\n", cli_out_buf);
+      cli_err = cli_get_err(&spi_cli_ctx);
+      cli_reset_out(&spi_cli_ctx);
     }
   }
 
@@ -102,8 +108,8 @@ void handle_spi_commands(battery_info_s *battery_info) {
 
   if (cli_err) {
     printf("# cli err %llu\n", cli_err);
-    cli_reset();
-    cli_reset_out();
+    cli_reset(&spi_cli_ctx);
+    cli_reset_out(&spi_cli_ctx);
 
     // drain RX
     while (spi_is_readable(spi1)) {

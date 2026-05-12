@@ -10,8 +10,6 @@
 #include <stdio.h>
 #include "sysctl.h"
 #include "pico/divider.h"
-#include "pico/stdlib.h"
-#include "pico/sleep.h"
 #include "hardware/clocks.h"
 #include "hardware/pll.h"
 #include "hardware/xosc.h"
@@ -20,7 +18,10 @@
 //#include "altmode.h"
 //#include "kvstore.h"
 #include "cli.h"
+#include "spi_com.h"
+#include "uart_com.h"
 #include "hwapi_pocket.h"
+#include "hardware/rosc.h"
 
 static uint8_t mps_fault_last = 0;
 static battery_info_s battery_info = {0};
@@ -871,18 +872,19 @@ void setup() {
   pd_init();
 }
 
+static struct cli_context cli_ctx_usb;
+
 void handle_usb_commands() {
   int usb_c = getchar_timeout_us(0);
   if (usb_c != PICO_ERROR_TIMEOUT) {
     if (usb_c == 13) usb_c = 10;
     putchar(usb_c);
-    //printf("# [acm_command] '%c'\n", usb_c);
-    cli_char(usb_c);
-    int resp_len = cli_get_out_pos();
-    char *cli_out_buf = cli_get_out();
+    cli_char(&cli_ctx_usb, usb_c);
+    int resp_len = cli_get_out_pos(&cli_ctx_usb);
     if (resp_len > 0) {
+      char *cli_out_buf = cli_get_out(&cli_ctx_usb);
       printf("%s\n", cli_out_buf);
-      cli_reset_out();
+      cli_reset_out(&cli_ctx_usb);
     }
   }
 }
@@ -907,18 +909,18 @@ void usb_host_5v_disable() {
 
 #define TICK_MS 1
 
-__unused static int cs_state_prev = 0;
+//static int cs_state_prev = 0;
 
 void loop() {
   bool can_sleep = true;
 
   watchdog_update();
 
-  // handle commands from keyboard
-  handle_uart_commands(&battery_info);
+  // handle commands from keyboard UART
+  handle_uart_commands();
 
 #ifdef ACM_ENABLED
-  // handle commands over usb serial
+  // handle commands over USB serial
   handle_usb_commands();
 #endif
 
@@ -1011,10 +1013,12 @@ int main() {
   //set_sys_clock_48mhz();
   setup_gpios();
   setup();
-  // TODO: cli state/handle
-  cli_init();
-  // TODO: pass cli state/handle
+  cli_init_env();
   hwapi_pocket_init(&battery_info);
+  uart_com_init();
+#ifdef ACM_ENABLED
+  cli_init(&cli_ctx_usb);
+#endif
 
   // by default, present sysctl usb to SoC USB internally
   //hwapi_set_usb_mode(1, 1);

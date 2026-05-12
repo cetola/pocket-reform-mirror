@@ -6,59 +6,88 @@
 // TODO: move battery_info_s to pocket specific file?
 #include "sysctl.h"
 #include <stdint.h>
+#include <stdio.h>
+#include <string.h>
 
 // TODO: need these inputs:
 // - battery_info
 
 static battery_info_s *battery_info;
 
-#define LEGACY_BUF_SZ 8
+#define LEGACY_BUF_SZ 128
+#define LEGACY_SPI_SZ 8
+static char legacy_buf[LEGACY_BUF_SZ];
+static char legacy_spi_buf[LEGACY_SPI_SZ];
 
 uint64_t hwapi_legacy_q() {
   // execute status query command
-  uint8_t buf[LEGACY_BUF_SZ] = { 0 };
+  memset(legacy_spi_buf, 0, LEGACY_SPI_SZ);
   uint8_t percentage = (uint8_t)battery_info->charge_percentage;
   int16_t volts_int = (int16_t)(battery_info->battery_volts * 1000.0);
   int16_t current_int = (int16_t)(battery_info->battery_amps * 1000.0);
 
-  buf[0] = (uint8_t)volts_int;
-  buf[1] = (uint8_t)(volts_int >> 8);
-  buf[2] = (uint8_t)current_int;
-  buf[3] = (uint8_t)(current_int >> 8);
-  buf[4] = (uint8_t)percentage;
-  buf[5] = (uint8_t)0;
-  return eightcc(buf);
+  legacy_spi_buf[0] = (uint8_t)volts_int;
+  legacy_spi_buf[1] = (uint8_t)(volts_int >> 8);
+  legacy_spi_buf[2] = (uint8_t)current_int;
+  legacy_spi_buf[3] = (uint8_t)(current_int >> 8);
+  legacy_spi_buf[4] = (uint8_t)percentage;
+  legacy_spi_buf[5] = (uint8_t)0;
+  return eightcc(legacy_spi_buf);
 }
 
 uint64_t hwapi_legacy_v() {
   // get cell voltage
-  uint8_t buf[LEGACY_BUF_SZ] = { 0 };
+  memset(legacy_buf, 0, LEGACY_SPI_SZ);
   // pack 0
   int volts = battery_info->cell1_volts;
-  buf[0] = (uint8_t)volts;
-  buf[1] = (uint8_t)(volts >> 8);
+  legacy_spi_buf[0] = (uint8_t)volts;
+  legacy_spi_buf[1] = (uint8_t)(volts >> 8);
   volts = battery_info->cell2_volts;
-  buf[2] = (uint8_t)volts;
-  buf[3] = (uint8_t)(volts >> 8);
-  return eightcc(buf);
+  legacy_spi_buf[2] = (uint8_t)volts;
+  legacy_spi_buf[3] = (uint8_t)(volts >> 8);
+  return eightcc(legacy_spi_buf);
 }
 
 uint64_t hwapi_legacy_c() {
   // get calculated capacity (emulated)
-  uint8_t buf[LEGACY_BUF_SZ] = { 0 };
+  memset(legacy_buf, 0, LEGACY_SPI_SZ);
   uint16_t cap_accu = (uint16_t)BATTERY_CAPACITY_MILLIAMP_HOURS * (((float)battery_info->charge_percentage) / 100.0);
   uint16_t cap_min = (uint16_t)0;
   uint16_t cap_max = (uint16_t)BATTERY_CAPACITY_MILLIAMP_HOURS;
-  buf[0] = (uint8_t)cap_accu;
-  buf[1] = (uint8_t)(cap_accu >> 8);
-  buf[2] = (uint8_t)cap_min;
-  buf[3] = (uint8_t)(cap_min >> 8);
-  buf[4] = (uint8_t)cap_max;
-  buf[5] = (uint8_t)(cap_max >> 8);
-  return eightcc(buf);
+  legacy_spi_buf[0] = (uint8_t)cap_accu;
+  legacy_spi_buf[1] = (uint8_t)(cap_accu >> 8);
+  legacy_spi_buf[2] = (uint8_t)cap_min;
+  legacy_spi_buf[3] = (uint8_t)(cap_min >> 8);
+  legacy_spi_buf[4] = (uint8_t)cap_max;
+  legacy_spi_buf[5] = (uint8_t)(cap_max >> 8);
+  return eightcc(legacy_spi_buf);
 }
 
-uint64_t hwapi_set_backlight(uint64_t brightness) {
+char* hwapi_legacy_kbd_s() {
+  return (char*)"(Outdated Kbd FW!)\r";
+}
+
+char* hwapi_legacy_kbd_c() {
+  int ma = (int)(battery_info->battery_amps * 1000.0);
+  char ma_sign = ' ';
+  if (ma < 0) {
+    ma = -ma;
+    ma_sign = '-';
+  }
+  int mv = (int)(battery_info->battery_volts * 1000.0);
+  snprintf(legacy_buf, 128,
+           "%02d %02d %02d %02d %02d %02d %02d %02d mA%c%04dmV%05d %3d%% P%d\r\n",
+           (int)(battery_info->cell1_volts / 100),
+           (int)(battery_info->cell2_volts / 100), (int)(0), (int)(0),
+           (int)(0), (int)(0), (int)(0), (int)(0), ma_sign, ma, mv,
+           battery_info->charge_percentage,
+           battery_info->som_is_powered ? 1 : 0);
+
+  legacy_buf[127] = 0;
+  return (char*)legacy_buf;
+}
+
+uint64_t hwapi_set_backlight([[maybe_unused]] struct cli_context* ctx, uint64_t brightness) {
   // only for display v2
   // 80% is a limit of the hardware (above, the backlight can flicker)
   if (brightness > 80)
@@ -67,7 +96,7 @@ uint64_t hwapi_set_backlight(uint64_t brightness) {
   return brightness;
 }
 
-uint64_t hwapi_set_rail(uint64_t rail, uint64_t state) {
+uint64_t hwapi_set_rail([[maybe_unused]] struct cli_context* ctx, uint64_t rail, uint64_t state) {
   if (rail == 0) {
     if (state == 0) {
       turn_som_power_off();
@@ -78,7 +107,7 @@ uint64_t hwapi_set_rail(uint64_t rail, uint64_t state) {
   return state;
 }
 
-uint64_t hwapi_set_gpio(uint64_t id, uint64_t high) {
+uint64_t hwapi_set_gpio([[maybe_unused]] struct cli_context* ctx, uint64_t id, uint64_t high) {
   switch (id) {
   case 0:
     // 0: Display Panel Reset (active low)
@@ -94,7 +123,7 @@ uint64_t hwapi_set_gpio(uint64_t id, uint64_t high) {
   return high;
 }
 
-uint64_t hwapi_set_usb_mode(uint64_t port, uint64_t mode) {
+uint64_t hwapi_set_usb_mode([[maybe_unused]] struct cli_context* ctx, uint64_t port, uint64_t mode) {
   // toggle USB muxing modes
   if (port == 1) {
     switch (mode) {
@@ -133,35 +162,35 @@ uint64_t hwapi_set_usb_mode(uint64_t port, uint64_t mode) {
   return mode;
 }
 
-double hwapi_get_cell_volts(uint64_t cell_id) {
+double hwapi_get_cell_volts([[maybe_unused]] struct cli_context* ctx, uint64_t cell_id) {
   if (cell_id == 2) return battery_info->cell1_volts;
   return battery_info->cell1_volts;
 }
 
-double hwapi_get_pack_volts(/*uint64_t pack_id*/) {
+double hwapi_get_pack_volts([[maybe_unused]] struct cli_context* ctx /*uint64_t pack_id*/) {
   // TODO what about pack_volts?
   return battery_info->battery_volts;
 }
 
-double hwapi_get_pack_amps(/*uint64_t pack_id*/) {
+double hwapi_get_pack_amps([[maybe_unused]] struct cli_context* ctx /*uint64_t pack_id*/) {
   return battery_info->battery_amps;
 }
 
-double hwapi_get_pack_charge(/*uint64_t pack_id*/) {
+double hwapi_get_pack_charge([[maybe_unused]] struct cli_context* ctx /*uint64_t pack_id*/) {
   return battery_info->charge_percentage;
 }
 
-uint64_t hwapi_get_pack_capacity_full(/*uint64_t pack_id*/) {
+uint64_t hwapi_get_pack_capacity_full([[maybe_unused]] struct cli_context* ctx /*uint64_t pack_id*/) {
   // TODO
   return 0;
 }
 
-double hwapi_get_sys_volts(/*uint64_t pack_id*/) {
+double hwapi_get_sys_volts([[maybe_unused]] struct cli_context* ctx /*uint64_t pack_id*/) {
   // TODO
   return battery_info->input_volts;
 }
 
-double hwapi_get_sys_amps(/*uint64_t pack_id*/) {
+double hwapi_get_sys_amps([[maybe_unused]] struct cli_context* ctx /*uint64_t pack_id*/) {
   // TODO
   // also: input amps?
   return 0;
@@ -215,4 +244,6 @@ void hwapi_pocket_init(battery_info_s *binfo) {
   cli_add_word("0f\0\0\0\0\0\0", eightcc("OUTDATED"));
   cli_add_word("1f\0\0\0\0\0\0", eightcc("LPC     "));
   cli_add_word("2f\0\0\0\0\0\0", eightcc("DRIVER  "));
+  cli_add_func("s\0\0\0\0\0\0\0", hwapi_legacy_kbd_s, 0, CLI_TYPE_STR256);
+  cli_add_func("c\0\0\0\0\0\0\0", hwapi_legacy_kbd_c, 0, CLI_TYPE_STR256);
 }

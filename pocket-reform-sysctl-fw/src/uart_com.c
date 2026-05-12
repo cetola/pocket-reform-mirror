@@ -1,20 +1,47 @@
 #include "uart_com.h"
 #include "pd_com.h"
-#include "kvstore.h"
+#include "cli.h"
+#include "sysctl.h"
+#include "hardware/uart.h"
+#include <stdio.h>
 
-void handle_uart_commands(battery_info_s *battery_info) {
+static struct cli_context uart_cli_ctx;
+
+void uart_com_init() {
+  cli_init(&uart_cli_ctx);
+}
+
+void handle_uart_commands() {
   // prevent endless loop
-  int uart_max = 8;
+  int uart_max = 32;
+  uint64_t cli_err = 0;
   while (uart_is_readable(UART_ID) && uart_max > 0) {
-    handle_commands(uart_getc(UART_ID), battery_info);
+    //handle_commands(uart_getc(UART_ID), battery_info);
+
+    char c = uart_getc(UART_ID);
+    // substitute \r for \n
+    if (c == 13) c = 10;
+    cli_char(&uart_cli_ctx, c);
+    if (cli_get_out_pos(&uart_cli_ctx)) {
+      uart_puts(UART_ID, cli_get_out(&uart_cli_ctx));
+      printf("# [kbd<] %s\n", cli_get_out(&uart_cli_ctx));
+      cli_err = cli_get_err(&uart_cli_ctx);
+      cli_reset_out(&uart_cli_ctx);
+    }
     uart_max--;
+  }
+  if (cli_err) {
+    printf("# cli err %llu\n", cli_err);
+    cli_reset(&uart_cli_ctx);
+    cli_reset_out(&uart_cli_ctx);
   }
 }
 
 /**
  * UART commands from the keyboard
  */
-void handle_commands(char chr, battery_info_s *battery_info) {
+/*
+void handle_commands_old(char chr, battery_info_s *battery_info) {
   static uart_state_s uart_state = { 0 };
 
   char uart_buffer[UART_BUFSZ + 1] = { 0 };
@@ -114,8 +141,6 @@ void handle_commands(char chr, battery_info_s *battery_info) {
         snprintf(uart_buffer, UART_BUFSZ, "%d\r\n", 0);
         uart_puts(UART_ID, uart_buffer);
       } else if (uart_state.remote_cmd == 's') {
-        char tmp[9];
-        strlcpy(tmp, MNTRE_FIRMWARE_VERSION, sizeof(tmp));
         snprintf(uart_buffer, UART_BUFSZ,
                  "MNT Pocket Reform    " FW_STRING1 FW_STRING2 "%s\r\n",
                  MNTRE_FIRMWARE_VERSION);
@@ -253,3 +278,4 @@ void handle_commands(char chr, battery_info_s *battery_info) {
     }
   }
 }
+*/

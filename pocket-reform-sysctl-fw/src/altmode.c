@@ -1,5 +1,6 @@
 #include "altmode.h"
 #include "sysctl.h"
+#include <stdio.h>
 
 bool tmuxhs4446_write(uint8_t val) {
   uint8_t buf[2] = {2, val};

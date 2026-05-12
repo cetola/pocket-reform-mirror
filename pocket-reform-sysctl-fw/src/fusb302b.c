@@ -16,9 +16,8 @@
  */
 
 #include "fusb302b.h"
-
 #include <sysctl.h>
-
+#include <stdio.h>
 #include <pd.h>
 
 bool fusb_read_buf(uint8_t addr, uint8_t size, uint8_t *buf) {

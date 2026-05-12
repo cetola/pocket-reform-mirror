@@ -1,9 +1,6 @@
 #ifndef _POCKET_SYSCTL_H
 #define _POCKET_SYSCTL_H
 
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
 #include <stdint.h>
 
 #include "pico/stdlib.h"
@@ -123,8 +120,6 @@ typedef struct battery_info_s
 
 #include "fusb302b.h"
 #include "pd.h"
-#include "uart_com.h"
-#include "spi_com.h"
 #include "max17320.h"
 #include "mp2650.h"
 #include "ext_gpio.h"
