@@ -9,7 +9,7 @@
 #define CLI_ST_HEX 3
 #define CLI_ST_ERROR 5
 
-#define CLI_DEBUG_STATE
+//#define CLI_DEBUG_STATE
 //#define CLI_DEBUG_EVAL
 
 static struct cli_var cli_vars[CLI_MAX_VARS]; // known variables (named words)
