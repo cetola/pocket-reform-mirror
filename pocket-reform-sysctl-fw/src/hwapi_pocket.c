@@ -97,6 +97,11 @@ uint64_t hwapi_set_backlight([[maybe_unused]] struct cli_context* ctx, uint64_t 
   return brightness;
 }
 
+uint64_t hwapi_set_backlight_freq([[maybe_unused]] struct cli_context* ctx, uint64_t freq) {
+  set_display_backlight_freq((int)freq);
+  return freq;
+}
+
 uint64_t hwapi_set_rail([[maybe_unused]] struct cli_context* ctx, uint64_t rail, uint64_t state) {
   if (rail == 0) {
     if (state == 0) {
@@ -311,6 +316,7 @@ void hwapi_pocket_init(battery_info_s *binfo) {
   cli_add_func("usb-edl\0", hwapi_set_usb_ports_edl, 0, CLI_TYPE_UINT64);
   cli_add_func("usb-host", hwapi_set_usb_ports_host, 0, CLI_TYPE_UINT64);
   cli_add_func("set-lite", hwapi_set_backlight, 1, CLI_TYPE_UINT64);
+  cli_add_func("set-lfrq", hwapi_set_backlight_freq, 1, CLI_TYPE_UINT64);
   cli_add_func("cell-mv\0", hwapi_get_cell_mv, 1, CLI_TYPE_UINT64);
   cli_add_func("pack-mv\0", hwapi_get_pack_mv, 1, CLI_TYPE_UINT64);
   cli_add_func("pack-ma\0", hwapi_get_pack_ma, 1, CLI_TYPE_UINT64);

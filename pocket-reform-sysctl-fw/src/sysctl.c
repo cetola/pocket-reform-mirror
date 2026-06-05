@@ -93,13 +93,20 @@ int32_t pwm_set_freq_duty(uint32_t slice_num, uint32_t chan, uint32_t freq, int 
   return 1;
 }
 
+static int backlight_freq = 100000;
+
+void set_display_backlight_freq(int freq) {
+  if (freq < 0) freq = 0;
+  backlight_freq = freq;
+}
+
 // this functionality is only for the second type of display for Pocket Reform
 // that will ship in late 2024 (TOP070F01A)
 // called from timer interrupt, no sleep allowed here!
 void set_display_backlight(int percent) {
   // DISP_EN = 7 = PWM3 B
   gpio_set_function(PIN_DISP_EN, GPIO_FUNC_PWM);
-  pwm_set_freq_duty(pwm_gpio_to_slice_num(PIN_DISP_EN), pwm_gpio_to_channel(PIN_DISP_EN), 100000, percent);
+  pwm_set_freq_duty(pwm_gpio_to_slice_num(PIN_DISP_EN), pwm_gpio_to_channel(PIN_DISP_EN), backlight_freq, percent);
 
   // caveat: latch needs to be always-on
   // for brightnesses other than full brightness to work
@@ -865,6 +872,8 @@ void setup() {
   if (!gpio_ext_uswitch_setup()) {
     printf("# [setup] error: gpio_ext_uswitch_setup() failed. PCA9536 not responding?\n");
   }
+
+  set_display_backlight_freq(100000);
 
   // if this is a warm boot, then we need to avoid latching the PWR and display
   // pins.
