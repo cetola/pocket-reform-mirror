@@ -134,5 +134,6 @@ void usb_host_5v_enable();
 void usb_host_5v_disable();
 void charger_enable_charge(int current);
 void charger_disable_charge();
+void enter_powersave(void);
 
 #endif

@@ -26,7 +26,6 @@
 
 static uint8_t mps_fault_last = 0;
 static battery_info_s battery_info = {0};
-static struct repeating_timer spi_timer;
 
 // The Pico boot rom uses watchdog scratch registers 0, 1, 4, 5, 6, and 7.
 // That leaves 2 and 3 for our "system is on" magic.
@@ -229,7 +228,7 @@ void gauge_tick(battery_info_s *battery_info) {
   if (max17320_devname == 0x4209 || max17320_devname == 0x420a || max17320_devname == 0x420b) {
     battery_info->max17320_devname = max17320_devname;
   } else {
-    printf("# [battery] [ERROR] gauge did not respond\n");
+    //printf("# [battery] [ERROR] gauge did not respond\n");
     battery_info->max17320_devname = 0;
     battery_info->input_volts = -1;
     battery_info->time_to_empty = 0;
@@ -544,6 +543,9 @@ void turn_som_power_on_v20() {
   battery_info.som_is_powered = true;
   som_power_indication();
   init_spi_client();
+
+  // in case the soc is sleeping, wake it
+  som_wake();
 }
 
 void turn_som_power_off_v20() {
@@ -665,10 +667,18 @@ void turn_som_power_off() {
 }
 
 void som_wake() {
+  // TODO: reset display here?
+  gpio_ext_disable(GPIO_EXT_DISP_RESET_N);
+  busy_wait_us(20*1000);
+  gpio_ext_enable(GPIO_EXT_DISP_RESET_N);
+
+  gpio_set_dir(PIN_SOM_WAKE, GPIO_OUT);
   gpio_put(PIN_SOM_WAKE, 1);
   busy_wait_us(5*1000);
   gpio_put(PIN_SOM_WAKE, 0);
-  uart_puts(uart0, "wake\r\n");
+  busy_wait_us(5*1000);
+  gpio_put(PIN_SOM_WAKE, 1);
+  gpio_set_dir(PIN_SOM_WAKE, GPIO_IN);
 }
 
 // reset register
@@ -680,7 +690,6 @@ void enter_powersave(void) {
   // wake on gpio interrupt, mode level (vs edge) and active low
   uint32_t event = IO_BANK0_DORMANT_WAKE_INTE0_GPIO0_LEVEL_LOW_BITS;
 
-  cancel_repeating_timer(&spi_timer);
   uart_deinit(UART_ID);
   gpio_init(PIN_KBD_UART_RX);
   gpio_init(PIN_KBD_UART_TX);
@@ -786,8 +795,8 @@ void setup_gpios() {
 
   // SoM / SoC wake GPIO
   gpio_init(PIN_SOM_WAKE);
-  gpio_set_dir(PIN_SOM_WAKE, GPIO_OUT);
-  gpio_put(PIN_SOM_WAKE, 0);
+  gpio_set_dir(PIN_SOM_WAKE, GPIO_IN);
+  //gpio_put(PIN_SOM_WAKE, 0);
 
   // Display control pins
   // TODO: FIXME: v10 only
@@ -1195,8 +1204,6 @@ int main() {
   // by default, present sysctl usb to SoC USB internally
   //hwapi_set_usb_mode(1, 1);
 
-  // call SPI task every 5 ms to ensure response time
-  //add_repeating_timer_ms(-5, spi_commands_task, NULL, &spi_timer);
   gpio_set_irq_enabled_with_callback(PIN_SOM_SS0, GPIO_IRQ_EDGE_FALL, true, &spi_commands_task);
 
   printf("# [pocket_sysctl] entering main loop\n");

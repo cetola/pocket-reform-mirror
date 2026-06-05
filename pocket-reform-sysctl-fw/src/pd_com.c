@@ -21,7 +21,7 @@ static void print_src_fixed_pdo(int number, uint32_t pdo)
   /* Maximum Current */
   unsigned int current = PD_PDO_SRC_FIXED_CURRENT_GET(pdo);
 
-  printf("pd_src_fixed_pdo#%d: V=%d.%02d Imax=%d.%02d",
+  printf("# [pd] pd_src_fixed_pdo#%d: V=%d.%02d Imax=%d.%02d",
          number, PD_PDV_V(voltage), PD_PDV_CV(voltage), PD_PDI_A(current), PD_PDI_CA(current));
 
   /* Peak Current */
