@@ -339,6 +339,12 @@ static bool pd_comm_pd(battery_info_s* battery_info) {
         return false;
       }
 
+      if (mb_version() < 2) {
+	printf("# [pd] [vdm, mb v1.0] rejecting unsupported vdm_header 0x%lx\n", vdm_header & 0x1F);
+	pd_send_not_supported();
+        return false;
+      }
+
       switch (vsid) {
       case PD_VSID_USBPD:  // USB-PD Standard "Vendor" ID
         {
@@ -636,29 +642,33 @@ bool pd_tick(battery_info_s* battery_info) {
         printf("# [pd] PD_STATE_UNATTACHED -> SNK CC1, going to PD_STATE_UNATTACHED_SNK\n");
         pd_state = PD_STATE_UNATTACHED_SNK;
         pd_ccpin = 1;
-        // TODO FIXME v20 only
-        altmode_set(0b110);
+	if (mb_version() >= 2) {
+          altmode_set(0b110);
+	}
       } else if (togss == 6) {
         // SNK CC2
         printf("# [pd] PD_STATE_UNATTACHED -> SNK CC2, going to PD_STATE_UNATTACHED_SNK\n");
         pd_state = PD_STATE_UNATTACHED_SNK;
         pd_ccpin = 2;
-        // TODO FIXME v20 only
-        altmode_set(0b111);
+	if (mb_version() >= 2) {
+          altmode_set(0b111);
+	}
       } else if (togss == 1) {
         // SRC CC1
         printf("# [pd] PD_STATE_UNATTACHED -> SRC CC1, going to PD_STATE_UNATTACHED_SRC\n");
         pd_state = PD_STATE_UNATTACHED_SRC;
         pd_ccpin = 1;
-        // TODO FIXME v20 only
-        altmode_set(0b110);
+	if (mb_version() >= 2) {
+          altmode_set(0b110);
+	}
       } else if (togss == 2) {
         // SRC CC2
         printf("# [pd] PD_STATE_UNATTACHED -> SRC CC2, going to PD_STATE_UNATTACHED_SRC\n");
         pd_state = PD_STATE_UNATTACHED_SRC;
         pd_ccpin = 2;
-        // TODO FIXME v20 only
-        altmode_set(0b111);
+	if (mb_version() >= 2) {
+          altmode_set(0b111);
+	}
       } else {
         // Audio accessory or something else we do not understand. Reset.
         pd_state = PD_STATE_SETUP;
