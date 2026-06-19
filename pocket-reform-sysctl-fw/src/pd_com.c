@@ -193,12 +193,13 @@ static bool pd_apply_datarole() {
   if (pd_datarole == PD_DATAROLE_DFP) {
     // we're USB host, turn off USB UART
     printf("# [pd] pd_apply_datarole: DFP\n");
-    return gpio_ext_uswitch_disable(3);
+    //return gpio_ext_uswitch_disable(3);
   } else {
     // we're USB device, turn on USB UART
     printf("# [pd] pd_apply_datarole: UFP\n");
-    return gpio_ext_uswitch_enable(3);
+    //return gpio_ext_uswitch_enable(3);
   }
+  return true;
 }
 
 // Returns if state was "changed" in some form and we expect to maybe be called again.

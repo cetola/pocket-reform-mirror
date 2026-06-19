@@ -169,6 +169,14 @@ uint64_t hwapi_set_gpio([[maybe_unused]] struct cli_context* ctx, uint64_t id, u
     }
     break;
   }
+  case 6: {
+    if (high) {
+      usb_host_5v_enable();
+    } else {
+      usb_host_5v_disable();
+    }
+    break;
+  }
   }
   return high;
 }
@@ -179,7 +187,6 @@ uint64_t hwapi_set_usb_mode([[maybe_unused]] struct cli_context* ctx, uint64_t p
     switch (mode) {
     case 0:
       // usb2: sysctl external
-      // TODO: only for mb20
       gpio_put(PIN_USB_SRC_ENABLE, 0);
       gpio_ext_uswitch_enable(0);
       gpio_ext_uswitch_enable(1);
@@ -188,7 +195,6 @@ uint64_t hwapi_set_usb_mode([[maybe_unused]] struct cli_context* ctx, uint64_t p
       break;
     case 1:
       // usb2: host, sysctl internal
-      // TODO: only for mb20
       gpio_put(PIN_USB_SRC_ENABLE, 1);
       gpio_ext_uswitch_disable(0);
       gpio_ext_uswitch_disable(1);
@@ -197,7 +203,6 @@ uint64_t hwapi_set_usb_mode([[maybe_unused]] struct cli_context* ctx, uint64_t p
       break;
     case 2:
       // usb2: EDL external
-      // TODO: only for mb20
       gpio_put(PIN_USB_SRC_ENABLE, 0);
       gpio_ext_uswitch_enable(0);
       gpio_ext_uswitch_disable(1);
@@ -211,15 +216,13 @@ uint64_t hwapi_set_usb_mode([[maybe_unused]] struct cli_context* ctx, uint64_t p
     case 0:
       // usb1: SoC UART
       // TODO: should be controlled by PD logic
-      usb_host_5v_disable();
-      gpio_ext_uswitch_disable(3);
+      gpio_ext_uswitch_enable(3);
       cli_add_word("usbmux-0", 0);
       break;
     case 1:
       // usb1: host
       // TODO: should be controlled by PD logic
-      usb_host_5v_enable();
-      gpio_ext_uswitch_enable(3);
+      gpio_ext_uswitch_disable(3);
       cli_add_word("usbmux-0", 1);
       break;
     }
@@ -311,10 +314,12 @@ void hwapi_pocket_init(battery_info_s *binfo) {
   /* register all available functions */
   cli_add_func("set-rail", hwapi_set_rail, 2, CLI_TYPE_UINT64);
   cli_add_func("set-gpio", hwapi_set_gpio, 2, CLI_TYPE_UINT64);
-  cli_add_func("set-usb\0", hwapi_set_usb_mode, 2, CLI_TYPE_UINT64);
-  cli_add_func("usb-sc\0\0", hwapi_set_usb_ports_sysctl, 0, CLI_TYPE_UINT64);
-  cli_add_func("usb-edl\0", hwapi_set_usb_ports_edl, 0, CLI_TYPE_UINT64);
-  cli_add_func("usb-host", hwapi_set_usb_ports_host, 0, CLI_TYPE_UINT64);
+  if (mb_version() >= 2) {
+    cli_add_func("set-usb\0", hwapi_set_usb_mode, 2, CLI_TYPE_UINT64);
+    cli_add_func("usb-sc\0\0", hwapi_set_usb_ports_sysctl, 0, CLI_TYPE_UINT64);
+    cli_add_func("usb-edl\0", hwapi_set_usb_ports_edl, 0, CLI_TYPE_UINT64);
+    cli_add_func("usb-host", hwapi_set_usb_ports_host, 0, CLI_TYPE_UINT64);
+  }
   cli_add_func("set-lite", hwapi_set_backlight, 1, CLI_TYPE_UINT64);
   cli_add_func("set-lfrq", hwapi_set_backlight_freq, 1, CLI_TYPE_UINT64);
   cli_add_func("cell-mv\0", hwapi_get_cell_mv, 1, CLI_TYPE_UINT64);
