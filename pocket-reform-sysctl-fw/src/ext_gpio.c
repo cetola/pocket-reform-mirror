@@ -16,6 +16,11 @@ bool pca9557_write_byte(uint8_t addr, uint8_t val) {
   return 2 == i2c_write_timeout_us(i2c0, PCA9557_ADDR, buf, 2, false, I2C_TIMEOUT);
 }
 
+bool pca9557_read_byte(uint8_t addr, uint8_t *val) {
+  i2c_write_timeout_us(i2c0, PCA9557_ADDR, &addr, 1, true, I2C_TIMEOUT);
+  return 1 == i2c_read_timeout_us(i2c0, PCA9557_ADDR, val, 1, false, I2C_TIMEOUT);
+}
+
 // also called by gpio_ext_setup()
 bool gpio_ext_uswitch_setup() {
   /*
@@ -44,7 +49,7 @@ bool gpio_ext_uswitch_disable(uint8_t bit) {
   return pca9536_write_byte(1, gpio_ext_uswitch_state);
 }
 
-bool gpio_ext_setup() {
+bool gpio_ext_setup(bool reset) {
   /*
     7: USWITCH_OFF
     6: PCIE_PWR_EN
@@ -56,12 +61,16 @@ bool gpio_ext_setup() {
     0: DISP_1EN_2BL (open drain?)
    */
 
-  gpio_ext_state = 0b00000000;
+  if (reset) {
+    gpio_ext_state = 0b00000000;
 
-  // output port:
-  pca9557_write_byte(1, gpio_ext_state);
-  // config: outputs(0)/inputs(1) (all outputs)
-  return pca9557_write_byte(3, 0b00000000);
+    // output port:
+    pca9557_write_byte(1, gpio_ext_state);
+    // config: outputs(0)/inputs(1) (all outputs)
+    return pca9557_write_byte(3, 0b00000000);
+  } else {
+    return pca9557_read_byte(3, &gpio_ext_state);
+  }
 }
 
 bool gpio_ext_enable(uint8_t bit) {

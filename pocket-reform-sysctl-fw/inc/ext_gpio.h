@@ -13,7 +13,7 @@
 #define GPIO_EXT_PCIE_PWR_EN 6
 #define GPIO_EXT_USWITCH_OFF 7
 
-bool gpio_ext_setup();
+bool gpio_ext_setup(bool reset);
 bool gpio_ext_enable(uint8_t bit);
 bool gpio_ext_disable(uint8_t bit);
 bool gpio_ext_uswitch_setup();

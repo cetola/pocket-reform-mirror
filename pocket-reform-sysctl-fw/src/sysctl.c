@@ -523,7 +523,6 @@ void turn_som_power_on_v20() {
   gpio_ext_enable(GPIO_EXT_HUB_PWR_EN);
   gpio_ext_enable(GPIO_EXT_PCIE_PWR_EN);
   gpio_ext_disable(GPIO_EXT_USWITCH_OFF);
-  set_display_backlight(30);
 
   // Modem
   gpio_put(PIN_FLIGHTMODE, 1);  // active low
@@ -532,10 +531,10 @@ void turn_som_power_on_v20() {
   gpio_put(PIN_PHONE_DPR, 1);   // active high
 
   // Display reset (deassert)
-  // TODO backlight?
   gpio_ext_enable(GPIO_EXT_DISP_RESET_N);
   gpio_ext_enable(GPIO_EXT_DISP_BL_PWR_EN);
   gpio_ext_enable(GPIO_EXT_DISP_1EN_2BL);
+  set_display_backlight(30);
 
   if (!battery_info.som_is_powered) {
     // reset display + modem (active low)
@@ -591,9 +590,10 @@ void turn_som_power_off_v20() {
 void turn_som_power_on() {
   printf("# [action] turn_som_power_on\n");
 
-  // TODO: FIXME: define for mb version, or detect it
-  turn_som_power_on_v20();
-  return;
+  if (mb_version() >= 2) {
+    turn_som_power_on_v20();
+    return;
+  }
 
   gpio_put(PIN_PWREN_LATCH, 0);
 
@@ -641,9 +641,10 @@ void turn_som_power_on() {
 void turn_som_power_off() {
   printf("# [action] turn_som_power_off\n");
 
-  // TODO: FIXME: define for mb version, or detect it
-  turn_som_power_off_v20();
-  return;
+  if (mb_version() >= 2) {
+    turn_som_power_off_v20();
+    return;
+  }
 
   battery_info.som_is_powered = false;
 
@@ -674,7 +675,7 @@ void turn_som_power_off() {
 }
 
 void som_wake() {
-  // TODO: reset display here?
+  // reset the display before wakeup
   gpio_ext_disable(GPIO_EXT_DISP_RESET_N);
   busy_wait_us(20*1000);
   gpio_ext_enable(GPIO_EXT_DISP_RESET_N);
@@ -751,6 +752,11 @@ void enter_powersave(void) {
   }
 }
 
+// TODO: implement
+int mb_version() {
+  return 2;
+}
+
 void setup_gpios() {
   // UART to keyboard
   uart_init(UART_ID, BAUD_RATE);
@@ -784,21 +790,24 @@ void setup_gpios() {
   gpio_set_function(PIN_LED_B, GPIO_FUNC_PWM);
 
   // Power regulator pins
-  // TODO: FIXME: v10 only
-  gpio_init(PIN_1V1_ENABLE);
-  gpio_init(PIN_3V3_ENABLE);
-  gpio_init(PIN_5V_ENABLE);
-  gpio_set_dir(PIN_1V1_ENABLE, GPIO_OUT);
-  gpio_set_dir(PIN_3V3_ENABLE, GPIO_OUT);
-  gpio_set_dir(PIN_5V_ENABLE, GPIO_OUT);
-  gpio_put(PIN_1V1_ENABLE, 0);
-  gpio_put(PIN_3V3_ENABLE, 0);
-  gpio_put(PIN_5V_ENABLE, 0);
+  if (mb_version() < 2) {
+    // on MB2, these functions have been moved
+    // to external GPIO controller
+    gpio_init(PIN_1V1_ENABLE);
+    gpio_init(PIN_3V3_ENABLE);
+    gpio_init(PIN_5V_ENABLE);
+    gpio_set_dir(PIN_1V1_ENABLE, GPIO_OUT);
+    gpio_set_dir(PIN_3V3_ENABLE, GPIO_OUT);
+    gpio_set_dir(PIN_5V_ENABLE, GPIO_OUT);
+    gpio_put(PIN_1V1_ENABLE, 0);
+    gpio_put(PIN_3V3_ENABLE, 0);
+    gpio_put(PIN_5V_ENABLE, 0);
 
-  // Power enable latch
-  gpio_init(PIN_PWREN_LATCH);
-  gpio_set_dir(PIN_PWREN_LATCH, 1);
-  gpio_put(PIN_PWREN_LATCH, 0);
+    // Power enable latch
+    gpio_init(PIN_PWREN_LATCH);
+    gpio_set_dir(PIN_PWREN_LATCH, 1);
+    gpio_put(PIN_PWREN_LATCH, 0);
+  }
 
   // SoM / SoC wake GPIO
   gpio_init(PIN_SOM_WAKE);
@@ -806,13 +815,11 @@ void setup_gpios() {
   //gpio_put(PIN_SOM_WAKE, 0);
 
   // Display control pins
-  // TODO: FIXME: v10 only
   gpio_init(PIN_DISP_RESET);
-  gpio_init(PIN_DISP_EN);
-  gpio_set_dir(PIN_DISP_EN, GPIO_OUT);
   gpio_set_dir(PIN_DISP_RESET, GPIO_OUT);
   gpio_put(PIN_DISP_RESET, 0);
-
+  gpio_init(PIN_DISP_EN);
+  gpio_set_dir(PIN_DISP_EN, GPIO_OUT);
   // For brightness control of display v2,
   // this pin is switched to PWM mode later
   // Needs to be at 100% for display v1
@@ -832,25 +839,37 @@ void setup_gpios() {
   gpio_put(PIN_MODEM_RESET, 0); // active low (?)
   gpio_put(PIN_PHONE_DPR, 0);   // active high // causes 0.146W power use when high in off state!
 
-  // Turn off RGB LED
+  // Turn off RGB LED (B is PWMed?)
   gpio_put(PIN_LED_R, 0);
   gpio_put(PIN_LED_G, 0);
 
-  // USB charger-port power rail
-  // FIXME TODO v20
-  gpio_init(PIN_USB_SRC_ENABLE);
-  gpio_set_dir(PIN_USB_SRC_ENABLE, GPIO_OUT);
-  usb_host_5v_enable();
+  if (mb_version() >= 2) {
+    // USB-C port 2 power rail
+    gpio_init(PIN_USB_SRC_ENABLE);
+    gpio_set_dir(PIN_USB_SRC_ENABLE, GPIO_OUT);
+    // NOTE: on MB2, port 1 VBUS is controlled by
+    // the charger chip's OTG function
+  } else if (mb_version() < 2) {
+    // USB-C port 1 power rail
+    gpio_init(PIN_USB_SRC_ENABLE);
+    gpio_set_dir(PIN_USB_SRC_ENABLE, GPIO_OUT);
+  }
 
+  // USB-C port 1 (charger port) CC controller
   gpio_init(PIN_FUSB_INT);
   gpio_set_pulls(PIN_FUSB_INT, true, false); // pullup
   gpio_set_dir(PIN_FUSB_INT, GPIO_IN);
 
-  // TODO v20 only
-  gpio_init(PIN_USB_LOADER_SW);
-  gpio_set_dir(PIN_USB_LOADER_SW, GPIO_IN);
-  gpio_init(PIN_V20_DP_HPD);
-  gpio_set_dir(PIN_V20_DP_HPD, GPIO_IN);
+  if (mb_version() >= 2) {
+    // EDL/USB loader switch for SoC
+    // TODO: should be an output
+    gpio_init(PIN_USB_LOADER_SW);
+    gpio_set_dir(PIN_USB_LOADER_SW, GPIO_IN);
+    // USB-C DisplayPort HPD
+    // TODO: should be an output
+    gpio_init(PIN_V20_DP_HPD);
+    gpio_set_dir(PIN_V20_DP_HPD, GPIO_IN);
+  }
 }
 
 void setup() {
@@ -864,13 +883,13 @@ void setup() {
   printf("# [reset] cause: %#.8x\n", (uint16_t)vreg_and_chip_reset_hw->chip_reset);
   printf("# [reset] magic: %#.8x%.8x\n", (uint16_t)watchdog_hw->scratch[2], (uint16_t)watchdog_hw->scratch[3]);
 
-  // TODO: FIXME: v20 only
-  if (!gpio_ext_setup()) {
-    printf("# [setup] error: gpio_ext_setup() failed. PCA9557 not responding?\n");
-  }
-  // TODO: FIXME: v20 only
-  if (!gpio_ext_uswitch_setup()) {
-    printf("# [setup] error: gpio_ext_uswitch_setup() failed. PCA9536 not responding?\n");
+  if (mb_version() >= 2) {
+    if (!gpio_ext_setup(!syscon_warm_boot())) {
+      printf("# [setup] error: gpio_ext_setup() failed. PCA9557 not responding?\n");
+    }
+    if (!gpio_ext_uswitch_setup()) {
+      printf("# [setup] error: gpio_ext_uswitch_setup() failed. PCA9536 not responding?\n");
+    }
   }
 
   set_display_backlight_freq(100000);
@@ -1077,24 +1096,33 @@ void handle_usb_commands() {
   }
 }
 
+// TODO: abstract MPS communication away into a charger file
 void usb_host_5v_enable() {
+  if (mb_version() < 2) {
 #ifndef OTG_AS_5V
-  // TODO this is only for mb10
-  gpio_put(PIN_USB_SRC_ENABLE, 1);
+    gpio_put(PIN_USB_SRC_ENABLE, 1);
 #else
-  mps_reg_config.config0.otg_en = 1;
-  mps_write_byte(MPS_REG_CONFIG0, mps_reg_config.config0.reg_byte);
+    mps_reg_config.config0.otg_en = 1;
+    mps_write_byte(MPS_REG_CONFIG0, mps_reg_config.config0.reg_byte);
 #endif
+  } else if (mb_version() >= 2) {
+    mps_reg_config.config0.otg_en = 1;
+    mps_write_byte(MPS_REG_CONFIG0, mps_reg_config.config0.reg_byte);
+  }
 }
 
 void usb_host_5v_disable() {
+  if (mb_version() < 2) {
 #ifndef OTG_AS_5V
-  // TODO this is only for mb10
-  gpio_put(PIN_USB_SRC_ENABLE, 0);
+    gpio_put(PIN_USB_SRC_ENABLE, 0);
 #else
-  mps_reg_config.config0.otg_en = 0;
-  mps_write_byte(MPS_REG_CONFIG0, mps_reg_config.config0.reg_byte);
+    mps_reg_config.config0.otg_en = 0;
+    mps_write_byte(MPS_REG_CONFIG0, mps_reg_config.config0.reg_byte);
 #endif
+  } else if (mb_version() >= 2) {
+    mps_reg_config.config0.otg_en = 0;
+    mps_write_byte(MPS_REG_CONFIG0, mps_reg_config.config0.reg_byte);
+  }
 }
 
 #define TICK_MS 1
@@ -1161,10 +1189,11 @@ void loop() {
   }
 #endif
 
-  // TODO somehow sleep_us can prevent UART handling for up to 10 seconds after startup/reset?!
   if (can_sleep) {
+    // NOTE: sleep functions disrupt USB UART
     busy_wait_us(100);
 
+    // TODO: make configurable
     if ((battery_info.ticks % (5000 * TICK_MS) == 0)
         && !battery_info.som_is_powered
         && battery_info.gauge_avg_milliamps < 0) {
@@ -1183,8 +1212,10 @@ void mntre_reset_callback(void) {
   gpio_set_function(PIN_DISP_EN, GPIO_FUNC_SIO);
   gpio_put(PIN_DISP_EN, 1);
 
-  // clear latch, so resetting _us_ does not reset the SOC.
-  gpio_put(PIN_PWREN_LATCH, 0);
+  if (mb_version() < 2) {
+    // clear latch, so resetting _us_ does not reset the SOC.
+    gpio_put(PIN_PWREN_LATCH, 0);
+  }
 }
 
 // from pico-sdk docs:

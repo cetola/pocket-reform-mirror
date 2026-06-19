@@ -125,6 +125,7 @@ typedef struct battery_info_s
 #include "ext_gpio.h"
 
 // Shared functions with communication classes
+int mb_version();
 void som_wake();
 void turn_som_power_on();
 void turn_som_power_off();
