@@ -207,7 +207,7 @@ void hwapi_pocket_init(battery_info_s *binfo) {
   /* register all available functions */
   cli_add_func("set-rail", hwapi_set_rail, 2, CLI_TYPE_UINT64);
   cli_add_func("set-gpio", hwapi_set_gpio, 2, CLI_TYPE_UINT64);
-  cli_add_func("set-usb\0", hwapi_set_usb_mode, 1, CLI_TYPE_UINT64);
+  cli_add_func("set-usb\0", hwapi_set_usb_mode, 2, CLI_TYPE_UINT64);
   cli_add_func("set-blgt", hwapi_set_backlight, 1, CLI_TYPE_UINT64);
   cli_add_func("cell-mv\0", hwapi_get_cell_mv, 1, CLI_TYPE_UINT64);
   cli_add_func("pack-mv\0", hwapi_get_pack_mv, 1, CLI_TYPE_UINT64);
