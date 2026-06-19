@@ -8,6 +8,7 @@
  */
 #include <math.h>
 #include <stdio.h>
+#include <string.h>
 #include "sysctl.h"
 #include "pico/divider.h"
 #include "hardware/clocks.h"
@@ -25,7 +26,6 @@
 
 static uint8_t mps_fault_last = 0;
 static battery_info_s battery_info = {0};
-static struct repeating_timer spi_timer;
 
 // The Pico boot rom uses watchdog scratch registers 0, 1, 4, 5, 6, and 7.
 // That leaves 2 and 3 for our "system is on" magic.
@@ -93,13 +93,20 @@ int32_t pwm_set_freq_duty(uint32_t slice_num, uint32_t chan, uint32_t freq, int 
   return 1;
 }
 
+static int backlight_freq = 100000;
+
+void set_display_backlight_freq(int freq) {
+  if (freq < 0) freq = 0;
+  backlight_freq = freq;
+}
+
 // this functionality is only for the second type of display for Pocket Reform
 // that will ship in late 2024 (TOP070F01A)
 // called from timer interrupt, no sleep allowed here!
 void set_display_backlight(int percent) {
   // DISP_EN = 7 = PWM3 B
   gpio_set_function(PIN_DISP_EN, GPIO_FUNC_PWM);
-  pwm_set_freq_duty(pwm_gpio_to_slice_num(PIN_DISP_EN), pwm_gpio_to_channel(PIN_DISP_EN), 100000, percent);
+  pwm_set_freq_duty(pwm_gpio_to_slice_num(PIN_DISP_EN), pwm_gpio_to_channel(PIN_DISP_EN), backlight_freq, percent);
 
   // caveat: latch needs to be always-on
   // for brightnesses other than full brightness to work
@@ -228,7 +235,7 @@ void gauge_tick(battery_info_s *battery_info) {
   if (max17320_devname == 0x4209 || max17320_devname == 0x420a || max17320_devname == 0x420b) {
     battery_info->max17320_devname = max17320_devname;
   } else {
-    printf("# [battery] [ERROR] gauge did not respond\n");
+    //printf("# [battery] [ERROR] gauge did not respond\n");
     battery_info->max17320_devname = 0;
     battery_info->input_volts = -1;
     battery_info->time_to_empty = 0;
@@ -543,6 +550,9 @@ void turn_som_power_on_v20() {
   battery_info.som_is_powered = true;
   som_power_indication();
   init_spi_client();
+
+  // in case the soc is sleeping, wake it
+  som_wake();
 }
 
 void turn_som_power_off_v20() {
@@ -664,10 +674,18 @@ void turn_som_power_off() {
 }
 
 void som_wake() {
+  // TODO: reset display here?
+  gpio_ext_disable(GPIO_EXT_DISP_RESET_N);
+  busy_wait_us(20*1000);
+  gpio_ext_enable(GPIO_EXT_DISP_RESET_N);
+
+  gpio_set_dir(PIN_SOM_WAKE, GPIO_OUT);
   gpio_put(PIN_SOM_WAKE, 1);
   busy_wait_us(5*1000);
   gpio_put(PIN_SOM_WAKE, 0);
-  uart_puts(uart0, "wake\r\n");
+  busy_wait_us(5*1000);
+  gpio_put(PIN_SOM_WAKE, 1);
+  gpio_set_dir(PIN_SOM_WAKE, GPIO_IN);
 }
 
 // reset register
@@ -679,7 +697,6 @@ void enter_powersave(void) {
   // wake on gpio interrupt, mode level (vs edge) and active low
   uint32_t event = IO_BANK0_DORMANT_WAKE_INTE0_GPIO0_LEVEL_LOW_BITS;
 
-  cancel_repeating_timer(&spi_timer);
   uart_deinit(UART_ID);
   gpio_init(PIN_KBD_UART_RX);
   gpio_init(PIN_KBD_UART_TX);
@@ -785,8 +802,8 @@ void setup_gpios() {
 
   // SoM / SoC wake GPIO
   gpio_init(PIN_SOM_WAKE);
-  gpio_set_dir(PIN_SOM_WAKE, GPIO_OUT);
-  gpio_put(PIN_SOM_WAKE, 0);
+  gpio_set_dir(PIN_SOM_WAKE, GPIO_IN);
+  //gpio_put(PIN_SOM_WAKE, 0);
 
   // Display control pins
   // TODO: FIXME: v10 only
@@ -823,7 +840,7 @@ void setup_gpios() {
   // FIXME TODO v20
   gpio_init(PIN_USB_SRC_ENABLE);
   gpio_set_dir(PIN_USB_SRC_ENABLE, GPIO_OUT);
-  gpio_put(PIN_USB_SRC_ENABLE, 1);
+  usb_host_5v_enable();
 
   gpio_init(PIN_FUSB_INT);
   gpio_set_pulls(PIN_FUSB_INT, true, false); // pullup
@@ -856,6 +873,8 @@ void setup() {
     printf("# [setup] error: gpio_ext_uswitch_setup() failed. PCA9536 not responding?\n");
   }
 
+  set_display_backlight_freq(100000);
+
   // if this is a warm boot, then we need to avoid latching the PWR and display
   // pins.
   if (syscon_warm_boot()) {
@@ -872,25 +891,195 @@ void setup() {
   pd_init();
 }
 
+// TODO move line editor to library file
+// TODO tab completion
+#define CLI_USB_STATE_NORMAL 0
+#define CLI_USB_STATE_ESC 1
+#define CLI_USB_STATE_CSI 2
+#define CLI_USB_LINE_MAX 128
+static int cli_usb_state = CLI_USB_STATE_NORMAL;
+static char cli_usb_line_hist[CLI_USB_LINE_MAX];
+static char cli_usb_line_temp[CLI_USB_LINE_MAX];
+static char cli_usb_line[CLI_USB_LINE_MAX];
+static int cli_usb_line_cursor = 0;
 static struct cli_context cli_ctx_usb;
+
+void cli_usb_line_del() {
+  int rewind = 0;
+  for (int i = cli_usb_line_cursor; i < CLI_USB_LINE_MAX-1; i++) {
+    char c = cli_usb_line[i];
+    char next = cli_usb_line[i + 1];
+    if (c > 13 && next > 13) {
+      cli_usb_line[i] = next;
+      putchar(next);
+      rewind++;
+    } else {
+      cli_usb_line[i] = 0;
+      putchar(' ');
+      rewind++;
+      break;
+    }
+  }
+  for (int i = 0; i < rewind; i++) {
+    putchar(8);
+  }
+}
+
+void cli_usb_line_reset() {
+  for (int i = 0; i < cli_usb_line_cursor; i++) {
+    putchar(8);
+    putchar(' ');
+    putchar(8);
+  }
+  cli_usb_line_cursor = 0;
+}
+
+void cli_usb_line_restore() {
+  for (int i = 0; i < CLI_USB_LINE_MAX; i++) {
+    if (cli_usb_line[i] < 13) break;
+    putchar(cli_usb_line[i]);
+    cli_usb_line_cursor++;
+  }
+}
 
 void handle_usb_commands() {
   int usb_c = getchar_timeout_us(0);
   if (usb_c != PICO_ERROR_TIMEOUT) {
+
+    if (cli_usb_state == CLI_USB_STATE_ESC) {
+      //printf("esc: [0x%x]\n", usb_c);
+      if (usb_c == '[') {
+        cli_usb_state = CLI_USB_STATE_CSI;
+        return;
+      }
+      if (usb_c >= 0x40 && usb_c <= 0x7e) {
+        // "final byte"
+        cli_usb_state = CLI_USB_STATE_NORMAL;
+        return;
+      }
+      return;
+    }
+    if (cli_usb_state == CLI_USB_STATE_CSI) {
+      //printf("csi: [0x%x]\n", usb_c);
+      if (usb_c >= 0x40 && usb_c <= 0x7e) {
+        // "final byte"
+        if (usb_c == 0x44) {
+          // cursor left
+          if (cli_usb_line_cursor > 0) {
+            putchar(8);
+            cli_usb_line_cursor--;
+          }
+        } else if (usb_c == 0x43) {
+          // cursor right
+          if (cli_usb_line_cursor < CLI_USB_LINE_MAX-1) {
+            if (cli_usb_line[cli_usb_line_cursor] > 13) {
+              putchar(cli_usb_line[cli_usb_line_cursor]);
+              cli_usb_line_cursor++;
+            }
+          }
+        } else if (usb_c == 0x41 || usb_c == 0x42) {
+          // cursor up or down
+          cli_usb_line_reset();
+          cli_usb_line_restore();
+          cli_usb_line_reset();
+          memcpy(cli_usb_line_temp, cli_usb_line, CLI_USB_LINE_MAX);
+          memcpy(cli_usb_line, cli_usb_line_hist, CLI_USB_LINE_MAX);
+          memcpy(cli_usb_line_hist, cli_usb_line_temp, CLI_USB_LINE_MAX);
+          cli_usb_line_restore();
+        } else if (usb_c == 0x7e) {
+          // del
+          cli_usb_line_del();
+        }
+        cli_usb_state = CLI_USB_STATE_NORMAL;
+        return;
+      }
+      return;
+    }
+    if (usb_c == 0x1b) {
+      // TODO: handle escape sequence
+      cli_usb_state = CLI_USB_STATE_ESC;
+      return;
+    }
+
     if (usb_c == 13) usb_c = 10;
-    putchar(usb_c);
-    cli_char(&cli_ctx_usb, usb_c);
-    int resp_len = cli_get_out_pos(&cli_ctx_usb);
-    if (resp_len > 0) {
-      char *cli_out_buf = cli_get_out(&cli_ctx_usb);
-      printf("%s\n", cli_out_buf);
-      cli_reset_out(&cli_ctx_usb);
+    if (usb_c == 0x7f || usb_c == 8) {
+      // backspace
+      if (cli_usb_line_cursor > 0) {
+        putchar(8);
+        putchar(' ');
+        putchar(8);
+        cli_usb_line_cursor--;
+        cli_usb_line_del();
+        //cli_usb_line[cli_usb_line_cursor] = 0;
+      }
+      return;
+    }
+
+    if (cli_usb_line_cursor < CLI_USB_LINE_MAX-1) {
+      if (usb_c != 10) {
+        char c = cli_usb_line[cli_usb_line_cursor];
+
+        if (c > 13) {
+          // in the middle of a line, insert and shift
+          if (cli_usb_line[CLI_USB_LINE_MAX-2] == 0) {
+            for (int i = CLI_USB_LINE_MAX - 2; i >= cli_usb_line_cursor; i--) {
+              cli_usb_line[i + 1] = cli_usb_line[i];
+            }
+            int rewind = 0;
+            for (int i = cli_usb_line_cursor; i < CLI_USB_LINE_MAX; i++) {
+              char d = cli_usb_line[i];
+              if (d > 13) {
+                putchar(d);
+                rewind++;
+              }
+            }
+            for (int i = 0; i < rewind; i++) {
+              putchar(8);
+            }
+            cli_usb_line[cli_usb_line_cursor] = usb_c;
+            cli_usb_line_cursor++;
+          }
+        } else {
+          // end of line
+          cli_usb_line[cli_usb_line_cursor] = usb_c;
+          cli_usb_line_cursor++;
+        }
+      }
+      putchar(usb_c);
+    }
+
+    if (usb_c == 10) {
+      for (int i=0; i<CLI_USB_LINE_MAX; i++) {
+        // feed line into CLI
+        if (cli_usb_line[i] == 0) {
+          cli_usb_line[i] = 10;
+        }
+
+        cli_char(&cli_ctx_usb, cli_usb_line[i]);
+        int resp_len = cli_get_out_pos(&cli_ctx_usb);
+        if (resp_len > 0) {
+          char *cli_out_buf = cli_get_out(&cli_ctx_usb);
+          printf("%s\n", cli_out_buf);
+          cli_reset_out(&cli_ctx_usb);
+        }
+
+        if (cli_usb_line[i] == 0 || cli_usb_line[i] == 10) {
+          // done
+          cli_usb_line_cursor = 0;
+          memcpy(cli_usb_line_hist, cli_usb_line, i);
+          cli_usb_line_hist[i] = 0;
+          memset(cli_usb_line, 0, CLI_USB_LINE_MAX);
+          memset(cli_usb_line_temp, 0, CLI_USB_LINE_MAX);
+          return;
+        }
+      }
     }
   }
 }
 
 void usb_host_5v_enable() {
 #ifndef OTG_AS_5V
+  // TODO this is only for mb10
   gpio_put(PIN_USB_SRC_ENABLE, 1);
 #else
   mps_reg_config.config0.otg_en = 1;
@@ -900,6 +1089,7 @@ void usb_host_5v_enable() {
 
 void usb_host_5v_disable() {
 #ifndef OTG_AS_5V
+  // TODO this is only for mb10
   gpio_put(PIN_USB_SRC_ENABLE, 0);
 #else
   mps_reg_config.config0.otg_en = 0;
@@ -1023,8 +1213,6 @@ int main() {
   // by default, present sysctl usb to SoC USB internally
   //hwapi_set_usb_mode(1, 1);
 
-  // call SPI task every 5 ms to ensure response time
-  //add_repeating_timer_ms(-5, spi_commands_task, NULL, &spi_timer);
   gpio_set_irq_enabled_with_callback(PIN_SOM_SS0, GPIO_IRQ_EDGE_FALL, true, &spi_commands_task);
 
   printf("# [pocket_sysctl] entering main loop\n");
