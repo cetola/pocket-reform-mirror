@@ -551,7 +551,8 @@ void turn_som_power_on_v20() {
   init_spi_client();
 
   // in case the soc is sleeping, wake it
-  som_wake();
+  // FIXME don't do this after warm boot! 
+  // som_wake();
 }
 
 void turn_som_power_off_v20() {

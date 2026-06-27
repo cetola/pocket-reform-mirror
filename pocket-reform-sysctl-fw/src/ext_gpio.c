@@ -73,8 +73,10 @@ bool gpio_ext_setup(bool reset) {
     // TODO this should read gpio_ext_state but that doesn't
     // seem to be reliable yet
     gpio_ext_state = 0b01111111;
-    uint8_t dummy = 0;
-    return pca9557_read_byte(3, &dummy);
+    pca9557_write_byte(1, gpio_ext_state);
+    //uint8_t dummy = 0;
+    //return pca9557_read_byte(1, &dummy);
+    return pca9557_write_byte(3, 0b00000000);
   }
 }
 
