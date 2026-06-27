@@ -1165,8 +1165,7 @@ void loop() {
   charger_led_indication(&battery_info);
 
   // every 1000ms: report to serial
-#if 0
-  if (battery_info.ticks % (1000*TICK_MS) == 0) {
+  if (battery_info.print_pack_info && (battery_info.ticks % (1000*TICK_MS) == 0)) {
     // TODO: print adc_charge_c adc_discharge_c
     printf("# %s %s %s chg=%1x mps_flt=%02x/%02x input=%0.2fmV@%0.2fmA charge=%0.2fmA discharge=%0.2fmA p=%0.2fW ttempty=%umin battery=%0.4fV@%0.4fmA battery_avg=%0.4fmA battery_pwr=%0.4fmW\n",
            battery_info.som_is_powered ? "ON" : "OFF",
@@ -1187,11 +1186,11 @@ void loop() {
            battery_info.gauge_avg_milliamps*battery_info.battery_volts
            );
   }
-#endif
 
   if (can_sleep) {
     // NOTE: sleep functions disrupt USB UART
-    busy_wait_us(100);
+    // sleep 1ms
+    busy_wait_us(1000);
 
     // TODO: make configurable
     if ((battery_info.ticks % (5000 * TICK_MS) == 0)
@@ -1242,7 +1241,8 @@ int main() {
 #endif
 
   // by default, present sysctl usb to SoC USB internally
-  //hwapi_set_usb_mode(1, 1);
+  hwapi_set_usb_mode(0, 1);
+  hwapi_set_usb_mode(1, 1);
 
   gpio_set_irq_enabled_with_callback(PIN_SOM_SS0, GPIO_IRQ_EDGE_FALL, true, &spi_commands_task);
 

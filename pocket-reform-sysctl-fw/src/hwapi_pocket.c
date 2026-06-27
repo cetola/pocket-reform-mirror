@@ -177,6 +177,10 @@ uint64_t hwapi_set_gpio([[maybe_unused]] struct cli_context* ctx, uint64_t id, u
     }
     break;
   }
+  case 7: {
+    gpio_put(PIN_USB_SRC_ENABLE, high?1:0);
+    break;
+  }
   }
   return high;
 }
@@ -306,6 +310,11 @@ uint64_t hwapi_get_sys_ma([[maybe_unused]] struct cli_context* ctx /*uint64_t pa
   return 0;
 }
 
+uint64_t hwapi_set_pack_debug([[maybe_unused]] struct cli_context* ctx, uint64_t on) {
+  battery_info->print_pack_info = on;
+  return on;
+}
+
 // TODO: need to instantiate multiple CLIs (ttys?)
 // so state is not mixed between usb, uart, and spi interfaces
 void hwapi_pocket_init(battery_info_s *binfo) {
@@ -327,6 +336,7 @@ void hwapi_pocket_init(battery_info_s *binfo) {
   cli_add_func("pack-ma\0", hwapi_get_pack_ma, 1, CLI_TYPE_UINT64);
   cli_add_func("pack-crg", hwapi_get_pack_charge, 1, CLI_TYPE_UINT64);
   cli_add_func("pack-max", hwapi_get_pack_capacity_full, 1, CLI_TYPE_UINT64);
+  cli_add_func("pack-dbg", hwapi_set_pack_debug, 1, CLI_TYPE_UINT64);
   cli_add_func("sys-mv\0\0", hwapi_get_sys_mv, 0, CLI_TYPE_UINT64);
   cli_add_func("sys-ma\0\0", hwapi_get_sys_ma, 0, CLI_TYPE_UINT64);
   cli_add_func("soc-wake", hwapi_soc_wake, 0, CLI_TYPE_UINT64);

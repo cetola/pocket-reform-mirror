@@ -2,6 +2,7 @@
 #include "sysctl.h"
 #include "pico/stdlib.h"
 #include "hardware/i2c.h"
+#include <stdint.h>
 
 static uint8_t gpio_ext_state;
 static uint8_t gpio_ext_uswitch_state;
@@ -69,7 +70,11 @@ bool gpio_ext_setup(bool reset) {
     // config: outputs(0)/inputs(1) (all outputs)
     return pca9557_write_byte(3, 0b00000000);
   } else {
-    return pca9557_read_byte(3, &gpio_ext_state);
+    // TODO this should read gpio_ext_state but that doesn't
+    // seem to be reliable yet
+    gpio_ext_state = 0b01111111;
+    uint8_t dummy = 0;
+    return pca9557_read_byte(3, &dummy);
   }
 }
 

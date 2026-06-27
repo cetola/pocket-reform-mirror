@@ -560,7 +560,7 @@ bool pd_tick(battery_info_s* battery_info) {
       busy_wait_us(100);
 
       // turn off 5v host power first
-      usb_host_5v_disable();
+      //usb_host_5v_disable();
 
       // enable toggle and DRP mode
       int mode;
@@ -683,12 +683,12 @@ bool pd_tick(battery_info_s* battery_info) {
       if (pd_state == PD_STATE_UNATTACHED_SNK) {
         pd_powerrole = PD_POWERROLE_SINK;
         pd_datarole = PD_DATAROLE_UFP;  // default for powerrole SINK
-        usb_host_5v_disable();
+        //usb_host_5v_disable();
         pd_apply_datarole();
       } else {
         pd_powerrole = PD_POWERROLE_SOURCE;
         pd_datarole = PD_DATAROLE_DFP;  // default for powerrole SOURCE
-        usb_host_5v_enable();
+        //usb_host_5v_enable();
         pd_apply_datarole();
       }
 
@@ -779,7 +779,7 @@ bool pd_tick(battery_info_s* battery_info) {
     }
 #endif
 
-    if (t == 1 || t % 10000 == 0) {
+    if (t == 100 || (t % 10000 == 0)) {
 #if 0
       printf("# [pd] state PD_STATE_UNATTACHED_SRC - sending PD_MSGTYPE_D_SOURCE_CAPABILITIES\n");
       tx.hdr = PD_MSGTYPE_D_SOURCE_CAPABILITIES | PD_NUMOBJ(1) | pd_datarole | (pd_powerrole << PD_HDR_POWERROLE_SHIFT);
@@ -796,8 +796,8 @@ bool pd_tick(battery_info_s* battery_info) {
           // device is still connected, stay.
         } else {
           pd_state = PD_STATE_SETUP;
+          t = 0;
         }
-        t = 0;
       }
     }
 
