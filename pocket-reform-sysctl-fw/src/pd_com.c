@@ -151,7 +151,7 @@ void send_vdm([[maybe_unused]] uint32_t message_type, uint8_t prime) {
   //tx.hdr = 0x108f;
   tx.obj[0] = message_type;
 
-  printf("# [pd] send VDM: hdr: 0x%08x obj0: 0x%08lx prime: %d\n", tx.hdr, tx.obj[0], prime);
+  printf("# [pd] send VDM: hdr: 0x%08x obj0: 0x%08lx prime: %d datarole: %s powerrole: %s\n", tx.hdr, tx.obj[0], prime, pd_datarole == PD_DATAROLE_DFP?"DFP":"UFP", pd_powerrole == PD_POWERROLE_SINK?"SINK":"SRC");
 
   if (prime == 2) {
     fusb_send_message_prime_prime(&tx);
@@ -166,6 +166,19 @@ void send_vdm([[maybe_unused]] uint32_t message_type, uint8_t prime) {
   //                         PD_VDM_USBPD_ENTER_MODE 4
   //
 
+  tx_id_count++;
+}
+
+void send_vdm2([[maybe_unused]] uint32_t message_type, uint32_t obj1) {
+  tx.hdr = PD_MSGTYPE_D_VENDOR_DEFINED | PD_NUMOBJ(2) | pd_datarole | (pd_powerrole << PD_HDR_POWERROLE_SHIFT) | PD_SPECREV_2_0;
+  tx.hdr &= ~PD_HDR_MESSAGEID;
+  tx.hdr |= (tx_id_count % 8) << PD_HDR_MESSAGEID_SHIFT;
+  tx.obj[0] = message_type;
+  tx.obj[1] = obj1;
+
+  printf("# [pd] send VDM2: hdr: 0x%08x obj0: 0x%08lx obj1: 0x%08lx datarole: %s powerrole: %s\n", tx.hdr, tx.obj[0], tx.obj[1], pd_datarole == PD_DATAROLE_DFP?"DFP":"UFP", pd_powerrole == PD_POWERROLE_SINK?"SINK":"SRC");
+
+  fusb_send_message(&tx);
   tx_id_count++;
 }
 
@@ -289,6 +302,304 @@ static bool pd_apply_datarole() {
   return true;
 }
 
+static bool pd_handle_vdm_response() {
+  //unsigned int msgtype = PD_MSGTYPE_GET(&rx_msg);
+  //unsigned int msgrole = PD_POWERROLE_GET(&rx_msg);
+  int numobj = PD_NUMOBJ_GET(&rx_msg);
+  uint32_t vdm_header = rx_msg.obj[0];
+  uint32_t obj1 = rx_msg.obj[1];
+  uint16_t vsid = (vdm_header >> PD_VSID__SHIFT) & 0xFFFF;
+  printf("# [pd] pd_handle_vdm_response vdm_header: 0x%lx vsid: %x numobj: %d\n", vdm_header, vsid, numobj);
+
+  // 1. 0xff008041 vsid: ff00 numobj: 4
+
+  for (int i=0; i<numobj; i++) {
+    printf("# [pd] vdm< obj %d: 0x%lx\n", i, rx_msg.obj[i]);
+  }
+
+  uint8_t vdm_type = vdm_header & 0x1f;
+
+  if (vdm_header & PD_VDM_HEADER_TYPE_ACK) {
+    if (vsid == PD_VSID_USBPD) {
+      if (vdm_type == PD_VDM_USBPD_DISCOVER_IDENTITY) {
+	printf("# [pd] vdm< ACK discover_identity\n");
+	//send_vdm(0xff008002, 0);
+      }
+      if (vdm_type == PD_VDM_USBPD_DISCOVER_SVIDS) {
+	printf("# [pd] vdm< ACK discover_svids\n");
+
+	// send discover modes
+	send_vdm(0xff018003, 0);
+      }
+    }
+    if (vsid == 0xff01) {
+      if (vdm_type == PD_VDM_USBPD_DISCOVER_MODES) {
+	printf("# [pd] vdm< ACK DP discover_modes\n");
+
+	// monitor sends 0x1c004d in obj1
+
+	uint32_t portcap = obj1 & 0b11;
+	uint32_t dp_signals = (obj1 & (0b1111 << 2)) >> 2; // 0b0010 << 2; // gen 2 and DP v1.3
+	uint32_t recept_ind = !!(obj1 & (1 << 6)); // receptacle
+	uint32_t usb2_not_used = !!(obj1 & (1 << 7)); // USB2 not required
+	uint32_t dfp_pins = (obj1 & 0xff00) >> 8; // 0b00001000 << 8; // only "D" pin assignment (DP+USB mix)
+	uint32_t ufp_pins = (obj1 & 0xff0000) >> 16;
+
+	printf("# [pd] <DP mode 1:\n");
+	printf("# [pd]   portcap: %02b\n", (unsigned int)portcap);
+	printf("# [pd]   dp_signals: %04b\n", (unsigned int)dp_signals);
+	printf("# [pd]   receptactle: %01b\n", (unsigned int)recept_ind);
+	printf("# [pd]   usb2_not_used: %01b\n", (unsigned int)usb2_not_used);
+	printf("# [pd]   dfp_pins: %08b\n", (unsigned int)dfp_pins);
+	printf("# [pd]   ufp_pins: %08b\n", (unsigned int)ufp_pins);
+
+	/*
+	  # [pd] <DP mode 1:
+	  # [pd]   portcap: 01
+	  # [pd]   dp_signals: 0011
+	  # [pd]   receptactle: 1
+	  # [pd]   usb2_not_used: 0
+	  # [pd]   dfp_pins: 00000000
+	  # [pd]   ufp_pins: 00011100
+	 */
+
+	portcap = 0b10; // DFP_D capable
+	dp_signals = 0b0010 << 2; // gen 2 and DP v1.3
+	recept_ind = 0b1 << 6; // receptacle
+	usb2_not_used = 0b0 << 7; // USB2 required
+	dfp_pins = 0b00001000 << 8; // only "D" pin assignment (DP+USB mix)
+	ufp_pins = 0b00000000 << 16; // all 0?
+	uint32_t mode_flags = portcap|dp_signals|recept_ind|usb2_not_used|dfp_pins|ufp_pins;
+
+	/*
+	  # [pd] send VDM2: hdr: 0x0000286f obj0: 0xff018104 obj1: 0x0000084a datarole: DFP powerrole: SINK
+	*/
+	
+	// enter mode
+	send_vdm2(0xff018104, mode_flags);
+      }
+      if (vdm_type == PD_VDM_USBPD_ENTER_MODE) {
+	printf("# [pd] vdm< ACK DP enter_mode\n");
+	
+	// status update
+	send_vdm2(0xff018010, 0b10011001);
+      }
+      if (vdm_type == PD_VDM_USBPD_DP_STATUS_UPDATE) {
+	printf("# [pd] vdm< ACK DP status_update\n");
+	
+	// configure
+	send_vdm2(0xff018011, 0b100000000110);
+      }
+      if (vdm_type == PD_VDM_USBPD_DP_CONFIGURE) {
+	printf("# [pd] vdm< ACK DP configure\n");
+      }
+    }
+  }
+  
+  /*
+    // VDM Header
+       tx.obj[0] = (PD_VSID_USBPD << PD_VSID__SHIFT) | PD_VDM_HEADER_STRUCTURED | PD_VDM_HEADER_TYPE_ACK | PD_VDM_USBPD_DISCOVER_IDENTITY;
+       // ID VDO: USB Host capable; Product Type (DFP) = 010; Connector Type = 10; plus VID
+       // bit 26: modal operation
+       tx.obj[1] = 0x81400000 | USB_VID_PIDCODES | (1<<26);
+       // Certification stat VDO
+       tx.obj[2] = 0;
+       // Product VDO: v1.0; plus PID
+       tx.obj[3] = 0x01000000 | USB_PID_MNT_POCKET_REFORM_SYSCTL_10;
+   */
+  
+  /*switch (vsid) {
+  case PD_VSID_USBPD:  // USB-PD Standard "Vendor" ID
+  }*/
+  return true;
+}
+
+static bool pd_handle_vdm_request() {
+  printf("# [pd] < pd_handle_vdm_request\n");
+  uint32_t vdm_header = rx_msg.obj[0];
+  uint16_t vsid = (vdm_header >> PD_VSID__SHIFT) & 0xFFFF;
+
+  switch (vsid) {
+  case PD_VSID_USBPD:  // USB-PD Standard "Vendor" ID
+    {
+      switch (vdm_header & 0x1F) {
+      case PD_VDM_USBPD_DISCOVER_IDENTITY:
+        printf("# [pd] replying to Discover Identity\n");
+        tx.hdr = PD_MSGTYPE_D_VENDOR_DEFINED | PD_NUMOBJ(4) | pd_datarole | (pd_powerrole << PD_HDR_POWERROLE_SHIFT) | PD_SPECREV_2_0;
+        tx.hdr &= ~PD_HDR_MESSAGEID;
+        tx.hdr |= (tx_id_count % 8) << PD_HDR_MESSAGEID_SHIFT;
+
+        // VDM Header
+        tx.obj[0] = (PD_VSID_USBPD << PD_VSID__SHIFT) | PD_VDM_HEADER_STRUCTURED | PD_VDM_HEADER_TYPE_ACK | PD_VDM_USBPD_DISCOVER_IDENTITY;
+        // ID VDO: USB Host capable; Product Type (DFP) = 010; Connector Type = 10; plus VID
+        // bit 26: modal operation
+        tx.obj[1] = 0x81400000 | USB_VID_PIDCODES | (1<<26);
+        // Certification stat VDO
+        tx.obj[2] = 0;
+        // Product VDO: v1.0; plus PID
+        tx.obj[3] = 0x01000000 | USB_PID_MNT_POCKET_REFORM_SYSCTL_10;
+
+        fusb_send_message(&tx);
+        tx_id_count++;
+
+        return true;
+      case PD_VDM_USBPD_DISCOVER_SVIDS:
+        printf("# [pd] replying to Discover SVIDs\n");
+
+        // only one VDO
+        tx.hdr = PD_MSGTYPE_D_VENDOR_DEFINED | PD_NUMOBJ(2) | pd_datarole | (pd_powerrole << PD_HDR_POWERROLE_SHIFT) | PD_SPECREV_2_0;
+        tx.hdr &= ~PD_HDR_MESSAGEID;
+        tx.hdr |= (tx_id_count % 8) << PD_HDR_MESSAGEID_SHIFT;
+
+        // VDM Header
+        tx.obj[0] = (PD_VSID_USBPD << PD_VSID__SHIFT) | PD_VDM_HEADER_STRUCTURED | PD_VDM_HEADER_TYPE_ACK | PD_VDM_USBPD_DISCOVER_SVIDS;
+        // ID VDO: USB Host capable; Product Type (DFP) = 010; Connector Type = 10; plus VID
+
+        // VDM
+        // for enter/exit:
+        // 001 – 110 = Index into the list of Vendor Defined Objects (VDOs) to identify the desired Mode VDO.
+        tx.obj[1] = 0xff01;
+        tx.obj[2] = 0;
+        tx.obj[3] = 0;
+
+        fusb_send_message(&tx);
+        tx_id_count++;
+        return true;
+      default:
+        printf("# [pd] [vdm] rejecting unknown vdm_header 0x%lx\n", vdm_header & 0x1F);
+        pd_send_not_supported();
+        return false;
+      }
+    }
+  case 0xff01: { // DisplayPort
+    switch (vdm_header & 0x1F) {
+    case PD_VDM_USBPD_DISCOVER_MODES:
+      printf("# [pd] [displayport] replying to Discover Modes\n");
+
+      // only one VDO
+      tx.hdr = PD_MSGTYPE_D_VENDOR_DEFINED | PD_NUMOBJ(2) | pd_datarole | (pd_powerrole << PD_HDR_POWERROLE_SHIFT) | PD_SPECREV_2_0;
+      tx.hdr &= ~PD_HDR_MESSAGEID;
+      tx.hdr |= (tx_id_count % 8) << PD_HDR_MESSAGEID_SHIFT;
+      // VDM Header (svid: displayport)
+      tx.obj[0] = (0xff01 << PD_VSID__SHIFT) | PD_VDM_HEADER_STRUCTURED | PD_VDM_HEADER_TYPE_ACK | PD_VDM_USBPD_DISCOVER_MODES;
+
+      uint32_t portcap = 0b10; // DFP_D capable
+      uint32_t dp_signals = 0b0010 << 2; // gen 2 and DP v1.3
+      uint32_t recept_ind = 0b1 << 6; // receptacle
+      uint32_t usb2_not_used = 0b1 << 7; // USB2 not required
+      uint32_t dfp_pins = 0b00001000 << 8; // only "D" pin assignment (DP+USB mix)
+      uint32_t ufp_pins = 0b00000000 << 16; // all 0?
+      tx.obj[1] = portcap|dp_signals|recept_ind|usb2_not_used|dfp_pins|ufp_pins;
+
+      tx.obj[2] = 0;
+      tx.obj[3] = 0;
+      fusb_send_message(&tx);
+      tx_id_count++;
+      return true;
+    case PD_VDM_USBPD_ENTER_MODE:
+      printf("# [pd] [displayport] replying to Enter Mode\n");
+
+      tx.hdr = PD_MSGTYPE_D_VENDOR_DEFINED | PD_NUMOBJ(1) | pd_datarole | (pd_powerrole << PD_HDR_POWERROLE_SHIFT) | PD_SPECREV_2_0;
+      tx.hdr &= ~PD_HDR_MESSAGEID;
+      tx.hdr |= (tx_id_count % 8) << PD_HDR_MESSAGEID_SHIFT;
+      // VDM Header (svid: displayport)
+      tx.obj[0] = (0xff01 << PD_VSID__SHIFT) | PD_VDM_HEADER_STRUCTURED | PD_VDM_HEADER_TYPE_ACK | PD_VDM_USBPD_ENTER_MODE | (0x1 << 8); // TODO hack: 0x100 = mode 1
+      tx.obj[1] = 0;
+      tx.obj[2] = 0;
+      tx.obj[3] = 0;
+      fusb_send_message(&tx);
+      tx_id_count++;
+      return true;
+
+    case PD_VDM_USBPD_DP_STATUS_UPDATE:
+      printf("# [pd] [displayport] DP Status Update object 1: 0x%lx\n", rx_msg.obj[1]);
+      printf("# [pd] [displayport] DP Status Update HPD: %d\n", (rx_msg.obj[1] & 0x80) ? 1 : 0);
+      printf("# [pd] [displayport] replying to DP Status Update\n");
+
+      // monitor sends us:
+      // 1. 0x01a status update
+      //          (UFP_D is connected)
+      // 2. configure (0x805)
+      // 3. 0x09a status update
+      //
+      //    0x09a = 0b010011010
+      //                     -- UFP_D is connected (sink)
+      //                   - db enabled
+      //                  - multi function preferred
+      //               - HPD high
+      // 4. 0x19a status update on mode switch
+      //
+      //    0x19a = 0b110011010
+      //                     -- UFP_D is connected (sink)
+      //                   - db enabled
+      //                  - multi function preferred
+      //               - HPD high
+      //              - IRQ HPD
+      // now new:
+      //    0x18a = 0b110001010 (multi function preferred goes away?)
+
+      // 0x19 = 0b11001
+      //             -- DFP_D is connected
+      //           - "adapter" dp enabled and operational
+      //          - multi function preferred (unclear)
+
+      tx.hdr = PD_MSGTYPE_D_VENDOR_DEFINED | PD_NUMOBJ(2) | pd_datarole | (pd_powerrole << PD_HDR_POWERROLE_SHIFT) | PD_SPECREV_2_0;
+      tx.hdr &= ~PD_HDR_MESSAGEID;
+      tx.hdr |= (tx_id_count % 8) << PD_HDR_MESSAGEID_SHIFT;
+      // VDM Header (svid: displayport)
+      tx.obj[0] = (0xff01 << PD_VSID__SHIFT) | PD_VDM_HEADER_STRUCTURED | PD_VDM_HEADER_TYPE_ACK | PD_VDM_USBPD_DP_STATUS_UPDATE | (0x100); // TODO hack: 0x100 = mode 1
+      tx.obj[1] = 0b00011011;
+      //                  --  DFP_D is connected
+      //             -----    "apply only to displayport status sent by a UFP_U to a DFP_U"
+      //                      --> but we should be DFP_U and DFP_D as we are the host and the source!
+      //            -         clear the HPD status bits
+      tx.obj[2] = 0;
+      tx.obj[3] = 0;
+      fusb_send_message(&tx);
+      tx_id_count++;
+      return true;
+
+    case PD_VDM_USBPD_DP_CONFIGURE:
+      printf("# [pd] [displayport] DP Configure object 1: 0x%lx\n", rx_msg.obj[1]);
+      printf("# [pd] [displayport] replying to DP Configure\n");
+
+      //              .   .
+      // 0x805 = 0b100000000101
+      //                     -- -> UFP_U as DFP_D. that's wrong, should be DFP_U as DFP_D
+      //                    -   DP v1.3 signalling
+      //           ---- select assignment D
+
+      tx.hdr = PD_MSGTYPE_D_VENDOR_DEFINED | PD_NUMOBJ(2) | pd_datarole | (pd_powerrole << PD_HDR_POWERROLE_SHIFT) | PD_SPECREV_2_0;
+      tx.hdr &= ~PD_HDR_MESSAGEID;
+      tx.hdr |= (tx_id_count % 8) << PD_HDR_MESSAGEID_SHIFT;
+      // DFP_D = display source
+      // VDM Header (svid: displayport)
+      tx.obj[0] = (0xff01 << PD_VSID__SHIFT) | PD_VDM_HEADER_STRUCTURED | PD_VDM_HEADER_TYPE_ACK | PD_VDM_USBPD_DP_CONFIGURE | (0x100); // TODO hack: 0x100 = mode 1
+      tx.obj[1] = 0b100000000110;
+      //                      -- UFP_U as UFP_D
+      //                  ----   DP 1.3
+      //                --       reserved
+      //            ----         pin assignment D
+      tx.obj[2] = 0;
+      tx.obj[3] = 0;
+      fusb_send_message(&tx);
+      tx_id_count++;
+      return true;
+
+    default:
+      printf("# [pd] [displayport] rejecting unknown vdm_header 0x%lx\n", vdm_header & 0x1F);
+      pd_send_not_supported();
+      return false;
+    }
+  }
+  default:
+    printf("# [pd] rejecting unknown vendor 0x%x\n", vsid);
+    pd_send_not_supported();
+    return false;
+  }
+  return false;
+}
+
 // Returns if state was "changed" in some form and we expect to maybe be called again.
 static bool pd_comm_pd(battery_info_s* battery_info) {
   if (pd_datarole_changed) {
@@ -373,8 +684,11 @@ static bool pd_comm_pd(battery_info_s* battery_info) {
 
       case PD_MSGTYPE_C_VCONN_SWAP:
       default:
+        //printf("# [pd] accepting PD_MSGTYPE_C_VCONN_SWAP\n");
+        //tx.hdr = PD_MSGTYPE_C_ACCEPT | pd_datarole | (pd_powerrole << PD_HDR_POWERROLE_SHIFT);
+        //fusb_send_message(&tx);
         printf("# [pd] rejecting PD_MSGTYPE_C_VCONN_SWAP\n");
-        pd_send_not_supported();
+	pd_send_not_supported();
         return false;
       }
 
@@ -431,8 +745,9 @@ static bool pd_comm_pd(battery_info_s* battery_info) {
       }
       if ((vdm_header & 0x00E0) != 0) {
         // non-REQ message, which we cannot parse. ignore it.
-        printf("# [pd] rejecting non-REQ message\n");
-        return false;
+        //printf("# [pd] rejecting non-REQ message\n");
+        //return false;
+	//return pd_handle_vdm_response();
       }
 
       if (mb_version() < 2) {
@@ -441,189 +756,17 @@ static bool pd_comm_pd(battery_info_s* battery_info) {
         return false;
       }
 
-      switch (vsid) {
-      case PD_VSID_USBPD:  // USB-PD Standard "Vendor" ID
-        {
-          switch (vdm_header & 0x1F) {
-          case PD_VDM_USBPD_DISCOVER_IDENTITY:
-            printf("# [pd] replying to Discover Identity\n");
-            tx.hdr = PD_MSGTYPE_D_VENDOR_DEFINED | PD_NUMOBJ(4) | pd_datarole | (pd_powerrole << PD_HDR_POWERROLE_SHIFT) | PD_SPECREV_2_0;
-            tx.hdr &= ~PD_HDR_MESSAGEID;
-            tx.hdr |= (tx_id_count % 8) << PD_HDR_MESSAGEID_SHIFT;
-
-            // VDM Header
-            tx.obj[0] = (PD_VSID_USBPD << PD_VSID__SHIFT) | PD_VDM_HEADER_STRUCTURED | PD_VDM_HEADER_TYPE_ACK | PD_VDM_USBPD_DISCOVER_IDENTITY;
-            // ID VDO: USB Host capable; Product Type (DFP) = 010; Connector Type = 10; plus VID
-            // bit 26: modal operation
-            tx.obj[1] = 0x81400000 | USB_VID_PIDCODES | (1<<26);
-            // Certification stat VDO
-            tx.obj[2] = 0;
-            // Product VDO: v1.0; plus PID
-            tx.obj[3] = 0x01000000 | USB_PID_MNT_POCKET_REFORM_SYSCTL_10;
-
-            fusb_send_message(&tx);
-            tx_id_count++;
-
-            return true;
-          case PD_VDM_USBPD_DISCOVER_SVIDS:
-            printf("# [pd] replying to Discover SVIDs\n");
-
-            // only one VDO
-            tx.hdr = PD_MSGTYPE_D_VENDOR_DEFINED | PD_NUMOBJ(2) | pd_datarole | (pd_powerrole << PD_HDR_POWERROLE_SHIFT) | PD_SPECREV_2_0;
-            tx.hdr &= ~PD_HDR_MESSAGEID;
-            tx.hdr |= (tx_id_count % 8) << PD_HDR_MESSAGEID_SHIFT;
-
-            // VDM Header
-            tx.obj[0] = (PD_VSID_USBPD << PD_VSID__SHIFT) | PD_VDM_HEADER_STRUCTURED | PD_VDM_HEADER_TYPE_ACK | PD_VDM_USBPD_DISCOVER_SVIDS;
-            // ID VDO: USB Host capable; Product Type (DFP) = 010; Connector Type = 10; plus VID
-
-            // VDM
-            // for enter/exit:
-            // 001 – 110 = Index into the list of Vendor Defined Objects (VDOs) to identify the desired Mode VDO.
-            tx.obj[1] = 0xff01;
-            tx.obj[2] = 0;
-            tx.obj[3] = 0;
-
-            fusb_send_message(&tx);
-            tx_id_count++;
-            return true;
-          default:
-            printf("# [pd] [vdm] rejecting unknown vdm_header 0x%lx\n", vdm_header & 0x1F);
-            pd_send_not_supported();
-            return false;
-          }
-        }
-      case 0xff01: { // DisplayPort
-        switch (vdm_header & 0x1F) {
-        case PD_VDM_USBPD_DISCOVER_MODES:
-          printf("# [pd] [displayport] replying to Discover Modes\n");
-
-          // only one VDO
-          tx.hdr = PD_MSGTYPE_D_VENDOR_DEFINED | PD_NUMOBJ(2) | pd_datarole | (pd_powerrole << PD_HDR_POWERROLE_SHIFT) | PD_SPECREV_2_0;
-          tx.hdr &= ~PD_HDR_MESSAGEID;
-          tx.hdr |= (tx_id_count % 8) << PD_HDR_MESSAGEID_SHIFT;
-          // VDM Header (svid: displayport)
-          tx.obj[0] = (0xff01 << PD_VSID__SHIFT) | PD_VDM_HEADER_STRUCTURED | PD_VDM_HEADER_TYPE_ACK | PD_VDM_USBPD_DISCOVER_MODES;
-
-          uint32_t portcap = 0b10; // DFP_D capable
-          uint32_t dp_signals = 0b0010 << 2; // gen 2 and DP v1.3
-          uint32_t recept_ind = 0b1 << 6; // receptacle
-          uint32_t usb2_not_used = 0b1 << 7; // USB2 not required
-          uint32_t dfp_pins = 0b00001000 << 8; // only "D" pin assignment (DP+USB mix)
-          uint32_t ufp_pins = 0b00000000 << 16; // all 0?
-          tx.obj[1] = portcap|dp_signals|recept_ind|usb2_not_used|dfp_pins|ufp_pins;
-
-          tx.obj[2] = 0;
-          tx.obj[3] = 0;
-          fusb_send_message(&tx);
-          tx_id_count++;
-          return true;
-        case PD_VDM_USBPD_ENTER_MODE:
-          printf("# [pd] [displayport] replying to Enter Mode\n");
-
-          tx.hdr = PD_MSGTYPE_D_VENDOR_DEFINED | PD_NUMOBJ(1) | pd_datarole | (pd_powerrole << PD_HDR_POWERROLE_SHIFT) | PD_SPECREV_2_0;
-          tx.hdr &= ~PD_HDR_MESSAGEID;
-          tx.hdr |= (tx_id_count % 8) << PD_HDR_MESSAGEID_SHIFT;
-          // VDM Header (svid: displayport)
-          tx.obj[0] = (0xff01 << PD_VSID__SHIFT) | PD_VDM_HEADER_STRUCTURED | PD_VDM_HEADER_TYPE_ACK | PD_VDM_USBPD_ENTER_MODE | (0x1 << 8); // TODO hack: 0x100 = mode 1
-          tx.obj[1] = 0;
-          tx.obj[2] = 0;
-          tx.obj[3] = 0;
-          fusb_send_message(&tx);
-          tx_id_count++;
-          return true;
-
-        case PD_VDM_USBPD_DP_STATUS_UPDATE:
-          printf("# [pd] [displayport] DP Status Update object 1: 0x%lx\n", rx_msg.obj[1]);
-          printf("# [pd] [displayport] DP Status Update HPD: %d\n", (rx_msg.obj[1] & 0x80) ? 1 : 0);
-          printf("# [pd] [displayport] replying to DP Status Update\n");
-
-          // monitor sends us:
-          // 1. 0x01a status update
-          //          (UFP_D is connected)
-          // 2. configure (0x805)
-          // 3. 0x09a status update
-          //
-          //    0x09a = 0b010011010
-          //                     -- UFP_D is connected (sink)
-          //                   - db enabled
-          //                  - multi function preferred
-          //               - HPD high
-          // 4. 0x19a status update on mode switch
-          //
-          //    0x19a = 0b110011010
-          //                     -- UFP_D is connected (sink)
-          //                   - db enabled
-          //                  - multi function preferred
-          //               - HPD high
-          //              - IRQ HPD
-          // now new:
-          //    0x18a = 0b110001010 (multi function preferred goes away?)
-
-          // 0x19 = 0b11001
-          //             -- DFP_D is connected
-          //           - "adapter" dp enabled and operational
-          //          - multi function preferred (unclear)
-
-          tx.hdr = PD_MSGTYPE_D_VENDOR_DEFINED | PD_NUMOBJ(2) | pd_datarole | (pd_powerrole << PD_HDR_POWERROLE_SHIFT) | PD_SPECREV_2_0;
-          tx.hdr &= ~PD_HDR_MESSAGEID;
-          tx.hdr |= (tx_id_count % 8) << PD_HDR_MESSAGEID_SHIFT;
-          // VDM Header (svid: displayport)
-          tx.obj[0] = (0xff01 << PD_VSID__SHIFT) | PD_VDM_HEADER_STRUCTURED | PD_VDM_HEADER_TYPE_ACK | PD_VDM_USBPD_DP_STATUS_UPDATE | (0x100); // TODO hack: 0x100 = mode 1
-          tx.obj[1] = 0b00011011;
-          //                  --  DFP_D is connected
-          //             -----    "apply only to displayport status sent by a UFP_U to a DFP_U"
-          //                      --> but we should be DFP_U and DFP_D as we are the host and the source!
-          //            -         clear the HPD status bits
-          tx.obj[2] = 0;
-          tx.obj[3] = 0;
-          fusb_send_message(&tx);
-          tx_id_count++;
-          return true;
-
-        case PD_VDM_USBPD_DP_CONFIGURE:
-          printf("# [pd] [displayport] DP Configure object 1: 0x%lx\n", rx_msg.obj[1]);
-          printf("# [pd] [displayport] replying to DP Configure\n");
-
-          //              .   .
-          // 0x805 = 0b100000000101
-          //                     -- -> UFP_U as DFP_D. that's wrong, should be DFP_U as DFP_D
-          //                    -   DP v1.3 signalling
-          //           ---- select assignment D
-
-          tx.hdr = PD_MSGTYPE_D_VENDOR_DEFINED | PD_NUMOBJ(2) | pd_datarole | (pd_powerrole << PD_HDR_POWERROLE_SHIFT) | PD_SPECREV_2_0;
-          tx.hdr &= ~PD_HDR_MESSAGEID;
-          tx.hdr |= (tx_id_count % 8) << PD_HDR_MESSAGEID_SHIFT;
-          // DFP_D = display source
-          // VDM Header (svid: displayport)
-          tx.obj[0] = (0xff01 << PD_VSID__SHIFT) | PD_VDM_HEADER_STRUCTURED | PD_VDM_HEADER_TYPE_ACK | PD_VDM_USBPD_DP_CONFIGURE | (0x100); // TODO hack: 0x100 = mode 1
-          tx.obj[1] = 0b100000000110;
-          //                      -- UFP_U as UFP_D
-          //                  ----   DP 1.3
-          //                --       reserved
-          //            ----         pin assignment D
-          tx.obj[2] = 0;
-          tx.obj[3] = 0;
-          fusb_send_message(&tx);
-          tx_id_count++;
-          return true;
-
-        default:
-          printf("# [pd] [displayport] rejecting unknown vdm_header 0x%lx\n", vdm_header & 0x1F);
-          pd_send_not_supported();
-          return false;
-        }
-      }
-      default:
-        printf("# [pd] rejecting unknown vendor 0x%x\n", vsid);
-        pd_send_not_supported();
-        return false;
+      if (vdm_header & PD_VDM_HEADER_TYPE_ACK) {
+	return pd_handle_vdm_response();
+      } else {
+	return pd_handle_vdm_request();
       }
     }
 
   } else {
-    // msgrole == PD_POWERROLE_SINK
-    printf("# [pd] message from SINK: hdr: 0x%08x, obj0: 0x%08lx\n", rx_msg.hdr, rx_msg.obj[0]);
+    // msgrole == PD_POWERROLE_SNK
+    printf("# [pd] < msg in SNK mode: hdr: 0x%08x, obj0: 0x%08lx\n", rx_msg.hdr, rx_msg.obj[0]);
+    uint32_t vdm_header = rx_msg.obj[0];
 
     switch (msgtype) {
       case PD_MSGTYPE_D_REQUEST:
@@ -631,15 +774,23 @@ static bool pd_comm_pd(battery_info_s* battery_info) {
         send_ps_ready();
         return true;
       default:
-        printf("# [pd] unsupported message from sink.\n");
-        return false;
+	if (vdm_header & PD_VDM_HEADER_TYPE_ACK) {
+	  return pd_handle_vdm_response();
+	} else {
+	  return pd_handle_vdm_request();
+	}
     }
   }
 }
 
+bool alt_mode_requested = false;
+
 bool pd_tick(battery_info_s* battery_info) {
   if (pd_state == PD_STATE_SETUP) {
+    printf("# [pd] PD_STATE_SETUP\n");
+    
     enable_vconn = false;
+    alt_mode_requested = false;
 
     // setup/timeout state
     if (battery_info->emergency_charge_necessary) {
@@ -655,7 +806,11 @@ bool pd_tick(battery_info_s* battery_info) {
     // turn off 5v host power first
     usb_host_5v_disable();
 
-    printf("# [pd] PD_STATE_SETUP\n");
+    // role defaults
+    pd_powerrole = PD_POWERROLE_SINK;
+    pd_datarole = PD_DATAROLE_UFP;
+    pd_set_fusb_switches();
+
     // probe FUSB302BMPX
     uint8_t rxdata[2];
     if (i2c_read_timeout_us(i2c0, FUSB_ADDR, rxdata, 1, false, I2C_TIMEOUT)) {
@@ -672,7 +827,8 @@ bool pd_tick(battery_info_s* battery_info) {
       } else {
         mode = 0b10 << FUSB_CONTROL2_MODE_SHIFT;  // SNK only
       }*/
-      mode = 1 << FUSB_CONTROL2_MODE_SHIFT;  // DRP
+      //mode = 1 << FUSB_CONTROL2_MODE_SHIFT;  // DRP
+      mode = 0b10 << FUSB_CONTROL2_MODE_SHIFT;
       mps_reg_config.config0.susp_en = 1;
       mps_reg_config.config0.chg_en = 0;
       mps_write_byte(MPS_REG_CONFIG0, mps_reg_config.config0.reg_byte);
@@ -866,6 +1022,13 @@ bool pd_tick(battery_info_s* battery_info) {
         tx.hdr = PD_MSGTYPE_C_SOFT_RESET | pd_datarole | (pd_powerrole << PD_HDR_POWERROLE_SHIFT);
         fusb_send_message(&tx);
       }
+
+      if (t>2000 && !alt_mode_requested) {
+	// WIP: discover alt-modes
+	printf("# [pd] trying to trigger alt-mode...\n");
+	send_vdm(0xff008002, 0);
+	alt_mode_requested = 1;
+      }
     }
 
 #ifdef FACTORY_MODE
@@ -925,7 +1088,7 @@ bool pd_tick(battery_info_s* battery_info) {
       t = 0;
     }
 
-    if (t % 5000 == 0) {
+    if (t % 500 == 0) {
       uint8_t status0 = 0xff;
       fusb_read_buf(FUSB_STATUS0, 1, &status0);
       [[maybe_unused]] uint8_t comp = status0 & FUSB_STATUS0_COMP;
