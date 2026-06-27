@@ -886,7 +886,7 @@ void setup() {
     if (!gpio_ext_setup(!syscon_warm_boot())) {
       printf("# [setup] error: gpio_ext_setup() failed. PCA9557 not responding?\n");
     }
-    if (!gpio_ext_uswitch_setup()) {
+    if (!gpio_ext_uswitch_setup(!syscon_warm_boot())) {
       printf("# [setup] error: gpio_ext_uswitch_setup() failed. PCA9536 not responding?\n");
     }
   }
@@ -1246,9 +1246,6 @@ int main() {
   hwapi_set_usb_mode(1, 1);
 
   gpio_set_irq_enabled_with_callback(PIN_SOM_SS0, GPIO_IRQ_EDGE_FALL, true, &spi_commands_task);
-
-  // FIXME just a test
-  usb_host_5v_enable();
 
   printf("# [pocket_sysctl] entering main loop\n");
 

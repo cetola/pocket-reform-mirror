@@ -23,7 +23,7 @@ bool pca9557_read_byte(uint8_t addr, uint8_t *val) {
 }
 
 // also called by gpio_ext_setup()
-bool gpio_ext_uswitch_setup() {
+bool gpio_ext_uswitch_setup(bool reset) {
   /*
     IO3: USWITCH_4: (Port 1) 0 = UART, 1 = USB (hub port 2)
     IO2: USWITCH_3
@@ -32,10 +32,13 @@ bool gpio_ext_uswitch_setup() {
    */
 
   // default: all USWITCHes connect D to D2
-  gpio_ext_uswitch_state = 0b1111;
-
-  // config: all outputs
-  pca9536_write_byte(3, 0b0000);
+  if (reset) {
+    gpio_ext_uswitch_state = 0b1111;
+    // config: all outputs
+    pca9536_write_byte(3, 0b0000);
+  } else {
+    // TODO read gpio_ext_uswitch_state from chip
+  }
   // output port
   return pca9536_write_byte(1, gpio_ext_uswitch_state);
 }

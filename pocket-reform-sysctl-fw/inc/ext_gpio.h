@@ -16,7 +16,7 @@
 bool gpio_ext_setup(bool reset);
 bool gpio_ext_enable(uint8_t bit);
 bool gpio_ext_disable(uint8_t bit);
-bool gpio_ext_uswitch_setup();
+bool gpio_ext_uswitch_setup(bool reset);
 bool gpio_ext_uswitch_enable(uint8_t bit);
 bool gpio_ext_uswitch_disable(uint8_t bit);
 
