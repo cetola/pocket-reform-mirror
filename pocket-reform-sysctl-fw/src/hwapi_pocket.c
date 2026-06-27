@@ -315,6 +315,18 @@ uint64_t hwapi_set_pack_debug([[maybe_unused]] struct cli_context* ctx, uint64_t
   return on;
 }
 
+void hwapi_vdm([[maybe_unused]] struct cli_context* ctx, uint64_t message_type, uint64_t prime) {
+  send_vdm(message_type, prime);
+}
+
+void hwapi_pd_cap([[maybe_unused]] struct cli_context* ctx, uint64_t prime) {
+  send_source_cap(prime);
+}
+
+void hwapi_pd_send_reset([[maybe_unused]] struct cli_context* ctx) {
+  pd_send_reset();
+}
+
 // TODO: need to instantiate multiple CLIs (ttys?)
 // so state is not mixed between usb, uart, and spi interfaces
 void hwapi_pocket_init(battery_info_s *binfo) {
@@ -343,6 +355,9 @@ void hwapi_pocket_init(battery_info_s *binfo) {
   cli_add_func("soc-susp", hwapi_soc_pre_suspend, 0, CLI_TYPE_UINT64);
   cli_add_func("soc-psus", hwapi_soc_post_suspend, 0, CLI_TYPE_UINT64);
   cli_add_func("pwrsave\0", enter_powersave, 0, CLI_TYPE_VOID);
+  cli_add_func("vdm\0\0\0\0\0", hwapi_vdm, 2, CLI_TYPE_VOID);
+  cli_add_func("pdcap\0\0\0", hwapi_pd_cap, 1, CLI_TYPE_VOID);
+  cli_add_func("pdreset\0", hwapi_pd_send_reset, 1, CLI_TYPE_VOID);
 
   // TODO: DP/altmode_set configs
   // altmode_set(0b110);

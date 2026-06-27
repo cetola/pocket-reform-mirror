@@ -847,8 +847,6 @@ void setup_gpios() {
     // USB-C port 2 power rail
     gpio_init(PIN_USB_SRC_ENABLE);
     gpio_set_dir(PIN_USB_SRC_ENABLE, GPIO_OUT);
-    // NOTE: on MB2, port 1 VBUS is controlled by
-    // the charger chip's OTG function
   } else if (mb_version() < 2) {
     // USB-C port 1 power rail
     gpio_init(PIN_USB_SRC_ENABLE);
@@ -1106,8 +1104,9 @@ void usb_host_5v_enable() {
     mps_write_byte(MPS_REG_CONFIG0, mps_reg_config.config0.reg_byte);
 #endif
   } else if (mb_version() >= 2) {
-    mps_reg_config.config0.otg_en = 1;
-    mps_write_byte(MPS_REG_CONFIG0, mps_reg_config.config0.reg_byte);
+    printf("# [usb_host_5v_enable]\n");
+    // TODO: hardware error on mb2.0 d-1+charger 2.0: no 5v supplied to VBUS, can't use otg
+    gpio_put(PIN_USB_SRC_ENABLE, 1);
   }
 }
 
@@ -1120,8 +1119,9 @@ void usb_host_5v_disable() {
     mps_write_byte(MPS_REG_CONFIG0, mps_reg_config.config0.reg_byte);
 #endif
   } else if (mb_version() >= 2) {
-    mps_reg_config.config0.otg_en = 0;
-    mps_write_byte(MPS_REG_CONFIG0, mps_reg_config.config0.reg_byte);
+    printf("# [usb_host_5v_disable]\n");
+    // TODO: hardware error on mb2.0 d-1+charger 2.0: no 5v supplied to VBUS, can't use otg
+    gpio_put(PIN_USB_SRC_ENABLE, 0);
   }
 }
 
@@ -1245,6 +1245,9 @@ int main() {
   hwapi_set_usb_mode(1, 1);
 
   gpio_set_irq_enabled_with_callback(PIN_SOM_SS0, GPIO_IRQ_EDGE_FALL, true, &spi_commands_task);
+
+  // FIXME just a test
+  usb_host_5v_enable();
 
   printf("# [pocket_sysctl] entering main loop\n");
 

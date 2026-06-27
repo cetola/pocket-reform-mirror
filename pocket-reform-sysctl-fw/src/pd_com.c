@@ -87,7 +87,7 @@ static uint8_t pd_ccpin = 0;
 int request_sent = 0;
 
 union pd_msg tx;
-int tx_id_count = 0;
+static int tx_id_count = 0;
 union pd_msg rx_msg;
 // in 10mA units
 unsigned int requested_current = 0;
@@ -103,12 +103,99 @@ unsigned int pd_get_state_for_debug() {
   return pd_state;
 }
 
+void send_source_cap(uint8_t prime) {
+  tx_id_count = 0;
+  printf("# [pd] send_source_cap\n");
+  tx.hdr = PD_MSGTYPE_D_SOURCE_CAPABILITIES | PD_NUMOBJ(1) | pd_datarole | (pd_powerrole << PD_HDR_POWERROLE_SHIFT) | PD_SPECREV_2_0;
+  tx.hdr |= (tx_id_count % 8) << PD_HDR_MESSAGEID_SHIFT;
+  //tx.obj[0] = 0x26019064;  // 5V/1A with DRP and DRD
+  tx.obj[0] = 0x36019096;  // 5V/1A with DRP and DRD
+
+  if (prime == 2) {
+    fusb_send_message_prime_prime(&tx);
+  }
+  else if (prime == 1) {
+    fusb_send_message_prime(&tx);
+  }
+  else {
+    fusb_send_message(&tx);
+  }
+  tx_id_count++;
+}
+
+void send_source_accept() {
+  printf("# [pd] send_source_accept\n");
+  tx.hdr = PD_MSGTYPE_C_ACCEPT | pd_datarole | (pd_powerrole << PD_HDR_POWERROLE_SHIFT) | PD_SPECREV_2_0;
+  tx.hdr |= (tx_id_count % 8) << PD_HDR_MESSAGEID_SHIFT;
+  fusb_send_message(&tx);
+  tx_id_count++;
+}
+
+void send_ps_ready() {
+  printf("# [pd] send_ps_ready\n");
+  tx.hdr = PD_MSGTYPE_C_PS_RDY | pd_datarole | (pd_powerrole << PD_HDR_POWERROLE_SHIFT) | PD_SPECREV_2_0;
+  tx.hdr |= (tx_id_count % 8) << PD_HDR_MESSAGEID_SHIFT;
+  fusb_send_message(&tx);
+  tx_id_count++;
+}
+
+void send_vdm([[maybe_unused]] uint32_t message_type, uint8_t prime) {
+  // PD_VDM_USBPD_DISCOVER_IDENTITY
+  // PD_VDM_USBPD_DISCOVER_SVIDS
+
+  tx.hdr = PD_MSGTYPE_D_VENDOR_DEFINED | PD_NUMOBJ(1) | pd_datarole | (pd_powerrole << PD_HDR_POWERROLE_SHIFT) | PD_SPECREV_2_0;
+  tx.hdr &= ~PD_HDR_MESSAGEID;
+  tx.hdr |= (tx_id_count % 8) << PD_HDR_MESSAGEID_SHIFT;
+  //tx.obj[0] = (PD_VSID_USBPD << PD_VSID__SHIFT) | PD_VDM_HEADER_STRUCTURED | message_type;
+
+  //tx.hdr = 0x108f;
+  tx.obj[0] = message_type;
+
+  printf("# [pd] send VDM: hdr: 0x%08x obj0: 0x%08lx prime: %d\n", tx.hdr, tx.obj[0], prime);
+
+  if (prime == 2) {
+    fusb_send_message_prime_prime(&tx);
+  }
+  else if (prime == 1) {
+    fusb_send_message_prime(&tx);
+  }
+  else {
+    fusb_send_message(&tx);
+  }
+  // dwAlternateModeVdo 0x40040407
+  //                         PD_VDM_USBPD_ENTER_MODE 4
+  //
+
+  tx_id_count++;
+}
+
+void pd_send_reset() {
+  printf("# [pd] send reset\n");
+  fusb_write_byte(FUSB_CONTROL0, (0b11 << FUSB_CONTROL0_HOST_CUR_SHIFT) | FUSB_CONTROL0_TX_FLUSH);
+  tx.hdr = PD_MSGTYPE_C_SOFT_RESET | pd_datarole | (pd_powerrole << PD_HDR_POWERROLE_SHIFT);
+
+  bool res = fusb_send_message(&tx);
+  printf("# [pd] sent reset, result: %d\n", res);
+}
+
+static bool enable_vconn = false;
+
 static void pd_set_fusb_switches() {
   uint8_t buf = 0 \
                 | (pd_ccpin == 1 ? FUSB_SWITCHES0_MEAS_CC1 : 0) \
                 | (pd_ccpin == 2 ? FUSB_SWITCHES0_MEAS_CC2 : 0) \
                 | (pd_powerrole == PD_POWERROLE_SINK ? (FUSB_SWITCHES0_PDWN_2|FUSB_SWITCHES0_PDWN_1) : (FUSB_SWITCHES0_PU_EN1|FUSB_SWITCHES0_PU_EN2)) \
   ;
+
+  if (enable_vconn) {// && (pd_state == PD_STATE_UNATTACHED_SRC || pd_state == PD_STATE_ATTACHED_SRC)) {
+    printf("# [pd switches] enabling vconn\n");
+    if (pd_ccpin == 1 && pd_powerrole == PD_POWERROLE_SOURCE) {
+      buf |= FUSB_SWITCHES0_VCONN_CC1;
+    }
+    if (pd_ccpin == 2 && pd_powerrole == PD_POWERROLE_SOURCE) {
+      buf |= FUSB_SWITCHES0_VCONN_CC2;
+    }
+  }
   fusb_write_byte(FUSB_SWITCHES0, buf);
 
   // Uses pd_ccpin as TXCC1/TXCC2.
@@ -193,11 +280,11 @@ static bool pd_apply_datarole() {
   if (pd_datarole == PD_DATAROLE_DFP) {
     // we're USB host, turn off USB UART
     printf("# [pd] pd_apply_datarole: DFP\n");
-    //return gpio_ext_uswitch_disable(3);
+    return gpio_ext_uswitch_disable(3);
   } else {
     // we're USB device, turn on USB UART
     printf("# [pd] pd_apply_datarole: UFP\n");
-    //return gpio_ext_uswitch_enable(3);
+    return gpio_ext_uswitch_enable(3);
   }
   return true;
 }
@@ -209,6 +296,14 @@ static bool pd_comm_pd(battery_info_s* battery_info) {
     pd_apply_datarole();
     pd_datarole_changed = false;
   }
+
+  uint8_t status1;
+  if (fusb_read_buf(FUSB_STATUS1, 1, &status1)) {
+    if (status1 & 0b11010111) {
+      printf("# [pd] status1: 0b%08b\n", status1);
+    }
+  }
+
   // FIXME: this does not enforce the proper message order. maybe ok as is, maybe not.
   if (!fusb_read_message(&rx_msg)) {
     return false;
@@ -341,8 +436,8 @@ static bool pd_comm_pd(battery_info_s* battery_info) {
       }
 
       if (mb_version() < 2) {
-	printf("# [pd] [vdm, mb v1.0] rejecting unsupported vdm_header 0x%lx\n", vdm_header & 0x1F);
-	pd_send_not_supported();
+	      printf("# [pd] [vdm, mb v1.0] rejecting unsupported vdm_header 0x%lx\n", vdm_header & 0x1F);
+	      pd_send_not_supported();
         return false;
       }
 
@@ -528,14 +623,24 @@ static bool pd_comm_pd(battery_info_s* battery_info) {
 
   } else {
     // msgrole == PD_POWERROLE_SINK
-    printf("# [pd] rejecting msgrole == PD_POWERROLE_SINK\n");
-    pd_send_not_supported();
-    return false;
+    printf("# [pd] message from SINK: hdr: 0x%08x, obj0: 0x%08lx\n", rx_msg.hdr, rx_msg.obj[0]);
+
+    switch (msgtype) {
+      case PD_MSGTYPE_D_REQUEST:
+        send_source_accept();
+        send_ps_ready();
+        return true;
+      default:
+        printf("# [pd] unsupported message from sink.\n");
+        return false;
+    }
   }
 }
 
 bool pd_tick(battery_info_s* battery_info) {
   if (pd_state == PD_STATE_SETUP) {
+    enable_vconn = false;
+
     // setup/timeout state
     if (battery_info->emergency_charge_necessary) {
       printf("# [pd] PD_STATE_SETUP - emergency_charge_necessary - not initializing PD\n");
@@ -547,7 +652,8 @@ bool pd_tick(battery_info_s* battery_info) {
     }
     charger_disable_charge();
     request_sent = 0;
-    // TODO: FIXME: previous version disabled host 5v here
+    // turn off 5v host power first
+    usb_host_5v_disable();
 
     printf("# [pd] PD_STATE_SETUP\n");
     // probe FUSB302BMPX
@@ -559,23 +665,23 @@ bool pd_tick(battery_info_s* battery_info) {
 
       busy_wait_us(100);
 
-      // turn off 5v host power first
-      //usb_host_5v_disable();
-
       // enable toggle and DRP mode
       int mode;
-      if (battery_info->som_is_powered) {
+      /*if (battery_info->som_is_powered) {
         mode = 1 << FUSB_CONTROL2_MODE_SHIFT;  // DRP
       } else {
         mode = 0b10 << FUSB_CONTROL2_MODE_SHIFT;  // SNK only
-      }
+      }*/
+      mode = 1 << FUSB_CONTROL2_MODE_SHIFT;  // DRP
       mps_reg_config.config0.susp_en = 1;
       mps_reg_config.config0.chg_en = 0;
       mps_write_byte(MPS_REG_CONFIG0, mps_reg_config.config0.reg_byte);
 
       // unmask all interrupts to be able to wake from
       // dormant mode via USB-C events
-      fusb_write_byte(FUSB_CONTROL0, 0b10 << FUSB_CONTROL0_HOST_CUR_SHIFT);
+      fusb_write_byte(FUSB_CONTROL0, (0b11 << FUSB_CONTROL0_HOST_CUR_SHIFT) | FUSB_CONTROL0_TX_FLUSH);
+
+      fusb_write_byte(FUSB_CONTROL1, FUSB_CONTROL1_ENSOP1 | FUSB_CONTROL1_ENSOP2);
 
       if (!fusb_write_byte(FUSB_CONTROL2, FUSB_CONTROL2_TOGGLE | mode))
         goto out;
@@ -586,7 +692,7 @@ bool pd_tick(battery_info_s* battery_info) {
       // Measure MDAC=? 11_0001 =?
       // Slice SDAC_HYS=11 255mV
       // Control0 HOST_CUR=01 host pull up 80uA (Default) ; INT_MASK=1 All Interrupts masked
-      // Control1 all zero
+      // Control1 FIXME
       // Control2 MODE=01 Enable DRP polling functionality if TOGGLE=1
       // Control3 N_RETRIES=11 (Three)   - AUTO_HARDRESET=0 AUTO_SOFTRESET=0
       // Mask all zero
@@ -643,33 +749,33 @@ bool pd_tick(battery_info_s* battery_info) {
         printf("# [pd] PD_STATE_UNATTACHED -> SNK CC1, going to PD_STATE_UNATTACHED_SNK\n");
         pd_state = PD_STATE_UNATTACHED_SNK;
         pd_ccpin = 1;
-	if (mb_version() >= 2) {
+	      if (mb_version() >= 2) {
           altmode_set(0b110);
-	}
+	      }
       } else if (togss == 6) {
         // SNK CC2
         printf("# [pd] PD_STATE_UNATTACHED -> SNK CC2, going to PD_STATE_UNATTACHED_SNK\n");
         pd_state = PD_STATE_UNATTACHED_SNK;
         pd_ccpin = 2;
-	if (mb_version() >= 2) {
+	      if (mb_version() >= 2) {
           altmode_set(0b111);
-	}
+	      }
       } else if (togss == 1) {
         // SRC CC1
         printf("# [pd] PD_STATE_UNATTACHED -> SRC CC1, going to PD_STATE_UNATTACHED_SRC\n");
         pd_state = PD_STATE_UNATTACHED_SRC;
         pd_ccpin = 1;
-	if (mb_version() >= 2) {
+        if (mb_version() >= 2) {
           altmode_set(0b110);
-	}
+        }
       } else if (togss == 2) {
         // SRC CC2
         printf("# [pd] PD_STATE_UNATTACHED -> SRC CC2, going to PD_STATE_UNATTACHED_SRC\n");
         pd_state = PD_STATE_UNATTACHED_SRC;
         pd_ccpin = 2;
-	if (mb_version() >= 2) {
+        if (mb_version() >= 2) {
           altmode_set(0b111);
-	}
+        }
       } else {
         // Audio accessory or something else we do not understand. Reset.
         pd_state = PD_STATE_SETUP;
@@ -719,12 +825,13 @@ bool pd_tick(battery_info_s* battery_info) {
       }
     }
 
-    if (pd_state == PD_STATE_UNATTACHED_SNK && t > 10000) {
+    if (pd_state == PD_STATE_UNATTACHED_SNK && t > 2000) {
       // timeout
       // FIXME: timeout value?
       printf("# [pd] state PD_STATE_UNATTACHED_SNK - timeout waiting for VBUS\n");
       t = 0;
       pd_state = PD_STATE_SETUP; // FIXME: what state should we go to?
+      //pd_state = PD_STATE_ATTACHED_SNK;
     }
   } else if (pd_state == PD_STATE_ATTACHED_SNK) {
     // attached.snk.
@@ -773,27 +880,32 @@ bool pd_tick(battery_info_s* battery_info) {
   } else if (pd_state == PD_STATE_UNATTACHED_SRC) {
     // TODO: should do a lot of stuff, but for now keep USB2.0 devices happy
 
-#if 0
     if (pd_comm_pd(battery_info)) {
-      t = 0;
+      //t = 0;
     }
-#endif
 
-    if (t == 100 || (t % 10000 == 0)) {
-#if 0
-      printf("# [pd] state PD_STATE_UNATTACHED_SRC - sending PD_MSGTYPE_D_SOURCE_CAPABILITIES\n");
-      tx.hdr = PD_MSGTYPE_D_SOURCE_CAPABILITIES | PD_NUMOBJ(1) | pd_datarole | (pd_powerrole << PD_HDR_POWERROLE_SHIFT);
-      tx.hdr |= (tx_id_count % 8) << PD_HDR_MESSAGEID_SHIFT;
-      tx.obj[0] = 0x26019064;  // 5V/1A with DRP and DRD
-      fusb_send_message(&tx);
-#endif
+    if (t == 1) {
+      printf("# [pd] state PD_STATE_UNATTACHED_SRC, enabling VCONN\n");
+      usb_host_5v_enable();
+      //enable_vconn = true;
+      pd_set_fusb_switches();
+    }
 
+    if (t == 500) {
+      send_source_cap(0);
+    }
+
+    if (t == 1000) {
       uint8_t status0;
       if (fusb_read_buf(FUSB_STATUS0, 1, &status0)) {
-        printf("# [pd] state PD_STATE_UNATTACHED_SRC, status0 = %02x bc_lvl = %02x\n", status0, status0 & FUSB_STATUS0_BC_LVL);
+        [[maybe_unused]] uint8_t comp = status0 & FUSB_STATUS0_COMP;
+        [[maybe_unused]] uint8_t bc_lvl = status0 & FUSB_STATUS0_BC_LVL;
+        printf("# [pd] state PD_STATE_UNATTACHED_SRC, status0 = %02x bc_lvl = %02x\n", status0, bc_lvl);
         status0 &= FUSB_STATUS0_BC_LVL;
-        if (status0 == 1) {
-          // device is still connected, stay.
+        // TODO: shouldn't we check COMP?
+        if (comp == 0 /*bc_lvl == 2*/) {
+          pd_state = PD_STATE_ATTACHED_SRC;
+          t = 0;
         } else {
           pd_state = PD_STATE_SETUP;
           t = 0;
@@ -801,18 +913,33 @@ bool pd_tick(battery_info_s* battery_info) {
       }
     }
 
-    if (t > 100000) {
-      pd_state = PD_STATE_ATTACHED_SRC;
+    if (t >= 10000) {
+      printf("# [pd] state PD_STATE_UNATTACHED_SRC fusb_read timeout\n");
+      pd_state = PD_STATE_SETUP;
+      t = 0;
     }
   } else if (pd_state == PD_STATE_ATTACHED_SRC) {
     // TODO: everything
     // TODO: timeout
+    if (pd_comm_pd(battery_info)) {
+      t = 0;
+    }
 
-    pd_state = PD_STATE_SETUP;
+    if (t % 5000 == 0) {
+      uint8_t status0 = 0xff;
+      fusb_read_buf(FUSB_STATUS0, 1, &status0);
+      [[maybe_unused]] uint8_t comp = status0 & FUSB_STATUS0_COMP;
+      [[maybe_unused]] uint8_t bc_lvl = status0 & FUSB_STATUS0_BC_LVL;
+      printf("# [pd] state PD_STATE_ATTACHED_SRC, status0 = 0x%02x\n", status0);
+
+      if (comp) {
+        pd_state = PD_STATE_SETUP;
+      }
+    }
   }
 
  out:
-  bool can_sleep = t > 0;
+  bool can_sleep = t >= 10;
   t++;
 
   return can_sleep;
