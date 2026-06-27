@@ -76,6 +76,76 @@ bool fusb_send_message(const union pd_msg *msg) {
   return fusb_write_buf(FUSB_FIFOS, 4, eop_seq);
 }
 
+bool fusb_send_message_prime(const union pd_msg *msg) {
+  /* Token sequences for the FUSB302B */
+  static uint8_t sop_seq[5] = {
+    FUSB_FIFO_TX_SOP1,
+    FUSB_FIFO_TX_SOP1,
+    FUSB_FIFO_TX_SOP3,
+    FUSB_FIFO_TX_SOP3,
+    FUSB_FIFO_TX_PACKSYM
+  };
+  static const uint8_t eop_seq[4] = {
+    FUSB_FIFO_TX_JAM_CRC,
+    FUSB_FIFO_TX_EOP,
+    FUSB_FIFO_TX_TXOFF,
+    FUSB_FIFO_TX_TXON
+  };
+
+  /* Get the length of the message: a two-octet header plus NUMOBJ four-octet
+   * data objects */
+  uint8_t msg_len = 2 + 4 * PD_NUMOBJ_GET(msg);
+
+  /* Set the number of bytes to be transmitted in the packet */
+  sop_seq[4] = FUSB_FIFO_TX_PACKSYM | msg_len;
+
+  /* Write all three parts of the message to the TX FIFO */
+  bool success = fusb_write_buf(FUSB_FIFOS, 5, sop_seq);
+  if (!success) {
+    return false;
+  }
+  success = fusb_write_buf(FUSB_FIFOS, msg_len, msg->bytes);
+  if (!success) {
+    return false;
+  }
+  return fusb_write_buf(FUSB_FIFOS, 4, eop_seq);
+}
+
+bool fusb_send_message_prime_prime(const union pd_msg *msg) {
+  /* Token sequences for the FUSB302B */
+  static uint8_t sop_seq[5] = {
+    FUSB_FIFO_TX_SOP1,
+    FUSB_FIFO_TX_SOP3,
+    FUSB_FIFO_TX_SOP1,
+    FUSB_FIFO_TX_SOP3,
+    FUSB_FIFO_TX_PACKSYM
+  };
+  static const uint8_t eop_seq[4] = {
+    FUSB_FIFO_TX_JAM_CRC,
+    FUSB_FIFO_TX_EOP,
+    FUSB_FIFO_TX_TXOFF,
+    FUSB_FIFO_TX_TXON
+  };
+
+  /* Get the length of the message: a two-octet header plus NUMOBJ four-octet
+   * data objects */
+  uint8_t msg_len = 2 + 4 * PD_NUMOBJ_GET(msg);
+
+  /* Set the number of bytes to be transmitted in the packet */
+  sop_seq[4] = FUSB_FIFO_TX_PACKSYM | msg_len;
+
+  /* Write all three parts of the message to the TX FIFO */
+  bool success = fusb_write_buf(FUSB_FIFOS, 5, sop_seq);
+  if (!success) {
+    return false;
+  }
+  success = fusb_write_buf(FUSB_FIFOS, msg_len, msg->bytes);
+  if (!success) {
+    return false;
+  }
+  return fusb_write_buf(FUSB_FIFOS, 4, eop_seq);
+}
+
 bool fusb_read_message(union pd_msg *msg) {
   uint8_t rxb[4] = {0};
 
@@ -89,7 +159,8 @@ bool fusb_read_message(union pd_msg *msg) {
   if (rxb[0] == 0) {
     return false;
   }
-  if ((rxb[0] & FUSB_FIFO_RX_TOKEN_BITS) != FUSB_FIFO_RX_SOP) {
+  uint8_t token = (rxb[0] & FUSB_FIFO_RX_TOKEN_BITS);
+  if (token != FUSB_FIFO_RX_SOP && token != FUSB_FIFO_RX_SOP1 && token != FUSB_FIFO_RX_SOP2) {
     printf("# [fusb] rxb = 0x%02x - skipping\n", rxb[0]);
     return false;
   }
