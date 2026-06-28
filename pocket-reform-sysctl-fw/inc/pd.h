@@ -400,6 +400,7 @@
 
 #define PD_VDM_HEADER_STRUCTURED 0x8000
 #define PD_VDM_HEADER_TYPE_ACK   0x0040
+#define PD_VDM_HEADER_TYPE_NAK   0x0080
 
 /* Vendor-defined messages, for PD_SID_USBPD */
 #define PD_VDM_USBPD_DISCOVER_IDENTITY 1
