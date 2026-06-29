@@ -18,9 +18,9 @@ bool altmode_enable_dp(int flipped) {
   uint8_t conf1 = 1;
   uint8_t conf0 = flipped?1:0;
 
-  printf("# [altmode] enable_dp, flipped: %d\n", flipped);
+  //printf("# [altmode] enable_dp, flipped: %d\n", flipped);
   bool res = tmuxhs4446_write((conf2<<2)|(conf1<<1)|conf0);
-  printf("# [altmode] enable_dp, result: %d\n", res);
+  //printf("# [altmode] enable_dp, result: %d\n", res);
 
   return res;
 }

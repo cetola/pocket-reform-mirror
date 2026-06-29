@@ -159,6 +159,7 @@ bool fusb_read_message(union pd_msg *msg) {
   if (rxb[0] == 0) {
     return false;
   }
+  printf("# [fusb] rxb0: 0x%02x\n", rxb[0]);
   uint8_t token = (rxb[0] & FUSB_FIFO_RX_TOKEN_BITS);
   if (token != FUSB_FIFO_RX_SOP && token != FUSB_FIFO_RX_SOP1 && token != FUSB_FIFO_RX_SOP2) {
     printf("# [fusb] rxb = 0x%02x - skipping\n", rxb[0]);

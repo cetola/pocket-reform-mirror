@@ -327,6 +327,14 @@ void hwapi_pd_send_reset([[maybe_unused]] struct cli_context* ctx) {
   pd_send_reset();
 }
 
+void hwapi_pd_set_max_voltage([[maybe_unused]] struct cli_context* ctx, uint64_t v) {
+  pd_set_max_voltage_req(v);
+}
+
+void hwapi_pd_set_force_sink([[maybe_unused]] struct cli_context* ctx, uint64_t force) {
+  pd_set_force_sink(!!force);
+}
+
 // TODO: need to instantiate multiple CLIs (ttys?)
 // so state is not mixed between usb, uart, and spi interfaces
 void hwapi_pocket_init(battery_info_s *binfo) {
@@ -358,6 +366,8 @@ void hwapi_pocket_init(battery_info_s *binfo) {
   cli_add_func("vdm\0\0\0\0\0", hwapi_vdm, 2, CLI_TYPE_VOID);
   cli_add_func("pdcap\0\0\0", hwapi_pd_cap, 1, CLI_TYPE_VOID);
   cli_add_func("pdreset\0", hwapi_pd_send_reset, 1, CLI_TYPE_VOID);
+  cli_add_func("pdvolt\0\0", hwapi_pd_set_max_voltage, 1, CLI_TYPE_VOID);
+  cli_add_func("pdsink\0\0", hwapi_pd_set_force_sink, 1, CLI_TYPE_VOID);
 
   // TODO: DP/altmode_set configs
   // altmode_set(0b110);

@@ -551,7 +551,7 @@ void turn_som_power_on_v20() {
   init_spi_client();
 
   // in case the soc is sleeping, wake it
-  // FIXME don't do this after warm boot! 
+  // FIXME don't do this after warm boot!
   // som_wake();
 }
 
@@ -1105,7 +1105,7 @@ void usb_host_5v_enable() {
     mps_write_byte(MPS_REG_CONFIG0, mps_reg_config.config0.reg_byte);
 #endif
   } else if (mb_version() >= 2) {
-    printf("# [usb_host_5v_enable]\n");
+    //printf("# [usb_host_5v_enable]\n");
     // TODO: hardware error on mb2.0 d-1+charger 2.0: no 5v supplied to VBUS, can't use otg
     gpio_put(PIN_USB_SRC_ENABLE, 1);
   }
@@ -1120,7 +1120,7 @@ void usb_host_5v_disable() {
     mps_write_byte(MPS_REG_CONFIG0, mps_reg_config.config0.reg_byte);
 #endif
   } else if (mb_version() >= 2) {
-    printf("# [usb_host_5v_disable]\n");
+    //printf("# [usb_host_5v_disable]\n");
     // TODO: hardware error on mb2.0 d-1+charger 2.0: no 5v supplied to VBUS, can't use otg
     gpio_put(PIN_USB_SRC_ENABLE, 0);
   }

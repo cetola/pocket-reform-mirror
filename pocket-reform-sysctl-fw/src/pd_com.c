@@ -81,8 +81,8 @@ unsigned int pd_state;
 bool pd_sent_soft_reset;
 uint16_t pd_datarole = PD_DATAROLE_UFP;
 uint16_t pd_powerrole = PD_POWERROLE_SINK;
-static bool pd_datarole_changed = false;
 static uint8_t pd_ccpin = 0;
+static uint8_t pd_host_current = 0b10; // default host current
 
 int request_sent = 0;
 
@@ -91,8 +91,18 @@ static int tx_id_count = 0;
 union pd_msg rx_msg;
 // in 10mA units
 unsigned int requested_current = 0;
+static unsigned int max_voltage_requested = 5;
+static int source_pdo_accept_sent = 0;
+static int source_pdo_ready_sent = 0;
+static bool alt_mode_requested = false;
+static bool pd_force_sink = false;
 
 int factory_turn_on_once = 1;
+
+void pd_set_max_voltage_req(uint64_t v) {
+  if (v > 20 || v < 5) return;
+  max_voltage_requested = v;
+}
 
 void pd_init() {
   pd_state = PD_STATE_SETUP;
@@ -103,6 +113,10 @@ unsigned int pd_get_state_for_debug() {
   return pd_state;
 }
 
+void pd_set_force_sink(bool force) {
+  pd_force_sink = force;
+}
+
 #define PD_VERSION PD_SPECREV_2_0
 
 void send_source_cap(uint8_t prime) {
@@ -110,18 +124,21 @@ void send_source_cap(uint8_t prime) {
   printf("# [pd] send_source_cap\n");
   tx.hdr = PD_MSGTYPE_D_SOURCE_CAPABILITIES | PD_NUMOBJ(1) | pd_datarole | (pd_powerrole << PD_HDR_POWERROLE_SHIFT) | PD_VERSION;
   tx.hdr |= (tx_id_count % 8) << PD_HDR_MESSAGEID_SHIFT;
-  //tx.obj[0] = 0x26019064;  // 5V/1A with DRP and DRD
-  tx.obj[0] = 0x36019096;  // 5V/1A with DRP and DRD
+  tx.obj[0] = 0x26019064;  // 5V/1A with DRP and DRD
+  //tx.obj[0] = 0x36019096;
+  //0x0a01912c
 
+  int res = -1;
   if (prime == 2) {
-    fusb_send_message_prime_prime(&tx);
+    res = fusb_send_message_prime_prime(&tx);
   }
   else if (prime == 1) {
-    fusb_send_message_prime(&tx);
+    res = fusb_send_message_prime(&tx);
   }
   else {
-    fusb_send_message(&tx);
+    res = fusb_send_message(&tx);
   }
+  printf("# [pd]   result: %d\n", res);
   tx_id_count++;
 }
 
@@ -186,9 +203,7 @@ void send_vdm2([[maybe_unused]] uint32_t message_type, uint32_t obj1) {
 
 void pd_send_reset() {
   printf("# [pd] send reset\n");
-  fusb_write_byte(FUSB_CONTROL0, (0b11 << FUSB_CONTROL0_HOST_CUR_SHIFT) | FUSB_CONTROL0_TX_FLUSH);
   tx.hdr = PD_MSGTYPE_C_SOFT_RESET | pd_datarole | (pd_powerrole << PD_HDR_POWERROLE_SHIFT);
-
   bool res = fusb_send_message(&tx);
   printf("# [pd] sent reset, result: %d\n", res);
 
@@ -196,56 +211,136 @@ void pd_send_reset() {
 }
 
 static bool enable_vconn = false;
+static bool pd_apply_datarole() {
+  if (pd_datarole == PD_DATAROLE_DFP) {
+    // we're USB host, turn off USB UART
+    //printf("# [pd] pd_apply_datarole: DFP\n");
+    return gpio_ext_uswitch_disable(3);
+  } else {
+    // we're USB device, turn on USB UART
+    //printf("# [pd] pd_apply_datarole: UFP\n");
+    return gpio_ext_uswitch_enable(3);
+  }
+  return true;
+}
 
 static void pd_set_fusb_switches() {
   uint8_t buf = 0;
 
+  /*
+    - A downstream facing port (DFP), such as a host computer, exposes pull-up terminations, Rp, on its CC pins (CC1 and CC2)
+    - An upstream facing port (UFP), such as a peripheral, exposes pull-down terminations, Rd, on its CC pins.
+    - The purpose of Rp and Rd terminations on CC pins is to identify the DFP to UFP connection and the CC pin that will be used for communication. To do this, the DFP monitors both CC pins for a voltage lower than its unterminated voltage.
+
+    - UFP’s Rd value is fixed at 5.1 kΩ.
+    - The Type-C cable needs to expose a pull-down termination, Ra, on its VCONN pin to signal to the DFP that it needs power [800 - 1.2k ohms]
+    - The DFP must be able to differentiate between the presence of Rd and Ra to know whether there is a UFP attached and where to apply VCONN. The DFP is not required to source VCONN unless Ra is detected.
+
+    source: https://community.infineon.com/t5/Knowledge-Base-Articles/USB-Type-C-connector-Rp-Rd-and-Ra-termination-resistors/ta-p/253544
+
+    - a Source is a USB Power Delivery Port supplying power; on an attach event, it assumes the DFP and VCONN Source roles
+    - a Sink is a USB Power Delivery Port consuming power; on an attach event, it assumes the UFP role
+    - a Dual-Role Power Port (DRP) supports both Source and Sink roles
+    - The Source and Sink roles, DFP and UFP roles, and the VCONN Source role can all be subsequently swapped
+
+    source: file:///home/minute/Downloads/ta0357-overview-of-usb-typec-and-power-delivery-technologies-stmicroelectronics.pdf
+   */
+
   if (pd_powerrole == PD_POWERROLE_SINK) {
+    buf |= FUSB_SWITCHES0_PDWN_1|FUSB_SWITCHES0_PDWN_2;
+    usb_host_5v_disable();
+  }
+  if (pd_powerrole == PD_POWERROLE_SOURCE) {
+    buf |= FUSB_SWITCHES0_PU_EN1|FUSB_SWITCHES0_PU_EN2;
+    usb_host_5v_enable();
+  }
+
+  if (pd_state == PD_STATE_UNATTACHED_SRC /* pd_ccpin */) {
+    //printf("# [pd switches] enabling vconn\n");
+
     if (pd_ccpin == 1) {
-      buf |= FUSB_SWITCHES0_PDWN_1;
+      // CC1 used for comms, so CC2 used for VCONN
+      //buf |= FUSB_SWITCHES0_VCONN_CC2;
+      // disable pullup on CC2
+      //buf = buf & ~FUSB_SWITCHES0_PU_EN2;
     } else if (pd_ccpin == 2) {
-      buf |= FUSB_SWITCHES0_PDWN_2;
-    } else {
-      buf |= FUSB_SWITCHES0_PDWN_1|FUSB_SWITCHES0_PDWN_2;
+      // CC2 used for comms, so CC1 used for VCONN
+      //buf |= FUSB_SWITCHES0_VCONN_CC1;
+      // disable pullup on CC1
+      //buf = buf & ~FUSB_SWITCHES0_PU_EN1;
     }
+  }
+
+  // TODO: to detect Ra (e-marker cable), we have to have at least host_cur b10.
+  // see fusb302 datasheet p. 6 and 7
+  // MDAC setting is referred to as "COMP Setting" there
+  // comp == 0 -> attach
+  // comp == 1 -> detach
+  uint8_t mdac_setting = 0; // TODO: default?
+  uint8_t meas_vbus = 1;
+  if (pd_powerrole == PD_POWERROLE_SOURCE) {
+    meas_vbus = 0;
+    // TODO Ra termination
+    /*if (pd_host_current == 0b10) {
+      // 0.42V
+      mdac_setting = 0b001001;
+    } else if (pd_host_current == 0b11) {
+      // 0.8V
+      mdac_setting = 0b010010;
+    }*/
+    // Rd termination
+    if (pd_host_current <= 0b10) {
+      // 1.6V
+      mdac_setting = 0b100101;
+    } else {
+      // 2.6V
+      mdac_setting = 0b111101;
+    }
+  } else {
+    meas_vbus = 1;
+    mdac_setting = 0b110100;
   }
 
   if (pd_powerrole == PD_POWERROLE_SOURCE) {
     if (pd_ccpin == 1) {
-      buf |= FUSB_SWITCHES0_PU_EN1;
-    } else if (pd_ccpin == 2) {
-      buf |= FUSB_SWITCHES0_PU_EN2;
-    } else {
-      buf |= FUSB_SWITCHES0_PU_EN1|FUSB_SWITCHES0_PU_EN2;
-    }
-  }
-
-  if (enable_vconn && pd_ccpin) {
-    printf("# [pd switches] enabling vconn\n");
-    
-    if (pd_ccpin == 1) {
-      buf |= FUSB_SWITCHES0_VCONN_CC2;
       buf |= FUSB_SWITCHES0_MEAS_CC1;
-    } else if (pd_ccpin == 2) {
-      buf |= FUSB_SWITCHES0_VCONN_CC1;
+    }
+    else if (pd_ccpin == 2) {
       buf |= FUSB_SWITCHES0_MEAS_CC2;
     }
   } else {
+    // TODO: not sure if necessary
     buf |= FUSB_SWITCHES0_MEAS_CC1 | FUSB_SWITCHES0_MEAS_CC2;
   }
   fusb_write_byte(FUSB_SWITCHES0, buf);
 
+  // Configure SWITCHES1
   // Uses pd_ccpin as TXCC1/TXCC2.
-  buf = 0 \
+  buf = 0
         | FUSB_SWITCHES1_AUTO_CRC
-        | FUSB_SWITCHES1_SPECREV_REV2_0 \
+        | FUSB_SWITCHES1_SPECREV_REV2_0
         | ((pd_datarole == PD_DATAROLE_DFP) ?
-	   FUSB_SWITCHES1_DATAROLE_SRC_DFP : FUSB_SWITCHES1_DATAROLE_SNK_UFP) \
-        | ((pd_powerrole == PD_POWERROLE_SOURCE) ? FUSB_SWITCHES1_POWERROLE : 0) \
+	         FUSB_SWITCHES1_DATAROLE_SRC_DFP : FUSB_SWITCHES1_DATAROLE_SNK_UFP)
+        | ((pd_powerrole == PD_POWERROLE_SOURCE) ?
+           FUSB_SWITCHES1_POWERROLE : 0)
         | pd_ccpin
   ;
 
+
   fusb_write_byte(FUSB_SWITCHES1, buf);
+
+  // Configure MDAC
+  fusb_write_byte(FUSB_MEASURE, mdac_setting|(meas_vbus<<6));
+
+  pd_apply_datarole();
+  if (mb_version() >= 2) {
+    // TODO: too early?
+    if (pd_ccpin == 1) {
+      altmode_enable_dp(0);
+    } else {
+      altmode_enable_dp(1);
+    }
+  }
 }
 
 struct picked_pdo {
@@ -266,7 +361,8 @@ static struct picked_pdo pick_pdo(union pd_msg *msg) {
       print_src_fixed_pdo(i + 1, pdo);
 
       unsigned int voltage = PD_PDV_V(PD_PDO_SRC_FIXED_VOLTAGE_GET(pdo));
-      if (voltage > 20) {
+      // TODO: temp hack for vbus1=vbus2 bodge on mb2 proto
+      if (voltage > max_voltage_requested) {
         // our charger IC is limited to 20V input.
         continue;
       }
@@ -289,6 +385,7 @@ static struct picked_pdo pick_pdo(union pd_msg *msg) {
       //    necessary with some chargers, f.e. loaded Apple 35W 2-port charger can report
       //    slightly higher power at 9V than at 20V. but then we still want 20V.
       if (voltage > picked.voltage
+          && voltage <= max_voltage_requested
           && (
               picked.voltage < 9
               || picked.max_power < 10
@@ -314,19 +411,6 @@ static void pd_send_not_supported() {
   fusb_send_message(&tx);
 }
 
-static bool pd_apply_datarole() {
-  if (pd_datarole == PD_DATAROLE_DFP) {
-    // we're USB host, turn off USB UART
-    printf("# [pd] pd_apply_datarole: DFP\n");
-    return gpio_ext_uswitch_disable(3);
-  } else {
-    // we're USB device, turn on USB UART
-    printf("# [pd] pd_apply_datarole: UFP\n");
-    return gpio_ext_uswitch_enable(3);
-  }
-  return true;
-}
-
 static bool pd_handle_vdm_response() {
   //unsigned int msgtype = PD_MSGTYPE_GET(&rx_msg);
   //unsigned int msgrole = PD_POWERROLE_GET(&rx_msg);
@@ -347,66 +431,67 @@ static bool pd_handle_vdm_response() {
   if (vdm_header & PD_VDM_HEADER_TYPE_ACK) {
     if (vsid == PD_VSID_USBPD) {
       if (vdm_type == PD_VDM_USBPD_DISCOVER_IDENTITY) {
-	printf("# [pd] vdm< ACK discover_identity\n");
-	//send_vdm(0xff008002, 0);
+	      printf("# [pd] vdm< ACK discover_identity\n");
+	      //send_vdm(0xff008002, 0);
       }
       if (vdm_type == PD_VDM_USBPD_DISCOVER_SVIDS) {
-	printf("# [pd] vdm< ACK discover_svids\n");
+	      printf("# [pd] vdm< ACK discover_svids\n");
+	      alt_mode_requested = true;
 
-	// send discover modes
-	send_vdm(0xff018003, 0);
+	      // send discover modes
+	      send_vdm(0xff018003, 0);
       }
     }
     if (vsid == 0xff01) {
       if (vdm_type == PD_VDM_USBPD_DISCOVER_MODES) {
-	printf("# [pd] vdm< ACK DP discover_modes\n");
+	      printf("# [pd] vdm< ACK DP discover_modes\n");
 
-	// monitor sends 0x1c004d in obj1
+	      // monitor sends 0x1c004d in obj1
 
-	uint32_t portcap = obj1 & 0b11;
-	uint32_t dp_signals = (obj1 & (0b1111 << 2)) >> 2; // 0b0010 << 2; // gen 2 and DP v1.3
-	uint32_t recept_ind = !!(obj1 & (1 << 6)); // receptacle
-	uint32_t usb2_not_used = !!(obj1 & (1 << 7)); // USB2 not required
-	uint32_t dfp_pins = (obj1 & 0xff00) >> 8; // 0b00001000 << 8; // only "D" pin assignment (DP+USB mix)
-	uint32_t ufp_pins = (obj1 & 0xff0000) >> 16;
+	      uint32_t portcap = obj1 & 0b11;
+	      uint32_t dp_signals = (obj1 & (0b1111 << 2)) >> 2; // 0b0010 << 2; // gen 2 and DP v1.3
+	      uint32_t recept_ind = !!(obj1 & (1 << 6)); // receptacle
+	      uint32_t usb2_not_used = !!(obj1 & (1 << 7)); // USB2 not required
+	      uint32_t dfp_pins = (obj1 & 0xff00) >> 8; // 0b00001000 << 8; // only "D" pin assignment (DP+USB mix)
+	      uint32_t ufp_pins = (obj1 & 0xff0000) >> 16;
 
-	printf("# [pd] <DP mode 1:\n");
-	printf("# [pd]   portcap: %02b\n", (unsigned int)portcap);
-	printf("# [pd]   dp_signals: %04b\n", (unsigned int)dp_signals);
-	printf("# [pd]   receptactle: %01b\n", (unsigned int)recept_ind);
-	printf("# [pd]   usb2_not_used: %01b\n", (unsigned int)usb2_not_used);
-	printf("# [pd]   dfp_pins: %08b\n", (unsigned int)dfp_pins);
-	printf("# [pd]   ufp_pins: %08b\n", (unsigned int)ufp_pins);
+	      printf("# [pd] <DP mode 1:\n");
+	      printf("# [pd]   portcap: %02b\n", (unsigned int)portcap);
+	      printf("# [pd]   dp_signals: %04b\n", (unsigned int)dp_signals);
+	      printf("# [pd]   receptactle: %01b\n", (unsigned int)recept_ind);
+	      printf("# [pd]   usb2_not_used: %01b\n", (unsigned int)usb2_not_used);
+	      printf("# [pd]   dfp_pins: %08b\n", (unsigned int)dfp_pins);
+	      printf("# [pd]   ufp_pins: %08b\n", (unsigned int)ufp_pins);
 
-	/*
-	  # [pd] <DP mode 1:
-	  # [pd]   portcap: 01
-	  # [pd]   dp_signals: 0011
-	  # [pd]   receptactle: 1
-	  # [pd]   usb2_not_used: 0
-	  # [pd]   dfp_pins: 00000000
-	  # [pd]   ufp_pins: 00011100
-	 */
+	      /*
+	        # [pd] <DP mode 1:
+	        # [pd]   portcap: 01
+	        # [pd]   dp_signals: 0011
+	        # [pd]   receptactle: 1
+	        # [pd]   usb2_not_used: 0
+	        # [pd]   dfp_pins: 00000000
+	        # [pd]   ufp_pins: 00011100
+	       */
 
-	portcap = 0b10; // DFP_D capable (DP source)
-	dp_signals = 0b0001 << 2; // DP v1.3
-	recept_ind = 0b1 << 6; // receptacle
-	usb2_not_used = 0b0 << 7; // USB2 may be required
-	dfp_pins = 0b00001000 << 8; // only "D" pin assignment (DP+USB mix)
-	ufp_pins = 0b00001000 << 16;
-	uint32_t mode_flags = portcap|dp_signals|recept_ind|usb2_not_used|dfp_pins|ufp_pins;
+	      portcap = 0b10; // DFP_D capable (DP source)
+	      dp_signals = 0b0001 << 2; // DP v1.3
+	      recept_ind = 0b1 << 6; // receptacle
+	      usb2_not_used = 0b0 << 7; // USB2 may be required
+	      dfp_pins = 0b00001000 << 8; // only "D" pin assignment (DP+USB mix)
+	      ufp_pins = 0b00001000 << 16;
+	      uint32_t mode_flags = portcap|dp_signals|recept_ind|usb2_not_used|dfp_pins|ufp_pins;
 
-	/*
-	  # [pd] send VDM2: hdr: 0x0000286f obj0: 0xff018104 obj1: 0x0000084a datarole: DFP powerrole: SINK
-	*/
+	      /*
+	        # [pd] send VDM2: hdr: 0x0000286f obj0: 0xff018104 obj1: 0x0000084a datarole: DFP powerrole: SINK
+	       */
 
-	// enter mode
-	send_vdm2(0xff018104, mode_flags);
+	      // enter mode
+	      send_vdm2(0xff018104, mode_flags);
       }
       if (vdm_type == PD_VDM_USBPD_ENTER_MODE) {
-	printf("# [pd] vdm< ACK DP enter_mode\n");
+	      printf("# [pd] vdm< ACK DP enter_mode\n");
 
-	// status update
+	      // status update
         uint32_t connected = 0b11;
         uint32_t power_low = 0b0 << 2;
         uint32_t enabled = 0b1 << 3;
@@ -415,21 +500,21 @@ static bool pd_handle_vdm_response() {
         uint32_t exit_dp = 0b0 << 6;
         uint32_t hpd = 0b1 << 7;
         uint32_t hpd_irq = 0b1 << 7;
-	send_vdm2(0xff018010, connected|power_low|enabled|multi_fn_pref|
-                  usb_req|exit_dp|hpd|hpd_irq);
+	      send_vdm2(0xff018010, connected|power_low|enabled|multi_fn_pref|
+                              usb_req|exit_dp|hpd|hpd_irq);
       }
       if (vdm_type == PD_VDM_USBPD_DP_STATUS_UPDATE) {
-	printf("# [pd] vdm< ACK DP status_update\n");
+	      printf("# [pd] vdm< ACK DP status_update\n");
 
-	// configure
+	      // configure
         uint32_t select = 0b10; // ufp_u is ufp_d
         uint32_t signaling = 0b0001 << 2; // DP1.3
         uint32_t pin_assignment = 0b00001000 << 8; // D pins
 
-	send_vdm2(0xff018011, select|signaling|pin_assignment);
+	      send_vdm2(0xff018011, select|signaling|pin_assignment);
       }
       if (vdm_type == PD_VDM_USBPD_DP_CONFIGURE) {
-	printf("# [pd] vdm< ACK DP configure\n");
+	      printf("# [pd] vdm< ACK DP configure\n");
       }
     }
   }
@@ -447,8 +532,8 @@ static bool pd_handle_vdm_response() {
    */
 
   /*switch (vsid) {
-  case PD_VSID_USBPD:  // USB-PD Standard "Vendor" ID
-  }*/
+    case PD_VSID_USBPD:  // USB-PD Standard "Vendor" ID
+    }*/
   return true;
 }
 
@@ -666,12 +751,6 @@ static void debug_status0(uint8_t status0) {
 
 // Returns if state was "changed" in some form and we expect to maybe be called again.
 static bool pd_comm_pd(battery_info_s* battery_info) {
-  if (pd_datarole_changed) {
-    pd_set_fusb_switches();
-    pd_apply_datarole();
-    pd_datarole_changed = false;
-  }
-
   uint8_t status1;
   if (fusb_read_buf(FUSB_STATUS1, 1, &status1)) {
     if (status1 & 0b11010111) {
@@ -695,6 +774,8 @@ static bool pd_comm_pd(battery_info_s* battery_info) {
       pd_send_not_supported();
       return false;
     }
+
+    printf("# [pd] < msg from SRC: hdr: 0x%08x, obj0: 0x%08lx\n", rx_msg.hdr, rx_msg.obj[0]);
 
     if (numobj == 0) {
       // control messages
@@ -734,7 +815,6 @@ static bool pd_comm_pd(battery_info_s* battery_info) {
             tx.hdr = PD_MSGTYPE_C_ACCEPT | pd_datarole | (pd_powerrole << PD_HDR_POWERROLE_SHIFT);
             fusb_send_message(&tx);
             pd_datarole = PD_DATAROLE_DFP;
-            pd_datarole_changed = true;
           }
         }
         return true;
@@ -752,7 +832,7 @@ static bool pd_comm_pd(battery_info_s* battery_info) {
         //tx.hdr = PD_MSGTYPE_C_ACCEPT | pd_datarole | (pd_powerrole << PD_HDR_POWERROLE_SHIFT);
         //fusb_send_message(&tx);
         printf("# [pd] rejecting PD_MSGTYPE_C_VCONN_SWAP\n");
-	pd_send_not_supported();
+	      pd_send_not_supported();
         return false;
       }
 
@@ -812,58 +892,156 @@ static bool pd_comm_pd(battery_info_s* battery_info) {
         // non-REQ message, which we cannot parse. ignore it.
         //printf("# [pd] rejecting non-REQ message\n");
         //return false;
-	//return pd_handle_vdm_response();
+	      //return pd_handle_vdm_response();
       }
 
       if (mb_version() < 2) {
-	printf("# [pd] [vdm, mb v1.0] rejecting unsupported vdm_header 0x%lx\n", vdm_header & 0x1F);
-	pd_send_not_supported();
+	      printf("# [pd] [vdm, mb v1.0] rejecting unsupported vdm_header 0x%lx\n", vdm_header & 0x1F);
+	      pd_send_not_supported();
         return false;
       }
 
       // TODO: handle BUSY
       if (vdm_header & PD_VDM_HEADER_TYPE_ACK) {
-	return pd_handle_vdm_response();
+	      return pd_handle_vdm_response();
       } else if (vdm_header & PD_VDM_HEADER_TYPE_NAK) {
-	printf("# [pd] <VDM NAK\n");
+	      printf("# [pd] <VDM NAK\n");
       } else {
-	return pd_handle_vdm_request();
+	      return pd_handle_vdm_request();
       }
     }
 
   } else {
     // msgrole == PD_POWERROLE_SNK
-    printf("# [pd] < msg in SNK mode: hdr: 0x%08x, obj0: 0x%08lx\n", rx_msg.hdr, rx_msg.obj[0]);
+    printf("# [pd] < msg from SNK: hdr: 0x%08x, obj0: 0x%08lx\n", rx_msg.hdr, rx_msg.obj[0]);
     uint32_t vdm_header = rx_msg.obj[0];
 
-    switch (msgtype) {
-      case PD_MSGTYPE_D_REQUEST:
-        send_source_accept();
-        send_ps_ready();
+
+    // numobj = 0 -> message type C
+    // numobj > 0 -> message type D
+    // 0x0041 = '0b0000 0000 0100 0001'
+    //             |         |||`-````--- 5 msgtype_c/d bits (1 = goodcrc)
+    //             |         ||`--------- datarole UFP
+    //             |         ``---------- SPECREV. 01 = 2.0
+    //             `--------------------- extended message (bit 15)
+    // 0x1042 = '0b0001 0000 0100 0010'
+    //              ```------------------ numobj (0-7)
+    //
+    // 0x51a1 = '0b0101 0001 1010 0001
+    //                     | || `-````--- msgtype source capabilities
+    //                     | ``---------- specrev 3
+    //                     `------------- powerrole src
+    // 0x0363 = '0b0000 0011 0110 0011
+    //                       |||`-````--- msgtype ACCEPT
+    //                       ||`--------- datarole DFP
+    //                       ``---------- specrev 2
+    //                  ```-------------- message id
+
+    if (rx_msg.hdr & PD_HDR_EXT) {
+      // extended messages.
+      printf("# [pd] rx extended message.\n");
+      pd_send_not_supported();
+      return false;
+    }
+
+    if (numobj == 0) {
+      // control message
+      switch (msgtype) {
+      case PD_MSGTYPE_C_GOODCRC:
+        printf("# [pd] [rx from sink] goodcrc.\n");
+        if (source_pdo_accept_sent && !source_pdo_ready_sent) {
+          printf("# [pd]   -> sending PS_READY.\n");
+          send_ps_ready();
+          source_pdo_accept_sent = 0;
+          source_pdo_ready_sent = 1;
+        }
+        return false;
+      case PD_MSGTYPE_C_GET_SOURCE_CAP:
+        printf("# [pd] [rx from sink] get_source_cap.\n");
+        send_source_cap(0);
         return true;
+      case PD_MSGTYPE_C_WAIT:
+        printf("# [pd] [rx from sink] wait.\n");
+        return false;
+      case PD_MSGTYPE_C_SOFT_RESET:
+        printf("# [pd] [rx from sink] soft_reset.\n");
+        pd_state = PD_STATE_SETUP;
+        return false;
+      case PD_MSGTYPE_C_ACCEPT:
+        printf("# [pd] [rx from sink] accept.\n");
+        return false;
+      case PD_MSGTYPE_C_GOTOMIN:
+        printf("# [pd] [rx from sink] gotomin.\n");
+        return false;
+      case PD_MSGTYPE_C_REJECT:
+        printf("# [pd] [rx from sink] reject.\n");
+        return false;
+      case PD_MSGTYPE_C_PING:
+        printf("# [pd] [rx from sink] ping.\n");
+        pd_send_not_supported();
+        return false;
+      case PD_MSGTYPE_C_DR_SWAP:
+        printf("# [pd] [rx from sink] dr_swap.\n");
+        pd_send_not_supported();
+        return false;
+      case PD_MSGTYPE_C_PR_SWAP:
+        printf("# [pd] [rx from sink] pr_swap.\n");
+        pd_send_not_supported();
+        return false;
+      case PD_MSGTYPE_C_VCONN_SWAP:
+        printf("# [pd] [rx from sink] vconn_swap.\n");
+        pd_send_not_supported();
+        return false;
+      default:
+        pd_send_not_supported();
+        return false;
+      }
+      return false;
+    } else {
+      // data message
+      switch (msgtype) {
+      case PD_MSGTYPE_D_REQUEST: {
+        int req_idx = PD_RDO_OBJPOS_GET(&rx_msg);
+        printf("# [pd] [rx from sink] request: PDO %d\n", req_idx);
+        send_source_accept();
+        source_pdo_accept_sent = 1;
+        source_pdo_ready_sent = 0;
+        return true;
+      }
       default:
         // TODO: handle BUSY
-	if (vdm_header & PD_VDM_HEADER_TYPE_ACK) {
-	  return pd_handle_vdm_response();
-	} else if (vdm_header & PD_VDM_HEADER_TYPE_NAK) {
-	  printf("# [pd] <VDM NAK\n");
-	  return false;
-	} else {
-	  return pd_handle_vdm_request();
-	}
+	      if (vdm_header & PD_VDM_HEADER_TYPE_ACK) {
+	        return pd_handle_vdm_response();
+	      } else if (vdm_header & PD_VDM_HEADER_TYPE_NAK) {
+	        printf("# [pd] <VDM NAK\n");
+	        return false;
+	      } else {
+	        return pd_handle_vdm_request();
+	      }
+      }
+      pd_send_not_supported();
+      return false;
     }
   }
   return false;
 }
 
-bool alt_mode_requested = false;
-
 bool pd_tick(battery_info_s* battery_info) {
+  pd_set_fusb_switches();
+
   if (pd_state == PD_STATE_SETUP) {
     printf("# [pd] PD_STATE_SETUP\n");
 
     enable_vconn = false;
     alt_mode_requested = false;
+
+    // role defaults
+    pd_powerrole = PD_POWERROLE_SINK;
+    pd_datarole = PD_DATAROLE_UFP;
+    pd_ccpin = 0;
+    pd_set_fusb_switches();
+    source_pdo_accept_sent = 0;
+    source_pdo_ready_sent = 0;
 
     // setup/timeout state
     if (battery_info->emergency_charge_necessary) {
@@ -876,14 +1054,6 @@ bool pd_tick(battery_info_s* battery_info) {
     }
     charger_disable_charge();
     request_sent = 0;
-    pd_ccpin = 0;
-    // turn off 5v host power first
-    usb_host_5v_disable();
-
-    // role defaults
-    pd_powerrole = PD_POWERROLE_SINK;
-    pd_datarole = PD_DATAROLE_UFP;
-    pd_set_fusb_switches();
 
     // probe FUSB302BMPX
     uint8_t rxdata[2];
@@ -896,20 +1066,20 @@ bool pd_tick(battery_info_s* battery_info) {
 
       // enable toggle and DRP mode
       int mode;
-      /*if (battery_info->som_is_powered) {
+      if (battery_info->som_is_powered && !pd_force_sink) {
         mode = 1 << FUSB_CONTROL2_MODE_SHIFT;  // DRP
       } else {
         mode = 0b10 << FUSB_CONTROL2_MODE_SHIFT;  // SNK only
-      }*/
-      mode = 1 << FUSB_CONTROL2_MODE_SHIFT;  // DRP
-      //mode = 0b10 << FUSB_CONTROL2_MODE_SHIFT;
+      }
+      //mode = 1 << FUSB_CONTROL2_MODE_SHIFT;  // DRP
+      //mode = 0b10 << FUSB_CONTROL2_MODE_SHIFT;  // SNK only
       mps_reg_config.config0.susp_en = 1;
       mps_reg_config.config0.chg_en = 0;
       mps_write_byte(MPS_REG_CONFIG0, mps_reg_config.config0.reg_byte);
 
       // unmask all interrupts to be able to wake from
       // dormant mode via USB-C events
-      fusb_write_byte(FUSB_CONTROL0, (0b10 << FUSB_CONTROL0_HOST_CUR_SHIFT) | FUSB_CONTROL0_TX_FLUSH);
+      fusb_write_byte(FUSB_CONTROL0, (pd_host_current << FUSB_CONTROL0_HOST_CUR_SHIFT) | FUSB_CONTROL0_TX_FLUSH);
 
       fusb_write_byte(FUSB_CONTROL1, FUSB_CONTROL1_ENSOP1 | FUSB_CONTROL1_ENSOP2);
 
@@ -980,35 +1150,21 @@ bool pd_tick(battery_info_s* battery_info) {
         printf("# [pd] PD_STATE_UNATTACHED -> SNK CC1, going to PD_STATE_UNATTACHED_SNK\n");
         pd_state = PD_STATE_UNATTACHED_SNK;
         pd_ccpin = 1;
-        if (mb_version() >= 2) {
-          //altmode_set(0b110);
-          altmode_enable_dp(0);
-        }
       } else if (togss == 6) {
         // SNK CC2
         printf("# [pd] PD_STATE_UNATTACHED -> SNK CC2, going to PD_STATE_UNATTACHED_SNK\n");
         pd_state = PD_STATE_UNATTACHED_SNK;
         pd_ccpin = 2;
-        if (mb_version() >= 2) {
-          //altmode_set(0b111);
-          altmode_enable_dp(1);
-        }
       } else if (togss == 1) {
         // SRC CC1
         printf("# [pd] PD_STATE_UNATTACHED -> SRC CC1, going to PD_STATE_UNATTACHED_SRC\n");
         pd_state = PD_STATE_UNATTACHED_SRC;
         pd_ccpin = 1;
-        if (mb_version() >= 2) {
-          altmode_enable_dp(0);
-        }
       } else if (togss == 2) {
         // SRC CC2
         printf("# [pd] PD_STATE_UNATTACHED -> SRC CC2, going to PD_STATE_UNATTACHED_SRC\n");
         pd_state = PD_STATE_UNATTACHED_SRC;
         pd_ccpin = 2;
-        if (mb_version() >= 2) {
-          altmode_enable_dp(1);
-        }
       } else {
         // Audio accessory or something else we do not understand. Reset.
         pd_state = PD_STATE_SETUP;
@@ -1017,34 +1173,19 @@ bool pd_tick(battery_info_s* battery_info) {
       }
 
       // disable TOGGLE feature
-      fusb_write_byte(FUSB_CONTROL2, 0);  // (1 << FUSB_CONTROL2_MODE_SHIFT));
+      // TODO: nothing else on CONTROL2?
+      fusb_write_byte(FUSB_CONTROL2, 0);
 
       if (pd_state == PD_STATE_UNATTACHED_SNK) {
         pd_powerrole = PD_POWERROLE_SINK;
         pd_datarole = PD_DATAROLE_UFP;  // default for powerrole SINK
-        usb_host_5v_disable();
-        pd_apply_datarole();
       } else {
         pd_powerrole = PD_POWERROLE_SOURCE;
         pd_datarole = PD_DATAROLE_DFP;  // default for powerrole SOURCE
-        usb_host_5v_enable();
-        pd_apply_datarole();
       }
 
       // Enable all FUSB blocks, including PD BMC and measure block.
       fusb_write_byte(FUSB_POWER, 0xF);
-
-      pd_set_fusb_switches();
-      pd_datarole_changed = false;
-
-      if (pd_state == PD_STATE_UNATTACHED_SNK) {
-        // enable VBUS measure for host/source attach detect.
-        const int v = (3670 / 420) - 1;
-        uint8_t measure = FUSB_MEASURE_MEAS_VBUS | v;
-        fusb_write_byte(FUSB_MEASURE, measure);
-        printf("[pd] PD_STATE_UNATTACHED_SNK measure=0x%02x\n", measure);
-      }
-
       t = 0;
     }
   } else if (pd_state == PD_STATE_UNATTACHED_SNK) {
@@ -1057,7 +1198,6 @@ bool pd_tick(battery_info_s* battery_info) {
         pd_state = PD_STATE_ATTACHED_SNK;
       }
     }
-
     if (pd_state == PD_STATE_UNATTACHED_SNK && t > 2000) {
       // timeout
       // FIXME: timeout value?
@@ -1100,12 +1240,12 @@ bool pd_tick(battery_info_s* battery_info) {
         fusb_send_message(&tx);
       }
 
-      if (t>800 && !alt_mode_requested) {
-	// WIP: discover alt-modes
-	printf("# [pd] trying to trigger alt-mode...\n");
-	send_vdm(0xff008002, 0);
-	alt_mode_requested = 1;
-      }
+      /*if (t>800 && !alt_mode_requested) {
+	      // WIP: discover alt-modes
+	      printf("# [pd] trying to trigger alt-mode...\n");
+	      send_vdm(0xff008002, 0);
+	      alt_mode_requested = 1;
+      }*/
     }
 
 #ifdef FACTORY_MODE
@@ -1121,13 +1261,11 @@ bool pd_tick(battery_info_s* battery_info) {
     // TODO: should do a lot of stuff, but for now keep USB2.0 devices happy
 
     if (pd_comm_pd(battery_info)) {
-      //t = 0;
     }
 
     if (t == 1) {
-      printf("# [pd] state PD_STATE_UNATTACHED_SRC, enabling VCONN\n");
-      enable_vconn = true;
-      pd_set_fusb_switches();
+      printf("# [pd] state PD_STATE_UNATTACHED_SRC\n");
+
     }
 
     if (t == 2) {
@@ -1140,23 +1278,25 @@ bool pd_tick(battery_info_s* battery_info) {
         [[maybe_unused]] uint8_t comp = status0 & FUSB_STATUS0_COMP;
         [[maybe_unused]] uint8_t bc_lvl = status0 & FUSB_STATUS0_BC_LVL;
         printf("# [pd] state PD_STATE_UNATTACHED_SRC, status0 = %02x bc_lvl = %02x\n", status0, bc_lvl);
-
-	debug_status0(status0);
-
-	status0 &= FUSB_STATUS0_BC_LVL;
-        // TODO: shouldn't we check COMP?
-        if (bc_lvl>=1) {
-	  //send_source_cap(0);
-	  //send_vdm(0xff008001, 0);
+	      debug_status0(status0);
+        // COMP relies on correct MDAC setting
+        if (comp == 0) {
           pd_state = PD_STATE_ATTACHED_SRC;
           t = 0;
         } else {
-	  if (t >= 200) {
+	        if (t >= 200) {
             pd_state = PD_STATE_SETUP;
             t = 0;
-	  }
+	        }
         }
       }
+    }
+
+    if (t >= 800 && !alt_mode_requested) {
+	    // TODO WIP
+	    printf("# [pd] trying to trigger DP alt-mode...\n");
+	    send_vdm(0xff008002, 0);
+	    alt_mode_requested = true;
     }
 
     if (t >= 10000) {
@@ -1168,7 +1308,10 @@ bool pd_tick(battery_info_s* battery_info) {
     // TODO: everything
     // TODO: timeout
     if (pd_comm_pd(battery_info)) {
-      t = 0;
+    }
+
+    if (t == 2) {
+	    send_source_cap(0);
     }
 
     if (t % 500 == 0) {
@@ -1179,7 +1322,8 @@ bool pd_tick(battery_info_s* battery_info) {
       printf("# [pd] state PD_STATE_ATTACHED_SRC, status0 = 0x%02x\n", status0);
       debug_status0(status0);
 
-      if (bc_lvl<1 || comp) {
+      // COMP relies on correct MDAC setting
+      if (comp) {
         pd_state = PD_STATE_SETUP;
       }
     }
