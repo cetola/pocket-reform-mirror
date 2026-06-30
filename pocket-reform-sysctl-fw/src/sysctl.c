@@ -865,9 +865,9 @@ void setup_gpios() {
     gpio_init(PIN_USB_LOADER_SW);
     gpio_set_dir(PIN_USB_LOADER_SW, GPIO_IN);
     // USB-C DisplayPort HPD
-    // TODO: should be an output
     gpio_init(PIN_V20_DP_HPD);
-    gpio_set_dir(PIN_V20_DP_HPD, GPIO_IN);
+    gpio_set_dir(PIN_V20_DP_HPD, GPIO_OUT);
+    gpio_put(PIN_V20_DP_HPD, 1);
   }
 }
 
