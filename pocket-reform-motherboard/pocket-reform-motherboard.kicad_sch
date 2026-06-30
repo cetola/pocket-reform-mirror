@@ -73644,17 +73644,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "XINGLIGHT"
-			(at 763.27 549.91 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "XL-1608SURC-06"
 			(at 763.27 549.91 0)
 			(hide yes)
@@ -73746,17 +73735,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 770.89 549.91 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 770.89 549.91 0)
 			(hide yes)
 			(show_name no)
@@ -73868,17 +73846,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 723.9 552.45 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF0000TCE"
 			(at 723.9 552.45 0)
 			(hide yes)
@@ -73970,17 +73937,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 717.55 554.99 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 717.55 554.99 0)
 			(hide yes)
 			(show_name no)
@@ -74092,17 +74048,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 723.9 567.69 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF0000TCE"
 			(at 723.9 567.69 0)
 			(hide yes)
@@ -74194,17 +74139,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 717.55 570.23 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 717.55 570.23 0)
 			(hide yes)
 			(show_name no)
@@ -74316,17 +74250,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 723.9 582.93 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF0000TCE"
 			(at 723.9 582.93 0)
 			(hide yes)
@@ -74418,17 +74341,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 717.55 585.47 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 717.55 585.47 0)
 			(hide yes)
 			(show_name no)
@@ -74619,17 +74531,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
-			(at 758.19 341.63 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "GRM188R60J476ME15D"
 			(at 758.19 341.63 0)
 			(hide yes)
@@ -74723,17 +74624,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 768.35 341.63 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Murata"
 			(at 768.35 341.63 0)
 			(hide yes)
 			(show_name no)
@@ -74847,17 +74737,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
-			(at 756.92 527.05 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "GRM188R60J476ME15D"
 			(at 756.92 527.05 0)
 			(hide yes)
@@ -74951,17 +74830,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 767.08 527.05 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Murata"
 			(at 767.08 527.05 0)
 			(hide yes)
 			(show_name no)
@@ -75075,17 +74943,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 692.15 615.95 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF499JTCE"
 			(at 692.15 615.95 0)
 			(hide yes)
@@ -75179,17 +75036,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 699.77 615.95 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 699.77 615.95 0)
 			(hide yes)
 			(show_name no)
@@ -75379,17 +75225,6 @@
 			)
 		)
 		(property "LCSC" "C590722"
-			(at 215.9 495.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "TE"
 			(at 215.9 495.3 0)
 			(hide yes)
 			(show_name no)
@@ -76095,17 +75930,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Molex"
-			(at 933.45 215.9 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "105450-0101"
 			(at 933.45 215.9 0)
 			(hide yes)
@@ -76276,17 +76100,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Hirose"
-			(at 1045.21 527.05 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "DM3AT-SF-PEJM5"
 			(at 1045.21 527.05 0)
 			(hide yes)
@@ -76403,17 +76216,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 57.15 87.63 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "HR(Joint Tech Elec)"
 			(at 57.15 87.63 0)
 			(hide yes)
 			(show_name no)
@@ -76770,17 +76572,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 1052.83 334.01 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Bossie"
 			(at 1052.83 334.01 0)
 			(hide yes)
 			(show_name no)
@@ -77478,17 +77269,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Molex"
-			(at 745.49 306.07 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "788000001"
 			(at 745.49 306.07 0)
 			(hide yes)
@@ -77605,17 +77385,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 717.55 341.63 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL10B103KB8NNNC"
 			(at 717.55 341.63 0)
 			(hide yes)
@@ -77709,17 +77478,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 727.71 341.63 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 727.71 341.63 0)
 			(hide yes)
 			(show_name no)
@@ -77833,17 +77591,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 737.87 341.63 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05B104KB54PNC"
 			(at 737.87 341.63 0)
 			(hide yes)
@@ -77937,17 +77684,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 748.03 341.63 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 748.03 341.63 0)
 			(hide yes)
 			(show_name no)
@@ -78128,17 +77864,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 746.76 588.01 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "TE"
 			(at 746.76 588.01 0)
 			(hide yes)
 			(show_name no)
@@ -78607,17 +78332,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 726.44 527.05 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05B104KB54PNC"
 			(at 726.44 527.05 0)
 			(hide yes)
@@ -78721,17 +78435,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 736.6 527.05 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05B104KB54PNC"
 			(at 736.6 527.05 0)
 			(hide yes)
@@ -78825,17 +78528,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 746.76 527.05 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 746.76 527.05 0)
 			(hide yes)
 			(show_name no)
@@ -79024,17 +78716,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "XINGLIGHT"
-			(at 787.4 382.27 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "XL-1608SURC-06"
 			(at 787.4 382.27 0)
 			(hide yes)
@@ -79126,17 +78807,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 795.02 382.27 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 795.02 382.27 0)
 			(hide yes)
 			(show_name no)
@@ -79327,17 +78997,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 786.13 266.7 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF4702TCE"
 			(at 786.13 266.7 0)
 			(hide yes)
@@ -79431,17 +79090,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 970.28 610.87 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Murata"
 			(at 970.28 610.87 0)
 			(hide yes)
 			(show_name no)
@@ -79566,17 +79214,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 297.18 200.66 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL10A226MP8NUNE"
 			(at 297.18 200.66 0)
 			(hide yes)
@@ -79670,17 +79307,6 @@
 			)
 		)
 		(property "LCSC" "C25917"
-			(at 751.84 114.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 751.84 114.3 0)
 			(hide yes)
 			(show_name no)
@@ -79873,17 +79499,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 1017.27 558.8 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1003TCE"
 			(at 1017.27 558.8 0)
 			(hide yes)
@@ -79964,17 +79579,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 438.15 614.68 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "JST"
 			(at 438.15 614.68 0)
 			(hide yes)
 			(show_name no)
@@ -80085,17 +79689,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 904.24 626.11 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 904.24 626.11 0)
 			(hide yes)
 			(show_name no)
@@ -80219,17 +79812,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Diodes"
-			(at 393.7 367.03 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "AP22615AWU-7"
 			(at 393.7 367.03 0)
 			(hide yes)
@@ -80335,17 +79917,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 1101.09 245.11 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "LCSC" "C17168"
 			(at 1101.09 245.11 0)
 			(hide yes)
@@ -80440,17 +80011,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 419.1 166.37 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 419.1 166.37 0)
 			(hide yes)
 			(show_name no)
@@ -80797,17 +80357,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Texas Instruments "
-			(at 1122.68 177.8 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "TMUXHS4446RETR"
 			(at 1122.68 177.8 0)
 			(hide yes)
@@ -81028,17 +80577,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Texas Instruments"
-			(at 975.36 706.12 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "TLV320AIC3100"
 			(at 975.36 706.12 0)
 			(hide yes)
@@ -81235,17 +80773,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 1061.72 190.5 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05B104KO5NNNC"
 			(at 1061.72 190.5 0)
 			(hide yes)
@@ -81415,17 +80942,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 433.07 101.6 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05B104KB54PNC"
 			(at 433.07 101.6 0)
 			(hide yes)
@@ -81539,17 +81055,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 576.58 438.15 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1002TCE"
 			(at 576.58 438.15 0)
 			(hide yes)
@@ -81632,17 +81137,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 986.79 621.03 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 986.79 621.03 0)
 			(hide yes)
 			(show_name no)
@@ -81923,17 +81417,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 219.71 156.21 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05A105KA5NQNC"
 			(at 219.71 156.21 0)
 			(hide yes)
@@ -82014,17 +81497,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 1016 372.11 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 1016 372.11 0)
 			(hide yes)
 			(show_name no)
@@ -82139,17 +81611,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 448.31 368.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05B104KB54PNC"
 			(at 448.31 368.3 0)
 			(hide yes)
@@ -82253,17 +81714,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 988.06 506.73 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05B104KB54PNC"
 			(at 988.06 506.73 0)
 			(hide yes)
@@ -82355,17 +81805,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 927.1 703.58 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 927.1 703.58 0)
 			(hide yes)
 			(show_name no)
@@ -82479,17 +81918,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 425.45 166.37 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05B104KB54PNC"
 			(at 425.45 166.37 0)
 			(hide yes)
@@ -82581,17 +82009,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 843.28 85.09 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 843.28 85.09 0)
 			(hide yes)
 			(show_name no)
@@ -82783,17 +82200,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 740.41 -60.96 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF2201TCE"
 			(at 740.41 -60.96 0)
 			(hide yes)
@@ -82885,17 +82291,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 147.32 179.07 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 147.32 179.07 0)
 			(hide yes)
 			(show_name no)
@@ -83251,17 +82646,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Wurth"
-			(at 148.59 778.51 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "9774025243R"
 			(at 148.59 778.51 0)
 			(hide yes)
@@ -83350,17 +82734,6 @@
 			)
 		)
 		(property "LCSC" "C17168"
-			(at 835.66 359.41 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 835.66 359.41 0)
 			(hide yes)
 			(show_name no)
@@ -83550,17 +82923,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "JST"
-			(at 405.13 614.68 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "SM04B-SRSS-TB(LF)(SN)"
 			(at 405.13 614.68 0)
 			(hide yes)
@@ -83651,17 +83013,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 360.68 695.96 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "HARTING"
 			(at 360.68 695.96 0)
 			(hide yes)
 			(show_name no)
@@ -83958,17 +83309,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Texas Instruments"
-			(at 617.22 57.15 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "TS3USB30EDGSR"
 			(at 617.22 57.15 0)
 			(hide yes)
@@ -84084,17 +83424,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 1007.11 355.6 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "AVX"
 			(at 1007.11 355.6 0)
 			(hide yes)
 			(show_name no)
@@ -84287,17 +83616,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 433.07 408.94 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05B104KB54PNC"
 			(at 433.07 408.94 0)
 			(hide yes)
@@ -84391,17 +83709,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 595.63 368.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 595.63 368.3 0)
 			(hide yes)
 			(show_name no)
@@ -84527,17 +83834,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 515.62 283.21 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1001TCE"
 			(at 515.62 283.21 0)
 			(hide yes)
@@ -84621,17 +83917,6 @@
 		)
 		(property "Description" "test point"
 			(at 603.25 254 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "DNP"
-			(at 603.25 254 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -84730,17 +84015,6 @@
 			)
 		)
 		(property "LCSC" "C17168"
-			(at 608.33 25.4 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 608.33 25.4 0)
 			(hide yes)
 			(show_name no)
@@ -84922,17 +84196,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 629.92 -105.41 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF0000TCE"
 			(at 629.92 -105.41 0)
 			(hide yes)
@@ -85048,17 +84311,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 275.59 260.35 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL10A226MP8NUNE"
 			(at 275.59 260.35 0)
 			(hide yes)
@@ -85141,17 +84393,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 369.57 251.46 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Abracon"
 			(at 369.57 251.46 0)
 			(hide yes)
 			(show_name no)
@@ -85435,17 +84676,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 1109.98 257.81 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05B104KB54PNC"
 			(at 1109.98 257.81 0)
 			(hide yes)
@@ -85547,17 +84777,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 214.63 69.85 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05B104KB54PNC"
 			(at 214.63 69.85 0)
 			(hide yes)
@@ -85640,17 +84859,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 643.89 367.03 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 643.89 367.03 0)
 			(hide yes)
 			(show_name no)
@@ -85766,17 +84974,6 @@
 			)
 		)
 		(property "LCSC" "C177225"
-			(at 1074.42 692.15 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Molex"
 			(at 1074.42 692.15 0)
 			(hide yes)
 			(show_name no)
@@ -85945,17 +85142,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 143.51 511.81 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 143.51 511.81 0)
 			(hide yes)
 			(show_name no)
@@ -86222,17 +85408,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Yuandi"
-			(at 701.04 187.96 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "FPC-0.5FX-33PH20"
 			(at 701.04 187.96 0)
 			(hide yes)
@@ -86419,17 +85594,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 819.15 439.42 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 819.15 439.42 0)
 			(hide yes)
 			(show_name no)
@@ -86632,17 +85796,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 1076.96 185.42 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05B104KO5NNNC"
 			(at 1076.96 185.42 0)
 			(hide yes)
@@ -86746,17 +85899,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 190.5 144.78 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1001TCE"
 			(at 190.5 144.78 0)
 			(hide yes)
@@ -86837,17 +85979,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 420.37 476.25 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 420.37 476.25 0)
 			(hide yes)
 			(show_name no)
@@ -87038,17 +86169,6 @@
 			)
 		)
 		(property "LCSC" "C31439"
-			(at 482.6 203.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 482.6 203.2 0)
 			(hide yes)
 			(show_name no)
@@ -87382,17 +86502,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 836.93 111.76 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1002TCE"
 			(at 836.93 111.76 0)
 			(hide yes)
@@ -87650,17 +86759,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 510.54 100.33 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1002TCE"
 			(at 510.54 100.33 0)
 			(hide yes)
@@ -87764,17 +86862,6 @@
 			)
 		)
 		(property "LCSC" "C501477"
-			(at 464.82 706.12 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Heling"
 			(at 464.82 706.12 0)
 			(hide yes)
 			(show_name no)
@@ -88021,17 +87108,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "DNP"
-			(at 626.11 254 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "DNP"
 			(at 626.11 254 90)
 			(hide yes)
@@ -88121,17 +87197,6 @@
 			)
 		)
 		(property "LCSC" "C25744"
-			(at 579.12 393.7 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 579.12 393.7 0)
 			(hide yes)
 			(show_name no)
@@ -88236,17 +87301,6 @@
 			)
 		)
 		(property "LCSC" "C1623"
-			(at 259.08 186.69 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 259.08 186.69 0)
 			(hide yes)
 			(show_name no)
@@ -88426,17 +87480,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "DNP"
-			(at 633.73 254 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "DNP"
 			(at 633.73 254 90)
 			(hide yes)
@@ -88516,17 +87559,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 975.36 779.78 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Murata"
 			(at 975.36 779.78 0)
 			(hide yes)
 			(show_name no)
@@ -88804,17 +87836,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 1096.01 267.97 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF0000TCE"
 			(at 1096.01 267.97 0)
 			(hide yes)
@@ -88987,17 +88008,6 @@
 			)
 		)
 		(property "LCSC" "C2040"
-			(at 439.42 243.84 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Raspberry Pi"
 			(at 439.42 243.84 0)
 			(hide yes)
 			(show_name no)
@@ -89433,17 +88443,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 292.1 81.28 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF2202TCE"
 			(at 292.1 81.28 0)
 			(hide yes)
@@ -89527,17 +88526,6 @@
 			)
 		)
 		(property "Description" "4-bit I2C-bus and SMBus IO port, TSSOP-8"
-			(at 902.97 -58.42 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Texas Instruments"
 			(at 902.97 -58.42 0)
 			(hide yes)
 			(show_name no)
@@ -89669,17 +88657,6 @@
 			)
 		)
 		(property "LCSC" "C26989"
-			(at 377.19 462.28 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 377.19 462.28 0)
 			(hide yes)
 			(show_name no)
@@ -90251,17 +89228,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 412.75 166.37 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05B104KB54PNC"
 			(at 412.75 166.37 0)
 			(hide yes)
@@ -90366,17 +89332,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "DNP"
-			(at 669.29 -68.58 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "DNP"
 			(at 669.29 -68.58 0)
 			(hide yes)
@@ -90468,17 +89423,6 @@
 			)
 		)
 		(property "LCSC" "C95598"
-			(at 261.62 262.89 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 261.62 262.89 0)
 			(hide yes)
 			(show_name no)
@@ -90657,17 +89601,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Texas Instruments "
-			(at 238.76 135.89 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "LM62460QRPHRQ1"
 			(at 238.76 135.89 0)
 			(hide yes)
@@ -90811,17 +89744,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 1146.81 151.13 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1002TCE"
 			(at 1146.81 151.13 0)
 			(hide yes)
@@ -90913,17 +89835,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 242.57 411.48 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 242.57 411.48 0)
 			(hide yes)
 			(show_name no)
@@ -91037,17 +89948,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 988.06 648.97 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05B104KB54PNC"
 			(at 988.06 648.97 0)
 			(hide yes)
@@ -91139,17 +90039,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 1007.11 372.11 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 1007.11 372.11 0)
 			(hide yes)
 			(show_name no)
@@ -91253,17 +90142,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 892.81 -80.01 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 892.81 -80.01 0)
 			(hide yes)
 			(show_name no)
@@ -91467,17 +90345,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 334.01 207.01 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05C100JB5NNNC"
 			(at 334.01 207.01 0)
 			(hide yes)
@@ -91657,17 +90524,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Diodes"
-			(at 163.83 179.07 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "AP22615AWU-7"
 			(at 163.83 179.07 0)
 			(hide yes)
@@ -91760,17 +90616,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 1000.76 382.27 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 1000.76 382.27 0)
 			(hide yes)
 			(show_name no)
@@ -92050,17 +90895,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 307.34 200.66 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL10A226MP8NUNE"
 			(at 307.34 200.66 0)
 			(hide yes)
@@ -92143,17 +90977,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 975.36 800.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Murata"
 			(at 975.36 800.1 0)
 			(hide yes)
 			(show_name no)
@@ -92267,17 +91090,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 935.99 668.02 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05B104KB54PNC"
 			(at 935.99 668.02 0)
 			(hide yes)
@@ -92372,17 +91184,6 @@
 			)
 		)
 		(property "Description" "USB-Serial Dual Channel Bridge with CapSense Full-Speed 12 Mbps, +1.71V to +5.5V VDD, UART/I2C/SPI/RS232/RS422/JTAG, QFN-32"
-			(at 632.46 -60.96 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Infineon"
 			(at 632.46 -60.96 0)
 			(hide yes)
 			(show_name no)
@@ -92599,17 +91400,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 816.61 -62.23 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF0000TCE"
 			(at 816.61 -62.23 0)
 			(hide yes)
@@ -92782,17 +91572,6 @@
 			)
 		)
 		(property "LCSC" "C2841426"
-			(at 965.2 142.24 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Texas Instruments"
 			(at 965.2 142.24 0)
 			(hide yes)
 			(show_name no)
@@ -92998,17 +91777,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 433.07 368.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05B104KB54PNC"
 			(at 433.07 368.3 0)
 			(hide yes)
@@ -93201,17 +91969,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "MSKSEMI"
-			(at 237.49 276.86 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "MS2A40LWS"
 			(at 237.49 276.86 0)
 			(hide yes)
@@ -93314,17 +92071,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 342.9 463.55 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1004TCE"
 			(at 342.9 463.55 0)
 			(hide yes)
@@ -93405,17 +92151,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 843.28 121.92 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 843.28 121.92 0)
 			(hide yes)
 			(show_name no)
@@ -93540,17 +92275,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 764.54 72.39 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1002TCE"
 			(at 764.54 72.39 0)
 			(hide yes)
@@ -93643,17 +92367,6 @@
 			)
 		)
 		(property "LCSC" "C307331"
-			(at 403.86 491.49 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 403.86 491.49 0)
 			(hide yes)
 			(show_name no)
@@ -93758,17 +92471,6 @@
 			)
 		)
 		(property "LCSC" "C194427"
-			(at 889 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "muRata"
 			(at 889 76.2 0)
 			(hide yes)
 			(show_name no)
@@ -93962,17 +92664,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Texas Instruments"
-			(at 1004.57 261.62 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "TPD4E02B04DQAR-TP"
 			(at 1004.57 261.62 0)
 			(hide yes)
@@ -94090,17 +92781,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
-			(at 228.6 320.04 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "GCJ188C70J475KE02D"
 			(at 228.6 320.04 0)
 			(hide yes)
@@ -94192,17 +92872,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 932.18 706.12 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 932.18 706.12 0)
 			(hide yes)
 			(show_name no)
@@ -94328,17 +92997,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "muRata"
-			(at 698.5 106.68 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "GRM188R6YA106MA73D"
 			(at 698.5 106.68 0)
 			(hide yes)
@@ -94431,17 +93089,6 @@
 			)
 		)
 		(property "LCSC" "C1525"
-			(at 1031.24 238.76 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 1031.24 238.76 0)
 			(hide yes)
 			(show_name no)
@@ -94565,7 +93212,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(in_pos_files yes)
-		(dnp yes)
+		(dnp no)
 		(uuid "3a7d9f32-5881-4600-a4c0-e3d7554fac15")
 		(property "Reference" "R55"
 			(at 259.08 609.6 90)
@@ -94610,17 +93257,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 259.08 612.14 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 259.08 612.14 0)
 			(hide yes)
 			(show_name no)
@@ -94745,17 +93381,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 209.55 138.43 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1002TCE"
 			(at 209.55 138.43 0)
 			(hide yes)
@@ -94836,17 +93461,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 383.54 377.19 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 383.54 377.19 0)
 			(hide yes)
 			(show_name no)
@@ -95049,17 +93663,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "muRata"
-			(at 196.85 120.65 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "GRM188R6YA106MA73D"
 			(at 196.85 120.65 0)
 			(hide yes)
@@ -95162,17 +93765,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 920.75 -60.96 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF0000TCE"
 			(at 920.75 -60.96 0)
 			(hide yes)
@@ -95253,17 +93845,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 521.97 105.41 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "XKB"
 			(at 521.97 105.41 0)
 			(hide yes)
 			(show_name no)
@@ -95378,17 +93959,6 @@
 			)
 		)
 		(property "LCSC" "C86295"
-			(at 307.34 134.62 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 307.34 134.62 0)
 			(hide yes)
 			(show_name no)
@@ -95568,17 +94138,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 726.44 737.87 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05B104KB54PNC"
 			(at 726.44 737.87 0)
 			(hide yes)
@@ -95682,17 +94241,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "muRata"
-			(at 958.85 668.02 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "GRM188R6YA106MA73D"
 			(at 958.85 668.02 0)
 			(hide yes)
@@ -95784,17 +94332,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 723.9 115.57 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 723.9 115.57 0)
 			(hide yes)
 			(show_name no)
@@ -95908,17 +94445,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
-			(at 1019.81 690.88 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "BLM18PG121SN1D"
 			(at 1019.81 690.88 0)
 			(hide yes)
@@ -96012,17 +94538,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 571.5 185.42 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 571.5 185.42 0)
 			(hide yes)
 			(show_name no)
@@ -96136,17 +94651,6 @@
 			)
 		)
 		(property "LCSC" "C2680357"
-			(at 674.37 527.05 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Diodes"
 			(at 674.37 527.05 0)
 			(hide yes)
 			(show_name no)
@@ -96337,17 +94841,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "JST"
-			(at 44.45 161.29 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "SM04B-SRSS-TB(LF)(SN)"
 			(at 44.45 161.29 0)
 			(hide yes)
@@ -96458,17 +94951,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 1139.19 247.65 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1003TCE"
 			(at 1139.19 247.65 0)
 			(hide yes)
@@ -96562,17 +95044,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 970.28 397.51 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Texas Instruments"
 			(at 970.28 397.51 0)
 			(hide yes)
 			(show_name no)
@@ -96792,17 +95263,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 756.92 734.06 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF0000TCE"
 			(at 756.92 734.06 0)
 			(hide yes)
@@ -96984,17 +95444,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 1050.29 693.42 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL10B474KA8NNNC"
 			(at 1050.29 693.42 0)
 			(hide yes)
@@ -97109,17 +95558,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 157.48 481.33 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1002TCE"
 			(at 157.48 481.33 0)
 			(hide yes)
@@ -97200,17 +95638,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 1155.7 151.13 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 1155.7 151.13 0)
 			(hide yes)
 			(show_name no)
@@ -97411,17 +95838,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 1101.09 46.99 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF0000TCE"
 			(at 1101.09 46.99 0)
 			(hide yes)
@@ -97504,17 +95920,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 958.85 636.27 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Murata"
 			(at 958.85 636.27 0)
 			(hide yes)
 			(show_name no)
@@ -97618,17 +96023,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 922.02 508 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 922.02 508 0)
 			(hide yes)
 			(show_name no)
@@ -97754,17 +96148,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 360.68 758.19 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1001TCE"
 			(at 360.68 758.19 0)
 			(hide yes)
@@ -97848,17 +96231,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 892.81 626.11 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "muRata"
 			(at 892.81 626.11 0)
 			(hide yes)
 			(show_name no)
@@ -97960,17 +96332,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 947.42 570.23 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Texas Instruments"
 			(at 947.42 570.23 0)
 			(hide yes)
 			(show_name no)
@@ -98098,17 +96459,6 @@
 			)
 		)
 		(property "LCSC" "C194427"
-			(at 889 113.03 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "muRata"
 			(at 889 113.03 0)
 			(hide yes)
 			(show_name no)
@@ -98524,17 +96874,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 406.4 166.37 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05B104KB54PNC"
 			(at 406.4 166.37 0)
 			(hide yes)
@@ -98626,17 +96965,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 657.86 527.05 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 657.86 527.05 0)
 			(hide yes)
 			(show_name no)
@@ -98905,17 +97233,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 948.69 716.28 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF330JTCE"
 			(at 948.69 716.28 0)
 			(hide yes)
@@ -99019,17 +97336,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
-			(at 975.36 610.87 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "BLM18PG121SN1D"
 			(at 975.36 610.87 0)
 			(hide yes)
@@ -99123,17 +97429,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 377.19 262.89 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Murata"
 			(at 377.19 262.89 0)
 			(hide yes)
 			(show_name no)
@@ -99401,17 +97696,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Texas Instruments"
-			(at 938.53 642.62 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "TPS7A0533PDBZ"
 			(at 938.53 642.62 0)
 			(hide yes)
@@ -99507,17 +97791,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 44.45 201.93 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "JST"
 			(at 44.45 201.93 0)
 			(hide yes)
 			(show_name no)
@@ -99642,17 +97915,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 287.02 200.66 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL10A226MP8NUNE"
 			(at 287.02 200.66 0)
 			(hide yes)
@@ -99765,7 +98027,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(in_pos_files yes)
-		(dnp yes)
+		(dnp no)
 		(uuid "4c109063-146e-4db1-b507-5ceadf9a1b52")
 		(property "Reference" "R86"
 			(at 265.43 609.6 90)
@@ -99810,17 +98072,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 265.43 614.68 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 265.43 614.68 0)
 			(hide yes)
 			(show_name no)
@@ -99944,17 +98195,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 481.33 274.32 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1001TCE"
 			(at 481.33 274.32 0)
 			(hide yes)
@@ -100035,17 +98275,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 863.6 444.5 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Texas Instruments"
 			(at 863.6 444.5 0)
 			(hide yes)
 			(show_name no)
@@ -100225,17 +98454,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 824.23 -68.58 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1002TCE"
 			(at 824.23 -68.58 0)
 			(hide yes)
@@ -100327,17 +98545,6 @@
 			)
 		)
 		(property "LCSC" "C307331"
-			(at 265.43 137.16 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 265.43 137.16 0)
 			(hide yes)
 			(show_name no)
@@ -100529,17 +98736,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 255.27 218.44 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1003TCE"
 			(at 255.27 218.44 0)
 			(hide yes)
@@ -100632,17 +98828,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "DNP"
-			(at 518.16 134.62 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "DNP"
 			(at 518.16 134.62 90)
 			(hide yes)
@@ -100722,17 +98907,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 1040.13 408.94 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 1040.13 408.94 0)
 			(hide yes)
 			(show_name no)
@@ -100999,17 +99173,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "cijang"
-			(at 278.13 196.85 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "LCSC" "C167218"
 			(at 278.13 196.85 0)
 			(hide yes)
@@ -101103,17 +99266,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 756.92 748.03 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "NXP"
 			(at 756.92 748.03 0)
 			(hide yes)
 			(show_name no)
@@ -101336,17 +99488,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 82.55 72.39 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF3302TCE"
 			(at 82.55 72.39 0)
 			(hide yes)
@@ -101429,17 +99570,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 485.14 739.14 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 485.14 739.14 0)
 			(hide yes)
 			(show_name no)
@@ -101563,17 +99693,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
-			(at 283.21 66.04 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "DFE322512F-100M=P2"
 			(at 283.21 66.04 90)
 			(hide yes)
@@ -101667,17 +99786,6 @@
 			)
 		)
 		(property "LCSC" "C307331"
-			(at 1068.07 142.24 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 1068.07 142.24 0)
 			(hide yes)
 			(show_name no)
@@ -101848,17 +99956,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 1007.11 706.12 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Murata"
 			(at 1007.11 706.12 0)
 			(hide yes)
 			(show_name no)
@@ -102051,17 +100148,6 @@
 			)
 		)
 		(property "LCSC" "C194427"
-			(at 638.81 528.32 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "muRata"
 			(at 638.81 528.32 0)
 			(hide yes)
 			(show_name no)
@@ -102397,17 +100483,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 1018.54 408.94 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF2702TCE"
 			(at 1018.54 408.94 0)
 			(hide yes)
@@ -102510,17 +100585,6 @@
 			)
 		)
 		(property "LCSC" "C17168"
-			(at 1096.01 283.21 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 1096.01 283.21 0)
 			(hide yes)
 			(show_name no)
@@ -102700,17 +100764,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "DNP"
-			(at 618.49 254 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "DNP"
 			(at 618.49 254 90)
 			(hide yes)
@@ -102788,17 +100841,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 947.42 524.51 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Texas Instruments"
 			(at 947.42 524.51 0)
 			(hide yes)
 			(show_name no)
@@ -103055,17 +101097,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 302.26 134.62 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL10A226MP8NUNE"
 			(at 302.26 134.62 0)
 			(hide yes)
@@ -103160,17 +101191,6 @@
 			)
 		)
 		(property "Manufacturer_No" "CL05A475MP5NRNC"
-			(at 621.03 -92.71 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 621.03 -92.71 0)
 			(hide yes)
 			(show_name no)
@@ -103285,17 +101305,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "muRata"
-			(at 355.6 368.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "GRM188R6YA106MA73D"
 			(at 355.6 368.3 0)
 			(hide yes)
@@ -103399,17 +101408,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 1090.93 142.24 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05B104KB54PNC"
 			(at 1090.93 142.24 0)
 			(hide yes)
@@ -103490,17 +101488,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 194.31 306.07 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 194.31 306.07 0)
 			(hide yes)
 			(show_name no)
@@ -103614,17 +101601,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 961.39 508 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05B104KB54PNC"
 			(at 961.39 508 0)
 			(hide yes)
@@ -103727,17 +101703,6 @@
 			)
 		)
 		(property "LCSC" "C31439"
-			(at 482.6 200.66 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 482.6 200.66 0)
 			(hide yes)
 			(show_name no)
@@ -103992,17 +101957,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 520.7 179.07 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF4701TCE"
 			(at 520.7 179.07 0)
 			(hide yes)
@@ -104196,17 +102150,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 320.04 134.62 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1003TCE"
 			(at 320.04 134.62 0)
 			(hide yes)
@@ -104309,17 +102252,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 401.32 504.19 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF9531TCE"
 			(at 401.32 504.19 0)
 			(hide yes)
@@ -104400,17 +102332,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 444.5 68.58 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Nidec"
 			(at 444.5 68.58 0)
 			(hide yes)
 			(show_name no)
@@ -104526,17 +102447,6 @@
 			)
 		)
 		(property "LCSC" "C1623"
-			(at 208.28 186.69 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 208.28 186.69 0)
 			(hide yes)
 			(show_name no)
@@ -104805,17 +102715,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Wurth"
-			(at 789.94 427.99 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "9774020243R"
 			(at 789.94 427.99 0)
 			(hide yes)
@@ -104994,17 +102893,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 492.76 739.14 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05B104KB54PNC"
 			(at 492.76 739.14 0)
 			(hide yes)
@@ -105099,17 +102987,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 440.69 408.94 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 440.69 408.94 0)
 			(hide yes)
 			(show_name no)
@@ -105379,17 +103256,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Texas Instruments"
-			(at 215.9 317.5 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "TLV75718PDBVR"
 			(at 215.9 317.5 0)
 			(hide yes)
@@ -105592,17 +103458,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 261.62 278.13 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1002TCE"
 			(at 261.62 278.13 0)
 			(hide yes)
@@ -105686,17 +103541,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 397.51 190.5 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 397.51 190.5 0)
 			(hide yes)
 			(show_name no)
@@ -105800,17 +103644,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 1007.11 668.02 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 1007.11 668.02 0)
 			(hide yes)
 			(show_name no)
@@ -106004,17 +103837,6 @@
 			)
 		)
 		(property "LCSC" "C25744"
-			(at 920.75 -48.26 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 920.75 -48.26 0)
 			(hide yes)
 			(show_name no)
@@ -106429,17 +104251,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "DNP"
-			(at 566.42 246.38 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "DNP"
 			(at 566.42 246.38 90)
 			(hide yes)
@@ -106517,17 +104328,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 1004.57 369.57 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 1004.57 369.57 0)
 			(hide yes)
 			(show_name no)
@@ -106730,17 +104530,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Texas Instruments"
-			(at 965.2 261.62 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "TPD4E02B04DQAR-TP"
 			(at 965.2 261.62 0)
 			(hide yes)
@@ -106845,17 +104634,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 1065.53 421.64 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 1065.53 421.64 0)
 			(hide yes)
 			(show_name no)
@@ -107047,17 +104825,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "muRata"
-			(at 991.87 621.03 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "GRM188R6YA106MA73D"
 			(at 991.87 621.03 0)
 			(hide yes)
@@ -107163,17 +104930,6 @@
 			)
 		)
 		(property "LCSC" "C25790"
-			(at 82.55 55.88 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 82.55 55.88 0)
 			(hide yes)
 			(show_name no)
@@ -107520,17 +105276,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 287.02 134.62 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL10A226MP8NUNE"
 			(at 287.02 134.62 0)
 			(hide yes)
@@ -107700,17 +105445,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 604.52 35.56 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05B104KB54PNC"
 			(at 604.52 35.56 0)
 			(hide yes)
@@ -107824,17 +105558,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 939.8 -53.34 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF0000TCE"
 			(at 939.8 -53.34 0)
 			(hide yes)
@@ -107929,17 +105652,6 @@
 			)
 		)
 		(property "LCSC" "C25133"
-			(at 435.61 737.87 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 435.61 737.87 0)
 			(hide yes)
 			(show_name no)
@@ -108129,17 +105841,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 1096.01 275.59 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF0000TCE"
 			(at 1096.01 275.59 0)
 			(hide yes)
@@ -108220,17 +105921,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 265.43 579.12 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "DNP"
 			(at 265.43 579.12 0)
 			(hide yes)
 			(show_name no)
@@ -108344,17 +106034,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "muRata"
-			(at 948.69 668.02 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "GRM188R6YA106MA73D"
 			(at 948.69 668.02 0)
 			(hide yes)
@@ -108456,17 +106135,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 182.88 546.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF0000TCE"
 			(at 182.88 546.1 0)
 			(hide yes)
@@ -108558,17 +106226,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 521.97 81.28 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "XKB"
 			(at 521.97 81.28 0)
 			(hide yes)
 			(show_name no)
@@ -108694,17 +106351,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 520.7 278.13 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1001TCE"
 			(at 520.7 278.13 0)
 			(hide yes)
@@ -108785,17 +106431,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 374.65 513.08 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 374.65 513.08 0)
 			(hide yes)
 			(show_name no)
@@ -108918,17 +106553,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 1102.36 278.13 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF0000TCE"
 			(at 1102.36 278.13 0)
 			(hide yes)
@@ -109011,17 +106635,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 751.84 228.6 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 751.84 228.6 0)
 			(hide yes)
 			(show_name no)
@@ -109146,17 +106759,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 292.1 200.66 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL10A226MP8NUNE"
 			(at 292.1 200.66 0)
 			(hide yes)
@@ -109237,17 +106839,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 190.5 548.64 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 190.5 548.64 0)
 			(hide yes)
 			(show_name no)
@@ -109450,17 +107041,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Seiko Epson"
-			(at 728.98 755.65 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "LCSC" "C48615"
 			(at 728.98 755.65 0)
 			(hide yes)
@@ -109651,17 +107231,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "muRata"
-			(at 193.04 69.85 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "GRM188R6YA106MA73D"
 			(at 193.04 69.85 0)
 			(hide yes)
@@ -109744,17 +107313,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 972.82 570.23 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 972.82 570.23 0)
 			(hide yes)
 			(show_name no)
@@ -109858,17 +107416,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 924.56 668.02 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 924.56 668.02 0)
 			(hide yes)
 			(show_name no)
@@ -109993,17 +107540,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 1008.38 716.28 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF2201TCE"
 			(at 1008.38 716.28 0)
 			(hide yes)
@@ -110098,17 +107634,6 @@
 			)
 		)
 		(property "LCSC" "C194427"
-			(at 822.96 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "muRata"
 			(at 822.96 76.2 0)
 			(hide yes)
 			(show_name no)
@@ -110302,17 +107827,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Texas Instruments"
-			(at 984.25 273.05 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "TPD4E02B04DQAR-TP"
 			(at 984.25 273.05 0)
 			(hide yes)
@@ -110429,17 +107943,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
-			(at 1002.03 703.58 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "GRM31CR61A476ME15L"
 			(at 1002.03 703.58 0)
 			(hide yes)
@@ -110531,17 +108034,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 1028.7 690.88 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Murata"
 			(at 1028.7 690.88 0)
 			(hide yes)
 			(show_name no)
@@ -110646,17 +108138,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 425.45 408.94 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 425.45 408.94 0)
 			(hide yes)
 			(show_name no)
@@ -110779,17 +108260,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 803.91 -44.45 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF0000TCE"
 			(at 803.91 -44.45 0)
 			(hide yes)
@@ -110884,17 +108354,6 @@
 			)
 		)
 		(property "LCSC" "C94034"
-			(at 306.07 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Murata"
 			(at 306.07 76.2 0)
 			(hide yes)
 			(show_name no)
@@ -111062,17 +108521,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 153.67 189.23 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 153.67 189.23 0)
 			(hide yes)
 			(show_name no)
@@ -111274,17 +108722,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 189.23 255.27 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF0000TCE"
 			(at 189.23 255.27 0)
 			(hide yes)
@@ -111457,17 +108894,6 @@
 			)
 		)
 		(property "LCSC" "C194427"
-			(at 196.85 186.69 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "muRata"
 			(at 196.85 186.69 0)
 			(hide yes)
 			(show_name no)
@@ -111660,17 +109086,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Nichicon"
-			(at 72.39 59.69 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "UZG1V4R7MCL1GB"
 			(at 72.39 59.69 0)
 			(hide yes)
@@ -111775,17 +109190,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 292.1 71.12 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1003TCE"
 			(at 292.1 71.12 0)
 			(hide yes)
@@ -111880,17 +109284,6 @@
 			)
 		)
 		(property "LCSC" "C194427"
-			(at 877.57 113.03 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "muRata"
 			(at 877.57 113.03 0)
 			(hide yes)
 			(show_name no)
@@ -112070,17 +109463,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 417.83 538.48 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF4701TCE"
 			(at 417.83 538.48 0)
 			(hide yes)
@@ -112174,17 +109556,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 838.2 427.99 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 838.2 427.99 0)
 			(hide yes)
 			(show_name no)
@@ -112299,17 +109670,6 @@
 			)
 		)
 		(property "LCSC" "C307331"
-			(at 1075.69 142.24 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 1075.69 142.24 0)
 			(hide yes)
 			(show_name no)
@@ -112502,17 +109862,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 415.29 737.87 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF750JTCE"
 			(at 415.29 737.87 0)
 			(hide yes)
@@ -112607,17 +109956,6 @@
 			)
 		)
 		(property "LCSC" "C2060969"
-			(at 581.66 203.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Microchip"
 			(at 581.66 203.2 0)
 			(hide yes)
 			(show_name no)
@@ -112819,17 +110157,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "NXP"
-			(at 781.05 -54.61 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "PCA9557PW,118"
 			(at 781.05 -54.61 0)
 			(hide yes)
@@ -112964,17 +110291,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 508 739.14 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05B104KB54PNC"
 			(at 508 739.14 0)
 			(hide yes)
@@ -113087,17 +110403,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 1102.36 285.75 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF0000TCE"
 			(at 1102.36 285.75 0)
 			(hide yes)
@@ -113178,17 +110483,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 242.57 408.94 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 242.57 408.94 0)
 			(hide yes)
 			(show_name no)
@@ -113536,17 +110830,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "DNP"
-			(at 608.33 -76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "DNP"
 			(at 608.33 -76.2 0)
 			(hide yes)
@@ -113647,17 +110930,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 1054.1 193.04 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05B104KO5NNNC"
 			(at 1054.1 193.04 0)
 			(hide yes)
@@ -113693,7 +110965,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(in_pos_files yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "84146a5d-4e9b-4066-9e9e-275cbded17f6")
 		(property "Reference" "TP20"
@@ -113741,6 +111013,17 @@
 			)
 		)
 		(property "Description" "test point"
+			(at 1041.4 81.28 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer_No" "DNP"
 			(at 1041.4 81.28 0)
 			(hide yes)
 			(show_name no)
@@ -113909,17 +111192,6 @@
 			)
 		)
 		(property "LCSC" "C194427"
-			(at 125.73 180.34 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "muRata"
 			(at 125.73 180.34 0)
 			(hide yes)
 			(show_name no)
@@ -114102,17 +111374,6 @@
 			)
 		)
 		(property "LCSC" "C4827729"
-			(at 746.76 417.83 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "TE"
 			(at 746.76 417.83 0)
 			(hide yes)
 			(show_name no)
@@ -114427,17 +111688,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 585.47 -66.04 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1002TCE"
 			(at 585.47 -66.04 0)
 			(hide yes)
@@ -114683,17 +111933,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Texas Instruments or UMW"
-			(at 767.08 261.62 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "SN74LVC1G34DCKR"
 			(at 767.08 261.62 0)
 			(hide yes)
@@ -114809,17 +112048,6 @@
 			)
 		)
 		(property "LCSC" "C132291"
-			(at 1103.63 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "ON Semi"
 			(at 1103.63 76.2 0)
 			(hide yes)
 			(show_name no)
@@ -115039,17 +112267,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 1018.54 730.25 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05B104KO5NNNC"
 			(at 1018.54 730.25 0)
 			(hide yes)
@@ -115232,17 +112449,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 440.69 368.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05B104KB54PNC"
 			(at 440.69 368.3 0)
 			(hide yes)
@@ -115346,17 +112552,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 909.32 570.23 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05B104KB54PNC"
 			(at 909.32 570.23 0)
 			(hide yes)
@@ -115450,17 +112645,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 749.3 252.73 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 749.3 252.73 0)
 			(hide yes)
 			(show_name no)
@@ -115651,7 +112835,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C25917"
+		(property "LCSC" "C25879"
 			(at 692.15 535.94 0)
 			(hide yes)
 			(show_name no)
@@ -115662,18 +112846,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 692.15 535.94 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer_No" "0402WGF6801TCE"
+		(property "Manufacturer_No" "0402WGF2201TCE"
 			(at 692.15 535.94 0)
 			(hide yes)
 			(show_name no)
@@ -115766,17 +112939,6 @@
 			)
 		)
 		(property "LCSC" "C11702"
-			(at 142.24 204.47 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 142.24 204.47 0)
 			(hide yes)
 			(show_name no)
@@ -115947,17 +113109,6 @@
 			)
 		)
 		(property "Description" "Flat-Clamp Surge Protection Device. 22Vrwm, WSON-6"
-			(at 852.17 43.18 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Texas Instruments "
 			(at 852.17 43.18 0)
 			(hide yes)
 			(show_name no)
@@ -116174,17 +113325,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 982.98 198.12 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF2202TCE"
 			(at 982.98 198.12 0)
 			(hide yes)
@@ -116267,17 +113407,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 360.68 262.89 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Murata"
 			(at 360.68 262.89 0)
 			(hide yes)
 			(show_name no)
@@ -116402,17 +113531,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 411.48 375.92 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF4701TCE"
 			(at 411.48 375.92 0)
 			(hide yes)
@@ -116495,17 +113613,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 861.06 403.86 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 861.06 403.86 0)
 			(hide yes)
 			(show_name no)
@@ -116619,17 +113726,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "DNP"
-			(at 518.16 132.08 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "DNP"
 			(at 518.16 132.08 90)
 			(hide yes)
@@ -116719,17 +113815,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "DNP"
-			(at 651.51 256.54 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "DNP"
 			(at 651.51 256.54 90)
 			(hide yes)
@@ -116810,17 +113895,6 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
-			(at 194.31 320.04 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Murata"
 			(at 194.31 320.04 0)
 			(hide yes)
 			(show_name no)
@@ -117001,17 +114075,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 935.99 494.03 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 935.99 494.03 0)
 			(hide yes)
 			(show_name no)
@@ -117371,17 +114434,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Texas Instruments"
-			(at 248.92 66.04 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "TPS542021DDC"
 			(at 248.92 66.04 0)
 			(hide yes)
@@ -117717,17 +114769,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 1153.16 165.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1002TCE"
 			(at 1153.16 165.1 0)
 			(hide yes)
@@ -117832,17 +114873,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 392.43 166.37 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05B104KB54PNC"
 			(at 392.43 166.37 0)
 			(hide yes)
@@ -117936,17 +114966,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 866.14 403.86 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 866.14 403.86 0)
 			(hide yes)
 			(show_name no)
@@ -118138,17 +115157,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 979.17 483.87 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF0000TCE"
 			(at 979.17 483.87 0)
 			(hide yes)
@@ -118254,17 +115262,6 @@
 			)
 		)
 		(property "LCSC" "C86295"
-			(at 180.34 259.08 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 180.34 259.08 0)
 			(hide yes)
 			(show_name no)
@@ -118445,17 +115442,6 @@
 			)
 		)
 		(property "LCSC" "C307331"
-			(at 396.24 488.95 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 396.24 488.95 0)
 			(hide yes)
 			(show_name no)
@@ -118737,17 +115723,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Texas Instruments"
-			(at 105.41 60.96 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "LM73100RPWR"
 			(at 105.41 60.96 0)
 			(hide yes)
@@ -118954,17 +115929,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 334.01 200.66 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF4991TCE"
 			(at 334.01 200.66 0)
 			(hide yes)
@@ -119047,17 +116011,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 445.77 748.03 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "FH"
 			(at 445.77 748.03 0)
 			(hide yes)
 			(show_name no)
@@ -119180,17 +116133,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Seiko Epson"
-			(at 341.63 473.71 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "LCSC" "C91744"
 			(at 341.63 473.71 0)
 			(hide yes)
@@ -119301,17 +116243,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 123.19 64.77 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1001TCE"
 			(at 123.19 64.77 0)
 			(hide yes)
@@ -119395,17 +116326,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 384.81 166.37 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 384.81 166.37 0)
 			(hide yes)
 			(show_name no)
@@ -119509,17 +116429,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 440.69 166.37 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 440.69 166.37 0)
 			(hide yes)
 			(show_name no)
@@ -119645,17 +116554,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 1141.73 64.77 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05B104KB54PNC"
 			(at 1141.73 64.77 0)
 			(hide yes)
@@ -119749,17 +116647,6 @@
 			)
 		)
 		(property "LCSC" "C25744"
-			(at 209.55 204.47 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 209.55 204.47 0)
 			(hide yes)
 			(show_name no)
@@ -119930,17 +116817,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 582.93 422.91 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 582.93 422.91 0)
 			(hide yes)
 			(show_name no)
@@ -120131,17 +117007,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "FH"
-			(at 334.01 476.25 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402CG180J500NT"
 			(at 334.01 476.25 0)
 			(hide yes)
@@ -120257,17 +117122,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 382.27 468.63 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1002TCE"
 			(at 382.27 468.63 0)
 			(hide yes)
@@ -120372,17 +117226,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 812.8 -39.37 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1002TCE"
 			(at 812.8 -39.37 0)
 			(hide yes)
@@ -120465,17 +117308,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 765.81 -77.47 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 765.81 -77.47 0)
 			(hide yes)
 			(show_name no)
@@ -120667,17 +117499,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 472.44 408.94 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05B104KB54PNC"
 			(at 472.44 408.94 0)
 			(hide yes)
@@ -120782,17 +117603,6 @@
 			)
 		)
 		(property "LCSC" "C25744"
-			(at 595.63 -66.04 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 595.63 -66.04 0)
 			(hide yes)
 			(show_name no)
@@ -121039,17 +117849,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 408.94 543.56 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 408.94 543.56 0)
 			(hide yes)
 			(show_name no)
@@ -121398,17 +118197,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 398.78 166.37 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05B104KB54PNC"
 			(at 398.78 166.37 0)
 			(hide yes)
@@ -121500,17 +118288,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 1065.53 401.32 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 1065.53 401.32 0)
 			(hide yes)
 			(show_name no)
@@ -121624,17 +118401,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "DNP"
-			(at 610.87 254 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "DNP"
 			(at 610.87 254 90)
 			(hide yes)
@@ -121727,17 +118493,6 @@
 			)
 		)
 		(property "Manufacturer_No" "ESDS314DBVR"
-			(at 91.44 104.14 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Texas Instruments"
 			(at 91.44 104.14 0)
 			(hide yes)
 			(show_name no)
@@ -121859,17 +118614,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Diodes"
-			(at 734.06 105.41 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "AP22615AWU-7"
 			(at 734.06 105.41 0)
 			(hide yes)
@@ -121974,17 +118718,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "muRata"
-			(at 481.33 615.95 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "GRM188R6YA106MA73D"
 			(at 481.33 615.95 0)
 			(hide yes)
@@ -122076,17 +118809,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 265.43 599.44 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "DNP"
 			(at 265.43 599.44 0)
 			(hide yes)
 			(show_name no)
@@ -122277,17 +118999,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "muRata"
-			(at 979.17 506.73 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "GRM188R6YA106MA73D"
 			(at 979.17 506.73 0)
 			(hide yes)
@@ -122391,17 +119102,6 @@
 			)
 		)
 		(property "LCSC" "C11702"
-			(at 488.95 271.78 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 488.95 271.78 0)
 			(hide yes)
 			(show_name no)
@@ -122516,17 +119216,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 334.01 140.97 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05C100JB5NNNC"
 			(at 334.01 140.97 0)
 			(hide yes)
@@ -122618,17 +119307,6 @@
 			)
 		)
 		(property "LCSC" "C25744"
-			(at 208.28 257.81 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 208.28 257.81 0)
 			(hide yes)
 			(show_name no)
@@ -122905,7 +119583,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(in_pos_files yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "a8103666-30d4-41e5-b2d5-7f2a520c7dad")
 		(property "Reference" "TP21"
@@ -122953,6 +119631,17 @@
 			)
 		)
 		(property "Description" "test point"
+			(at 1055.37 81.28 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Manufacturer_No" "DNP"
 			(at 1055.37 81.28 0)
 			(hide yes)
 			(show_name no)
@@ -123130,17 +119819,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "XINGLIGHT"
-			(at 378.46 765.81 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "XL-1608SURC-06"
 			(at 378.46 765.81 0)
 			(hide yes)
@@ -123221,17 +119899,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 836.93 74.93 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 836.93 74.93 0)
 			(hide yes)
 			(show_name no)
@@ -123335,17 +120002,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 988.06 668.02 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 988.06 668.02 0)
 			(hide yes)
 			(show_name no)
@@ -123601,17 +120257,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 474.98 612.14 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 474.98 612.14 0)
 			(hide yes)
 			(show_name no)
@@ -123892,17 +120537,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 516.89 378.46 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1002TCE"
 			(at 516.89 378.46 0)
 			(hide yes)
@@ -123985,17 +120619,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 1026.16 386.08 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 1026.16 386.08 0)
 			(hide yes)
 			(show_name no)
@@ -124118,17 +120741,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 1102.36 293.37 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF0000TCE"
 			(at 1102.36 293.37 0)
 			(hide yes)
@@ -124211,17 +120823,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 1033.78 693.42 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 1033.78 693.42 0)
 			(hide yes)
 			(show_name no)
@@ -124335,17 +120936,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 510.54 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1002TCE"
 			(at 510.54 76.2 0)
 			(hide yes)
@@ -124448,17 +121038,6 @@
 			)
 		)
 		(property "LCSC" "C17168"
-			(at 835.66 349.25 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 835.66 349.25 0)
 			(hide yes)
 			(show_name no)
@@ -124651,17 +121230,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Texas Instruments"
-			(at 1004.57 142.24 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "TPD4E02B04DQAR-TP"
 			(at 1004.57 142.24 0)
 			(hide yes)
@@ -124768,17 +121336,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 1019.81 697.23 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Murata"
 			(at 1019.81 697.23 0)
 			(hide yes)
 			(show_name no)
@@ -124904,17 +121461,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "muRata"
-			(at 741.68 152.4 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "GRM188R6YA106MA73D"
 			(at 741.68 152.4 0)
 			(hide yes)
@@ -125007,17 +121553,6 @@
 			)
 		)
 		(property "LCSC" "C1525"
-			(at 1038.86 241.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 1038.86 241.3 0)
 			(hide yes)
 			(show_name no)
@@ -125185,17 +121720,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 388.62 251.46 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 388.62 251.46 0)
 			(hide yes)
 			(show_name no)
@@ -125388,17 +121912,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 417.83 408.94 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05B104KB54PNC"
 			(at 417.83 408.94 0)
 			(hide yes)
@@ -125490,17 +122003,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 1065.53 411.48 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 1065.53 411.48 0)
 			(hide yes)
 			(show_name no)
@@ -125614,17 +122116,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "DNP"
-			(at 518.16 139.7 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "DNP"
 			(at 518.16 139.7 90)
 			(hide yes)
@@ -125703,17 +122194,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 278.13 130.81 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "cijang"
 			(at 278.13 130.81 0)
 			(hide yes)
 			(show_name no)
@@ -125917,17 +122397,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Lelon"
-			(at 165.1 58.42 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "VZT470M1HTR-0606"
 			(at 165.1 58.42 0)
 			(hide yes)
@@ -126032,17 +122501,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 425.45 737.87 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF750JTCE"
 			(at 425.45 737.87 0)
 			(hide yes)
@@ -126136,17 +122594,6 @@
 			)
 		)
 		(property "LCSC" "C25741"
-			(at 255.27 152.4 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 255.27 152.4 0)
 			(hide yes)
 			(show_name no)
@@ -126328,17 +122775,6 @@
 			)
 		)
 		(property "LCSC" "C25744"
-			(at 764.54 62.23 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 764.54 62.23 0)
 			(hide yes)
 			(show_name no)
@@ -126594,17 +123030,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 514.35 176.53 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF4701TCE"
 			(at 514.35 176.53 0)
 			(hide yes)
@@ -126785,7 +123210,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C25917"
+		(property "LCSC" "C25879"
 			(at 871.22 120.65 0)
 			(hide yes)
 			(show_name no)
@@ -126796,18 +123221,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 871.22 120.65 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer_No" "0402WGF6801TCE"
+		(property "Manufacturer_No" "0402WGF2201TCE"
 			(at 871.22 120.65 0)
 			(hide yes)
 			(show_name no)
@@ -126889,17 +123303,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 1005.84 721.36 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 1005.84 721.36 0)
 			(hide yes)
 			(show_name no)
@@ -127024,17 +123427,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 949.96 690.88 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1003TCE"
 			(at 949.96 690.88 0)
 			(hide yes)
@@ -127129,17 +123521,6 @@
 			)
 		)
 		(property "Manufacturer_No" "CL05A105KA5NQNC"
-			(at 683.26 -91.44 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 683.26 -91.44 0)
 			(hide yes)
 			(show_name no)
@@ -127487,17 +123868,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Wurth"
-			(at 795.02 558.8 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "9774020243R"
 			(at 795.02 558.8 0)
 			(hide yes)
@@ -127765,17 +124135,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 227.33 67.31 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1003TCE"
 			(at 227.33 67.31 0)
 			(hide yes)
@@ -127857,17 +124216,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 238.76 201.93 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Texas Instruments "
 			(at 238.76 201.93 0)
 			(hide yes)
 			(show_name no)
@@ -128023,17 +124371,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 463.55 182.88 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05B104KB54PNC"
 			(at 463.55 182.88 0)
 			(hide yes)
@@ -128136,17 +124473,6 @@
 			)
 		)
 		(property "LCSC" "C179173"
-			(at 443.23 121.92 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Winbond"
 			(at 443.23 121.92 0)
 			(hide yes)
 			(show_name no)
@@ -128268,17 +124594,6 @@
 			)
 		)
 		(property "LCSC" "C25741"
-			(at 360.68 510.54 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 360.68 510.54 0)
 			(hide yes)
 			(show_name no)
@@ -128536,17 +124851,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 852.17 414.02 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05B104KB54PNC"
 			(at 852.17 414.02 0)
 			(hide yes)
@@ -128660,17 +124964,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Diodes"
-			(at 853.44 74.93 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "AP22615AWU-7"
 			(at 853.44 74.93 0)
 			(hide yes)
@@ -128766,17 +125059,6 @@
 			)
 		)
 		(property "Description" "ESD-Protected, High-Speed USB 2.0 (480-Mbps) 1:2 Multiplexer/Demultiplexer Switch With Single Enable, VSSOP-10"
-			(at 615.95 433.07 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Texas Instruments"
 			(at 615.95 433.07 0)
 			(hide yes)
 			(show_name no)
@@ -128914,17 +125196,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
-			(at 975.36 762 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "BLM18PG121SN1D"
 			(at 975.36 762 0)
 			(hide yes)
@@ -129037,17 +125308,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 715.01 334.01 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF0000TCE"
 			(at 715.01 334.01 0)
 			(hide yes)
@@ -129130,17 +125390,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 944.88 483.87 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 944.88 483.87 0)
 			(hide yes)
 			(show_name no)
@@ -129340,17 +125589,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 1102.36 270.51 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF0000TCE"
 			(at 1102.36 270.51 0)
 			(hide yes)
@@ -129454,17 +125692,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 181.61 187.96 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF4701TCE"
 			(at 181.61 187.96 0)
 			(hide yes)
@@ -129557,17 +125784,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "DNP"
-			(at 566.42 251.46 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "DNP"
 			(at 566.42 251.46 90)
 			(hide yes)
@@ -129647,17 +125863,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 389.89 190.5 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 389.89 190.5 0)
 			(hide yes)
 			(show_name no)
@@ -129759,17 +125964,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 1065.53 430.53 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 1065.53 430.53 0)
 			(hide yes)
 			(show_name no)
@@ -130116,17 +126310,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 457.2 408.94 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05B104KB54PNC"
 			(at 457.2 408.94 0)
 			(hide yes)
@@ -130296,17 +126479,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 274.32 624.84 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "DNP"
 			(at 274.32 624.84 0)
 			(hide yes)
 			(show_name no)
@@ -130507,17 +126679,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 1103.63 255.27 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05B104KB54PNC"
 			(at 1103.63 255.27 0)
 			(hide yes)
@@ -130610,7 +126771,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C25917"
+		(property "LCSC" "C25879"
 			(at 871.22 83.82 0)
 			(hide yes)
 			(show_name no)
@@ -130621,18 +126782,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 871.22 83.82 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer_No" "0402WGF6801TCE"
+		(property "Manufacturer_No" "0402WGF2201TCE"
 			(at 871.22 83.82 0)
 			(hide yes)
 			(show_name no)
@@ -130800,17 +126950,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 245.11 520.7 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF0000TCE"
 			(at 245.11 520.7 0)
 			(hide yes)
@@ -130926,17 +127065,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "XINGLIGHT"
-			(at 360.68 765.81 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "XL-1608SURC-06"
 			(at 360.68 765.81 0)
 			(hide yes)
@@ -131017,17 +127145,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 266.7 622.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "DNP"
 			(at 266.7 622.3 0)
 			(hide yes)
 			(show_name no)
@@ -131232,17 +127349,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 334.01 134.62 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF4991TCE"
 			(at 334.01 134.62 0)
 			(hide yes)
@@ -131325,17 +127431,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 1018.54 386.08 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 1018.54 386.08 0)
 			(hide yes)
 			(show_name no)
@@ -131528,17 +127623,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Texas Instruments"
-			(at 615.95 388.62 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "TS3USB30EDGSR"
 			(at 615.95 388.62 0)
 			(hide yes)
@@ -131664,17 +127748,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 922.02 708.66 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF330JTCE"
 			(at 922.02 708.66 0)
 			(hide yes)
@@ -131790,17 +127863,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 208.28 120.65 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL10B474KA8NNNC"
 			(at 208.28 120.65 0)
 			(hide yes)
@@ -131902,17 +127964,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 1096.01 290.83 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF0000TCE"
 			(at 1096.01 290.83 0)
 			(hide yes)
@@ -131995,17 +128046,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 877.57 427.99 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 877.57 427.99 0)
 			(hide yes)
 			(show_name no)
@@ -132208,17 +128248,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 445.77 737.87 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF750JTCE"
 			(at 445.77 737.87 0)
 			(hide yes)
@@ -132311,17 +128340,6 @@
 			)
 		)
 		(property "LCSC" "C17168"
-			(at 825.5 -27.94 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 825.5 -27.94 0)
 			(hide yes)
 			(show_name no)
@@ -132502,17 +128520,6 @@
 			)
 		)
 		(property "LCSC" "C337905"
-			(at 248.92 255.27 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Murata"
 			(at 248.92 255.27 0)
 			(hide yes)
 			(show_name no)
@@ -132771,17 +128778,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Everlight"
-			(at 520.7 294.64 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "19-337/R6GHBHC-A01/2T"
 			(at 520.7 294.64 0)
 			(hide yes)
@@ -132976,17 +128972,6 @@
 			)
 		)
 		(property "LCSC" "C1525"
-			(at 1069.34 187.96 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 1069.34 187.96 0)
 			(hide yes)
 			(show_name no)
@@ -133246,17 +129231,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samtec"
-			(at 718.82 64.77 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "TSM-106-01-T-SH"
 			(at 718.82 64.77 0)
 			(hide yes)
@@ -133384,17 +129358,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 82.55 60.96 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1243TCE"
 			(at 82.55 60.96 0)
 			(hide yes)
@@ -133499,17 +129462,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 219.71 222.25 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05A105KA5NQNC"
 			(at 219.71 222.25 0)
 			(hide yes)
@@ -133590,17 +129542,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 1028.7 697.23 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Murata"
 			(at 1028.7 697.23 0)
 			(hide yes)
 			(show_name no)
@@ -133724,17 +129665,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 974.09 195.58 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF2202TCE"
 			(at 974.09 195.58 0)
 			(hide yes)
@@ -133836,17 +129766,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 265.43 203.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05B104KB54PNC"
 			(at 265.43 203.2 0)
 			(hide yes)
@@ -133929,17 +129848,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 732.79 -60.96 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 732.79 -60.96 0)
 			(hide yes)
 			(show_name no)
@@ -134142,17 +130050,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 574.04 54.61 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1002TCE"
 			(at 574.04 54.61 0)
 			(hide yes)
@@ -134256,17 +130153,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 302.26 200.66 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL10A226MP8NUNE"
 			(at 302.26 200.66 0)
 			(hide yes)
@@ -134347,17 +130233,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 1162.05 162.56 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 1162.05 162.56 0)
 			(hide yes)
 			(show_name no)
@@ -134539,17 +130414,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 923.29 648.97 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 923.29 648.97 0)
 			(hide yes)
 			(show_name no)
@@ -134743,17 +130607,6 @@
 			)
 		)
 		(property "LCSC" "C11702"
-			(at 525.78 283.21 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 525.78 283.21 0)
 			(hide yes)
 			(show_name no)
@@ -135023,17 +130876,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 320.04 217.17 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF4322TCE"
 			(at 320.04 217.17 0)
 			(hide yes)
@@ -135138,17 +130980,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "muRata"
-			(at 877.57 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "GRM188R6YA106MA73D"
 			(at 877.57 76.2 0)
 			(hide yes)
@@ -135232,17 +131063,6 @@
 		)
 		(property "Description" "test point"
 			(at 595.63 254 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "DNP"
-			(at 595.63 254 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -135353,17 +131173,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 320.04 151.13 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF2492TCE"
 			(at 320.04 151.13 0)
 			(hide yes)
@@ -135448,17 +131257,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 457.2 506.73 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Texas Instruments"
 			(at 457.2 506.73 0)
 			(hide yes)
 			(show_name no)
@@ -135762,17 +131560,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "DNP"
-			(at 659.13 -45.72 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "DNP"
 			(at 659.13 -45.72 0)
 			(hide yes)
@@ -135864,17 +131651,6 @@
 			)
 		)
 		(property "LCSC" "C194427"
-			(at 822.96 113.03 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "muRata"
 			(at 822.96 113.03 0)
 			(hide yes)
 			(show_name no)
@@ -136066,17 +131842,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 378.46 758.19 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1001TCE"
 			(at 378.46 758.19 0)
 			(hide yes)
@@ -136159,17 +131924,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 1073.15 660.4 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "JST"
 			(at 1073.15 660.4 0)
 			(hide yes)
 			(show_name no)
@@ -136283,17 +132037,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 425.45 368.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 425.45 368.3 0)
 			(hide yes)
 			(show_name no)
@@ -136485,17 +132228,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "FH"
-			(at 349.25 476.25 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402CG180J500NT"
 			(at 349.25 476.25 0)
 			(hide yes)
@@ -136589,17 +132321,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 1007.11 648.97 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 1007.11 648.97 0)
 			(hide yes)
 			(show_name no)
@@ -136714,17 +132435,6 @@
 			)
 		)
 		(property "LCSC" "C2072452"
-			(at 226.06 257.81 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Texas Instruments"
 			(at 226.06 257.81 0)
 			(hide yes)
 			(show_name no)
@@ -137003,17 +132713,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "muRata"
-			(at 269.24 120.65 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "GRM188R6YA106MA73D"
 			(at 269.24 120.65 0)
 			(hide yes)
@@ -137097,17 +132796,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 449.58 408.94 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 449.58 408.94 0)
 			(hide yes)
 			(show_name no)
@@ -137300,17 +132988,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 455.93 368.3 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05A106MP5NUNC"
 			(at 455.93 368.3 0)
 			(hide yes)
@@ -137402,17 +133079,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 377.19 367.03 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 377.19 367.03 0)
 			(hide yes)
 			(show_name no)
@@ -137614,17 +133280,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 292.1 134.62 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL10A226MP8NUNE"
 			(at 292.1 134.62 0)
 			(hide yes)
@@ -137792,17 +133447,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 717.55 105.41 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1002TCE"
 			(at 717.55 105.41 0)
 			(hide yes)
@@ -137906,17 +133550,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "DNP"
-			(at 518.16 137.16 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "DNP"
 			(at 518.16 137.16 90)
 			(hide yes)
@@ -137994,17 +133627,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 937.26 711.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 937.26 711.2 0)
 			(hide yes)
 			(show_name no)
@@ -138128,17 +133750,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 927.1 -58.42 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF0000TCE"
 			(at 927.1 -58.42 0)
 			(hide yes)
@@ -138222,17 +133833,6 @@
 		)
 		(property "Description" "test point"
 			(at 566.42 243.84 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "DNP"
-			(at 566.42 243.84 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -138334,17 +133934,6 @@
 			)
 		)
 		(property "LCSC" "C2841426"
-			(at 984.25 153.67 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Texas Instruments"
 			(at 984.25 153.67 0)
 			(hide yes)
 			(show_name no)
@@ -138481,17 +134070,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 1031.24 223.52 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05B104KO5NNNC"
 			(at 1031.24 223.52 0)
 			(hide yes)
@@ -138594,17 +134172,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 1038.86 226.06 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05B104KO5NNNC"
 			(at 1038.86 226.06 0)
 			(hide yes)
@@ -138697,17 +134264,6 @@
 			)
 		)
 		(property "LCSC" "C2680357"
-			(at 853.44 111.76 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Diodes"
 			(at 853.44 111.76 0)
 			(hide yes)
 			(show_name no)
@@ -138824,17 +134380,6 @@
 			)
 		)
 		(property "LCSC" "C21189"
-			(at 852.17 30.48 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 852.17 30.48 0)
 			(hide yes)
 			(show_name no)
@@ -139015,17 +134560,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 421.64 110.49 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1002TCE"
 			(at 421.64 110.49 0)
 			(hide yes)
@@ -139140,17 +134674,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 1083.31 142.24 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05B104KB54PNC"
 			(at 1083.31 142.24 0)
 			(hide yes)
@@ -139245,17 +134768,6 @@
 			)
 		)
 		(property "LCSC" "C52722586"
-			(at 788.67 186.69 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Guoconn"
 			(at 788.67 186.69 0)
 			(hide yes)
 			(show_name no)
@@ -139452,17 +134964,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 405.13 190.5 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05B104KB54PNC"
 			(at 405.13 190.5 0)
 			(hide yes)
@@ -139578,17 +135079,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 320.04 200.66 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1003TCE"
 			(at 320.04 200.66 0)
 			(hide yes)
@@ -139672,17 +135162,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 132.08 62.23 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "FUXINSEMI"
 			(at 132.08 62.23 0)
 			(hide yes)
 			(show_name no)
@@ -139796,17 +135275,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 1036.32 303.53 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05B104KB54PNC"
 			(at 1036.32 303.53 0)
 			(hide yes)
@@ -139910,17 +135378,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 749.3 266.7 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1002TCE"
 			(at 749.3 266.7 0)
 			(hide yes)
@@ -140014,17 +135471,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 1038.86 699.77 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 1038.86 699.77 0)
 			(hide yes)
 			(show_name no)
@@ -140150,17 +135596,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "muRata"
-			(at 269.24 186.69 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "GRM188R6YA106MA73D"
 			(at 269.24 186.69 0)
 			(hide yes)
@@ -140252,17 +135687,6 @@
 			)
 		)
 		(property "LCSC" "C307331"
-			(at 271.78 60.96 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 271.78 60.96 0)
 			(hide yes)
 			(show_name no)
@@ -140365,17 +135789,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "DNP"
-			(at 566.42 248.92 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "DNP"
 			(at 566.42 248.92 90)
 			(hide yes)
@@ -140464,17 +135877,6 @@
 			)
 		)
 		(property "LCSC" "C134092"
-			(at 933.45 96.52 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Molex"
 			(at 933.45 96.52 0)
 			(hide yes)
 			(show_name no)
@@ -140733,17 +136135,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 405.13 405.13 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF0000TCE"
 			(at 405.13 405.13 0)
 			(hide yes)
@@ -140827,17 +136218,6 @@
 			)
 		)
 		(property "Description" "Resistor, small symbol"
-			(at 1135.38 264.16 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 1135.38 264.16 0)
 			(hide yes)
 			(show_name no)
@@ -140953,17 +136333,6 @@
 			)
 		)
 		(property "LCSC" "C194427"
-			(at 203.2 69.85 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "muRata"
 			(at 203.2 69.85 0)
 			(hide yes)
 			(show_name no)
@@ -141156,17 +136525,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 259.08 120.65 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL10B474KA8NNNC"
 			(at 259.08 120.65 0)
 			(hide yes)
@@ -141250,17 +136608,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 411.48 190.5 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
 			(at 411.48 190.5 0)
 			(hide yes)
 			(show_name no)
@@ -141362,17 +136709,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 773.43 748.03 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 773.43 748.03 0)
 			(hide yes)
 			(show_name no)
@@ -141497,17 +136833,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 297.18 134.62 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL10A226MP8NUNE"
 			(at 297.18 134.62 0)
 			(hide yes)
@@ -141591,17 +136916,6 @@
 			)
 		)
 		(property "Description" "ESD-Protected, High-Speed USB 2.0 (480-Mbps) 1:2 Multiplexer/Demultiplexer Switch With Single Enable, VSSOP-10"
-			(at 557.53 381 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Texas Instruments"
 			(at 557.53 381 0)
 			(hide yes)
 			(show_name no)
@@ -141740,17 +137054,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 464.82 408.94 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05B104KB54PNC"
 			(at 464.82 408.94 0)
 			(hide yes)
@@ -141855,17 +137158,6 @@
 			)
 		)
 		(property "LCSC" "C22431115"
-			(at 144.78 772.16 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Wurth"
 			(at 144.78 772.16 0)
 			(hide yes)
 			(show_name no)
@@ -142042,17 +137334,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 500.38 739.14 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05B104KB54PNC"
 			(at 500.38 739.14 0)
 			(hide yes)
@@ -142156,17 +137437,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 412.75 115.57 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1001TCE"
 			(at 412.75 115.57 0)
 			(hide yes)
@@ -142260,17 +137530,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 1007.11 631.19 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "Murata"
 			(at 1007.11 631.19 0)
 			(hide yes)
 			(show_name no)
@@ -142550,17 +137809,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 933.45 -55.88 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF0000TCE"
 			(at 933.45 -55.88 0)
 			(hide yes)
@@ -142641,17 +137889,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 664.21 537.21 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 664.21 537.21 0)
 			(hide yes)
 			(show_name no)
@@ -142754,17 +137991,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 1080.77 270.51 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "HCTL"
 			(at 1080.77 270.51 0)
 			(hide yes)
 			(show_name no)
@@ -142933,17 +138159,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 481.33 408.94 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "CL05A106MP5NUNC"
 			(at 481.33 408.94 0)
 			(hide yes)
@@ -143047,17 +138262,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "DNP"
-			(at 641.35 254 90)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(property "Manufacturer_No" "DNP"
 			(at 641.35 254 90)
 			(hide yes)
@@ -143135,17 +138339,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 149.86 514.35 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
 			(at 149.86 514.35 0)
 			(hide yes)
 			(show_name no)

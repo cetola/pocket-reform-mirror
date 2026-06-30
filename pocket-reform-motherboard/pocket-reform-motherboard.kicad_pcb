@@ -240,18 +240,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "TE"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "d774bd37-eee6-4afa-b144-c79274466508")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer_No" "1717254-1"
 			(at 0 0 0)
 			(layer "F.Fab")
@@ -3659,18 +3647,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "HARTING"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "29ee2385-7be1-4223-8a05-56981073cef7")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer_No" "09452812561"
 			(at 0 0 0)
 			(layer "F.Fab")
@@ -4163,18 +4139,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "a33f7677-2fe8-4fe4-a01f-1cc465975499")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Molex"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "91df0051-c93e-470a-990d-12d17c49b22d")
 			(effects
 				(font
 					(size 1 1)
@@ -5632,18 +5596,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Molex"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "71fea581-689f-4209-aad4-9dc99b8e445b")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer_No" "788000001"
 			(at 0 0 0)
 			(layer "F.Fab")
@@ -5921,18 +5873,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "8bed4cad-1596-4045-b8fd-1fb53be2dfc6")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "JST"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "19a7a4c8-e4df-4ed6-bfad-590df5820c6a")
 			(effects
 				(font
 					(size 1 1)
@@ -6372,19 +6312,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Bossie"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "ff1303f7-9654-44d8-b0ad-a4bd62a73cfa")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -6828,18 +6755,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "9ad66cfe-d53c-40c6-b060-00165a4754bc")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "TE"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "3fd71568-c336-4227-82b2-0670051c1e02")
 			(effects
 				(font
 					(size 1 1)
@@ -7761,18 +7676,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "JST"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "c5e1608a-0a08-41f0-ab47-0258d6c63033")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer_No" "SM04B-SRSS-TB(LF)(SN)"
 			(at 0 0 180)
 			(unlocked yes)
@@ -8217,18 +8120,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "0f6884ab-c8cf-469a-b8e8-56410abf247f")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Hirose"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "f7b0372c-b0bd-44a4-8373-82e7e605828d")
 			(effects
 				(font
 					(size 1 1)
@@ -8965,19 +8856,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Texas Instruments"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "d6184ccb-37b3-4e78-81d0-fb585498a4d5")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "SOT?23*")
 		(path "/6481d433-be1c-4c2f-8f5b-4027d266411b")
 		(sheetname "/")
@@ -9398,19 +9276,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "2f4c24d0-4a6b-4618-8900-d4e1817abdaa")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-000061094281")
 		(sheetname "/")
@@ -9584,19 +9449,6 @@
 				(font
 					(size 1 1)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Murata"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "2f19eab8-14bc-457c-823f-d318cb511c3c")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -9776,19 +9628,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "935cd0b3-9e2c-4a5d-81b7-31da927b6610")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/5946b60b-a8b7-41b5-a7d1-482830956a1e")
 		(sheetname "/")
@@ -9958,19 +9797,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "8396e974-3473-429e-9da9-991ac5ff8fcb")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
-		(property "Manufacturer" "Diodes"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "b230c81d-5a8d-4cef-8ae3-8b83a55f9619")
 			(effects
 				(font
 					(size 0.5 0.5)
@@ -10358,19 +10184,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "13c3209a-473a-482f-b0ad-b24ed4e17ce8")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/718c5458-4a6a-4c54-8909-a75bb8bf302d")
 		(sheetname "/")
@@ -10547,19 +10360,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "af939246-dae8-4ba3-afe1-4c3f810fdca3")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/08001701-0bb1-4005-9548-ec8d600ff4ac")
 		(sheetname "/")
@@ -10717,18 +10517,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "cab2c584-2e2f-45dc-81b3-362ee87ba460")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "b2fc901d-6b06-4675-a2e6-bdca6cb735d2")
 			(effects
 				(font
 					(size 1 1)
@@ -10898,19 +10686,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "1706ed22-a8de-4e21-ab5e-592b796ed128")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -11116,19 +10891,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "muRata"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "b6ef8a94-0b30-4cba-87e7-e92f7e0890e3")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/6fa597e5-9df9-42b7-a3e3-f5a835defd83")
 		(sheetname "/")
@@ -11285,19 +11047,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "5e121e25-9fbc-4733-8a2e-43746d9c375d")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "19d40f96-0101-489e-924e-d5fcb3e086e3")
 			(effects
 				(font
 					(size 0.5 0.5)
@@ -11481,19 +11230,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "93d335ed-8772-4ad4-846f-01b1044c02b5")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1001TCE"
 			(at 0 0 0)
 			(unlocked yes)
@@ -11656,19 +11392,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "7e207576-6587-4d89-9568-c6f768964273")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -11861,19 +11584,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "577a5117-4b57-4413-bcac-92731525b33d")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF0000TCE"
 			(at 0 0 270)
 			(unlocked yes)
@@ -12035,18 +11745,6 @@
 			(effects
 				(font
 					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "1e0d2a7e-a709-41f2-9653-da353dfab5c9")
-			(effects
-				(font
-					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -12252,19 +11950,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "f3c63645-b296-4456-8cff-512dca0b7cf6")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/68f8ab0c-786c-4383-8c8f-78f178cd2eeb")
 		(sheetname "/")
@@ -12422,18 +12107,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "949f7efa-c6b6-40af-8aed-b93ed01cde3d")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "97d3ec6f-efbc-452d-80da-5b1776d6bc1c")
 			(effects
 				(font
 					(size 1 1)
@@ -12632,19 +12305,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "3745738a-8db2-4418-b6b4-62c9da69df51")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/d0efd549-404a-4089-8802-b14e9fdd1cbb")
 		(sheetname "/")
@@ -12794,19 +12454,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "XKB"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "2adabac4-3b2d-4172-acb5-7e4f29f36f9b")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -13092,19 +12739,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "852dd921-894d-4823-8530-5478a7f6522c")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1002TCE"
 			(at 0 0 90)
 			(unlocked yes)
@@ -13295,18 +12929,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "73970142-759f-457d-b3b9-90cb7e67ef4e")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1001TCE"
 			(at 0 0 90)
 			(unlocked yes)
@@ -13477,18 +13099,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "7db4e2db-0772-40e4-838d-8fb7ff5b3519")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "XKB"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "8281d97f-2b18-482e-b663-ef3db68291e0")
 			(effects
 				(font
 					(size 1 1)
@@ -13759,19 +13369,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Texas Instruments "
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "358ec1a5-0d8f-48e6-8fdd-feaef9748fe0")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -14691,19 +14288,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "muRata"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "75fb75b0-e32d-4704-8045-f61e3d620220")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/722bd021-2601-4b98-8037-7afc3145ba48")
 		(sheetname "/")
@@ -14852,18 +14436,6 @@
 			(effects
 				(font
 					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "c0ca40da-afbd-470c-9367-3e67bebf2782")
-			(effects
-				(font
-					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -15067,18 +14639,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Wurth"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "68484450-823b-482a-bcd6-fcdd76c94809")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer_No" "9774020243R"
 			(at 0 0 0)
 			(layer "F.Fab")
@@ -15232,19 +14792,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "3861ab56-de89-4bf4-b8a9-45dd5aa226c1")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "c768ed86-d60e-496b-bb42-a74510536a94")
 			(effects
 				(font
 					(size 0.5 0.5)
@@ -15415,20 +14962,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "ff96f682-f19e-480b-a653-2f0786c1fae8")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
-		(property "Manufacturer_No" "0402WGF6801TCE"
+		(property "Manufacturer_No" "0402WGF2201TCE"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -15441,7 +14975,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C25917"
+		(property "LCSC" "C25879"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -15630,19 +15164,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "064abc2f-dd64-4106-93e1-065a8ed2acda")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/65fd97cb-1788-41d7-b722-4d6d8afe91b6")
 		(sheetname "/")
@@ -15819,19 +15340,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "94ca7f87-774e-4888-a51e-d5a278451b01")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/c38c7720-5089-46f8-a6a9-945dfcaff560")
 		(sheetname "/")
@@ -16005,19 +15513,6 @@
 				(font
 					(size 1 1)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Texas Instruments"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "e573bdc2-ec1f-4f7d-982f-99c157b68e45")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -16477,19 +15972,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "ab6692e8-551c-46b2-8021-e218848614e5")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property "LCSC" "C25744"
 			(at 0 0 180)
 			(unlocked yes)
@@ -16665,19 +16147,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "cffb1704-10c9-4ea3-875e-4815223cf1ba")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -16859,18 +16328,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "60c24433-2f27-43a2-ac29-94d50c6610cf")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF330JTCE"
 			(at 0 0 0)
 			(layer "F.Fab")
@@ -16906,7 +16363,7 @@
 				(pins "1" "2")
 			)
 		)
-		(attr smd dnp)
+		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
 			(start -0.153641 -0.38)
@@ -17072,19 +16529,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "muRata"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "596f8301-bb6c-40d1-bc44-3d7ead8db7ce")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/6b324a91-5598-4532-9153-9e42292aea82")
 		(sheetname "/")
@@ -17234,19 +16678,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "a285a1cd-ca34-4071-be38-5a6757970b4c")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -17452,19 +16883,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "muRata"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "c889bbed-e12a-4c30-9af1-73992600f5e5")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/a53d890d-81ef-437a-816b-5ade3fdefc1a")
 		(sheetname "/")
@@ -17622,18 +17040,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "2396a5bb-a7b8-46cb-b6e3-583c7e092789")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "XINGLIGHT"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "ecdaf39e-a969-4f4e-bd42-c2dc3c734b9a")
 			(effects
 				(font
 					(size 1 1)
@@ -17856,18 +17262,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "7a050b6b-0e8c-4d04-ba67-3b93f32fc3cc")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF4701TCE"
 			(at 0 0 0)
 			(layer "F.Fab")
@@ -18069,19 +17463,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "b31be27b-ad06-4dc5-a801-d730a28a8da3")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/d55f55f9-054f-45ec-83f7-7af8dec069e7")
 		(sheetname "/")
@@ -18258,19 +17639,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "31c0c85e-afaf-438f-bd23-d0b12bdb4d00")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/f8c970bc-f6e0-45d0-8960-09dc7f85ed9a")
 		(sheetname "/")
@@ -18418,19 +17786,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Texas Instruments"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "9d5a2e9e-cff2-4c29-9e08-b83f83642812")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -18794,19 +18149,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "86b481bc-31a7-4543-938f-8a262c8f6556")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF4991TCE"
 			(at 0 0 270)
 			(unlocked yes)
@@ -18980,19 +18322,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "c1db0b07-53f9-43fb-9cfd-fa945934b5af")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -19198,19 +18527,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "muRata"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "efa3188d-38e2-41f7-935b-99098d05a448")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/7b4d3a01-6b4b-4274-9f6e-882c47c21cfe")
 		(sheetname "/")
@@ -19358,19 +18674,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "7a581007-3407-49a7-82f8-73da725a7034")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -19576,19 +18879,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "dfa84202-3b8e-4447-af66-b4dc42f2f370")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "Inductor_* L_* *Ferrite*")
 		(path "/224dfade-e77a-4089-b9da-84368b9eabd6")
 		(sheetname "/")
@@ -19737,18 +19027,6 @@
 			(effects
 				(font
 					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "478926bd-2694-4f63-b9b8-c5bbf65176b7")
-			(effects
-				(font
-					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -19930,19 +19208,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "DNP"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "8a5d5e81-8082-4e1f-9ae1-dfd53453cf6c")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property "Manufacturer_No" "DNP"
 			(at 0 0 0)
 			(unlocked yes)
@@ -20073,18 +19338,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "d7dd2eb3-5864-4086-9c39-2fd49067651a")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "70f59153-d318-4fe4-a1f6-f9b0513561d4")
 			(effects
 				(font
 					(size 1 1)
@@ -20281,19 +19534,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "64b993d6-f68c-4386-a773-11a821bacd9d")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/38f75b56-10af-49f0-9d6e-63d1973efc4e")
 		(sheetname "/")
@@ -20470,19 +19710,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "ce1c3f70-337e-40c6-bbf4-fa3a7c0eb489")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/b5500a78-846c-4279-817f-76515691c3da")
 		(sheetname "/")
@@ -20632,19 +19859,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "01c33fc5-56e3-4ef7-b8c3-675921f5b848")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -20821,19 +20035,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Texas Instruments"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "8c419769-1e82-4cae-b354-e4a94daa5e17")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -21221,19 +20422,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "muRata"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "c78d0dda-cf26-490b-8775-9e3ee265dc1f")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/e026fe17-4f71-4e86-8c98-77a088c41bf9")
 		(sheetname "/")
@@ -21410,19 +20598,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "fd843d9c-7579-46b9-b0fe-a958da84da62")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/a1e98c9a-2c89-4ed9-ae3b-f3a8507775d5")
 		(sheetname "/")
@@ -21572,19 +20747,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "d4a58965-f440-40a6-8184-ffc3826e5d53")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -21762,18 +20924,6 @@
 			(effects
 				(font
 					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "1e261a47-f6f4-402b-a995-70ded03c0412")
-			(effects
-				(font
-					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -21979,19 +21129,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "894546b4-c369-4b8b-8ff2-2ca0fc7dcd5c")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "Inductor_* L_* *Ferrite*")
 		(path "/fc04c073-28a0-4dc9-af90-ce3cdf236528")
 		(sheetname "/")
@@ -22149,18 +21286,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "7d0b85c5-e0fb-486c-83c1-9db579d949a0")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "AVX"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "968cd6d2-d75b-4e44-8fcc-01ecf27add07")
 			(effects
 				(font
 					(size 1 1)
@@ -22408,19 +21533,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "muRata"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "d167151c-80d3-4541-8431-916e7f63788d")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/71607291-263e-4ddf-acec-d6f9841b5340")
 		(sheetname "/")
@@ -22597,19 +21709,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "8220be81-e0e5-45f5-b080-a3382ebf510f")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/084d125b-9b94-451d-9f6c-d7ade527b2a2")
 		(sheetname "/")
@@ -22783,19 +21882,6 @@
 				(font
 					(size 1 1)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Texas Instruments or UMW"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "c827c27b-5c7a-47d3-9a02-dcaa0f76a63f")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -23202,19 +22288,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "8202f670-9b26-43a7-a9c2-6346a5deebca")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF0000TCE"
 			(at 0 0 270)
 			(unlocked yes)
@@ -23385,18 +22458,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "b65b07ed-9f31-4c52-a50a-fa0ee4e882b3")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Murata"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "5e5db8ed-84a0-4585-ba52-168f7acb3f22")
 			(effects
 				(font
 					(size 1 1)
@@ -23664,18 +22725,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "8b2da841-b209-4a4d-b841-301ee46c642c")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF4701TCE"
 			(at 0 0 0)
 			(layer "F.Fab")
@@ -23877,19 +22926,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "46b7f165-3c1d-4668-83f4-d0dae89f741d")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/92f2905d-f5ad-4de9-ba0e-8366cc64611a")
 		(sheetname "/")
@@ -24066,19 +23102,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "febdf08c-aaec-40fe-a202-6e46c7ac2e1c")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/09b9b9e3-599f-462b-ab12-1e1ad80c5cdb")
 		(sheetname "/")
@@ -24248,19 +23271,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "6f9468f5-e04c-41ca-b55d-33736f998b2b")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "eb496dfb-1e25-49a4-89a6-a887e33c0579")
 			(effects
 				(font
 					(size 0.5 0.5)
@@ -24444,19 +23454,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "99363f29-24a1-4b57-bc96-b6667f7b7b81")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/e779eaca-1fca-40c9-bcc0-2c8f288517d3")
 		(sheetname "/")
@@ -24605,18 +23602,6 @@
 			(effects
 				(font
 					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "6a6822ed-dafd-4cac-81df-f858706f1dec")
-			(effects
-				(font
-					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -24803,18 +23788,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "a7ca1d2d-2deb-4872-80fc-6d3a22449e1d")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "XINGLIGHT"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "5700519d-b2df-40dd-901a-332a63793b68")
 			(effects
 				(font
 					(size 1 1)
@@ -25061,19 +24034,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "9cd54c1a-d255-4e1d-939e-b54879ca3770")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "Inductor_* L_* *Ferrite*")
 		(path "/47eaf775-e114-4887-a96b-517dc572b9bd")
 		(sheetname "/")
@@ -25231,18 +24191,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "544c385e-0458-4e8e-b5bd-836d03f32d93")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "982dded5-35de-48e6-9963-69a4e1ed31a6")
 			(effects
 				(font
 					(size 1 1)
@@ -25411,18 +24359,6 @@
 			(effects
 				(font
 					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "d92ea990-d290-4de4-ae22-d7a4f22fd465")
-			(effects
-				(font
-					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -25599,19 +24535,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "86676316-68b8-4bb8-be36-7c6dab084f73")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -25798,18 +24721,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "5ff60709-cc05-4800-a4e7-b8f98f7d14b2")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Texas Instruments"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "13471e62-0fee-48a7-90a3-d676feb8f08b")
 			(effects
 				(font
 					(size 1 1)
@@ -26167,19 +25078,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "90e5c9e6-1b46-45a4-8088-4a52a417f032")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/ef5d609d-a0b4-4859-a7be-1abbdc0fd76a")
 		(sheetname "/")
@@ -26353,19 +25251,6 @@
 				(font
 					(size 1 1)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Murata"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "90d7cba3-f0ca-4f5f-9565-7566fc258970")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -26545,19 +25430,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "f889f48e-463f-4b44-a320-62087777328d")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/83a5a49b-ee91-427f-89fe-d3e2e2c528f4")
 		(sheetname "/")
@@ -26707,19 +25579,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "dc898ea4-2a57-4419-8f15-3e8dd1f12816")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -26925,19 +25784,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "65209da3-00de-4520-ae95-fc8ee3944efb")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-000060fca681")
 		(sheetname "/")
@@ -27095,18 +25941,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "3d78e99e-b27b-4512-9903-e66741c8f778")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "XINGLIGHT"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "4c31ff4b-c6d8-4431-9814-f8c9d5bd1ae3")
 			(effects
 				(font
 					(size 1 1)
@@ -27353,19 +26187,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "1ecbd80a-fbc9-44bb-af6f-72519b0af9c9")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/3a387c43-2dda-4fa7-b249-6b701ec3c4a1")
 		(sheetname "/")
@@ -27544,19 +26365,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "aff207e5-f9bd-46f2-a8ab-2abc551ac550")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/210ebb84-3d4e-47ff-b38e-f183a64add8c")
 		(sheetname "/")
@@ -27706,19 +26514,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "FUXINSEMI"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "ccbefd1a-e570-405c-8456-a6b595fc1bce")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -28040,18 +26835,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "fa1e0c14-ed9a-4aa6-af1d-e2e4e5d6f21b")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF750JTCE"
 			(at 0 0 0)
 			(layer "F.Fab")
@@ -28253,19 +27036,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "fda708a5-947c-4d8c-b04f-1529fec3b6c0")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/ca950a2e-4e93-45a1-915d-c8b3515a2d93")
 		(sheetname "/")
@@ -28439,19 +27209,6 @@
 				(font
 					(size 1 1)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "d53338d8-fffa-44cd-b87c-726bc498734a")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -28633,19 +27390,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "muRata"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "7e6d35f3-01c2-4731-972a-7dffc42f0632")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/78cf89d2-2002-4a7a-b218-47f009c8560f")
 		(sheetname "/")
@@ -28793,19 +27537,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "6f978234-fd59-4515-a903-d4095bade339")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -28996,19 +27727,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "5d1a6a90-73e6-41cd-be76-f6ef37abc623")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF0000TCE"
 			(at 0 0 270)
 			(unlocked yes)
@@ -29177,18 +27895,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "e6555360-9145-4a4f-aca5-ba21ffc26a00")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Wurth"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "16a4a371-c630-4bc7-be25-38e9c5d51405")
 			(effects
 				(font
 					(size 1 1)
@@ -29367,19 +28073,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "934a4c79-f1a3-4a61-9cb5-7cbfe2d7b9ef")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/40f9ae83-4be6-4f20-8adc-ce63b7d72174")
 		(sheetname "/")
@@ -29528,18 +28221,6 @@
 			(effects
 				(font
 					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "JST"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "e09f859e-ba8d-4a5d-8857-d17fe0c709d4")
-			(effects
-				(font
-					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -30030,19 +28711,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "72ca46ad-f16b-41fd-853a-53ff382e9e05")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/9294be70-05b5-4202-9ae9-f9115d15c5c8")
 		(sheetname "/")
@@ -30216,19 +28884,6 @@
 				(font
 					(size 1 1)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "a750d5da-9be2-4803-b5fb-2389a643ca39")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -30410,19 +29065,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "7a93e82b-fcc7-4ce5-b9fa-6e8656e77402")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "CP_*")
 		(path "/02c38f39-e3af-49a7-9264-c0951d387564")
 		(sheetname "/")
@@ -30571,18 +29213,6 @@
 			(effects
 				(font
 					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "63f61d16-bb34-4e95-af2a-120c2047dbf8")
-			(effects
-				(font
-					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -30768,18 +29398,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "f62bd731-5f7a-4d54-8118-85379a439f3f")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Texas Instruments"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "4a1ba72a-160f-457e-ab5c-3deef0c0d717")
 			(effects
 				(font
 					(size 1 1)
@@ -31449,19 +30067,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "afecf07b-8788-4aca-8b19-0a1d0fd81804")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/d1449870-f8c5-452f-8690-a35285978a0d")
 		(sheetname "/")
@@ -31607,19 +30212,6 @@
 			(effects
 				(font
 					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "b782dc1e-44fa-494a-8ce9-664260936e71")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -31796,19 +30388,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "180cdc59-e30c-43aa-9f8b-b93685942b9c")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -32014,19 +30593,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "dd0cfcad-629f-4fc2-92af-ca8f52550f7e")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/c0ab4a72-6a3c-4d31-baa0-86ede7ace9b9")
 		(sheetname "/")
@@ -32183,19 +30749,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "8593e14c-7f7c-452a-9a26-51b56dea3da2")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "64479d82-ce23-4ccb-9cd6-78a753766ba2")
 			(effects
 				(font
 					(size 0.5 0.5)
@@ -32363,19 +30916,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "ebb67b9c-95c3-4c38-a258-b9a89d48365b")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -32581,19 +31121,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "muRata"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "0c264678-cca4-4a5e-9c22-e7cbc5dbe2b5")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/4435e7b9-c9af-4619-a08e-526370a374b4")
 		(sheetname "/")
@@ -32751,18 +31278,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "203baed8-d400-4e04-83d3-4b811256095a")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "1e59f26f-bcea-440d-a74f-22e4ad603dd7")
 			(effects
 				(font
 					(size 1 1)
@@ -32931,18 +31446,6 @@
 			(effects
 				(font
 					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "aed5b0e0-4083-4075-94c5-f8102370152f")
-			(effects
-				(font
-					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -33119,19 +31622,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "1e69c39f-60a7-4a68-80bc-b0af4b6e1085")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -33337,19 +31827,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "5be4cbcc-3a08-4225-a457-b5ce005928ea")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/1573350e-26c5-4b3c-b953-3d6a0796c83f")
 		(sheetname "/")
@@ -33526,19 +32003,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "muRata"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "ab8af03a-dc61-4100-b72c-26477a4ddf6d")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/b267c3da-cb16-4c4f-ab0d-9b4209767c37")
 		(sheetname "/")
@@ -33686,19 +32150,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Texas Instruments"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "47b9678a-40b8-4f6f-a3d0-23605b0eeb71")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -34062,19 +32513,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "FH"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "03f9c026-4953-4db7-9d4c-883a0710041a")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property "LCSC" "C1549"
 			(at 0 0 270)
 			(unlocked yes)
@@ -34258,18 +32696,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "5df9e166-cc8d-4b7f-b95b-8c29dd650b81")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "XINGLIGHT"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "f39427e7-9892-406d-b9cf-f4bce5e1c122")
 			(effects
 				(font
 					(size 1 1)
@@ -34492,18 +32918,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "1e1c0919-da61-485a-91e7-10fe0ed21293")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF4702TCE"
 			(at 0 0 0)
 			(layer "F.Fab")
@@ -34687,19 +33101,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "c300dbdd-6364-4d2a-b62d-99262b3e26fb")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
-		(property "Manufacturer" "Lelon"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "80b02523-e50f-41d2-be41-fa66f5a8bc2a")
 			(effects
 				(font
 					(size 0.5 0.5)
@@ -35159,19 +33560,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "fc30a874-8265-4400-86a2-524fd5cb4826")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1002TCE"
 			(at 0 0 270)
 			(unlocked yes)
@@ -35374,19 +33762,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "19d4d754-b4f4-4e8c-96ea-4fcb424720eb")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/6573c593-d928-441c-903c-a746ad16f90d")
 		(sheetname "/")
@@ -35544,18 +33919,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "1b8ae3b9-c54e-48a6-b55a-5edae79b95f3")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "e2ec2ed6-223d-4bd6-84a1-9baf565d617e")
 			(effects
 				(font
 					(size 1 1)
@@ -35752,19 +34115,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "1eef8fbc-b096-402e-87a2-4fd62c94fb87")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/e3ac2726-0dca-4043-bb13-d4711f53c142")
 		(sheetname "/")
@@ -35941,19 +34291,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "890a41aa-69d5-4a7e-9d22-b2e172eaf3e6")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/f31eaebc-02d3-4b17-b131-d91110431dd9")
 		(sheetname "/")
@@ -36102,18 +34439,6 @@
 			(effects
 				(font
 					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "DNP"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "3a2ae103-988d-4324-a1d7-468e3e850c21")
-			(effects
-				(font
-					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -36317,19 +34642,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "muRata"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "49074ab2-1613-4c60-bf0f-d48481240cc0")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/de91f6c5-3d26-4704-b245-e94db6a8618c")
 		(sheetname "/")
@@ -36506,19 +34818,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "b05bf041-ea7f-4520-84f0-352ee9116248")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/716658f4-6e45-4a24-ae1c-e36b74b1dc72")
 		(sheetname "/")
@@ -36690,19 +34989,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "836be514-8d9c-4769-b337-6cc000bea7d2")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "3b6a9e8e-8de6-4d68-93e7-c3a946f0abf9")
 			(effects
 				(font
 					(size 0.5 0.5)
@@ -36888,19 +35174,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "97e9c1a2-d10b-4d80-9876-33656d0dd9d0")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "CP_*")
 		(path "/70820dba-b5bb-480f-84b3-dc1729e757cf")
 		(sheetname "/")
@@ -37059,19 +35332,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "7e439e2e-c238-4aad-b65a-3cfdca8bb28c")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "4bf2db39-1857-4f9a-a1cb-933b7651d361")
 			(effects
 				(font
 					(size 0.5 0.5)
@@ -37268,19 +35528,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "08d67f3e-d08a-49eb-a3f6-ed7004c20c8a")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/f0755ec3-ba3c-49a5-b6d1-2de75785b2d3")
 		(sheetname "/")
@@ -37429,20 +35676,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "ff273dc0-ad3e-4de2-af71-947566130c16")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
-		(property "Manufacturer_No" "0402WGF6801TCE"
+		(property "Manufacturer_No" "0402WGF2201TCE"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -37455,7 +35689,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C25917"
+		(property "LCSC" "C25879"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -37644,19 +35878,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "18d2d17e-5098-4c36-b831-da029dc2edb5")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/0a092395-98b9-45ae-9a86-0839c7825586")
 		(sheetname "/")
@@ -37824,19 +36045,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "22780783-181a-4d5a-9d8f-b90974807332")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
-		(property "Manufacturer" "Diodes"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "7d66272d-94e5-4ff0-865a-83d7c413f080")
 			(effects
 				(font
 					(size 0.5 0.5)
@@ -38200,18 +36408,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Texas Instruments"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "58a37c11-4411-4930-8021-b0a669c67fd7")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer_No" "TPS7A0533PDBZ"
 			(at 0 0 0)
 			(layer "F.Fab")
@@ -38513,19 +36709,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "db4de298-811d-491b-926d-fb95e5835188")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/bda10563-37f6-4e4e-a0da-aad59fe68378")
 		(sheetname "/")
@@ -38673,19 +36856,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "b4e42a95-3c15-45ec-a5c8-37a7a02b4992")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -38872,18 +37042,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "e6c8c2fd-4475-421d-8eca-c508240848fc")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "6bea9e58-7c25-493b-b2dd-d853a3b341e6")
 			(effects
 				(font
 					(size 1 1)
@@ -39080,19 +37238,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "c58c09b2-29db-4003-9011-c9fb6d43b19e")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/8e8286d3-19d0-4646-a1a9-cd313aa21c02")
 		(sheetname "/")
@@ -39266,19 +37411,6 @@
 				(font
 					(size 1 1)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "f31ca300-20a8-44dc-87fb-5df793800728")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -39460,19 +37592,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "muRata"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "90038b39-5a9f-4ba1-bb60-d03030502852")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/f2b75bc2-f05e-4823-8eb4-73b911543283")
 		(sheetname "/")
@@ -39642,19 +37761,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "afa9b757-92e2-494c-bb29-afcc29063e07")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
-		(property "Manufacturer" "Microchip"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "25404d13-2cb6-48dd-a893-2998ae3680e4")
 			(effects
 				(font
 					(size 0.5 0.5)
@@ -40082,19 +38188,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "b86f3ef7-5580-4a93-b508-81e2d2416fa7")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/af60eeb6-853f-4f38-a046-d40403992cbb")
 		(sheetname "/")
@@ -40243,18 +38336,6 @@
 			(effects
 				(font
 					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "285c1b3f-40c9-49bb-b1f0-746ae9fb6230")
-			(effects
-				(font
-					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -40436,19 +38517,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "DNP"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "a62cca9e-dd13-4e4c-bd8b-14b9562891e6")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property "Manufacturer_No" "DNP"
 			(at 0 0 0)
 			(unlocked yes)
@@ -40579,18 +38647,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "b69530d4-d084-4d60-a11f-e7471bc876a9")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Murata"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "835e5ff1-8832-4f89-8b2b-73443c9cd126")
 			(effects
 				(font
 					(size 1 1)
@@ -40882,19 +38938,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "fae9a6a4-660c-4892-80fb-bdcc99234232")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/db910d91-33d9-491b-ba22-8d3208d7fc79")
 		(sheetname "/")
@@ -41068,19 +39111,6 @@
 				(font
 					(size 1 1)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "7b9e954b-5d64-4c99-a1f6-b17583ef88c4")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -41260,19 +39290,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "80be03e7-40de-438b-a5e3-0782e21285b9")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "Choke_* *Coil* Inductor_* L_*")
 		(path "/d459205d-d7d8-4b44-b329-69b41665358d")
 		(sheetname "/")
@@ -41425,19 +39442,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "DNP"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "15802c63-16f1-43ef-919f-507440da55da")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property "Manufacturer_No" "DNP"
 			(at 0 0 0)
 			(unlocked yes)
@@ -41559,18 +39563,6 @@
 			(effects
 				(font
 					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "35e84e59-84e2-4fc2-a84a-6500c6feb815")
-			(effects
-				(font
-					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -41765,19 +39757,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "433f7994-33f5-462c-8a40-ba1b2da00da7")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1243TCE"
 			(at 0 0 0)
 			(unlocked yes)
@@ -41954,19 +39933,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "87b73799-986b-4349-a4e1-23c04b0ebc66")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF0000TCE"
 			(at 0 0 0)
 			(unlocked yes)
@@ -42128,18 +40094,6 @@
 			(effects
 				(font
 					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 90)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "e90159ce-ca2a-4bb2-a303-52e72aacf150")
-			(effects
-				(font
-					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -42316,19 +40270,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "dca9aa1b-712c-4ef7-a886-c54417016054")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -42534,19 +40475,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "9b503a71-d7bb-40a5-be25-997440bfa38f")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/9c58607f-2810-4275-99fb-e77004934e07")
 		(sheetname "/")
@@ -42704,18 +40632,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "cea19e42-8288-4cd6-b318-615f06119244")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "13f82d85-d616-4a9f-8177-5fd70086fbf9")
 			(effects
 				(font
 					(size 1 1)
@@ -42912,19 +40828,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "3581ab11-3586-41b7-91f8-ffc591406f63")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/19d8a130-ea64-4371-b814-7ee8c83e9f7a")
 		(sheetname "/")
@@ -43082,18 +40985,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "af3d0d08-f36f-4a67-b877-7475b9680de1")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Texas Instruments"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "a8ea587a-5022-4cf9-b63c-a8c1535271ed")
 			(effects
 				(font
 					(size 1 1)
@@ -43451,19 +41342,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "4488e9d0-7f7c-4a23-a789-092639da456a")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/f1161bcf-f462-4b9a-9881-2f7a3f5ef648")
 		(sheetname "/")
@@ -43642,19 +41520,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "muRata"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "27b204ea-457e-44b8-90fa-14e1cd716e79")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/853253f2-6174-4a76-a913-fc11506ceb90")
 		(sheetname "/")
@@ -43812,18 +41677,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "ca5db019-45bf-4f23-a9d1-e74efe76a394")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "ce358276-cc4d-40fb-a194-257d0f322015")
 			(effects
 				(font
 					(size 1 1)
@@ -44022,19 +41875,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "570b30e0-4fa3-4deb-9097-56d901a1f5a5")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "CP_*")
 		(path "/76adb949-223d-435d-89d3-93d0a8781785")
 		(sheetname "/")
@@ -44183,18 +42023,6 @@
 			(effects
 				(font
 					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 90)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "700cdb47-3ba7-4db8-ac02-cb4aaccbc1ff")
-			(effects
-				(font
-					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -44372,18 +42200,6 @@
 			(effects
 				(font
 					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "9575655d-e892-4572-8681-297a59f0b721")
-			(effects
-				(font
-					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -44589,19 +42405,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "de36047b-7991-4909-a79f-2b6021714c19")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/8caaf08a-9339-44e4-8c38-81e33485147a")
 		(sheetname "/")
@@ -44780,19 +42583,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "97174960-1d1c-44b5-ad09-367fa9c869b1")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "CP_*")
 		(path "/e9790c28-4547-40ed-98fc-c5d5dddacec0")
 		(sheetname "/")
@@ -44942,19 +42732,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "b87dba46-e102-4d24-8d52-cad93a86ae88")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -45141,18 +42918,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "fca891d4-0ddb-4382-b8f6-5b4679adfaf8")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "362e3d1c-6a60-47a9-a1c5-690f64bdd664")
 			(effects
 				(font
 					(size 1 1)
@@ -45351,19 +43116,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "fa2ea494-67d1-4c41-9ca9-3265a86e62c2")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/2aac8d72-e2aa-4a88-8194-4a08aa691425")
 		(sheetname "/")
@@ -45533,19 +43285,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "a345e3ba-9409-4038-ac6a-1961fc57da02")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
-		(property "Manufacturer" "Texas Instruments"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "c5140efd-206b-43ad-8942-ccb13e122617")
 			(effects
 				(font
 					(size 0.5 0.5)
@@ -45949,19 +43688,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "DNP"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "380bf267-2759-4e7f-9dab-14f55e84e282")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property "Manufacturer_No" "DNP"
 			(at 0 0 0)
 			(unlocked yes)
@@ -46084,19 +43810,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "DNP"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "5adf2c7b-35b8-4ca9-83f0-97c0740d047e")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -46246,19 +43959,6 @@
 				(font
 					(size 1 1)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "71b988dc-a3e5-43a8-a356-6faa6b5416a1")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -46433,19 +44133,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "18d616f9-af57-45a8-b84a-05e87780143d")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
-		(property "Manufacturer" "muRata"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "90ee7cba-53b1-42a5-9122-f426fc6010c6")
 			(effects
 				(font
 					(size 0.5 0.5)
@@ -46629,19 +44316,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "df7afe6a-443e-4126-8e73-ce28275f5f24")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-00005eeaf1a5")
 		(sheetname "/")
@@ -46820,19 +44494,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "60c2694a-ddc6-41e2-8c53-3c7100652b8e")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/3ea65818-69eb-4b61-9a7b-3de7d11c88ce")
 		(sheetname "/")
@@ -47002,19 +44663,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "35661dba-b9ae-4fd7-80d8-a07669304f4f")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
-		(property "Manufacturer" "Diodes"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "e46d7223-e1a9-458f-ac11-92a8f71df809")
 			(effects
 				(font
 					(size 0.5 0.5)
@@ -47378,18 +45026,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "98b7d23d-5c22-4560-a213-71ae67dfd287")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF330JTCE"
 			(at 0 0 0)
 			(layer "F.Fab")
@@ -47584,19 +45220,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "20cea177-cf29-49c1-bcf5-17b260d6fffa")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
-		(property "Manufacturer" "Texas Instruments "
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "813fdf10-9c44-4ea3-a431-a846b4a83d78")
 			(effects
 				(font
 					(size 0.5 0.5)
@@ -47945,18 +45568,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "c790f8bc-6713-45cd-8fdb-01617705de2f")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF2201TCE"
 			(at 0 0 0)
 			(layer "F.Fab")
@@ -48158,19 +45769,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "56c045db-9645-4a09-8458-ddf3dc9508f5")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/f10bfa16-7a27-4c88-bf01-86344c902e71")
 		(sheetname "/")
@@ -48325,19 +45923,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "b4289c20-c147-40e2-9720-3d3b56541518")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "4df81bf5-23df-417a-a131-3f63db97062d")
 			(effects
 				(font
 					(size 0.5 0.5)
@@ -48536,19 +46121,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "2c9c87ad-4ff9-4a63-8b14-1db1fc1eedbc")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/d7ec7da8-a2a4-4f52-b56d-08d60fbeec5b")
 		(sheetname "/")
@@ -48717,6 +46289,12 @@
 		(path "/710fe050-d753-433d-a6b3-68dd5e0f944e")
 		(sheetname "/")
 		(sheetfile "pocket-reform-motherboard.kicad_sch")
+		(units
+			(unit
+				(name "A")
+				(pins)
+			)
+		)
 		(attr board_only dnp)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_poly
@@ -50939,19 +48517,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "eb1a1317-fcc5-48c4-90f6-3de8266f8cc6")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/9826f026-4b58-4d35-b6ff-81deafd187b7")
 		(sheetname "/")
@@ -51109,18 +48674,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "772f6d5b-bf1e-4675-8691-0b5830fa1202")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "1e4a859b-6655-4dfa-b8dc-fc60b7768e56")
 			(effects
 				(font
 					(size 1 1)
@@ -51299,18 +48852,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "72e3358c-e120-42eb-a3bd-60bb8ec035dc")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "44681b89-6021-4d53-8bab-95f2a79af238")
 			(effects
 				(font
 					(size 1 1)
@@ -51507,19 +49048,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "78b3a5f1-9b66-4993-9dd5-6f778b4a5891")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-000060fc9f01")
 		(sheetname "/")
@@ -51698,19 +49226,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "3a26f96d-4597-4870-932c-f8c325b6a887")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "CP_*")
 		(path "/3d2ed5dd-8c14-4e74-ae4a-7931dccbe511")
 		(sheetname "/")
@@ -51868,18 +49383,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "b074b3e5-6906-4592-a463-cba71543aded")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "50e568b4-f710-4501-ab12-a5d569a73a2e")
 			(effects
 				(font
 					(size 1 1)
@@ -52076,19 +49579,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "53f7df6b-3478-4df8-8b56-d9e2308dcce6")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/c8e83b6e-a1d2-4064-9245-b1dcb261494d")
 		(sheetname "/")
@@ -52258,19 +49748,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "81bf4537-0239-4a01-a4a5-57fe631953e0")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "102ffb8d-baed-4ea1-aab8-70de28bb508e")
 			(effects
 				(font
 					(size 0.5 0.5)
@@ -52456,19 +49933,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "ddd59a3e-270d-4bcb-8fa9-bb84000fabd5")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "CP_*")
 		(path "/f7d75fb8-997c-4213-b27e-d9158388a9d5")
 		(sheetname "/")
@@ -52623,19 +50087,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "ed43b913-bc7b-46f9-aeeb-c07f7ec5cd02")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "2303f530-98d1-493e-9e7c-51c19a2d6246")
 			(effects
 				(font
 					(size 0.5 0.5)
@@ -52820,18 +50271,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "927c4824-4f4f-4c5e-b3e1-9cab882e700b")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1001TCE"
 			(at 0 0 0)
 			(unlocked yes)
@@ -52993,18 +50432,6 @@
 			(effects
 				(font
 					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "86a0f7e2-57bc-4ded-9355-078227233cdd")
-			(effects
-				(font
-					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -53191,18 +50618,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "9acd3a77-2912-4100-b2fc-e12892686fa5")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "a6e55a86-4bfb-4587-b300-1063babb44bc")
 			(effects
 				(font
 					(size 1 1)
@@ -53399,19 +50814,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "a2b885a4-3106-4847-9f13-92eaa091c492")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/907570d0-2bf1-40b3-9218-b1ae5d97f579")
 		(sheetname "/")
@@ -53569,18 +50971,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "5f26e03e-5e37-4d72-8ac1-c6f22677fd6d")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "eaf71f41-32ab-44e3-850f-f26dcbc6ec55")
 			(effects
 				(font
 					(size 1 1)
@@ -53777,19 +51167,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "4eab0176-3b90-40b1-8ed6-b2f70a91cd79")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/094645b4-f926-48ac-8c6c-81e03b2d5f39")
 		(sheetname "/")
@@ -53947,18 +51324,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "4a284b0b-ea40-4182-8aae-b07057c47d02")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "MSKSEMI"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "9cb3e741-7aff-4427-a994-b4e9bab845f2")
 			(effects
 				(font
 					(size 1 1)
@@ -54258,19 +51623,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "6cac163b-4ed5-4e8b-a63c-9727e108d77c")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property "LCSC" "C25744"
 			(at 0 0 0)
 			(unlocked yes)
@@ -54444,19 +51796,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "ab80cbdf-c432-483b-9b2e-cf998eb61247")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -54643,18 +51982,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "e4814d2f-9a52-466f-91bf-d9c29f033984")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "ce3de847-0a2c-4a2e-ae9c-2c6c27f58a78")
 			(effects
 				(font
 					(size 1 1)
@@ -54851,19 +52178,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "080661bd-b6ca-4ee0-b5b4-5f91af27287e")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-00005eead537")
 		(sheetname "/")
@@ -55033,19 +52347,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "c031f011-9235-4f5b-a719-3bdfb4e538a3")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "924f3874-791b-4d4e-acad-eca52bee031f")
 			(effects
 				(font
 					(size 0.5 0.5)
@@ -55226,19 +52527,6 @@
 				(font
 					(size 1 1)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Yuandi"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "bcd89ac9-81fc-4787-bf7f-f5751788c331")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -55897,18 +53185,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "854eea3c-7b62-4d45-a9fe-4bf4b979cd9e")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF4701TCE"
 			(at 0 0 0)
 			(layer "F.Fab")
@@ -56089,18 +53365,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "e11e7fe8-08af-4717-a8ce-d5ed7561abf3")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "TE"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "7ae94542-2131-4c0a-8884-2d143f16a5eb")
 			(effects
 				(font
 					(size 1 1)
@@ -57045,19 +54309,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Molex"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "6abad68f-bdef-4cdc-816e-07b19d4f758f")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/167fadd1-4e74-45f0-9c7a-5e50e41b0906")
 		(sheetname "/")
@@ -57656,18 +54907,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "b07cbee6-9d30-4a54-9218-bdc1bf017b93")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF0000TCE"
 			(at 0 0 90)
 			(unlocked yes)
@@ -57844,19 +55083,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "c713260b-ae81-4d9b-af47-8042d3ec8651")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF0000TCE"
 			(at 0 0 270)
 			(unlocked yes)
@@ -58025,18 +55251,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "a50b51d6-69ee-4587-a371-d1512a670a4e")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Everlight"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "2de07ab3-c538-4909-b598-f374ee79b743")
 			(effects
 				(font
 					(size 1 1)
@@ -58306,19 +55520,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "0802ee28-1ea0-48f1-9cae-a69d7ba2307c")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF0000TCE"
 			(at 0 0 0)
 			(unlocked yes)
@@ -58506,19 +55707,6 @@
 				(font
 					(size 1 1)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "HR(Joint Tech Elec)"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "d850b1df-729a-4326-909b-3159c6f00602")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -59247,19 +56435,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "31ce2b2f-a0d4-4aa0-a5c2-0b0c852724d3")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
-		(property "Manufacturer" "Texas Instruments "
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "23ef37e4-6400-441e-b99e-bbf35fd57aa9")
 			(effects
 				(font
 					(size 0.5 0.5)
@@ -61354,18 +58529,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Texas Instruments"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "53087942-423d-467b-810a-d3abf0bac23b")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer_No" "TUSB8041IRGCR"
 			(at 0 0 0)
 			(layer "F.Fab")
@@ -62717,19 +59880,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "93a227a4-a088-4a13-9d63-8221bbd4fc0c")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/9c0185cf-1711-4fad-af09-9d30f1a03857")
 		(sheetname "/")
@@ -62903,19 +60053,6 @@
 				(font
 					(size 1 1)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "0b90703b-60a4-4e51-b537-12217726c1cb")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -63097,19 +60234,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "add4f273-2ab7-4f9a-b80d-fc6763bb7141")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/12e22523-93ad-455b-a595-a7ffcbd143c5")
 		(sheetname "/")
@@ -63279,19 +60403,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "6ce22b18-b235-40fa-ad2c-6857973c381a")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
-		(property "Manufacturer" "Diodes"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "8ef4eb88-a378-4c06-8235-d9e6862d877c")
 			(effects
 				(font
 					(size 0.5 0.5)
@@ -63660,18 +60771,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "217604f8-c0a5-43db-9532-08e0a5076246")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Heling"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "793c7414-f119-4117-b5ed-436f2570c316")
 			(effects
 				(font
 					(size 1 1)
@@ -64195,19 +61294,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "7ca35bbe-6618-4fc4-9138-f7101ce3d4cc")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "Inductor_* L_* *Ferrite*")
 		(path "/2f798775-b15c-4e47-a82a-c6070715ebba")
 		(sheetname "/")
@@ -64365,18 +61451,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "64cc3126-0b5b-4833-a7a3-2b4a9db7df1f")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Seiko Epson"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "abd2f8a6-4fbe-4180-8e45-aff6110a4345")
 			(effects
 				(font
 					(size 1 1)
@@ -64615,19 +61689,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "edb0d09f-70db-44dd-9f63-451762c03790")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1002TCE"
 			(at 0 0 0)
 			(unlocked yes)
@@ -64830,19 +61891,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "39fbd968-faa4-488c-a5cc-558752d9ab2d")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/3dfbb4a6-5161-4b09-9fe0-59b727541637")
 		(sheetname "/")
@@ -65019,19 +62067,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "4567a4df-c2b2-46b9-9a99-84c1ade3febc")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/091a06e8-1acc-47b2-aeb2-5ad20bada928")
 		(sheetname "/")
@@ -65201,19 +62236,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "b14ccca1-43af-4c5c-8f54-99a0f25d0f6c")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "e5b16db2-3f88-4988-a6ef-1ac3559d3df4")
 			(effects
 				(font
 					(size 0.5 0.5)
@@ -65395,18 +62417,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Wurth"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "f51243e7-6227-4e28-8467-60432c3ddb8f")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer_No" "9774020243R"
 			(at 0 0 0)
 			(layer "F.Fab")
@@ -65578,19 +62588,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "8c732b22-f547-4f3c-9c2d-387ae7926fc2")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/160a4e28-c81f-41f2-832d-d30fc217639f")
 		(sheetname "/")
@@ -65743,19 +62740,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "DNP"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "3b7704d9-e6d0-4991-acd9-89e1cd827ea5")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property "Manufacturer_No" "DNP"
 			(at 0 0 0)
 			(unlocked yes)
@@ -65881,19 +62865,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "DNP"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "cf0cd399-57f9-465d-ac5a-8f4642d760a8")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property "Manufacturer_No" "DNP"
 			(at 0 0 0)
 			(unlocked yes)
@@ -66015,18 +62986,6 @@
 			(effects
 				(font
 					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "a0638924-70e2-4d37-8df5-ea304656614c")
-			(effects
-				(font
-					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -66218,18 +63177,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Wurth"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "80e79f04-0ca6-4e07-8560-305c00c33501")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer_No" "9774025243R"
 			(at 0 0 0)
 			(layer "F.Fab")
@@ -66397,19 +63344,6 @@
 				(font
 					(size 1 1)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Seiko Epson"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "b0bf4114-8908-4a44-a018-f51987072ccf")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -66588,18 +63522,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "c73dac9e-1bbe-4c59-87c3-16c6fa3f1682")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1002TCE"
 			(at 0 0 0)
 			(layer "F.Fab")
@@ -66773,18 +63695,6 @@
 			(effects
 				(font
 					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "810152cb-c076-49a9-a3f4-a2bfa339f890")
-			(effects
-				(font
-					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -66990,19 +63900,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "muRata"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "4ea243b4-ecdf-4245-a0f2-5a7c8beb99c8")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/3e042f5e-dc91-498b-85d5-62b52e16fb52")
 		(sheetname "/")
@@ -67174,19 +64071,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "9a79f001-f3d8-4131-a486-0841f13c9bce")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
-		(property "Manufacturer" "muRata"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "eeed5c0c-9ee8-41d0-b79a-636bcb348f3d")
 			(effects
 				(font
 					(size 0.5 0.5)
@@ -67370,19 +64254,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "db917a97-d3c5-4d03-ae68-9cbd71592fb9")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/2a845615-b559-44f9-85b7-e923a6868d4b")
 		(sheetname "/")
@@ -67557,19 +64428,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "a3c7cf0a-0dcf-4160-ae60-f502da27af06")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/1519ac05-19d1-4235-a393-0aa2026a4022")
 		(sheetname "/")
@@ -67719,19 +64577,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "84cba2b3-a736-4fb6-b458-47b99e88090b")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -67925,18 +64770,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "3127aefd-5e66-4116-a87e-9297233e1a2e")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF0000TCE"
 			(at 0 0 90)
 			(unlocked yes)
@@ -68119,19 +64952,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "a1b7e1da-d839-4d32-b468-3b4dd3b6ec4e")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
-		(property "Manufacturer" "Diodes"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "ddcc41fe-3645-42e9-85c1-2a28462d225f")
 			(effects
 				(font
 					(size 0.5 0.5)
@@ -68495,20 +65315,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "df322b08-f15f-4c71-8b0c-f3c6e4dac4bd")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
-		(property "Manufacturer_No" "0402WGF6801TCE"
+		(property "Manufacturer_No" "0402WGF2201TCE"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -68521,7 +65328,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C25917"
+		(property "LCSC" "C25879"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -68697,19 +65504,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "d6a89c1b-4931-4483-9812-75a2dc6edf5e")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF0000TCE"
 			(at 0 0 270)
 			(unlocked yes)
@@ -68870,19 +65664,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "4292e049-6f37-4faa-8e28-89b8cddc5658")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -69064,18 +65845,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "d76bb503-c4d5-46b4-a92f-57c84bcd80f1")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1002TCE"
 			(at 0 0 0)
 			(layer "F.Fab")
@@ -69248,19 +66017,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "4f08c26f-2717-450f-bf06-0430f25da19c")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -69466,19 +66222,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "f47413b4-980c-4648-92a8-89fde585ee43")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/b29a7b1d-f378-4660-a35c-464da6cd495b")
 		(sheetname "/")
@@ -69655,19 +66398,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "f29febe9-0e85-49c5-ad67-c0332e9a4811")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "Inductor_* L_* *Ferrite*")
 		(path "/43265b00-f00d-49d7-aa8d-b003a1eb9103")
 		(sheetname "/")
@@ -69825,18 +66555,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "0c3cf6f0-2eec-4918-be86-b08e44609208")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "42c4b9e4-0fbd-4e86-a427-4e53ef96238a")
 			(effects
 				(font
 					(size 1 1)
@@ -70005,18 +66723,6 @@
 			(effects
 				(font
 					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "f4d4beff-62b2-41ec-b6be-61136c64155d")
-			(effects
-				(font
-					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -70198,19 +66904,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "DNP"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "708fea59-607a-46bc-9cd5-bc4435a8f5dc")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property "Manufacturer_No" "DNP"
 			(at 0 0 0)
 			(unlocked yes)
@@ -70355,19 +67048,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "947a2c28-9874-4a24-a13d-830dd07a6013")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "eeace662-d5ea-430c-808e-b39a8faf33fb")
 			(effects
 				(font
 					(size 0.5 0.5)
@@ -70551,19 +67231,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "df7c6fe5-6a98-4bc4-a46f-fc914b132ab9")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/7e49852d-1d76-4885-9f6b-9a6e7c52cdd2")
 		(sheetname "/")
@@ -70740,19 +67407,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "7bed6ce5-d21b-4324-b08c-d52e70248fdc")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/9ee03c80-7698-40e9-9600-ef3dd77c294b")
 		(sheetname "/")
@@ -70905,19 +67559,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "DNP"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "2edef735-e502-4977-97a7-e8e510427548")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property "Manufacturer_No" "DNP"
 			(at 0 0 0)
 			(unlocked yes)
@@ -71048,18 +67689,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "3787af73-bfd9-4c89-9917-402e61080254")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "5335a4bc-7eaa-47db-9cdf-db5cc2b0a576")
 			(effects
 				(font
 					(size 1 1)
@@ -71249,19 +67878,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "8ce60f65-02cc-4544-bbc1-02265f89f546")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
-		(property "Manufacturer" "Texas Instruments"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "37ed579b-f805-4a08-974c-a2e6626a1cde")
 			(effects
 				(font
 					(size 0.5 0.5)
@@ -71651,19 +68267,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "efc655c8-0c59-4494-a906-be73dd7b946b")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/37aa8498-bd53-480d-a7ed-438701a63bcf")
 		(sheetname "/")
@@ -71837,19 +68440,6 @@
 				(font
 					(size 1 1)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "afaa6b11-28fb-465e-8cba-67d79760d6ab")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -72029,19 +68619,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "0d311b51-8f6f-4798-835d-62c2a5ed017a")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/2e115b36-c5ef-4d04-acc9-3c17b30d4a0b")
 		(sheetname "/")
@@ -72199,18 +68776,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "ee32d28a-3aca-4974-8c2a-9a67fb00067e")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Texas Instruments"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "a4fff22b-043e-4a52-826e-481829ff3195")
 			(effects
 				(font
 					(size 1 1)
@@ -72568,19 +69133,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "99e014ba-e105-4360-984c-d04440a984cd")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-000060fcaa65")
 		(sheetname "/")
@@ -72739,18 +69291,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "dbc7bd9b-0c33-4371-bfd2-30dab374525f")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Texas Instruments"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "b9183f42-23bf-4055-b1fb-003d1353b87f")
 			(effects
 				(font
 					(size 1 1)
@@ -73492,18 +70032,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "98d47986-09ee-4ce2-96d7-1e324defb0ee")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1003TCE"
 			(at 0 0 0)
 			(layer "F.Fab")
@@ -73677,18 +70205,6 @@
 			(effects
 				(font
 					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "b9b1f1c5-dee0-4bc2-af96-815e6b068f77")
-			(effects
-				(font
-					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -73870,19 +70386,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "DNP"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "49d96a8a-8941-4bfb-a560-1ee8b9a0322f")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property "Manufacturer_No" "DNP"
 			(at 0 0 0)
 			(unlocked yes)
@@ -74012,19 +70515,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "b6a1e6e7-0ab8-4042-b856-b170cb8f4c2c")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "686b09a0-ffa8-491d-8e10-47df192b87e5")
 			(effects
 				(font
 					(size 0.5 0.5)
@@ -74193,18 +70683,6 @@
 			(effects
 				(font
 					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "DNP"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "01ae7e98-fdc8-4e98-a6bf-9ea78b87e920")
-			(effects
-				(font
-					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -74410,19 +70888,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "279df60e-d0fd-4331-b535-b4da462bb157")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/704dc1a9-b905-443f-8f4f-9c8a3ce3ee14")
 		(sheetname "/")
@@ -74580,18 +71045,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "c10257db-097d-4379-be75-13bf62dba70f")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Texas Instruments"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "f72bd5ee-0a36-4018-803f-1e0d53cdc419")
 			(effects
 				(font
 					(size 1 1)
@@ -74951,19 +71404,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "25ae7bb9-7baa-45b7-a4e3-f5feeccb1dac")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "Choke_* *Coil* Inductor_* L_*")
 		(path "/52fab099-9006-46ad-8089-d32b060fca6d")
 		(sheetname "/")
@@ -75140,19 +71580,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "7582408d-888b-4422-8102-6c92ecaafddb")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-000060fcacbe")
 		(sheetname "/")
@@ -75301,18 +71728,6 @@
 			(effects
 				(font
 					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "005f6986-b678-4913-84dc-5ac1c51f35cd")
-			(effects
-				(font
-					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -75491,19 +71906,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "b8367ed4-6794-479d-871e-367e055fe7bb")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -75711,19 +72113,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "53135785-10ab-4d54-a9e2-7a9e260a6637")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/f63344be-12f9-4232-b1e8-0f54f9f51bc4")
 		(sheetname "/")
@@ -75871,19 +72260,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "5ef9612f-d517-40a5-ab30-c0761c264cb3")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -76089,19 +72465,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "8017bdc8-3433-4785-afc0-3148d444d774")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/ff42cbbc-3c5e-42d9-855d-15c73dc6fc4a")
 		(sheetname "/")
@@ -76269,19 +72632,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "67e64f74-9687-4673-acf7-fe4cb3652a1f")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
-		(property "Manufacturer" "muRata"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "39c37f91-8a2f-40f8-a854-facffd362d11")
 			(effects
 				(font
 					(size 0.5 0.5)
@@ -76465,19 +72815,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "484ee49c-2d0a-4e71-b719-a375cac0e1a2")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/10a8d01d-1c19-49c9-ab40-94321900e866")
 		(sheetname "/")
@@ -76630,6 +72967,19 @@
 				)
 			)
 		)
+		(property "Manufacturer_No" "DNP"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "8576d1a1-9f54-4f2a-b3a5-32e02353814f")
+			(effects
+				(font
+					(size 0.5 0.5)
+					(thickness 0.1)
+				)
+			)
+		)
 		(property ki_fp_filters "Pin* Test*")
 		(path "/a8103666-30d4-41e5-b2d5-7f2a520c7dad")
 		(sheetname "/")
@@ -76640,6 +72990,7 @@
 				(pins "1")
 			)
 		)
+		(attr dnp)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_circle
 			(center 0 0)
@@ -76736,19 +73087,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "2a85683e-7897-463b-9376-3e04c691777b")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -76934,19 +73272,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "405241a3-cccd-4aef-834b-07e0d0eac89d")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "3e33080f-3ced-4d00-a33d-8ecb85503df1")
 			(effects
 				(font
 					(size 0.5 0.5)
@@ -77145,19 +73470,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "25d7d602-2cbe-4e17-93fe-733c045f8b3f")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "CP_*")
 		(path "/6d35ad46-5ae7-450a-a8c3-61ce3b2d7707")
 		(sheetname "/")
@@ -77310,6 +73622,19 @@
 				)
 			)
 		)
+		(property "Manufacturer_No" "DNP"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "ea5638ab-23cb-4892-9535-7c0e02c90ee8")
+			(effects
+				(font
+					(size 0.5 0.5)
+					(thickness 0.1)
+				)
+			)
+		)
 		(property ki_fp_filters "Pin* Test*")
 		(path "/84146a5d-4e9b-4066-9e9e-275cbded17f6")
 		(sheetname "/")
@@ -77320,6 +73645,7 @@
 				(pins "1")
 			)
 		)
+		(attr dnp)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_circle
 			(center 0 0)
@@ -77418,19 +73744,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "3d90c318-7beb-476b-ba33-6f6a9d4a0f24")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -77608,18 +73921,6 @@
 			(effects
 				(font
 					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "b2aa2762-9139-4499-bb17-5b6bc8252bd4")
-			(effects
-				(font
-					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -77805,19 +74106,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "b0f96c87-13f3-4e2b-9ad8-aa2c0990066e")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
-		(property "Manufacturer" "Nichicon"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "e947f720-350b-4951-8856-cea5ab8c6586")
 			(effects
 				(font
 					(size 0.5 0.5)
@@ -78265,19 +74553,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "50e5de83-5536-4e6f-b268-8eba382dc98a")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/4e0d1b25-4858-4c08-87dc-3b6e840dd3fa")
 		(sheetname "/")
@@ -78454,19 +74729,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "73b11c19-19a7-4213-861e-00628d6094d8")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-00006109428b")
 		(sheetname "/")
@@ -78624,18 +74886,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "f0fb4e6f-3408-4467-849f-268e0d134fb3")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "6dd97848-de28-43d5-9714-d5bb6d1dfffb")
 			(effects
 				(font
 					(size 1 1)
@@ -78805,19 +75055,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "a142cd5b-c276-499c-8265-921937382da5")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -79020,19 +75257,6 @@
 				(font
 					(size 1 1)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Texas Instruments"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "f9185e04-0b18-44a1-ab2a-1be2691628c8")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -79505,19 +75729,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "e6d2eeae-846f-4064-a2ac-3bce04e81f68")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF0000TCE"
 			(at 0 0 0)
 			(unlocked yes)
@@ -79679,18 +75890,6 @@
 			(effects
 				(font
 					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "248c2cee-50e7-4b8c-ac2c-6f45a3fe4b18")
-			(effects
-				(font
-					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -79870,19 +76069,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "4e3a3628-a902-4ef5-b033-46d6f60ce9ad")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property "LCSC" "C25744"
 			(at 0 0 0)
 			(unlocked yes)
@@ -80056,19 +76242,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Nidec"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "51d7f5c4-637f-4072-936b-8e444d7c4a14")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -80406,19 +76579,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "53470b15-9dab-468b-a252-40624b0a629a")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/4802081e-31f3-4485-a824-bfb583be290c")
 		(sheetname "/")
@@ -80576,18 +76736,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "b1800a68-6dd9-40af-8779-d8f0555690a8")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "NXP"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "74e49c8b-a111-44d6-ad11-05461fc96c74")
 			(effects
 				(font
 					(size 1 1)
@@ -80995,18 +77143,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "14278222-cc52-48f1-9696-aea7f47dbfd5")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF0000TCE"
 			(at 0 0 180)
 			(unlocked yes)
@@ -81196,19 +77332,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "fb5f7a7a-2bf9-4c98-b54a-f647d4abf1a4")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/9d9cd471-e134-46b8-92f9-21bc529f6343")
 		(sheetname "/")
@@ -81358,19 +77481,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "6bbe9547-9e13-4886-80f1-1c5310b40473")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -81575,19 +77685,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Abracon"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "87f4d503-b92f-441a-8581-0df6c1e343c2")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "Crystal*")
 		(path "/13be0ad3-434d-45d1-b169-37470f4cc33f")
 		(sheetname "/")
@@ -81768,18 +77865,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "2296314a-9d5c-49db-b628-8f45bf517311")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Texas Instruments"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "b45e1e28-b9b9-4691-9ecb-f3372741d5ca")
 			(effects
 				(font
 					(size 1 1)
@@ -82137,19 +78222,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "muRata"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "efc100b9-06b7-4519-8db0-22be568984fe")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/4463c5b3-9a6d-4eb8-a973-b2170194086d")
 		(sheetname "/")
@@ -82299,19 +78371,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "c09ad942-2da0-4724-8489-46cc0bad1748")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -82514,19 +78573,6 @@
 				(font
 					(size 1 1)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Texas Instruments"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "fff89b98-0ccd-4fba-9b8f-6f804e4e42a8")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -82952,19 +78998,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "0a59d00b-1e78-4322-bc4a-92130382f569")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/608ce8ed-c97d-4caa-a035-e62ad1c3fc83")
 		(sheetname "/")
@@ -83113,18 +79146,6 @@
 			(effects
 				(font
 					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "5354f847-81b4-4e76-925f-d2cc14ce0828")
-			(effects
-				(font
-					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -83301,19 +79322,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "c77370b9-7970-40b7-97e2-08c526ef0b09")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -83495,19 +79503,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "DNP"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "d9841566-afdf-4be6-acd4-40e7b0ee0ec6")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property "Manufacturer_No" "DNP"
 			(at 0 0 0)
 			(unlocked yes)
@@ -83654,19 +79649,6 @@
 				(font
 					(size 1 1)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "muRata"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "5002a1f0-fd9b-40d1-9f30-51300926ca79")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -83846,19 +79828,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "92144a6c-1db4-4a64-bdb5-866f28f6656a")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/27dac614-713f-4807-8b0a-41155b121b0f")
 		(sheetname "/")
@@ -84007,18 +79976,6 @@
 			(effects
 				(font
 					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "1acb3b9a-1f81-43bb-aff4-15b8499bdc19")
-			(effects
-				(font
-					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -84200,19 +80157,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "DNP"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "ce0518d8-fc9f-42c7-9295-e501694b9c7d")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property "Manufacturer_No" "DNP"
 			(at 0 0 0)
 			(unlocked yes)
@@ -84334,18 +80278,6 @@
 			(effects
 				(font
 					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "3a8a5e06-504a-46ea-b3d3-528fc978a170")
-			(effects
-				(font
-					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -84532,18 +80464,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "d768ea35-4d08-4522-a77d-4339d246bbc2")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "02705c29-df50-43c6-abf2-f11761e36b3d")
 			(effects
 				(font
 					(size 1 1)
@@ -84742,19 +80662,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "584b8431-d48b-4fb3-9102-43a9445dc810")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-00005eeaccad")
 		(sheetname "/")
@@ -84903,18 +80810,6 @@
 			(effects
 				(font
 					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "62c3f9f6-af23-40ea-b4ad-21f283fe7349")
-			(effects
-				(font
-					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -85093,19 +80988,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Texas Instruments"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "f16b3694-6e3e-454c-b511-96dc56355448")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -85486,19 +81368,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "muRata"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "c3852d50-9ef2-467d-9c46-7f935e7a2efb")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/3a1b31ed-4a25-4cf2-8415-dffd4cae6614")
 		(sheetname "/")
@@ -85645,18 +81514,6 @@
 			(effects
 				(font
 					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Samtec"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "31eead6d-d21d-4989-bbfb-bffe02efbf4c")
-			(effects
-				(font
-					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -86056,19 +81913,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Diodes"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "7adbdd2e-f786-40b3-9509-4deeb8ab37d6")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "SOT?23*")
 		(path "/ed40f185-ecd5-4412-8b03-baccffa1d148")
 		(sheetname "/")
@@ -86449,19 +82293,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "7eeab856-b9a5-42a7-a28b-60981c3ff860")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-000061094277")
 		(sheetname "/")
@@ -86610,18 +82441,6 @@
 			(effects
 				(font
 					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "a8c2287c-b94a-4b37-bbd0-03b4301e8cec")
-			(effects
-				(font
-					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -86798,19 +82617,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Texas Instruments"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "32f57b02-6b96-422a-ada7-1cd562cd5ea9")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -87236,18 +83042,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "a149304e-090d-497e-b156-e992b8d8c8ce")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF4702TCE"
 			(at 0 0 0)
 			(layer "F.Fab")
@@ -87449,19 +83243,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "91a35f98-47c4-4b05-907d-d3492e8ce66f")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "Inductor_* L_* *Ferrite*")
 		(path "/c4a52883-f463-4643-8f84-79d184b14d7d")
 		(sheetname "/")
@@ -87609,19 +83390,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "b8d361f0-1b7c-4d6d-94a4-2c8878d2b2aa")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -87800,19 +83568,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "7b590499-84b1-4039-aa25-14afcbd2ce2f")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -88020,19 +83775,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "65736405-7cb8-4954-a21d-22a40a3d28e2")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "CP_*")
 		(path "/2f4b26fd-3812-42ab-ac72-b34192141dcd")
 		(sheetname "/")
@@ -88207,19 +83949,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "58701474-82fe-4191-8187-318b788dd56d")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/cbd870f8-6fcc-4357-993d-cf4157ca53aa")
 		(sheetname "/")
@@ -88376,19 +84105,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "30736af3-e0d2-455a-8d28-d626b9e00b65")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "eae6679d-1f17-45d8-83f3-3381be5301ec")
 			(effects
 				(font
 					(size 0.5 0.5)
@@ -88585,19 +84301,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "adb308c5-eb75-41b9-8ba9-4f8dc2c74b1b")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/fb4ddbc4-055f-4c39-9407-152c4312d6e2")
 		(sheetname "/")
@@ -88746,18 +84449,6 @@
 			(effects
 				(font
 					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "fcbad454-f562-48e6-8ca0-7adb8a585836")
-			(effects
-				(font
-					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -88935,18 +84626,6 @@
 			(effects
 				(font
 					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "b2b1b16c-6aea-4ad5-9809-2d2661732fda")
-			(effects
-				(font
-					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -89131,18 +84810,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "b55a108f-229a-4941-9c75-3c83a8972c56")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Guoconn"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "eceb2869-7bd4-401e-b6ca-09c5d2794fcd")
 			(effects
 				(font
 					(size 1 1)
@@ -90078,19 +85745,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "ccfb5a61-8323-4635-9cbe-cf1c0cde53dc")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property "LCSC" "C25879"
 			(at 0 0 270)
 			(unlocked yes)
@@ -90266,19 +85920,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "d34e7e5e-346d-4763-9196-71c144b27aa6")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -90486,19 +86127,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "f101aecf-1188-49f2-9550-39a635b172de")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "CP_*")
 		(path "/57d5351a-5274-48ac-be87-420dc807c045")
 		(sheetname "/")
@@ -90647,18 +86275,6 @@
 			(effects
 				(font
 					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "41e5e4ac-9260-461d-8905-945f2697df83")
-			(effects
-				(font
-					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -90844,19 +86460,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "2dd92ca2-ed06-4337-867d-a70bb41f3d40")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
-		(property "Manufacturer" "NXP"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "a1933bf6-02d1-4bc9-a93b-8a18bf85a5eb")
 			(effects
 				(font
 					(size 0.5 0.5)
@@ -91319,19 +86922,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "926355fa-d235-4cc4-9013-b1ff2cc9b49c")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/9c269d4b-42b2-4398-9ade-e3f9f4210204")
 		(sheetname "/")
@@ -91508,19 +87098,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "c09bd148-0df6-4a97-bb5f-7e7cdf46bae0")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/0456583e-9110-45fe-ac84-1235bdcd5e53")
 		(sheetname "/")
@@ -91673,19 +87250,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "DNP"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "ff5cdc54-5781-48e0-a7b3-cae7f49380a5")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property "Manufacturer_No" "DNP"
 			(at 0 0 0)
 			(unlocked yes)
@@ -91807,18 +87371,6 @@
 			(effects
 				(font
 					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "JST"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "1a41e79c-fed6-4181-8a25-11e554693b1a")
-			(effects
-				(font
-					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -92253,19 +87805,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "de0520d9-7290-4338-9636-ae5bbb4d654a")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property "LCSC" "C17168"
 			(at 0 0 90)
 			(unlocked yes)
@@ -92468,19 +88007,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "1eb41e1d-127f-4acb-9f27-b9f804395f90")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/469c4fc8-c2ac-481d-ab8c-cb70eda395a1")
 		(sheetname "/")
@@ -92654,19 +88180,6 @@
 				(font
 					(size 1 1)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "fec3be4d-f3ef-41ed-a58c-374c08fa4cee")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -92846,19 +88359,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "75f07e75-ec53-4024-b6a3-201506b68afc")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/aa70a60a-0243-4ad7-b860-441ada340104")
 		(sheetname "/")
@@ -93016,18 +88516,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "83f75c4b-a5dd-44d8-a524-e688f7ce23f9")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "bfb53e86-ba82-4ff8-9a5b-f031ad65a92c")
 			(effects
 				(font
 					(size 1 1)
@@ -93224,19 +88712,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "f37d249d-9a09-444e-a577-2fb374cb8475")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/6d855ab6-37f9-403d-b3b6-6db876c3574d")
 		(sheetname "/")
@@ -93410,19 +88885,6 @@
 				(font
 					(size 1 1)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "8029b5a6-e2a0-44b3-9cd8-83b166179d39")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -93602,19 +89064,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "muRata"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "f7985de8-5b21-46e9-863e-7501506bac50")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/f59b0e07-17f6-4f14-b07f-6c146950cae9")
 		(sheetname "/")
@@ -93764,19 +89213,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "8edfbeee-9cb5-4a79-a08e-98a72f856e0e")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -93982,19 +89418,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "aafccf95-bee1-4ebb-921c-3548e78b7126")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-00005eeaefe2")
 		(sheetname "/")
@@ -94144,19 +89567,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "fd018a79-8a3a-4478-bb52-3c42fe077a92")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -94362,19 +89772,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "0826fc2f-3852-4e65-9c6f-903efff1f24e")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/73a00b9b-6937-4b8a-9b30-4968e9fe74c7")
 		(sheetname "/")
@@ -94548,19 +89945,6 @@
 				(font
 					(size 1 1)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "ON Semi"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "96593451-99c5-48ee-8e9d-6a171d34be1e")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -95140,18 +90524,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "e46c9cac-d55f-4374-a099-ccce95b53d65")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1002TCE"
 			(at 0 0 0)
 			(layer "F.Fab")
@@ -95353,19 +90725,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "86e7c67a-1fc4-4248-95fd-65bd3eb9e283")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/5ac172c9-944c-44b7-8a64-ef3014237d97")
 		(sheetname "/")
@@ -95544,19 +90903,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "26948859-79b6-4e31-8556-71aed147e920")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/994efb1f-3710-4614-a650-1515b931c8ea")
 		(sheetname "/")
@@ -95705,18 +91051,6 @@
 			(effects
 				(font
 					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "b29c1ec1-3847-4dd2-ac41-e65fabdcdd0a")
-			(effects
-				(font
-					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -95898,19 +91232,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "DNP"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "8192995e-e5d3-4a1a-a505-15403356fda3")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property "Manufacturer_No" "DNP"
 			(at 0 0 0)
 			(unlocked yes)
@@ -96057,19 +91378,6 @@
 				(font
 					(size 1 1)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "9a2ed00b-572a-406c-88eb-a4e31d91262d")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -96225,19 +91533,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "DNP"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "2030e91b-7e82-4d88-862a-9d694fd83c54")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property "Manufacturer_No" "DNP"
 			(at 0 0 0)
 			(unlocked yes)
@@ -96360,19 +91655,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "DNP"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "e00f1137-58fc-499e-a6f0-cbb51ac53fbb")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -96520,19 +91802,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "860fd92b-a5ed-4151-b88f-48e37427e4c6")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "f0e3b6ba-0cce-4d6c-abda-5390f27c1b01")
 			(effects
 				(font
 					(size 0.5 0.5)
@@ -96718,19 +91987,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "d47ae699-559c-46e7-89ef-bd5e2ee9fd63")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "CP_*")
 		(path "/d90a5efa-39a9-494e-b6b7-407ce6ac85fa")
 		(sheetname "/")
@@ -96902,19 +92158,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "7308d339-c8c1-4932-abf9-eaf4ae026f79")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "b51b0039-beb5-4ec8-a935-8ab46c0f1c99")
 			(effects
 				(font
 					(size 0.5 0.5)
@@ -97100,19 +92343,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "150c7b6b-b0fd-40aa-a5cf-dc6c319c1996")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/a67a223a-c69d-416e-ae17-467132599326")
 		(sheetname "/")
@@ -97261,18 +92491,6 @@
 			(effects
 				(font
 					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "JST"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "f399be59-f226-4df5-941a-c7e73eed60e3")
-			(effects
-				(font
-					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -97753,19 +92971,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "23cbf9f4-7b82-4ddf-8a3a-4b17cd72cce2")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/04f8f807-d0ea-466a-9989-5efa5e28395a")
 		(sheetname "/")
@@ -97914,18 +93119,6 @@
 			(effects
 				(font
 					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "6a5758a7-dcd5-47c2-ba28-116373584f26")
-			(effects
-				(font
-					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -98102,19 +93295,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "17141818-1415-4b63-a807-d3553d03106f")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -98296,18 +93476,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "30f445ed-b6b8-4c6e-b6d6-cfa3db23bb97")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF330JTCE"
 			(at 0 0 0)
 			(layer "F.Fab")
@@ -98482,19 +93650,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "FH"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "9e7e8af0-84ee-44ac-8048-4b9632fffb49")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -98676,18 +93831,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "a5ccf7fa-0dcc-4f5b-bbcc-8e8e347541c2")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF750JTCE"
 			(at 0 0 0)
 			(layer "F.Fab")
@@ -98858,19 +94001,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Texas Instruments "
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "1c1437d1-c3e0-4bd5-b619-0c788cd033ab")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -99780,18 +94910,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "86da6d93-bd9d-4a8d-a372-33697ad19e8e")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF0000TCE"
 			(at 0 0 90)
 			(unlocked yes)
@@ -99981,19 +95099,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "cijang"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "740f421a-2b0e-4b4a-828d-cdc2f1579b59")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "Choke_* *Coil* Inductor_* L_*")
 		(path "/b682ef5d-3d33-43d9-b6e9-5ae3fcb73690")
 		(sheetname "/")
@@ -100161,19 +95266,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "9178e2db-912a-4567-b7b4-268736f2e023")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -100379,19 +95471,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "cijang"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "73a56d3c-8dc1-4ae2-bf74-1f953ff6239e")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "Choke_* *Coil* Inductor_* L_*")
 		(path "/51290c98-afe4-491f-ae77-0014f2f721b9")
 		(sheetname "/")
@@ -100585,19 +95664,6 @@
 				(font
 					(size 1 1)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Texas Instruments"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "b0e1589f-0618-4165-9440-95aafbfa5315")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -100952,19 +96018,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "3b1ab7d6-f75d-4666-bd9c-15478303bac0")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property "LCSC" "C25744"
 			(at 0 0 270)
 			(unlocked yes)
@@ -101140,19 +96193,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "431b5e91-d549-4360-b0ac-7b2e40105615")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -101334,19 +96374,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "f543c09c-783f-481c-b489-0b324a2c4038")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property "LCSC" "C25744"
 			(at 0 0 180)
 			(unlocked yes)
@@ -101520,19 +96547,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Infineon"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "12c9fbc1-60b3-47dc-886f-61519cc567c7")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -102368,19 +97382,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "537a1ca7-f1b8-4b9b-b019-6163cf5663c4")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1001TCE"
 			(at 0 0 180)
 			(unlocked yes)
@@ -102563,19 +97564,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "5f5aeee2-63df-4acc-b871-f64f6b5fa2bf")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
-		(property "Manufacturer" "HCTL"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "f98fa625-7d20-4672-a112-0a2bd4b217ff")
 			(effects
 				(font
 					(size 0.5 0.5)
@@ -103133,19 +98121,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "f203c0e0-8bd4-42da-bd16-5ca31c374801")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF0000TCE"
 			(at 0 0 0)
 			(unlocked yes)
@@ -103335,19 +98310,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "3995bc7d-c93f-4c5c-8e99-c4f69ebd25c8")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/10cb563f-c686-4494-93d9-f84322a84be6")
 		(sheetname "/")
@@ -103497,19 +98459,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "6cb4891e-cec3-42bd-9d19-b6ef87f8abcf")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -103686,19 +98635,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "f8d2ba62-0dd1-49fd-b694-79a1e56043f3")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -103880,19 +98816,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "DNP"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "0cb420a7-939f-43ed-a755-c833f48d86bf")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property "Manufacturer_No" "DNP"
 			(at 0 0 0)
 			(unlocked yes)
@@ -104014,18 +98937,6 @@
 			(effects
 				(font
 					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "ca4c3d25-da5a-46af-b96b-4c58e7dc6f45")
-			(effects
-				(font
-					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -104219,18 +99130,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "2234d6e4-d212-4c70-974d-9f5721568b77")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF0000TCE"
 			(at 0 0 90)
 			(unlocked yes)
@@ -104396,19 +99295,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "DNP"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "d9d83a40-f7af-40cb-bb6f-481d6d20953c")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property "Manufacturer_No" "DNP"
 			(at 0 0 0)
 			(unlocked yes)
@@ -104540,19 +99426,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "23cf967c-df62-449a-97e3-a2631865c6d7")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "4185f7bf-844a-4179-8ce0-c0845f0c2a39")
 			(effects
 				(font
 					(size 0.5 0.5)
@@ -104725,19 +99598,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "DNP"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "2a1ac1dc-8d78-4a63-9561-08d4cdf2bace")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property "Manufacturer_No" "DNP"
 			(at 0 0 0)
 			(unlocked yes)
@@ -104858,19 +99718,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "FH"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "c25923dd-7668-4048-a1bf-e0adb5543bc4")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -105049,19 +99896,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "2ca5de78-d3c9-4f8d-a821-e05b7bdf491d")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -105260,19 +100094,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "2b66a671-fd95-49b8-ab9d-03b97aedf84e")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
-		(property "Manufacturer" "Winbond"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "67f45043-5902-4545-8ceb-e2da921c9425")
 			(effects
 				(font
 					(size 0.5 0.5)
@@ -105669,19 +100490,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "8d583a1f-f50f-4313-98bb-db72d77715af")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1001TCE"
 			(at 0 0 180)
 			(unlocked yes)
@@ -105850,18 +100658,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "67cacee6-b46d-405e-ba9f-fbe89f8f9c81")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Molex"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "28e494c3-5607-4629-997d-525f199304e3")
 			(effects
 				(font
 					(size 1 1)
@@ -106392,18 +101188,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "DNP"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "efe1a5db-46fe-4658-8996-aa00c4b57b68")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer_No" "DNP"
 			(at 0 0 0)
 			(layer "F.Fab")
@@ -106605,19 +101389,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "muRata"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "0c6575d4-b029-46d4-a727-785f3baa3a34")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/53f6dcb8-0c6e-4c9b-afb3-a79ecf896d7c")
 		(sheetname "/")
@@ -106775,18 +101546,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "4aa24e6e-3b45-4474-8c04-ddbfedad8271")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "1959d98f-8ea5-4b11-99f9-7dc7d0966aed")
 			(effects
 				(font
 					(size 1 1)
@@ -106955,18 +101714,6 @@
 			(effects
 				(font
 					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "DNP"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "5bbf60d3-5636-49e7-a3fe-a8deb080cebe")
-			(effects
-				(font
-					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -107144,18 +101891,6 @@
 			(effects
 				(font
 					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "0328dd0b-0261-4bae-82cb-ed02c4ed894d")
-			(effects
-				(font
-					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -107361,19 +102096,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "36b60906-42a3-4cdd-b000-417439aa8a5e")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "Inductor_* L_* *Ferrite*")
 		(path "/01a038c1-7d32-465f-b5da-77b960f2a9fd")
 		(sheetname "/")
@@ -107550,19 +102272,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "f069c9e5-d016-46bb-8a3c-f7b110389eec")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/52ca473c-f470-4c26-ad76-bf4234d23ea7")
 		(sheetname "/")
@@ -107732,19 +102441,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "5b44f9d1-dd67-419f-8119-8ae41ba0992d")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
-		(property "Manufacturer" "muRata"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "9e3aa4f3-b360-40a0-9ce8-bc565b52b538")
 			(effects
 				(font
 					(size 0.5 0.5)
@@ -107928,19 +102624,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "bbea02a2-50c8-4a7e-8faf-88c7da249edb")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/ec871bd6-bead-40da-a85f-e44ce16fc43d")
 		(sheetname "/")
@@ -108089,18 +102772,6 @@
 			(effects
 				(font
 					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "0b69eb7c-55b7-42e4-8f37-2cb8eead96a3")
-			(effects
-				(font
-					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -108277,19 +102948,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "2ca594d0-4723-4172-984f-d208cdb21fb0")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -108495,19 +103153,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "74b57869-f40b-482e-8a28-924b97aa1fc8")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/be776534-6b2d-4835-a903-e51d087e87d8")
 		(sheetname "/")
@@ -108656,18 +103301,6 @@
 			(effects
 				(font
 					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "578ebf6b-0141-433b-8eb4-e350464ee876")
-			(effects
-				(font
-					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -108873,19 +103506,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "722951c5-8903-403b-8a1b-03cbcfa6acf7")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/9ecb0eb3-0e4b-481f-8715-30c68bfcbc7d")
 		(sheetname "/")
@@ -109034,18 +103654,6 @@
 			(effects
 				(font
 					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "2df1a3a6-ff2e-4747-9647-7f33e3f6e6e9")
-			(effects
-				(font
-					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -109239,18 +103847,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "dc9c21a0-2763-4188-b538-165e80492b98")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF1001TCE"
 			(at 0 0 0)
 			(unlocked yes)
@@ -109418,19 +104014,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "1466576f-e699-4fbe-97a8-da178fbae507")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "0b22a320-b0b5-4da3-9610-1d4c2fdf34c8")
 			(effects
 				(font
 					(size 0.5 0.5)
@@ -109627,19 +104210,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "2d612371-c2d0-49d4-96ba-bf3a811885eb")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/622de316-71a3-4c14-b3bc-2a2436e408c8")
 		(sheetname "/")
@@ -109797,18 +104367,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "0b2cc63b-17e6-46ad-a2fa-302a52985136")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Raspberry Pi"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "6f8d425f-835f-424f-885b-009589f7a7bb")
 			(effects
 				(font
 					(size 1 1)
@@ -110792,18 +105350,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Texas Instruments"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "87fe03d1-0ff8-45b4-98d4-16da0ff528f7")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer_No" "TPD4E02B04DQAR-TP"
 			(at 0 0 0)
 			(layer "F.Fab")
@@ -111314,19 +105860,6 @@
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "4ab18791-ca05-4df0-8545-1fcf99dc8191")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
-		(property "Manufacturer" "Texas Instruments"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "b2efa068-4035-4ae5-8575-beeb765f6a12")
 			(effects
 				(font
 					(size 0.5 0.5)
@@ -112474,18 +107007,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "ed7fc0de-b3e5-4bcc-a7eb-3dcb068b7d33")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF0000TCE"
 			(at 0 0 90)
 			(unlocked yes)
@@ -112662,19 +107183,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "d87643a9-0d00-4308-90be-bc5b7be9e419")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF0000TCE"
 			(at 0 0 270)
 			(unlocked yes)
@@ -112835,19 +107343,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "50b9843d-1471-4f33-aacd-4f624848c4c6")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
@@ -113053,19 +107548,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
-			(at 0 0 270)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "ed72ca4a-d117-4334-9f0b-d14794990b67")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
-				)
-			)
-		)
 		(property ki_fp_filters "C_*")
 		(path "/5373bafc-ca60-41ed-8860-545c7904892d")
 		(sheetname "/")
@@ -113218,18 +107700,6 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
-			(at 0 0 0)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "0f156d23-9b8c-4c76-8d2a-c16b4b4fe46f")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Manufacturer_No" "0402WGF330JTCE"
 			(at 0 0 0)
 			(layer "F.Fab")
@@ -113265,7 +107735,7 @@
 				(pins "1" "2")
 			)
 		)
-		(attr smd dnp)
+		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
 			(start -0.153641 0.38)
@@ -113428,19 +107898,6 @@
 				(font
 					(size 1 1)
 					(thickness 0.15)
-				)
-			)
-		)
-		(property "Manufacturer" "Samsung"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "90dd1f11-a5ab-49c6-abde-82928df848d1")
-			(effects
-				(font
-					(size 0.5 0.5)
-					(thickness 0.1)
 				)
 			)
 		)
