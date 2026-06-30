@@ -61340,6 +61340,16 @@
 		)
 		(uuid "0a6e04ad-575b-4e05-9fe5-d8385b8653f8")
 	)
+	(label "VCONN"
+		(at 1101.09 55.88 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "14c99bd3-48a2-4460-96e3-1c4f1467a83f")
+	)
 	(label "DP3_P"
 		(at 1087.12 270.51 0)
 		(effects
@@ -113708,7 +113718,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
 			(at 1036.32 81.28 0)
 			(hide yes)
 			(show_name no)
@@ -122920,7 +122930,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.0mm"
 			(at 1050.29 81.28 0)
 			(hide yes)
 			(show_name no)

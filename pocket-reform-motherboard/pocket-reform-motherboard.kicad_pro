@@ -83,7 +83,7 @@
         "footprint_filters_mismatch": "ignore",
         "footprint_symbol_field_mismatch": "warning",
         "footprint_symbol_mismatch": "warning",
-        "footprint_type_mismatch": "error",
+        "footprint_type_mismatch": "ignore",
         "hole_clearance": "error",
         "hole_near_hole": "error",
         "hole_to_hole": "error",
@@ -107,12 +107,12 @@
         "padstack": "error",
         "pth_inside_courtyard": "ignore",
         "shorting_items": "error",
-        "silk_edge_clearance": "warning",
+        "silk_edge_clearance": "ignore",
         "silk_over_copper": "warning",
-        "silk_overlap": "warning",
+        "silk_overlap": "ignore",
         "skew_out_of_range": "error",
         "solder_mask_bridge": "error",
-        "starved_thermal": "error",
+        "starved_thermal": "warning",
         "text_height": "warning",
         "text_on_edge_cuts": "error",
         "text_thickness": "warning",
@@ -128,7 +128,7 @@
         "tuning_profile_track_geometries": "ignore",
         "unconnected_items": "error",
         "unresolved_variable": "error",
-        "via_dangling": "warning",
+        "via_dangling": "error",
         "zones_intersect": "error"
       },
       "rules": {
@@ -854,7 +854,7 @@
         "uuid": "63c56ea4-91a3-4172-b9de-a4388cc8f894"
       }
     ],
-    "used_designators": "U41,C136-138,C157-158,#PWR147,#PWR149-150,TP20-21,R33,R142-143,R166-170",
+    "used_designators": "",
     "variants": []
   },
   "sheets": [
