@@ -319,6 +319,10 @@ void hwapi_vdm([[maybe_unused]] struct cli_context* ctx, uint64_t message_type, 
   send_vdm(message_type, prime);
 }
 
+void hwapi_vdm2([[maybe_unused]] struct cli_context* ctx, uint64_t obj0, uint64_t obj1) {
+  send_vdm2(obj0, obj1);
+}
+
 void hwapi_pd_cap([[maybe_unused]] struct cli_context* ctx, uint64_t prime) {
   send_source_cap(prime);
 }
@@ -364,6 +368,7 @@ void hwapi_pocket_init(battery_info_s *binfo) {
   cli_add_func("soc-psus", hwapi_soc_post_suspend, 0, CLI_TYPE_UINT64);
   cli_add_func("pwrsave\0", enter_powersave, 0, CLI_TYPE_VOID);
   cli_add_func("vdm\0\0\0\0\0", hwapi_vdm, 2, CLI_TYPE_VOID);
+  cli_add_func("vdm2\0\0\0\0", hwapi_vdm2, 2, CLI_TYPE_VOID);
   cli_add_func("pdcap\0\0\0", hwapi_pd_cap, 1, CLI_TYPE_VOID);
   cli_add_func("pdreset\0", hwapi_pd_send_reset, 1, CLI_TYPE_VOID);
   cli_add_func("pdvolt\0\0", hwapi_pd_set_max_voltage, 1, CLI_TYPE_VOID);
