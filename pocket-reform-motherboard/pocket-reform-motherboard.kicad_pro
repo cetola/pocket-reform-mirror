@@ -780,6 +780,12 @@
           "label": "Check_prices",
           "name": "Check_prices",
           "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Notes",
+          "name": "Notes",
+          "show": false
         }
       ],
       "filter_string": "",
@@ -848,7 +854,7 @@
         "uuid": "63c56ea4-91a3-4172-b9de-a4388cc8f894"
       }
     ],
-    "used_designators": "",
+    "used_designators": "L1,U42",
     "variants": []
   },
   "sheets": [
