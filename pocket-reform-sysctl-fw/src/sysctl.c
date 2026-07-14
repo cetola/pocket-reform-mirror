@@ -845,9 +845,10 @@ void setup_gpios() {
   gpio_put(PIN_LED_G, 0);
 
   if (mb_version() >= 2) {
-    // USB-C port 2 power rail
-    gpio_init(PIN_USB_SRC_ENABLE);
-    gpio_set_dir(PIN_USB_SRC_ENABLE, GPIO_OUT);
+    gpio_init(PIN_USB_SRC1_ENABLE);
+    gpio_set_dir(PIN_USB_SRC1_ENABLE, GPIO_OUT);
+    gpio_init(PIN_USB_SRC2_ENABLE);
+    gpio_set_dir(PIN_USB_SRC2_ENABLE, GPIO_OUT);
   } else if (mb_version() < 2) {
     // USB-C port 1 power rail
     gpio_init(PIN_USB_SRC_ENABLE);
@@ -1096,36 +1097,27 @@ void handle_usb_commands() {
 }
 
 // TODO: abstract MPS communication away into a charger file
-void usb_host_5v_enable() {
+void usb_host_5v_set(int port, int enable) {
+  enable = !!enable;
   if (mb_version() < 2) {
 #ifndef OTG_AS_5V
-    gpio_put(PIN_USB_SRC_ENABLE, 1);
+    gpio_put(PIN_USB_SRC_ENABLE, enable);
 #else
-    mps_reg_config.config0.otg_en = 1;
+    // NOTE: obsolete, can only be used on charger v1.0
+    mps_reg_config.config0.otg_en = enable;
     mps_write_byte(MPS_REG_CONFIG0, mps_reg_config.config0.reg_byte);
 #endif
   } else if (mb_version() >= 2) {
     //printf("# [usb_host_5v_enable]\n");
-    // TODO: hardware error on mb2.0 d-1+charger 2.0: no 5v supplied to VBUS, can't use otg
-    gpio_put(PIN_USB_SRC_ENABLE, 1);
+    if (port == 1) {
+      gpio_put(PIN_USB_SRC2_ENABLE, enable);
+    } else {
+      gpio_put(PIN_USB_SRC1_ENABLE, enable);
+    }
   }
 }
 
-void usb_host_5v_disable() {
-  if (mb_version() < 2) {
-#ifndef OTG_AS_5V
-    gpio_put(PIN_USB_SRC_ENABLE, 0);
-#else
-    mps_reg_config.config0.otg_en = 0;
-    mps_write_byte(MPS_REG_CONFIG0, mps_reg_config.config0.reg_byte);
-#endif
-  } else if (mb_version() >= 2) {
-    //printf("# [usb_host_5v_disable]\n");
-    // TODO: hardware error on mb2.0 d-1+charger 2.0: no 5v supplied to VBUS, can't use otg
-    gpio_put(PIN_USB_SRC_ENABLE, 0);
-  }
-}
-
+// TODO: replace with actual timer
 #define TICK_MS 1
 
 //static int cs_state_prev = 0;

@@ -119,13 +119,15 @@ uint64_t hwapi_set_gpio([[maybe_unused]] struct cli_context* ctx, uint64_t id, u
   switch (id) {
   case 0: {
     // 0: Display Panel Reset (active low)
-    // TODO: v10 only
-    gpio_put(PIN_DISP_RESET, high);
-    // TODO: v20 only
-    if (high) {
-      gpio_ext_enable(GPIO_EXT_DISP_RESET_N);
-    } else {
-      gpio_ext_disable(GPIO_EXT_DISP_RESET_N);
+    if (mb_version() < 2) {
+      gpio_put(PIN_DISP_RESET, high);
+    }
+    if (mb_version() >= 2) {
+      if (high) {
+        gpio_ext_enable(GPIO_EXT_DISP_RESET_N);
+      } else {
+        gpio_ext_disable(GPIO_EXT_DISP_RESET_N);
+      }
     }
     break;
   }
@@ -170,15 +172,13 @@ uint64_t hwapi_set_gpio([[maybe_unused]] struct cli_context* ctx, uint64_t id, u
     break;
   }
   case 6: {
-    if (high) {
-      usb_host_5v_enable();
-    } else {
-      usb_host_5v_disable();
-    }
+    // TODO: dangerous to directly control?
+    charger_disable_charge();
+    usb_host_5v_set(0, high);
     break;
   }
   case 7: {
-    gpio_put(PIN_USB_SRC_ENABLE, high?1:0);
+    usb_host_5v_set(1, high);
     break;
   }
   }
@@ -191,7 +191,7 @@ uint64_t hwapi_set_usb_mode([[maybe_unused]] struct cli_context* ctx, uint64_t p
     switch (mode) {
     case 0:
       // usb2: sysctl external
-      gpio_put(PIN_USB_SRC_ENABLE, 0);
+      usb_host_5v_set(1, 0);
       gpio_ext_uswitch_enable(0);
       gpio_ext_uswitch_enable(1);
       gpio_ext_uswitch_enable(2);
@@ -199,15 +199,16 @@ uint64_t hwapi_set_usb_mode([[maybe_unused]] struct cli_context* ctx, uint64_t p
       break;
     case 1:
       // usb2: host, sysctl internal
-      gpio_put(PIN_USB_SRC_ENABLE, 1);
       gpio_ext_uswitch_disable(0);
       gpio_ext_uswitch_disable(1);
       gpio_ext_uswitch_disable(2);
+      // enable 5v power on the port
+      usb_host_5v_set(1, 1);
       cli_add_word("usbmux-1", 1);
       break;
     case 2:
       // usb2: EDL external
-      gpio_put(PIN_USB_SRC_ENABLE, 0);
+      usb_host_5v_set(1, 0);
       gpio_ext_uswitch_enable(0);
       gpio_ext_uswitch_disable(1);
       gpio_ext_uswitch_enable(2);
@@ -339,8 +340,6 @@ void hwapi_pd_set_force_sink([[maybe_unused]] struct cli_context* ctx, uint64_t 
   pd_set_force_sink(!!force);
 }
 
-// TODO: need to instantiate multiple CLIs (ttys?)
-// so state is not mixed between usb, uart, and spi interfaces
 void hwapi_pocket_init(battery_info_s *binfo) {
   battery_info = binfo;
 

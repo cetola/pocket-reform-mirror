@@ -50,15 +50,17 @@
 #define PIN_SOM_WAKE 19
 #define PIN_MODEM_RESET 20
 #define PIN_1V1_ENABLE 23
-// TODO: FIXME: DP_HPD on v20 (input)
+// 3V3_ENABLE on v10, kickstart (power on button) DP HPD output on v20
 #define PIN_3V3_ENABLE 24
 #define PIN_V20_DP_HPD 24
-// TODO: FIXME: KICKSTART on v20 (input)
+// 5V_ENABLE on v10, kickstart (power on button) input on v20
 #define PIN_5V_ENABLE 25
 #define PIN_PHONE_DPR 27
+// USB_SRC/PWREN_LATCH on v10, USB_SRC1/USB_SRC2 on v20
 #define PIN_USB_SRC_ENABLE 28
-// NC on v20
+#define PIN_USB_SRC1_ENABLE 28
 #define PIN_PWREN_LATCH 29
+#define PIN_USB_SRC2_ENABLE 29
 // NC on v10, EDL/USB bootloader enable on v20
 #define PIN_USB_LOADER_SW 26
 
@@ -132,8 +134,7 @@ void turn_som_power_off();
 void set_display_backlight(int percent);
 void set_display_backlight_freq(int freq);
 
-void usb_host_5v_enable();
-void usb_host_5v_disable();
+void usb_host_5v_set(int port, int enable);
 void charger_enable_charge(int current);
 void charger_disable_charge();
 void enter_powersave(void);
