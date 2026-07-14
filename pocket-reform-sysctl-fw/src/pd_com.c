@@ -1375,11 +1375,11 @@ bool pd_tick(battery_info_s* battery_info) {
       t = 0;
     }
   } else if (pd_state == PD_STATE_ATTACHED_SRC) {
-    // TODO: timeout
     pd_comm_pd(battery_info);
 
     // the spec says: tTypeCSendSourceCap min 100ms, max 200ms, nom 150ms!
-    if (t % 25 == 0) {
+    // 30 is a magic number that works for club3d and xreal. TODO: replace with real ms timer
+    if (t % 30 == 0) {
       if (!pd_source_cap_acked) {
         // every 100ms, try sending a burst of source caps
         tx_id_count = 0;
@@ -1395,9 +1395,9 @@ bool pd_tick(battery_info_s* battery_info) {
 
     if (source_pdo_ready_acked && !alt_mode_requested) {
       // TODO WIP
+      // works for xreal, club3d
       printf("# [pd] trying to trigger DP alt-mode...\n");
       send_vdm(0xff008002, 0);
-      //send_vdm(0xff018003, 0);
       alt_mode_requested = true;
     }
 
