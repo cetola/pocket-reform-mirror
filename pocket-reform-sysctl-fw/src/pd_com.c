@@ -62,7 +62,7 @@ bool pd_sent_soft_reset;
 uint16_t pd_datarole = PD_DATAROLE_UFP;
 uint16_t pd_powerrole = PD_POWERROLE_SINK;
 static uint8_t pd_ccpin = 0;
-static uint8_t pd_host_current = 0b10; // default host current
+static uint8_t pd_host_current = 0b10; // default host (source) pullup current
 
 int request_sent = 0;
 
@@ -220,6 +220,9 @@ static bool pd_apply_datarole() {
   return true;
 }
 
+static int prole_last = -1;
+static int cc_last = -1;
+
 static void pd_set_fusb_switches() {
   uint8_t buf = 0;
 
@@ -242,16 +245,16 @@ static void pd_set_fusb_switches() {
     source: file:///home/minute/Downloads/ta0357-overview-of-usb-typec-and-power-delivery-technologies-stmicroelectronics.pdf
    */
 
-  if (pd_powerrole == PD_POWERROLE_SINK) {
-    buf |= FUSB_SWITCHES0_PDWN_1|FUSB_SWITCHES0_PDWN_2;
-    usb_host_5v_set(0, 0);
+  if (prole_last != pd_powerrole) {
+    printf("# [pd:switches] powerrole changed! to: %d\n", pd_powerrole);
   }
-  if (pd_powerrole == PD_POWERROLE_SOURCE) {
-    buf |= FUSB_SWITCHES0_PU_EN1|FUSB_SWITCHES0_PU_EN2;
-    charger_disable_charge();
-    usb_host_5v_set(0, 1);
+  if (cc_last != pd_ccpin) {
+    printf("# [pd:switches] pd_ccpin changed! to: %d\n", pd_ccpin);
   }
+  prole_last = pd_powerrole;
+  cc_last = pd_ccpin;
 
+#if 0
   if (enable_vconn) {
     //printf("# [pd switches] enabling vconn\n");
     if (pd_ccpin == 1) {
@@ -266,6 +269,7 @@ static void pd_set_fusb_switches() {
       buf = buf & ~FUSB_SWITCHES0_PU_EN1;
     }
   }
+#endif
 
   // TODO: to detect Ra (e-marker cable), we have to have at least host_cur b10.
   // see fusb302 datasheet p. 6 and 7
@@ -277,13 +281,13 @@ static void pd_set_fusb_switches() {
   if (pd_powerrole == PD_POWERROLE_SOURCE) {
     meas_vbus = 0;
     // TODO Ra termination
-    /*if (pd_host_current == 0b10) {
-      // 0.42V
-      mdac_setting = 0b001001;
-    } else if (pd_host_current == 0b11) {
-      // 0.8V
-      mdac_setting = 0b010010;
-    }*/
+    //if (pd_host_current == 0b10) {
+    //  // 0.42V
+    //  mdac_setting = 0b001001;
+    //} else if (pd_host_current == 0b11) {
+    //  // 0.8V
+    //  mdac_setting = 0b010010;
+    //}
     // Rd termination
     if (pd_host_current <= 0b10) {
       // 1.6V
@@ -297,15 +301,14 @@ static void pd_set_fusb_switches() {
     mdac_setting = 0b110100;
   }
 
-  if (pd_powerrole == PD_POWERROLE_SOURCE) {
-    if (pd_ccpin == 1) {
-      buf |= FUSB_SWITCHES0_MEAS_CC1;
-    }
-    else if (pd_ccpin == 2) {
-      buf |= FUSB_SWITCHES0_MEAS_CC2;
-    }
-  } else {
-    buf |= FUSB_SWITCHES0_MEAS_CC1 | FUSB_SWITCHES0_MEAS_CC2;
+  // 20260716: active cables don't work if MEAS is enabled on the other CC pin!
+  if (pd_ccpin == 1) {
+    buf |= FUSB_SWITCHES0_MEAS_CC1;
+  } else if (pd_ccpin == 2) {
+    buf |= FUSB_SWITCHES0_MEAS_CC2;
+  }
+  if (pd_powerrole == PD_POWERROLE_SINK) {
+    buf |= FUSB_SWITCHES0_PDWN_1 | FUSB_SWITCHES0_PDWN_2;
   }
   fusb_write_byte(FUSB_SWITCHES0, buf);
 
@@ -1061,7 +1064,6 @@ bool pd_tick(battery_info_s* battery_info) {
     pd_powerrole = PD_POWERROLE_SINK;
     pd_datarole = PD_DATAROLE_UFP;
     pd_ccpin = 0;
-    pd_set_fusb_switches();
     source_pdo_accept_sent = 0;
     source_pdo_ready_sent = 0;
     source_pdo_ready_acked = 0;
@@ -1069,6 +1071,7 @@ bool pd_tick(battery_info_s* battery_info) {
     alt_mode_requested = false;
     enable_vconn = false;
     tx_id_count = 0;
+    pd_set_fusb_switches();
 
     if (mb_version() >= 2) {
       printf("# [pd] [displayport] set HPD = 0\n");
@@ -1083,9 +1086,10 @@ bool pd_tick(battery_info_s* battery_info) {
         // 500mA, should be safe and get us to at least a minimal charge.
         charger_enable_charge(50);
       }
-      return true;
+      goto out;
     }
     charger_disable_charge();
+    // TODO naming
     request_sent = 0;
 
     // probe FUSB302BMPX
@@ -1110,7 +1114,7 @@ bool pd_tick(battery_info_s* battery_info) {
       fusb_write_byte(FUSB_CONTROL0, (pd_host_current << FUSB_CONTROL0_HOST_CUR_SHIFT) | FUSB_CONTROL0_TX_FLUSH);
       fusb_write_byte(FUSB_CONTROL1, FUSB_CONTROL1_ENSOP1 | FUSB_CONTROL1_ENSOP2);
 
-      if (!fusb_write_byte(FUSB_CONTROL2, FUSB_CONTROL2_TOGGLE | mode))
+      if (!fusb_write_byte(FUSB_CONTROL2, FUSB_CONTROL2_TOGGLE | mode | FUSB_CONTROL2_TOG_RD_ONLY))
         goto out;
 
       // automatic retransmission + auto hard+soft reset
@@ -1184,17 +1188,13 @@ bool pd_tick(battery_info_s* battery_info) {
         pd_datarole = PD_DATAROLE_DFP;  // default for powerrole SOURCE
       }
 
+      pd_set_fusb_switches();
       // Enable all FUSB blocks, including PD BMC and measure block.
-      fusb_write_byte(FUSB_POWER, 0xF);
+      fusb_write_byte(FUSB_POWER, 0xf);
       t = 0;
     }
   } else if (pd_state == PD_STATE_UNATTACHED_SNK) {
     // unattached.snk. Wait for VBUS to arrive.
-
-    if (pd_comm_pd(battery_info)) {
-      t = 0;
-    }
-
     uint8_t status0;
     if (fusb_read_buf(FUSB_STATUS0, 1, &status0)) {
       if (status0 & FUSB_STATUS0_VBUSOK) {
@@ -1222,6 +1222,7 @@ bool pd_tick(battery_info_s* battery_info) {
       pd_state = PD_STATE_SETUP;
       goto out;
     } else {
+      // process PD communication
       if (pd_comm_pd(battery_info)) {
         t = 0;
       } else if (t>10000 && !mps_reg_config.config0.chg_en) {
@@ -1308,7 +1309,7 @@ bool pd_tick(battery_info_s* battery_info) {
     if ((t % 1000 == 0) && pd_source_cap_acked && !source_pdo_ready_sent) {
       // we sent source caps, they were acked but nothing else happened, reset
       pd_send_reset();
-      return 1;
+      goto out;
     }
 
     if (source_pdo_ready_acked && !alt_mode_requested) {
@@ -1336,6 +1337,7 @@ bool pd_tick(battery_info_s* battery_info) {
   }
 
  out:
+  // TODO: replace all the "t" and can_sleep stuff with a timer interrupt
   bool can_sleep = t >= 10;
   t++;
 
