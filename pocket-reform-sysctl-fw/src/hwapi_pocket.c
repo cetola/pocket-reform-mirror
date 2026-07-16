@@ -386,6 +386,7 @@ void hwapi_pocket_init(battery_info_s *binfo) {
   // serial fowarding (next)
 
   /* register constants */
+  cli_add_word("mb-ver\0\0", mb_version());
   cli_add_word("pack-cnt", 1);
   cli_add_word("cell-cnt", 2);
 
