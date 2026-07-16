@@ -15,7 +15,7 @@
 #include "hardware/structs/watchdog.h"
 #include "hardware/structs/vreg_and_chip_reset.h"
 
-#define OTG_AS_5V // WARNING: defining this requires the hardware mod described in https://source.mnt.re/reform/pocket-reform/-/issues/3
+// #define OTG_AS_5V // WARNING: defining this requires the hardware mod described in https://source.mnt.re/reform/pocket-reform/-/issues/3
 // #define FACTORY_MODE // turn device on immediately after starting sysctl
 #define ACM_ENABLED // usb serial control for debugging
 

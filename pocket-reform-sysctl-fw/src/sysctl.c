@@ -216,6 +216,8 @@ void charger_enable_charge(int current) {
 
 void charger_disable_charge() {
   mps_reg_config.config0.chg_en = 0;
+  // "USB Suspended Mode" means the DC/DC routing VIN to system power isn't used
+  // TODO: on mb2.0, this could probably be turned on?
   mps_reg_config.config0.susp_en = 0;
   mps_write_byte(MPS_REG_CONFIG0, mps_reg_config.config0.reg_byte);
 
@@ -753,9 +755,9 @@ void enter_powersave(void) {
   }
 }
 
-// TODO: implement
+static int global_mb_version = 1;
 int mb_version() {
-  return 2;
+  return global_mb_version;
 }
 
 void setup_gpios() {
@@ -790,6 +792,14 @@ void setup_gpios() {
   gpio_set_dir(PIN_LED_B, GPIO_OUT);
   gpio_set_function(PIN_LED_B, GPIO_FUNC_PWM);
 
+  if (gpio_ext_setup(!syscon_warm_boot())) {
+    printf("# [setup_gpios] mainboard 2.0+ detected.\n");
+    global_mb_version = 2;
+  } else {
+    printf("# [setup_gpios] mainboard 1.0 detected.\n");
+    global_mb_version = 1;
+  }
+
   // Power regulator pins
   if (mb_version() < 2) {
     // on MB2, these functions have been moved
@@ -813,7 +823,7 @@ void setup_gpios() {
   // SoM / SoC wake GPIO
   gpio_init(PIN_SOM_WAKE);
   gpio_set_dir(PIN_SOM_WAKE, GPIO_IN);
-  //gpio_put(PIN_SOM_WAKE, 0);
+  gpio_put(PIN_SOM_WAKE, 0);
 
   // Display control pins
   gpio_init(PIN_DISP_RESET);
@@ -847,12 +857,15 @@ void setup_gpios() {
   if (mb_version() >= 2) {
     gpio_init(PIN_USB_SRC1_ENABLE);
     gpio_set_dir(PIN_USB_SRC1_ENABLE, GPIO_OUT);
+    gpio_put(PIN_USB_SRC1_ENABLE, 0);
     gpio_init(PIN_USB_SRC2_ENABLE);
     gpio_set_dir(PIN_USB_SRC2_ENABLE, GPIO_OUT);
+    gpio_put(PIN_USB_SRC2_ENABLE, 0);
   } else if (mb_version() < 2) {
     // USB-C port 1 power rail
     gpio_init(PIN_USB_SRC_ENABLE);
     gpio_set_dir(PIN_USB_SRC_ENABLE, GPIO_OUT);
+    gpio_put(PIN_USB_SRC_ENABLE, 0);
   }
 
   // USB-C port 1 (charger port) CC controller
@@ -868,7 +881,7 @@ void setup_gpios() {
     // USB-C DisplayPort HPD
     gpio_init(PIN_V20_DP_HPD);
     gpio_set_dir(PIN_V20_DP_HPD, GPIO_OUT);
-    gpio_put(PIN_V20_DP_HPD, 1);
+    gpio_put(PIN_V20_DP_HPD, 0);
   }
 }
 
@@ -884,9 +897,9 @@ void setup() {
   printf("# [reset] magic: %#.8x%.8x\n", (uint16_t)watchdog_hw->scratch[2], (uint16_t)watchdog_hw->scratch[3]);
 
   if (mb_version() >= 2) {
-    if (!gpio_ext_setup(!syscon_warm_boot())) {
+    /*if (!gpio_ext_setup(!syscon_warm_boot())) {
       printf("# [setup] error: gpio_ext_setup() failed. PCA9557 not responding?\n");
-    }
+    }*/
     if (!gpio_ext_uswitch_setup(!syscon_warm_boot())) {
       printf("# [setup] error: gpio_ext_uswitch_setup() failed. PCA9536 not responding?\n");
     }
