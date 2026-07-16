@@ -1112,7 +1112,9 @@ bool pd_tick(battery_info_s* battery_info) {
       // unmask all interrupts to be able to wake from
       // dormant mode via USB-C events
       fusb_write_byte(FUSB_CONTROL0, (pd_host_current << FUSB_CONTROL0_HOST_CUR_SHIFT) | FUSB_CONTROL0_TX_FLUSH);
-      fusb_write_byte(FUSB_CONTROL1, FUSB_CONTROL1_ENSOP1 | FUSB_CONTROL1_ENSOP2);
+      fusb_write_byte(FUSB_CONTROL1, 0);
+      // TODO: when oring FUSB_CONTROL1_ENSOP1 | FUSB_CONTROL1_ENSOP2
+      // to FUSB_CONTROL1, we can see sop prime messages, but our code can't handle them yet.
 
       if (!fusb_write_byte(FUSB_CONTROL2, FUSB_CONTROL2_TOGGLE | mode | FUSB_CONTROL2_TOG_RD_ONLY))
         goto out;
