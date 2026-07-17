@@ -37,7 +37,7 @@ void init_spi_client() {
   return sum;
 }*/
 
-#define SPI_DEBUG_ENABLED 1
+#define SPI_DEBUG_ENABLED 0
 #define MAX_TXN_SZ 8*4
 
 /* note that this runs in a timer interrupt:
@@ -47,10 +47,8 @@ void init_spi_client() {
 void handle_spi_commands(battery_info_s *battery_info) {
   if (!battery_info->som_is_powered) return;
 
-#if SPI_DEBUG_ENABLED
   char rx_buf[MAX_TXN_SZ+1];
   memset(rx_buf, 0, MAX_TXN_SZ+1);
-#endif
 
   int j = 0;
   int raw_c = 0;
@@ -86,7 +84,9 @@ void handle_spi_commands(battery_info_s *battery_info) {
         // discard read
         [[maybe_unused]] uint8_t rx = (uint8_t)spi_get_hw(spi1)->dr;
       }
+#if SPI_DEBUG_ENABLED
       printf("# [spi<] %s\n", cli_out_buf);
+#endif
       cli_err = cli_get_err(&spi_cli_ctx);
       cli_reset_out(&spi_cli_ctx);
     }

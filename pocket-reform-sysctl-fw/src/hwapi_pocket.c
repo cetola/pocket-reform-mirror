@@ -9,6 +9,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 
 // TODO: need these inputs:
 // - battery_info
@@ -90,9 +91,12 @@ char* hwapi_legacy_kbd_c() {
 
 uint64_t hwapi_set_backlight([[maybe_unused]] struct cli_context* ctx, uint64_t brightness) {
   // only for display v2
-  // 80% is a limit of the hardware (above, the backlight can flicker)
-  if (brightness > 80) brightness = 80;
-  set_display_backlight(brightness);
+  // 70% is a limit of the hardware (above, the backlight can flicker. some displays can go higher)
+  if (brightness > 100) brightness = 100;
+  // rescale 0..100% to 0..70% with a nice curve that has more detail/steps in the dark area
+  double scaled = 0.72 + 23.1 * tan(0.0125 * ((double)brightness));
+  if (scaled > 70.0) scaled = 70.0;
+  set_display_backlight((int)scaled);
   return brightness;
 }
 
