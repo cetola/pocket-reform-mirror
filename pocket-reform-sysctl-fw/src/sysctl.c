@@ -512,6 +512,49 @@ void som_power_indication() {
   pwm_set_freq_duty(PIN_LED_B_PWM_SLICE, PIN_LED_B_PWM_CHAN, 25000, battery_info.som_is_powered ? 30 : 0);
 }
 
+void set_usb_mode(int port, int mode) {
+  if (port == 1) {
+    switch (mode) {
+    case 0:
+      // usb2: sysctl external (default when off)
+      usb_host_5v_set(1, 0);
+      gpio_ext_uswitch_enable(0);
+      gpio_ext_uswitch_enable(1);
+      gpio_ext_uswitch_enable(2);
+      break;
+    case 1:
+      // usb2: normal usb host, sysctl internal (default when on)
+      gpio_ext_uswitch_disable(0);
+      gpio_ext_uswitch_disable(1);
+      gpio_ext_uswitch_disable(2);
+      // enable 5v power on the port
+      usb_host_5v_set(1, 1);
+      break;
+    case 2:
+      // usb2: EDL external
+      usb_host_5v_set(1, 0);
+      gpio_ext_uswitch_enable(0);
+      gpio_ext_uswitch_disable(1);
+      gpio_ext_uswitch_enable(2);
+      break;
+    }
+  }
+  else if (port == 0) {
+    switch (mode) {
+    case 0:
+      // usb1: SoC UART
+      // TODO: should be controlled only by PD logic
+      gpio_ext_uswitch_enable(3);
+      break;
+    case 1:
+      // usb1: host
+      // TODO: should be controlled only by PD logic
+      gpio_ext_uswitch_disable(3);
+      break;
+    }
+  }
+}
+
 void turn_som_power_on_v20() {
   printf("# [action] turn_som_power_on_v20\n");
 
@@ -552,6 +595,10 @@ void turn_som_power_on_v20() {
   som_power_indication();
   init_spi_client();
 
+  // Connect SC internally to SoC
+  // USB port 2 becomes USB host
+  set_usb_mode(1, 1);
+
   // in case the soc is sleeping, wake it
   // FIXME don't do this after warm boot!
   // som_wake();
@@ -588,6 +635,9 @@ void turn_som_power_off_v20() {
   set_display_backlight(0);
 
   som_power_indication();
+
+  // Expose SC as device on USB port 2
+  set_usb_mode(1, 0);
 }
 
 void turn_som_power_on() {

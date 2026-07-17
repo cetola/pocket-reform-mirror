@@ -135,6 +135,7 @@ void set_display_backlight(int percent);
 void set_display_backlight_freq(int freq);
 
 void usb_host_5v_set(int port, int enable);
+void set_usb_mode(int port, int mode);
 void charger_enable_charge(int current);
 void charger_disable_charge();
 void enter_powersave(void);

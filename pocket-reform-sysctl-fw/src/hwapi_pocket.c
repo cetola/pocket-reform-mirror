@@ -93,7 +93,6 @@ uint64_t hwapi_set_backlight([[maybe_unused]] struct cli_context* ctx, uint64_t 
   // 80% is a limit of the hardware (above, the backlight can flicker)
   if (brightness > 80) brightness = 80;
   set_display_backlight(brightness);
-  cli_add_word("lite\0\0\0\0", brightness);
   return brightness;
 }
 
@@ -106,10 +105,8 @@ uint64_t hwapi_set_rail([[maybe_unused]] struct cli_context* ctx, uint64_t rail,
   if (rail == 0) {
     if (state == 0) {
       turn_som_power_off();
-      cli_add_word("rail-0\0\0", 0);
     } else {
       turn_som_power_on();
-      cli_add_word("rail-0\0\0", 1);
     }
   }
   return state;
@@ -187,52 +184,8 @@ uint64_t hwapi_set_gpio([[maybe_unused]] struct cli_context* ctx, uint64_t id, u
 
 uint64_t hwapi_set_usb_mode([[maybe_unused]] struct cli_context* ctx, uint64_t port, uint64_t mode) {
   // toggle USB muxing modes
-  if (port == 1) {
-    switch (mode) {
-    case 0:
-      // usb2: sysctl external
-      usb_host_5v_set(1, 0);
-      gpio_ext_uswitch_enable(0);
-      gpio_ext_uswitch_enable(1);
-      gpio_ext_uswitch_enable(2);
-      cli_add_word("usbmux-1", 0);
-      break;
-    case 1:
-      // usb2: host, sysctl internal
-      gpio_ext_uswitch_disable(0);
-      gpio_ext_uswitch_disable(1);
-      gpio_ext_uswitch_disable(2);
-      // enable 5v power on the port
-      usb_host_5v_set(1, 1);
-      cli_add_word("usbmux-1", 1);
-      break;
-    case 2:
-      // usb2: EDL external
-      usb_host_5v_set(1, 0);
-      gpio_ext_uswitch_enable(0);
-      gpio_ext_uswitch_disable(1);
-      gpio_ext_uswitch_enable(2);
-      cli_add_word("usbmux-1", 2);
-      break;
-    }
-  }
-  if (port == 0) {
-    switch (mode) {
-    case 0:
-      // usb1: SoC UART
-      // TODO: should be controlled by PD logic
-      gpio_ext_uswitch_enable(3);
-      cli_add_word("usbmux-0", 0);
-      break;
-    case 1:
-      // usb1: host
-      // TODO: should be controlled by PD logic
-      gpio_ext_uswitch_disable(3);
-      cli_add_word("usbmux-0", 1);
-      break;
-    }
-  }
-  return mode;
+  set_usb_mode(port, mode);
+  return 1;
 }
 
 uint64_t hwapi_set_usb_ports_sysctl([[maybe_unused]] struct cli_context* ctx) {
