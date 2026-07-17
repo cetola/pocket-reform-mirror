@@ -122,7 +122,7 @@ uint64_t cli_num_words([[maybe_unused]] struct cli_context* ctx) {
 void cli_show_word(struct cli_context* ctx, uint64_t idx) {
   if (idx >= cli_num_vars) return;
 
-  struct cli_var* w = &cli_vars[idx];
+  const struct cli_var* w = &cli_vars[idx];
   cli_out_str(ctx, "(");
   char buf[9];
   cli_out_str(ctx, eightcc_to_str(w->word, buf));
