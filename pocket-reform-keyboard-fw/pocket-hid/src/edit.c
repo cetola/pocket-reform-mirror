@@ -109,9 +109,6 @@ void edit_insert_chr(uint8_t c) {
       for (int i = EDIT_LINE_MAX - 2; i >= edit_line_cursor; i--) {
 	edit_line[i + 1] = edit_line[i];
       }
-      for (int i = edit_line_cursor; i < EDIT_LINE_MAX; i++) {
-	char d = edit_line[i];
-      }
       edit_line[edit_line_cursor] = c;
       if (edit_line_cursor<EDIT_LINE_MAX) edit_line_cursor++;
     } else {
@@ -146,8 +143,8 @@ void edit_input_key(uint8_t inkey, uint8_t shift) {
   // the purpose of this is to detect key-up events
   if (inkey == 0) return;
   
-  int inkey_c = 0;
   if (inkey <= KEY_TO_CHR_LAST) {
+    int inkey_c = 0;
     if (shift) {
       inkey_c = key_to_chr_shifted[inkey];
     } else {
