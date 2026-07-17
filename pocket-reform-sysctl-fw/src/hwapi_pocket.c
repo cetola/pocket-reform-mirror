@@ -65,7 +65,7 @@ uint64_t hwapi_legacy_c() {
 }
 
 char* hwapi_legacy_kbd_s() {
-  return (char*)"(Outdated Kbd FW!)\r";
+  return (char*)"MNT Pocket Reform SC" MNTRE_FIRMWARE_VERSION "\r\n";
 }
 
 char* hwapi_legacy_kbd_c() {
