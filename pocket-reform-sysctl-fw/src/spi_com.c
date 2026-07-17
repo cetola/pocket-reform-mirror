@@ -25,7 +25,7 @@ void init_spi_client() {
   spi_set_format(spi1, 8, SPI_CPOL_0, SPI_CPHA_1, SPI_MSB_FIRST);
 
   cli_init(&spi_cli_ctx);
-  
+
   printf("# [spi] init_spi_client done\n");
 }
 
@@ -51,7 +51,6 @@ void handle_spi_commands(battery_info_s *battery_info) {
   char rx_buf[MAX_TXN_SZ+1];
   memset(rx_buf, 0, MAX_TXN_SZ+1);
 #endif
-  int total_delays = 0;
 
   int j = 0;
   int raw_c = 0;
@@ -70,18 +69,17 @@ void handle_spi_commands(battery_info_s *battery_info) {
   }
 
   uint64_t cli_err = 0;
-  for (int j = 0; j < valid_c; j++) {
+  for (j = 0; j < valid_c; j++) {
     cli_char(&spi_cli_ctx, rx_buf[j]);
     int resp_len = cli_get_out_pos(&spi_cli_ctx);
     if (resp_len > 0) {
-      char *cli_out_buf = cli_get_out(&spi_cli_ctx);
+      const char *cli_out_buf = cli_get_out(&spi_cli_ctx);
       for (int i = 0; i < resp_len; i++) {
         int delayed = 0;
         while (!spi_is_writable(spi1)) {
           // wait up to 1ms for other side to receive
           busy_wait_us(100);
           delayed++;
-          total_delays += 100;
           if (delayed > 10) break;
         }
         spi_get_hw(spi1)->dr = (uint32_t)cli_out_buf[i];
@@ -108,7 +106,6 @@ void handle_spi_commands(battery_info_s *battery_info) {
 	printf(".");
       }
     }
-    //printf("\n# [spitx] total delays: %d us\n", total_delays);
     printf("\n");
   }
 #endif

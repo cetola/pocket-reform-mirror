@@ -47,9 +47,7 @@
 #define CLI_ERR_MAX_OUT     fourcc("maxo") /* outbut buffer overflow */
 #define CLI_TYPE_UINT64 0
 #define CLI_TYPE_INT64 1
-#define CLI_TYPE_DOUBLE 2
-#define CLI_TYPE_STR256 3
-#define CLI_TYPE_STR1024 4
+#define CLI_TYPE_STR128 3
 #define CLI_TYPE_VOID 5
 #define CLI_TYPE_FUNC 6
 
@@ -57,7 +55,6 @@ struct cli_var {
   uint64_t word;
   uint64_t value_u64;
   int64_t value_i64;
-  double value_dbl;
   void *func;
   uint8_t type;
   uint8_t return_type;

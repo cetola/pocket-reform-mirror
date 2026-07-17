@@ -82,22 +82,15 @@ void cli_error(struct cli_context* ctx, uint64_t err) {
 }
 
 int cli_out_int64(struct cli_context* ctx, int64_t number) {
-  char buf[22+6]; // (i64 -9223372036854775808)
-  snprintf(buf, sizeof(buf), "(i64 %lld)", number);
+  char buf[22+6]; // (-9223372036854775808)
+  snprintf(buf, sizeof(buf), "(%lld)", (long long)number);
   buf[sizeof(buf)-1] = 0;
   return cli_out_str(ctx, buf);
 }
 
 int cli_out_uint64(struct cli_context* ctx, uint64_t number) {
-  char buf[22+6]; // (u64 18446744073709551616)
-  snprintf(buf, sizeof(buf), "(u64 %llu)", number);
-  buf[sizeof(buf)-1] = 0;
-  return cli_out_str(ctx, buf);
-}
-
-int cli_out_double(struct cli_context* ctx, double number) {
-  char buf[32+6]; // TODO: max output size of a double?
-  snprintf(buf, sizeof(buf), "(f64 %10.10f)", number);
+  char buf[22+6]; // (18446744073709551616)
+  snprintf(buf, sizeof(buf), "(%llu)", (unsigned long long)number);
   buf[sizeof(buf)-1] = 0;
   return cli_out_str(ctx, buf);
 }
@@ -134,7 +127,7 @@ uint64_t cli_list_vars(struct cli_context* ctx, uint64_t offset, uint64_t limit_
 }
 
 int cli_word_valid(uint64_t word) {
-  return ((word & 0xff) >= 'a' || (word & 0xff) <= 'z') || ((word & 0xff) >= 'A' || (word & 0xff) <= 'Z');
+  return ((word & 0xff) >= 'a' && (word & 0xff) <= 'z') || ((word & 0xff) >= 'A' && (word & 0xff) <= 'Z');
 }
 
 uint64_t cli_set_var_uint64(struct cli_context* ctx, uint64_t word, uint64_t value) {
@@ -230,7 +223,7 @@ void cli_eval(struct cli_context* ctx) {
           // if an arg is passed, set it
           args[j] = ctx->cli_list[j + 1];
         }
-	// TODO DRY this
+	      // TODO DRY this
         if (var->return_type == CLI_TYPE_UINT64) {
           uint64_t (*func)(void*, uint64_t, uint64_t, uint64_t, uint64_t) = var->func;
           uint64_t result = func(ctx, args[0], args[1], args[2], args[3]);
@@ -241,12 +234,7 @@ void cli_eval(struct cli_context* ctx) {
           int64_t result = func(ctx, args[0], args[1], args[2], args[3]);
           cli_out_int64(ctx, result);
           return;
-        } else if (var->return_type == CLI_TYPE_DOUBLE) {
-          double (*func)(void*, uint64_t, uint64_t, uint64_t, uint64_t) = var->func;
-          double result = func(ctx, args[0], args[1], args[2], args[3]);
-          cli_out_double(ctx, result);
-          return;
-        } else if (var->return_type == CLI_TYPE_STR256) {
+        } else if (var->return_type == CLI_TYPE_STR128) {
           char* (*func)(void*, uint64_t, uint64_t, uint64_t, uint64_t) = var->func;
           char* result = func(ctx, args[0], args[1], args[2], args[3]);
           cli_out_str(ctx, result);
@@ -262,9 +250,6 @@ void cli_eval(struct cli_context* ctx) {
         return;
       } else if (var->type == CLI_TYPE_INT64) {
         cli_out_int64(ctx, var->value_i64);
-        return;
-      } else if (var->type == CLI_TYPE_DOUBLE) {
-        cli_out_double(ctx, var->value_dbl);
         return;
       }
     }

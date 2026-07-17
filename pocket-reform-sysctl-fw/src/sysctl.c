@@ -1090,7 +1090,7 @@ void handle_usb_commands() {
         cli_char(&cli_ctx_usb, cli_usb_line[i]);
         int resp_len = cli_get_out_pos(&cli_ctx_usb);
         if (resp_len > 0) {
-          char *cli_out_buf = cli_get_out(&cli_ctx_usb);
+          const char *cli_out_buf = cli_get_out(&cli_ctx_usb);
           printf("%s\n", cli_out_buf);
           cli_reset_out(&cli_ctx_usb);
         }

@@ -510,9 +510,8 @@ static bool pd_handle_vdm_response() {
         uint32_t usb_req = 0b0 << 5; // not set by DFP
         uint32_t exit_dp = 0b0 << 6; // not set by DFP
         uint32_t hpd = 0b0 << 7; // not set by DFP
-        uint32_t hpd_irq = 0b0 << 7; // not set by DFP
         send_vdm2(0xff018110, connected|power_low|enabled|multi_fn_pref|
-                              usb_req|exit_dp|hpd|hpd_irq);
+                              usb_req|exit_dp|hpd);
       }
       else if (vdm_type == PD_VDM_USBPD_DP_STATUS_UPDATE) {
         printf("# [pd]   vdm: ACK DP status_update\n");
@@ -1076,6 +1075,7 @@ bool pd_tick(battery_info_s* battery_info) {
     pd_powerrole = PD_POWERROLE_SINK;
     pd_datarole = PD_DATAROLE_UFP;
     pd_ccpin = 0;
+    pd_host_current = 0b10;
     source_pdo_accept_sent = 0;
     source_pdo_ready_sent = 0;
     source_pdo_ready_acked = 0;
