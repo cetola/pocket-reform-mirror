@@ -231,22 +231,22 @@ void charger_disable_charge() {
   gpio_put(PIN_LED_R, 0);
 }
 
-void gauge_tick(battery_info_s *battery_info) {
+void gauge_tick(battery_info_s *batinfo) {
   // read devname to identify if communication works
   uint16_t max17320_devname = max_read_word(0x21);
   if (max17320_devname == 0x4209 || max17320_devname == 0x420a || max17320_devname == 0x420b) {
-    battery_info->max17320_devname = max17320_devname;
+    batinfo->max17320_devname = max17320_devname;
   } else {
     //printf("# [battery] [ERROR] gauge did not respond\n");
-    battery_info->max17320_devname = 0;
-    battery_info->input_volts = -1;
-    battery_info->time_to_empty = 0;
-    battery_info->charge_percentage = 0;
-    battery_info->cell1_volts = 0;
-    battery_info->cell2_volts = 0;
-    battery_info->time_to_empty = 0;
-    battery_info->battery_amps = 0;
-    battery_info->battery_volts = 0;
+    batinfo->max17320_devname = 0;
+    batinfo->input_volts = -1;
+    batinfo->time_to_empty = 0;
+    batinfo->charge_percentage = 0;
+    batinfo->cell1_volts = 0;
+    batinfo->cell2_volts = 0;
+    batinfo->time_to_empty = 0;
+    batinfo->battery_amps = 0;
+    batinfo->battery_volts = 0;
     return;
   }
 
@@ -296,20 +296,20 @@ void gauge_tick(battery_info_s *battery_info) {
   float rep_time_to_empty = max_word_to_time(max_read_word(0x11));
   float rep_time_to_full = max_word_to_time(max_read_word(0x20));
 
-  battery_info->battery_amps = -current/1000.0;
-  battery_info->battery_volts = vpack/1000.0;
-  battery_info->gauge_avg_milliamps = avg_current;
+  batinfo->battery_amps = -current/1000.0;
+  batinfo->battery_volts = vpack/1000.0;
+  batinfo->gauge_avg_milliamps = avg_current;
 
-  battery_info->charge_percentage = (int)rep_percentage;
+  batinfo->charge_percentage = (int)rep_percentage;
   // charger mostly doesn't charge to >98%
-  if (battery_info->charge_percentage >= 98) {
-    battery_info->charge_percentage = 100;
+  if (batinfo->charge_percentage >= 98) {
+    batinfo->charge_percentage = 100;
   }
-  battery_info->cell1_volts = cell1;
-  battery_info->cell2_volts = cell2;
-  battery_info->time_to_empty = rep_time_to_empty;
+  batinfo->cell1_volts = cell1;
+  batinfo->cell2_volts = cell2;
+  batinfo->time_to_empty = rep_time_to_empty;
 
-  if (battery_info->print_pack_info) {
+  if (batinfo->print_pack_info) {
     printf("[pack_info]\n");
     printf("comm_stat = 0x%04x\n", comm_stat);
     printf("packcfg = 0x%04x\n", packcfg);
@@ -403,13 +403,13 @@ void gauge_init() {
   gauge_tick(&battery_info);
 }
 
-void charger_dump(battery_info_s *battery_info) {
+void charger_dump(battery_info_s *batinfo) {
   // TODO: if max reports overvoltage (disbalanced cells),
   // can we lower the charging voltage temporarily?
   // alternatively, the current
 
   // Read charging status every 10ms
-  if (battery_info->ticks % 100 != 0) {
+  if (batinfo->ticks % 100 != 0) {
     return;
   }
 
@@ -419,7 +419,7 @@ void charger_dump(battery_info_s *battery_info) {
   }
 
   // Read ADC values and update stuff every 100ms
-  if (battery_info->ticks % 1000 != 0) {
+  if (batinfo->ticks % 1000 != 0) {
     return;
   }
 
@@ -431,11 +431,11 @@ void charger_dump(battery_info_s *battery_info) {
   float adc_input_v = mps_word_to_12800(mps_reg_adc.input_v);
 
   // carry over to globals for SPI reporting
-  //battery_info->battery_amps = -(float)(adc_input_i - adc_discharge_c)/(float)1000.0;
-  //battery_info->battery_volts = (float)adc_sys_v/(float)1000.0;
-  battery_info->input_volts = adc_input_v;
+  //batinfo->battery_amps = -(float)(adc_input_i - adc_discharge_c)/(float)1000.0;
+  //batinfo->battery_volts = (float)adc_sys_v/(float)1000.0;
+  batinfo->input_volts = adc_input_v;
 
-  if (battery_info->print_pack_info) {
+  if (batinfo->print_pack_info) {
     float adc_bat_v = mps_word_to_6400(mps_reg_adc.bat_v);
     float adc_charge_c = mps_word_to_6400(mps_reg_adc.bat_charge_i);
     float adc_temp = mps_word_to_temp(mps_reg_adc.junction_t);
@@ -466,9 +466,9 @@ void charger_dump(battery_info_s *battery_info) {
   }
 }
 
-void charger_led_indication(battery_info_s *battery_info) {
+void charger_led_indication(battery_info_s *batinfo) {
   // update LED every 10ms, although data might be older
-  if (battery_info->ticks % 100 != 0) {
+  if (batinfo->ticks % 100 != 0) {
     return;
   }
 
