@@ -95,39 +95,46 @@ int cli_out_uint64(struct cli_context* ctx, uint64_t number) {
   return cli_out_str(ctx, buf);
 }
 
-// TODO generalize for any list?
-uint64_t cli_list_vars(struct cli_context* ctx, uint64_t offset, uint64_t limit_) {
-#ifdef CLI_DEBUG_EVAL
-  printf("[cli_list_vars] offset: %lld limit: %lld\n", offset, limit_);
-#endif
-  if (offset >= cli_num_vars) {
-    cli_error(ctx, CLI_ERR_ARGS);
-    return 0;
+int cli_out_type(struct cli_context* ctx, uint64_t t) {
+  if (t == CLI_TYPE_FUNC) {
+    return cli_out_str(ctx, "func");
+  } else if (t == CLI_TYPE_UINT64) {
+    return cli_out_str(ctx, "u64");
+  } else if (t == CLI_TYPE_INT64) {
+    return cli_out_str(ctx, "i64");
+  } else if (t == CLI_TYPE_VOID) {
+    return cli_out_str(ctx, "void");
+  } else if (t == CLI_TYPE_STR128) {
+    return cli_out_str(ctx, "str");
+  } else {
+    return cli_out_str(ctx, "unk");
   }
-  int64_t limit = (int64_t)cli_num_vars - (int64_t)offset;
-  // caller wants less entries than there are
-  if (limit_ && (int64_t)limit_ < limit) {
-    limit = limit_;
-  }
-  cli_out_str(ctx, "(list ");
-  cli_out_int64(ctx, offset);
-  cli_out_str(ctx, " ");
-  cli_out_int64(ctx, limit);
-  cli_out_str(ctx, " ");
-  for (uint32_t i = offset; i < offset + limit; i++) {
-    char buf[9];
-    if (!cli_out_str(ctx, eightcc_to_str(cli_vars[i].word, buf))) {
-      ctx->cli_err = CLI_ERR_MAX_OUT;
-      return 0;
-    }
-    if (i < offset + limit - 1) cli_out_str(ctx, " ");
-  }
-  cli_out_str(ctx, ")");
-  return 1;
 }
 
 int cli_word_valid(uint64_t word) {
   return ((word & 0xff) >= 'a' && (word & 0xff) <= 'z') || ((word & 0xff) >= 'A' && (word & 0xff) <= 'Z');
+}
+
+uint64_t cli_num_words([[maybe_unused]] struct cli_context* ctx) {
+  return cli_num_vars;
+}
+
+void cli_show_word(struct cli_context* ctx, uint64_t idx) {
+  if (idx >= cli_num_vars) return;
+
+  struct cli_var* w = &cli_vars[idx];
+  cli_out_str(ctx, "(");
+  char buf[9];
+  cli_out_str(ctx, eightcc_to_str(w->word, buf));
+  cli_out_str(ctx, " ");
+  cli_out_type(ctx, w->type);
+  cli_out_str(ctx, " ");
+  if (cli_vars[idx].type == CLI_TYPE_FUNC) {
+    cli_out_type(ctx, w->return_type);
+    cli_out_str(ctx, " ");
+    cli_out_uint64(ctx, w->num_args);
+  }
+  cli_out_str(ctx, ")");
 }
 
 uint64_t cli_set_var_uint64(struct cli_context* ctx, uint64_t word, uint64_t value) {
@@ -144,8 +151,8 @@ uint64_t cli_set_var_uint64(struct cli_context* ctx, uint64_t word, uint64_t val
       // prevent overwriting of funcs
       // TODO: polish, might be ok for user funcs
       if (cli_vars[i].type == CLI_TYPE_FUNC) {
-	if (ctx) cli_error(ctx, CLI_ERR_ARGS);
-	return 0;
+        if (ctx) cli_error(ctx, CLI_ERR_ARGS);
+        return 0;
       }
       cli_vars[i].value_u64 = value;
       return value;
@@ -186,7 +193,8 @@ int cli_add_word(char word[static 9], uint64_t value) {
 
 void cli_init_env() {
   cli_num_vars = 0;
-  cli_add_func("vars\0\0\0\0", cli_list_vars, 2, CLI_TYPE_UINT64);
+  cli_add_func("words\0\0\0", cli_num_words, 0, CLI_TYPE_UINT64);
+  cli_add_func("word\0\0\0\0", cli_show_word, 1, CLI_TYPE_VOID);
   cli_add_func("set\0\0\0\0\0", cli_set_var_uint64, 2, CLI_TYPE_UINT64);
 }
 
