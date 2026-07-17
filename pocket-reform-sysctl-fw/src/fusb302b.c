@@ -159,7 +159,6 @@ bool fusb_read_message(union pd_msg *msg) {
   if (rxb[0] == 0) {
     return false;
   }
-  printf("# [fusb] rxb0: 0x%02x\n", rxb[0]);
   uint8_t token = (rxb[0] & FUSB_FIFO_RX_TOKEN_BITS);
   if (token != FUSB_FIFO_RX_SOP && token != FUSB_FIFO_RX_SOP1 && token != FUSB_FIFO_RX_SOP2) {
     printf("# [fusb] rxb = 0x%02x - skipping\n", rxb[0]);
@@ -173,8 +172,9 @@ bool fusb_read_message(union pd_msg *msg) {
   /* Get the number of data objects */
   uint8_t numobj = PD_NUMOBJ_GET(msg);
   /* If there is at least one data object, read the data objects */
-  printf("# [fusb] rxb 0x%02x msgtype 0x%02x msgid %d role %s numobj %d size %d\n",
-         rxb[0], PD_MSGTYPE_GET(msg), PD_MESSAGEID_GET(msg), PD_POWERROLE_STR(msg), numobj, numobj * 4);
+  // uncomment for debugging
+  /*printf("# [fusb] rxb 0x%02x msgtype 0x%02x msgid %d role %s numobj %d size %d\n",
+         rxb[0], PD_MSGTYPE_GET(msg), PD_MESSAGEID_GET(msg), PD_POWERROLE_STR(msg), numobj, numobj * 4);*/
   if (numobj > 0) {
     if (!fusb_read_buf(FUSB_FIFOS, numobj * 4, msg->bytes + 2)) {
       return false;
