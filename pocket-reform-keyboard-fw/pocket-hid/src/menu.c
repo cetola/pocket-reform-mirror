@@ -15,6 +15,7 @@
 #include "pico/bootrom.h"
 #include "hardware/watchdog.h"
 #include "tusb.h"
+#include "pins.h"
 #include <malloc.h>
 
 static int current_menu_y = 0;
@@ -126,16 +127,19 @@ int input_menu_key(uint8_t keycode, uint8_t shift) {
   }
   else if (keycode == KEY_1) {
     if (remote_turn_on_som()) {
+      gpio_put(PIN_LEDS_PWR_EN, 1);
+      anim_hello();
       // the keyboard backlight turning on
       // is a visual signal that people are used
       // to--so if the remembered brightess was
       // too dark, revert to the default
-      sleep_ms(100);
+      sleep_ms(300);
       if (led_get_brightness() < 0x20) {
         led_set_rgb(KBD_DEFAULT_BACKLIGHT_COLOR);
       }
-      led_turn_on();
-      anim_hello();
+      for (int i=0; i<3; i++) {
+        led_turn_on();
+      }
     }
     return 0;
   }
