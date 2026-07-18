@@ -102,7 +102,6 @@ int main(void)
   gpio_set_dir(PIN_LEDS, true); // output
   gpio_init(PIN_LEDS_PWR_EN);
   gpio_set_dir(PIN_LEDS_PWR_EN, true); // output
-  gpio_put(PIN_LEDS_PWR_EN, 0);
 
   /* Configure columns to output, bring low */
   gpio_init_mask(PIN_COL_MASK);
@@ -166,7 +165,11 @@ int main(void)
   }
   if (remote_get_power_state()) {
     // initial backlight color
+    gpio_put(PIN_LEDS_PWR_EN, 1);
+    sleep_ms(100);
     led_set_rgb(KBD_DEFAULT_BACKLIGHT_COLOR);
+  } else {
+    gpio_put(PIN_LEDS_PWR_EN, 0);
   }
 
   unsigned int cycles = 0;

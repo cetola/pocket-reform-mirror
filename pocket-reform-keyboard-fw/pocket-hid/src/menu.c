@@ -130,11 +130,11 @@ int input_menu_key(uint8_t keycode, uint8_t shift) {
       // is a visual signal that people are used
       // to--so if the remembered brightess was
       // too dark, revert to the default
+      sleep_ms(100);
       if (led_get_brightness() < 0x20) {
         led_set_rgb(KBD_DEFAULT_BACKLIGHT_COLOR);
-      } else {
-        led_turn_on();
       }
+      led_turn_on();
       anim_hello();
     }
     return 0;
