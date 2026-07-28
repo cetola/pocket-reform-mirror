@@ -80,7 +80,7 @@
 #define PCA9557_ADDR 0x19
 // TODO eeprom: 0x50/0x58
 
-#define I2C_TIMEOUT (1000 * 500)
+#define I2C_TIMEOUT (1000 * 20)
 
 #define UART_ID uart1
 #define BAUD_RATE 115200
