@@ -1276,9 +1276,10 @@ void mntre_reset_callback(void) {
 // from pico-sdk docs:
 // https://www.raspberrypi.com/documentation/pico-sdk/hardware.html#function-documentation-10
 // IRQ handlers set up with gpio_set_irq... are acknowledged automatically.
-void spi_commands_task(__unused unsigned int a, __unused long unsigned int b) {
+void spi_commands_task(__unused unsigned int gpio, __unused long unsigned int event) {
   // handle commands from SoM
   // TODO: pass cli state/handle
+  if (gpio != PIN_SOM_SS0) return;
   irq_set_enabled(IO_IRQ_BANK0, false);
   handle_spi_commands(&battery_info);
   irq_set_enabled(IO_IRQ_BANK0, true);
@@ -1300,7 +1301,7 @@ int main() {
   hwapi_set_usb_mode(0, 1);
   hwapi_set_usb_mode(1, 1);
 
-  gpio_set_irq_enabled_with_callback(PIN_SOM_SS0, GPIO_IRQ_EDGE_FALL, true, &spi_commands_task);
+  gpio_set_irq_enabled_with_callback(PIN_SOM_SS0, GPIO_IRQ_EDGE_RISE, true, &spi_commands_task);
 
   printf("# [pocket_sysctl] entering main loop\n");
 
