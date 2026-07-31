@@ -140,4 +140,8 @@ void charger_enable_charge(int current);
 void charger_disable_charge();
 void enter_powersave(void);
 
+// Recommended to call these around any i2c transactions
+void sysctl_enable_irqs();
+void sysctl_disable_irqs();
+
 #endif

@@ -1105,9 +1105,7 @@ bool pd_tick(battery_info_s* battery_info) {
     // TODO naming
     request_sent = 0;
 
-    // probe FUSB302BMPX
-    uint8_t rxdata[2];
-    if (i2c_read_timeout_us(i2c0, FUSB_ADDR, rxdata, 1, false, I2C_TIMEOUT)) {
+    if (fusb_probe()) {
       // SW_RES: Reset the FUSB302B including the I2C registers to their default values
       if (!fusb_write_byte(FUSB_RESET, FUSB_RESET_SW_RES))
         goto out;

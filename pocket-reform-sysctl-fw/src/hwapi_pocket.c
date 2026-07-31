@@ -354,9 +354,9 @@ void hwapi_pocket_init(battery_info_s *binfo) {
   cli_add_func("0v\0\0\0\0\0\0\0", hwapi_legacy_v, 0, CLI_TYPE_UINT64);
   cli_add_func("0c\0\0\0\0\0\0\0", hwapi_legacy_c, 0, CLI_TYPE_UINT64);
   cli_add_func("1w\0\0\0\0\0\0\0", som_wake, 0, CLI_TYPE_VOID);
-  cli_add_word("0f\0\0\0\0\0\0", eightcc("OUTDATED"));
-  cli_add_word("1f\0\0\0\0\0\0", eightcc("LPC     "));
-  cli_add_word("2f\0\0\0\0\0\0", eightcc("DRIVER  "));
+  cli_add_word("0f\0\0\0\0\0\0\0", eightcc("MNT PRSC"));
+  cli_add_word("1f\0\0\0\0\0\0\0", eightcc("20260801"));
+  cli_add_word("2f\0\0\0\0\0\0\0", eightcc("00000000"));
   cli_add_func("s\0\0\0\0\0\0\0", hwapi_legacy_kbd_s, 0, CLI_TYPE_STR128);
   cli_add_func("c\0\0\0\0\0\0\0", hwapi_legacy_kbd_c, 0, CLI_TYPE_STR128);
 }

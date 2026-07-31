@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "sysctl.h"
+#include "hardware/gpio.h"
 #include "pico/divider.h"
 #include "hardware/clocks.h"
 #include "hardware/pll.h"
@@ -424,18 +425,16 @@ void charger_dump(battery_info_s *batinfo) {
   }
 
   mps_read_buf(MPS_REGSTART_ADC, sizeof(mps_reg_adc.all_regs), mps_reg_adc.all_regs);
-
-  float adc_sys_v = mps_word_to_6400(mps_reg_adc.sys_v);
-  float adc_input_i = mps_word_to_3200(mps_reg_adc.input_i);
-  float adc_discharge_c = mps_word_to_6400(mps_reg_adc.bat_discharge_i);
   float adc_input_v = mps_word_to_12800(mps_reg_adc.input_v);
 
   // carry over to globals for SPI reporting
-  //batinfo->battery_amps = -(float)(adc_input_i - adc_discharge_c)/(float)1000.0;
-  //batinfo->battery_volts = (float)adc_sys_v/(float)1000.0;
   batinfo->input_volts = adc_input_v;
 
   if (batinfo->print_pack_info) {
+    float adc_sys_v = mps_word_to_6400(mps_reg_adc.sys_v);
+    float adc_input_i = mps_word_to_3200(mps_reg_adc.input_i);
+    float adc_discharge_c = mps_word_to_6400(mps_reg_adc.bat_discharge_i);
+
     float adc_bat_v = mps_word_to_6400(mps_reg_adc.bat_v);
     float adc_charge_c = mps_word_to_6400(mps_reg_adc.bat_charge_i);
     float adc_temp = mps_word_to_temp(mps_reg_adc.junction_t);
@@ -1183,8 +1182,6 @@ void usb_host_5v_set(int port, int enable) {
 // TODO: replace with actual timer
 #define TICK_MS 1
 
-//static int cs_state_prev = 0;
-
 void loop() {
   bool can_sleep = true;
 
@@ -1210,6 +1207,7 @@ void loop() {
   if (!pd_tick(&battery_info)) {
     can_sleep = false;
   }
+  // TODO: way too much traffic here
   charger_tick();
   battery_info.ticks++;
 
@@ -1264,6 +1262,7 @@ void loop() {
 
 void mntre_reset_callback(void) {
   // avoid leaving display brightness PWM at a bad duty cycle.
+  // TODO: only relevant for MB 1.0?
   gpio_set_function(PIN_DISP_EN, GPIO_FUNC_SIO);
   gpio_put(PIN_DISP_EN, 1);
 
@@ -1273,16 +1272,24 @@ void mntre_reset_callback(void) {
   }
 }
 
+void sysctl_disable_irqs() {
+  irq_set_enabled(IO_IRQ_BANK0, false);
+}
+
+void sysctl_enable_irqs() {
+  irq_set_enabled(IO_IRQ_BANK0, true);
+}
+
 // from pico-sdk docs:
 // https://www.raspberrypi.com/documentation/pico-sdk/hardware.html#function-documentation-10
 // IRQ handlers set up with gpio_set_irq... are acknowledged automatically.
-void spi_commands_task(__unused unsigned int gpio, __unused long unsigned int event) {
+void spi_commands_task([[maybe_unused]] unsigned int gpio, [[maybe_unused]] long unsigned int event) {
   // handle commands from SoM
   // TODO: pass cli state/handle
   if (gpio != PIN_SOM_SS0) return;
-  irq_set_enabled(IO_IRQ_BANK0, false);
+  sysctl_disable_irqs();
   handle_spi_commands(&battery_info);
-  irq_set_enabled(IO_IRQ_BANK0, true);
+  sysctl_enable_irqs();
 }
 
 int main() {
@@ -1301,7 +1308,7 @@ int main() {
   hwapi_set_usb_mode(0, 1);
   hwapi_set_usb_mode(1, 1);
 
-  gpio_set_irq_enabled_with_callback(PIN_SOM_SS0, GPIO_IRQ_EDGE_RISE, true, &spi_commands_task);
+  gpio_set_irq_enabled_with_callback(PIN_SOM_SS0, GPIO_IRQ_EDGE_FALL|GPIO_IRQ_EDGE_RISE, true, &spi_commands_task);
 
   printf("# [pocket_sysctl] entering main loop\n");
 

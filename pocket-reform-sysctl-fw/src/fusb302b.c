@@ -20,25 +20,42 @@
 #include <stdio.h>
 #include <pd.h>
 
+bool fusb_probe() {
+  uint8_t rxdata[2];
+  sysctl_disable_irqs();
+  bool res = i2c_read_timeout_us(i2c0, FUSB_ADDR, rxdata, 1, false, I2C_TIMEOUT);
+  sysctl_enable_irqs();
+  return res;
+}
+
 bool fusb_read_buf(uint8_t addr, uint8_t size, uint8_t *buf) {
+  sysctl_disable_irqs();
   if (1 != i2c_write_timeout_us(i2c0, FUSB_ADDR, &addr, 1, true, I2C_TIMEOUT)) {
     return false;
   }
-  return size == i2c_read_timeout_us(i2c0, FUSB_ADDR, buf, size, false, I2C_TIMEOUT);
+  int res = i2c_read_timeout_us(i2c0, FUSB_ADDR, buf, size, false, I2C_TIMEOUT);
+  sysctl_enable_irqs();
+  return size == res;
 }
 
 bool fusb_write_byte(uint8_t addr, uint8_t byte) {
+  sysctl_disable_irqs();
   uint8_t buf[2] = {addr, byte};
-  return 2 == i2c_write_timeout_us(i2c0, FUSB_ADDR, buf, 2, false, I2C_TIMEOUT);
+  int res = i2c_write_timeout_us(i2c0, FUSB_ADDR, buf, 2, false, I2C_TIMEOUT);
+  sysctl_enable_irqs();
+  return 2 == res;
 }
 
 bool fusb_write_buf(uint8_t addr, uint8_t size, const uint8_t *buf) {
+  sysctl_disable_irqs();
   uint8_t txbuf[size + 1];
   txbuf[0] = addr;
   for (int i = 0; i < size; i++) {
     txbuf[i + 1] = buf[i];
   }
-  return size + 1 == i2c_write_timeout_us(i2c0, FUSB_ADDR, txbuf, size + 1, false, I2C_TIMEOUT);
+  int res = i2c_write_timeout_us(i2c0, FUSB_ADDR, txbuf, size + 1, false, I2C_TIMEOUT);
+  sysctl_enable_irqs();
+  return size + 1 == res;
 }
 
 bool fusb_send_message(const union pd_msg *msg) {
