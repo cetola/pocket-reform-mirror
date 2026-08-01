@@ -263,6 +263,7 @@ union fusb_status {
 
 /* FUSB functions */
 
+bool fusb_probe();
 bool fusb_read_buf(uint8_t addr, uint8_t size, uint8_t *buf);
 bool fusb_write_byte(uint8_t addr, uint8_t byte);
 bool fusb_write_buf(uint8_t addr, uint8_t size, const uint8_t *buf);
