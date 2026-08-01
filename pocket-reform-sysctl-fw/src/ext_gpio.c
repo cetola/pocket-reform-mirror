@@ -10,22 +10,25 @@ static uint8_t gpio_ext_uswitch_state;
 bool pca9536_write_byte(uint8_t addr, uint8_t val) {
   sysctl_disable_irqs();
   uint8_t buf[2] = {addr, val};
-  return 2 == i2c_write_timeout_us(i2c0, PCA9536_ADDR, buf, 2, false, I2C_TIMEOUT);
+  bool res = (2 == i2c_write_timeout_us(i2c0, PCA9536_ADDR, buf, 2, false, I2C_TIMEOUT));
   sysctl_enable_irqs();
+  return res;
 }
 
 bool pca9557_write_byte(uint8_t addr, uint8_t val) {
   sysctl_disable_irqs();
   uint8_t buf[2] = {addr, val};
-  return 2 == i2c_write_timeout_us(i2c0, PCA9557_ADDR, buf, 2, false, I2C_TIMEOUT);
+  bool res = (2 == i2c_write_timeout_us(i2c0, PCA9557_ADDR, buf, 2, false, I2C_TIMEOUT));
   sysctl_enable_irqs();
+  return res;
 }
 
 bool pca9557_read_byte(uint8_t addr, uint8_t *val) {
   sysctl_disable_irqs();
   i2c_write_timeout_us(i2c0, PCA9557_ADDR, &addr, 1, true, I2C_TIMEOUT);
-  return 1 == i2c_read_timeout_us(i2c0, PCA9557_ADDR, val, 1, false, I2C_TIMEOUT);
+  bool res = (1 == i2c_read_timeout_us(i2c0, PCA9557_ADDR, val, 1, false, I2C_TIMEOUT));
   sysctl_enable_irqs();
+  return res;
 }
 
 // also called by gpio_ext_setup()
