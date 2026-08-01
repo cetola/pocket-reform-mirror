@@ -758,6 +758,13 @@ static bool pd_handle_msg_from_power_source(union pd_msg *msg, [[maybe_unused]] 
         if (their_datarole == PD_DATAROLE_DFP) {
           pd_datarole = PD_DATAROLE_DFP;
           printf("# [pd]     switched our data role to DFP.\n");
+
+          // TODO: only on mb2
+          if (!alt_mode_requested) {
+            printf("# [pd]     attempting DP Alt-Mode trigger...\n");
+            send_vdm(0xff008002, 0);
+            alt_mode_requested = true;
+          }
         } else {
           pd_datarole = PD_DATAROLE_UFP;
           printf("# [pd]     switched our data role to UFP.\n");
@@ -1246,7 +1253,7 @@ bool pd_tick(battery_info_s* battery_info) {
 
     // detect detach by VBUS going away.
     uint8_t status0;
-    if (t>1000 && fusb_read_buf(FUSB_STATUS0, 1, &status0) && (status0 & FUSB_STATUS0_VBUSOK) == 0) {
+    if (fusb_read_buf(FUSB_STATUS0, 1, &status0) && (status0 & FUSB_STATUS0_VBUSOK) == 0) {
       printf("# [pd] PD_STATE_ATTACHED_SNK VBUS went away\n");
       t = 0;
       pd_state = PD_STATE_SETUP;
