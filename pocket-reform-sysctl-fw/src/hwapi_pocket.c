@@ -181,6 +181,10 @@ uint64_t hwapi_set_gpio([[maybe_unused]] struct cli_context* ctx, uint64_t id, u
     usb_host_5v_set(1, high);
     break;
   }
+  case 8: {
+    set_display_v2_backlight_gate(high);
+    break;
+  }
   }
   return high;
 }

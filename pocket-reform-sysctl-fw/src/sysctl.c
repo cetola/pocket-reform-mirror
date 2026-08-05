@@ -95,6 +95,11 @@ int32_t pwm_set_freq_duty(uint32_t slice_num, uint32_t chan, uint32_t freq, int 
 }
 
 static int backlight_freq = 100000;
+static int display_v2_backlight_function = 0;
+
+void set_display_v2_backlight_gate(int on) {
+  display_v2_backlight_function = on;
+}
 
 void set_display_backlight_freq(int freq) {
   if (freq < 0) freq = 0;
@@ -105,6 +110,10 @@ void set_display_backlight_freq(int freq) {
 // that will ship in late 2024 (TOP070F01A)
 // called from timer interrupt, no sleep allowed here!
 void set_display_backlight(int percent) {
+  if (!display_v2_backlight_function) {
+    return;
+  }
+
   // DISP_EN = 7 = PWM3 B
   gpio_set_function(PIN_DISP_EN, GPIO_FUNC_PWM);
   pwm_set_freq_duty(pwm_gpio_to_slice_num(PIN_DISP_EN), pwm_gpio_to_channel(PIN_DISP_EN), backlight_freq, percent);
@@ -578,6 +587,8 @@ void turn_som_power_on_v20() {
   gpio_ext_enable(GPIO_EXT_DISP_RESET_N);
   gpio_ext_enable(GPIO_EXT_DISP_BL_PWR_EN);
   gpio_ext_enable(GPIO_EXT_DISP_1EN_2BL);
+
+  // FIXME only for display v2!
   set_display_backlight(30);
 
   if (!battery_info.som_is_powered) {
@@ -665,6 +676,7 @@ void turn_som_power_on() {
   gpio_set_function(PIN_DISP_EN, GPIO_FUNC_SIO);
   gpio_put(PIN_DISP_RESET, 1);
   gpio_put(PIN_DISP_EN, 1);
+  set_display_v2_backlight_gate(0);
 
   // Latch power enables
   gpio_put(PIN_PWREN_LATCH, 1);

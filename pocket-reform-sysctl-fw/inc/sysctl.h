@@ -131,6 +131,7 @@ int mb_version();
 void som_wake();
 void turn_som_power_on();
 void turn_som_power_off();
+void set_display_v2_backlight_gate(int on);
 void set_display_backlight(int percent);
 void set_display_backlight_freq(int freq);
 
