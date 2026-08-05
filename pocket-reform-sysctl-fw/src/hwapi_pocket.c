@@ -185,6 +185,21 @@ uint64_t hwapi_set_gpio([[maybe_unused]] struct cli_context* ctx, uint64_t id, u
     set_display_v2_backlight_gate(high);
     break;
   }
+  case 9: {
+    if (mb_version() < 2) {
+      gpio_put(PIN_DISP_EN, high);
+      gpio_put(PIN_PWREN_LATCH, 1);
+      gpio_put(PIN_PWREN_LATCH, 0);
+    }
+    if (mb_version() >= 2) {
+      if (high) {
+        gpio_ext_enable(GPIO_EXT_DISP_1EN_2BL);
+      } else {
+        gpio_ext_disable(GPIO_EXT_DISP_1EN_2BL);
+      }
+    }
+    break;
+  }
   }
   return high;
 }
