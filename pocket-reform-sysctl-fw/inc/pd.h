@@ -94,6 +94,8 @@
 /* Data roles */
 #define PD_DATAROLE_UFP (0x0 << PD_HDR_DATAROLE_SHIFT)
 #define PD_DATAROLE_DFP (0x1 << PD_HDR_DATAROLE_SHIFT)
+#define PD_DATAROLE_GET(msg) (((msg)->hdr & PD_HDR_DATAROLE) >> PD_HDR_DATAROLE_SHIFT)
+#define PD_DATAROLE_STR(msg) (PD_POWERROLE_GET(msg) ? "DFP" : "UFP")
 
 /* Specification revisions */
 #define PD_SPECREV_1_0 (0x0 << PD_HDR_SPECREV_SHIFT)
