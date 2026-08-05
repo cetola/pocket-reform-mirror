@@ -11,9 +11,6 @@
 #include <string.h>
 #include <math.h>
 
-// TODO: need these inputs:
-// - battery_info
-
 static battery_info_s *battery_info;
 
 #define LEGACY_BUF_SZ 128
@@ -122,6 +119,8 @@ uint64_t hwapi_set_gpio([[maybe_unused]] struct cli_context* ctx, uint64_t id, u
     // 0: Display Panel Reset (active low)
     if (mb_version() < 2) {
       gpio_put(PIN_DISP_RESET, high);
+      gpio_put(PIN_PWREN_LATCH, 1);
+      gpio_put(PIN_PWREN_LATCH, 0);
     }
     if (mb_version() >= 2) {
       if (high) {
@@ -223,6 +222,7 @@ uint64_t hwapi_soc_pre_suspend([[maybe_unused]] struct cli_context* ctx) {
   gpio_ext_disable(GPIO_EXT_HUB_PWR_EN);
   gpio_ext_disable(GPIO_EXT_3V3_EN);
   gpio_ext_disable(GPIO_EXT_DISP_BL_PWR_EN);
+  // TODO mb1 support!
   return 1;
 }
 
@@ -230,6 +230,7 @@ uint64_t hwapi_soc_post_suspend([[maybe_unused]] struct cli_context* ctx) {
   gpio_ext_enable(GPIO_EXT_3V3_EN);
   gpio_ext_enable(GPIO_EXT_HUB_PWR_EN);
   gpio_ext_enable(GPIO_EXT_DISP_BL_PWR_EN);
+  // TODO mb1 support!
   return 1;
 }
 
