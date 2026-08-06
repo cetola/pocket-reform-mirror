@@ -982,7 +982,7 @@ void setup() {
   }
 
   set_display_backlight_freq(100000);
-  if (watchdog_hw->scratch[BOOT_SCRATCH_BITS0_DISPV2]) {
+  if (watchdog_hw->scratch[BOOT_SCRATCH_BITS0_IDX] & BOOT_SCRATCH_BITS0_DISPV2) {
     // display v2 remembered
     set_display_v2_backlight_unlock(1);
   } else {
