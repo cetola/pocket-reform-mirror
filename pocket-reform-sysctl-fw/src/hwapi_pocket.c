@@ -182,7 +182,7 @@ uint64_t hwapi_set_gpio([[maybe_unused]] struct cli_context* ctx, uint64_t id, u
     break;
   }
   case 8: {
-    set_display_v2_backlight_gate(high);
+    set_display_v2_backlight_unlock(high);
     break;
   }
   case 9: {
