@@ -91,10 +91,6 @@
 #define BOOT_MAGIC_2 0xAA55F0F0
 #define BOOT_MAGIC_3 0x0F0F55AA
 #define BOOT_MAGIC_OFF (io_rw_32)(-1)
-// for remembering critical settings across warm resets
-#define BOOT_SCRATCH_BITS0_IDX 1
-// if this bit is set, we assume display v2 (for display_v2_backlight_function)
-#define BOOT_SCRATCH_BITS0_DISPV2 (1<<0)
 
 #define BATTERY_CAPACITY_MILLIAMP_HOURS 4000
 

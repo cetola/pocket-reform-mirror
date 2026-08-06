@@ -100,11 +100,6 @@ static int display_v2_backlight_function = 0;
 
 void set_display_v2_backlight_unlock(int on) {
   display_v2_backlight_function = on;
-  if (on) {
-    watchdog_hw->scratch[BOOT_SCRATCH_BITS0_IDX] |= BOOT_SCRATCH_BITS0_DISPV2;
-  } else {
-    watchdog_hw->scratch[BOOT_SCRATCH_BITS0_IDX] &= ~BOOT_SCRATCH_BITS0_DISPV2;
-  }
 }
 
 void set_display_backlight_freq(int freq) {
@@ -985,13 +980,8 @@ void setup() {
   }
 
   set_display_backlight_freq(100000);
-  if (watchdog_hw->scratch[BOOT_SCRATCH_BITS0_IDX] & BOOT_SCRATCH_BITS0_DISPV2) {
-    // display v2 remembered
-    set_display_v2_backlight_unlock(1);
-  } else {
-    // display v1
-    set_display_v2_backlight_unlock(0);
-  }
+  // default to display v1, until driver unlocks this
+  set_display_v2_backlight_unlock(0);
 
   // if this is a warm boot, then we need to avoid latching the PWR and display
   // pins.
