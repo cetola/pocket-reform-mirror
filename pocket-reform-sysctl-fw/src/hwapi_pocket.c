@@ -272,20 +272,26 @@ uint64_t hwapi_get_pack_charge([[maybe_unused]] struct cli_context* ctx /*uint64
   return battery_info->charge_percentage;
 }
 
-uint64_t hwapi_get_pack_capacity_full([[maybe_unused]] struct cli_context* ctx /*uint64_t pack_id*/) {
-  // TODO
-  return 0;
+uint64_t hwapi_get_cell_max_mah([[maybe_unused]] struct cli_context* ctx, [[maybe_unused]] uint64_t cell_id) {
+  return battery_info->cell_max_mah;
 }
 
-uint64_t hwapi_get_sys_mv([[maybe_unused]] struct cli_context* ctx /*uint64_t pack_id*/) {
+uint64_t hwapi_get_sys_mv([[maybe_unused]] struct cli_context* ctx) {
   // TODO
   return battery_info->input_volts;
 }
 
-uint64_t hwapi_get_sys_ma([[maybe_unused]] struct cli_context* ctx /*uint64_t pack_id*/) {
+uint64_t hwapi_get_sys_ma([[maybe_unused]] struct cli_context* ctx) {
   // TODO
   // also: input amps?
   return 0;
+}
+
+uint64_t hwapi_get_wdog_scratch([[maybe_unused]] struct cli_context* ctx, uint64_t idx) {
+  if (idx > 8) {
+    return 0;
+  }
+  return (uint64_t)watchdog_hw->scratch[idx];
 }
 
 uint64_t hwapi_set_pack_debug([[maybe_unused]] struct cli_context* ctx, uint64_t on) {
@@ -332,10 +338,10 @@ void hwapi_pocket_init(battery_info_s *binfo) {
   cli_add_func("set-lite", hwapi_set_backlight, 1, CLI_TYPE_UINT64);
   cli_add_func("set-lfrq", hwapi_set_backlight_freq, 1, CLI_TYPE_UINT64);
   cli_add_func("cell-mv\0", hwapi_get_cell_mv, 1, CLI_TYPE_UINT64);
+  cli_add_func("cell-mah", hwapi_get_cell_max_mah, 1, CLI_TYPE_UINT64);
   cli_add_func("pack-mv\0", hwapi_get_pack_mv, 1, CLI_TYPE_UINT64);
   cli_add_func("pack-ma\0", hwapi_get_pack_ma, 1, CLI_TYPE_UINT64);
   cli_add_func("pack-crg", hwapi_get_pack_charge, 1, CLI_TYPE_UINT64);
-  cli_add_func("pack-max", hwapi_get_pack_capacity_full, 1, CLI_TYPE_UINT64);
   cli_add_func("pack-dbg", hwapi_set_pack_debug, 1, CLI_TYPE_UINT64);
   cli_add_func("sys-mv\0\0", hwapi_get_sys_mv, 0, CLI_TYPE_UINT64);
   cli_add_func("sys-ma\0\0", hwapi_get_sys_ma, 0, CLI_TYPE_UINT64);
@@ -349,6 +355,7 @@ void hwapi_pocket_init(battery_info_s *binfo) {
   cli_add_func("pdreset\0", hwapi_pd_send_reset, 1, CLI_TYPE_VOID);
   cli_add_func("pdvolt\0\0", hwapi_pd_set_max_voltage, 1, CLI_TYPE_VOID);
   cli_add_func("pdsink\0\0", hwapi_pd_set_force_sink, 1, CLI_TYPE_VOID);
+  cli_add_func("wdog-scr\0\0", hwapi_get_wdog_scratch, 2, CLI_TYPE_UINT64);
 
   // TODO: DP/altmode_set configs
   // altmode_set(0b110);

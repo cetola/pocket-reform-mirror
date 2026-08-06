@@ -108,6 +108,7 @@ typedef struct battery_info_s
   float battery_volts;
   float battery_amps;
   float input_volts;
+  int cell_max_mah;
 
   // reported by balancer
   float cell1_volts;
