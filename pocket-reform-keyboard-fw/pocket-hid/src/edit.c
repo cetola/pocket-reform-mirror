@@ -17,6 +17,7 @@
 #define EDIT_STATE_NORMAL 0
 #define EDIT_STATE_ESC 1
 #define EDIT_STATE_CSI 2
+#define EDIT_STATE_WAIT_KEYUP -1
 #define EDIT_LINE_MAX 20
 #define CHR_BACKSP 0x8
 #define CHR_NEWLINE 0xa
@@ -25,7 +26,7 @@
 #define CHR_RETURN 0xd
 #define CHR_RIGHT 0xe
 #define CHR_LEFT 0xf
-static int edit_state = EDIT_STATE_NORMAL;
+static int edit_state = EDIT_STATE_WAIT_KEYUP;
 static char edit_line[EDIT_LINE_MAX];
 static int edit_line_cursor = 0;
 static uint8_t edit_y = 0;
@@ -120,6 +121,14 @@ void edit_insert_chr(uint8_t c) {
 }
 
 void edit_input_key(uint8_t inkey, uint8_t shift) {
+  if (edit_state == EDIT_STATE_WAIT_KEYUP) {
+    // wait for initial key up event (coming from menu)
+    if (inkey == 0) {
+      edit_state = EDIT_STATE_NORMAL;
+    }
+    return;
+  }
+
   uint32_t now_ms = board_millis();
   if (prev_key == inkey) {
     uint32_t passed_ms = now_ms - prev_key_ms;
@@ -174,13 +183,10 @@ void edit_input_key(uint8_t inkey, uint8_t shift) {
 
 void edit_setup() {
   uint32_t now_ms = board_millis();
-  if (now_ms > 1000) {
-    // prevent still-held key from menu
-    prev_key_ms = now_ms + 1000;
-  } else {
-    prev_key_ms = 0;
-  }
-  edit_state = EDIT_STATE_NORMAL;
+  prev_key = 0;
+  prev_key_ms = now_ms;
+  edit_state = EDIT_STATE_WAIT_KEYUP;
+  repeat_state = 0;
   edit_line_cursor = 0;
   edit_y = 3;
   memset(edit_line, 0, EDIT_LINE_MAX);
