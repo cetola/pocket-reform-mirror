@@ -590,6 +590,8 @@ void turn_som_power_on_v20() {
   gpio_put(PIN_PHONE_DPR, 1);   // active high
 
   // Display reset (deassert)
+  gpio_set_function(PIN_DISP_EN, GPIO_FUNC_SIO);
+  gpio_put(PIN_DISP_EN, 1);
   gpio_ext_enable(GPIO_EXT_DISP_RESET_N);
   gpio_ext_enable(GPIO_EXT_DISP_BL_PWR_EN);
   gpio_ext_enable(GPIO_EXT_DISP_1EN_2BL);
@@ -651,6 +653,8 @@ void turn_som_power_off_v20() {
   // has an effect only on dispv2
   set_display_backlight(0);
   set_display_v2_backlight_unlock(0);
+  gpio_set_function(PIN_DISP_EN, GPIO_FUNC_SIO);
+  gpio_put(PIN_DISP_EN, 0);
 
   som_power_indication();
 
@@ -721,7 +725,6 @@ void turn_som_power_off() {
   }
 
   battery_info.som_is_powered = false;
-
   clear_boot_magic();
 
   // Display
@@ -740,13 +743,15 @@ void turn_som_power_off() {
   gpio_put(PIN_3V3_ENABLE, 0);
   gpio_put(PIN_1V1_ENABLE, 0);
 
-  // Latch power enables
-  gpio_put(PIN_PWREN_LATCH, 1);
-  gpio_put(PIN_PWREN_LATCH, 0);
-
   // has an effect only on dispv2
   set_display_backlight(0);
   set_display_v2_backlight_unlock(0);
+  gpio_set_function(PIN_DISP_EN, GPIO_FUNC_SIO);
+  gpio_put(PIN_DISP_EN, 0);
+
+  // Latch power enables
+  gpio_put(PIN_PWREN_LATCH, 1);
+  gpio_put(PIN_PWREN_LATCH, 0);
 
   som_power_indication();
 }
@@ -909,8 +914,6 @@ void setup_gpios() {
   // this pin is switched to PWM mode later
   // Needs to be at 100% for display v1
   gpio_set_function(PIN_DISP_EN, GPIO_FUNC_SIO);
-
-  set_display_v2_backlight_unlock(0);
 
   // Modem control pins
   gpio_init(PIN_FLIGHTMODE);
