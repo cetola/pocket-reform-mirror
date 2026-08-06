@@ -32,6 +32,7 @@
 #include "keyboard.h"
 #include "pins.h"
 
+#include "usb_hid_keys.h"
 #include "ws2812.pio.h"
 
 #define ADDR_SENSOR (0x79)
@@ -65,16 +66,17 @@ static double tb_ny = 0;
 
 // This state machine describes the global interaction state of the
 // OLED-displayed menu.
-enum MenuState {
+enum menu_state_t {
   MENU_STATE_INACTIVE, // not displayed
   MENU_STATE_ACTIVE,   // displayed and the user is interacting
+  MENU_STATE_RAW,      // displayed and a screen is handling raw input
   MENU_STATE_ENTER,    // the user has requested the menu be displayed
   MENU_STATE_EXIT      // the menu interaction is over
 };
-static enum MenuState menu_state = MENU_STATE_INACTIVE;
+static enum menu_state_t menu_state = MENU_STATE_INACTIVE;
 
 // The next menu item (by key code) to invoke
-static int request_menu_function = 0;
+static uint8_t buffer_menu_key = 0;
 // The last key pressed while the menu was active
 static uint8_t last_menu_key = 0;
 
@@ -100,7 +102,6 @@ int main(void)
   gpio_set_dir(PIN_LEDS, true); // output
   gpio_init(PIN_LEDS_PWR_EN);
   gpio_set_dir(PIN_LEDS_PWR_EN, true); // output
-  gpio_put(PIN_LEDS_PWR_EN, 0);
 
   /* Configure columns to output, bring low */
   gpio_init_mask(PIN_COL_MASK);
@@ -164,7 +165,11 @@ int main(void)
   }
   if (remote_get_power_state()) {
     // initial backlight color
+    gpio_put(PIN_LEDS_PWR_EN, 1);
+    sleep_ms(100);
     led_set_rgb(KBD_DEFAULT_BACKLIGHT_COLOR);
+  } else {
+    gpio_put(PIN_LEDS_PWR_EN, 0);
   }
 
   unsigned int cycles = 0;
@@ -194,8 +199,9 @@ int main(void)
       // if device is off and user is pressing random keys,
       // show a hint for turning on the device
       if (!remote_get_power_state()) {
-        if (pressed_keys>0 && menu_state != MENU_STATE_ACTIVE && !hyper_key && !last_menu_key) {
-          execute_menu_function(KEY_H);
+        if (pressed_keys > 0 && menu_state != MENU_STATE_ACTIVE
+            && menu_state != MENU_STATE_RAW && !hyper_key && !last_menu_key) {
+          input_menu_key(KEY_H, 0);
         }
       }
     }
@@ -304,13 +310,25 @@ static void service_menu() {
   if (menu_state == MENU_STATE_ENTER) {
     enter_menu_mode();
   }
-  if (request_menu_function != 0) {
-    if (!execute_menu_function(request_menu_function)) {
+  else if (menu_state == MENU_STATE_RAW) {
+    int res = input_menu_key(buffer_menu_key, shift_key);
+    if (res == 0) {
       menu_state = MENU_STATE_EXIT;
     }
-    request_menu_function = 0;
   }
-  if (menu_state == MENU_STATE_EXIT) {
+  else if (menu_state == MENU_STATE_ACTIVE) {
+    if (buffer_menu_key != 0) {
+      int res = input_menu_key(buffer_menu_key, shift_key);
+      if (res == 2) {
+	menu_state = MENU_STATE_RAW;
+      } else if (res == 0) {
+	menu_state = MENU_STATE_EXIT;
+      } else if (res == 1) {
+	// no change
+      }
+      buffer_menu_key = 0;
+    }
+  } else if (menu_state == MENU_STATE_EXIT) {
     exit_menu_mode();
   }
 }
@@ -416,7 +434,7 @@ static int process_keyboard(uint8_t* resulting_scancodes) {
             }
             if (now_ms - hyper_enter_long_press_start_ms > 1000) {
               // turn on computer after 2 seconds of holding hyper + enter
-              request_menu_function = KEY_1;
+              buffer_menu_key = KEY_1;
               menu_state = MENU_STATE_EXIT;
               last_menu_key = KEY_1;
               hyper_enter_long_press_start_ms = 0;
@@ -426,11 +444,17 @@ static int process_keyboard(uint8_t* resulting_scancodes) {
           hyper_key = 1;
           active_matrix = matrix_fn;
         } else {
-          if (menu_state == MENU_STATE_ACTIVE) {
+          if (menu_state == MENU_STATE_RAW) {
+            if (keycode == KEY_LEFTSHIFT || keycode == KEY_RIGHTSHIFT) {
+              // TODO filter all modifiers
+            } else {
+              buffer_menu_key = keycode;
+            }
+          } else if (menu_state == MENU_STATE_ACTIVE) {
             // not holding the same key?
             if (last_menu_key != keycode) {
               // hyper/menu functions
-              request_menu_function = keycode;
+              buffer_menu_key = keycode;
               // don't repeat action while key is held down
               last_menu_key = keycode;
             }
@@ -459,13 +483,17 @@ static int process_keyboard(uint8_t* resulting_scancodes) {
         if (keycode == KEY_LEFTSHIFT) {
           shift_key = 0;
         }
+	if (keycode == buffer_menu_key) {
+	  buffer_menu_key = 0;
+	}
       }
     }
   }
 
   // if no more keys are held down, allow a new menu command
-  if (total_pressed < 1) {
+  if (total_pressed < 1 && !hyper_key) {
     last_menu_key = 0;
+    buffer_menu_key = 0;
   }
 
   return used_key_codes;
