@@ -426,6 +426,7 @@ static int process_keyboard(uint8_t* resulting_scancodes) {
             if (menu_state != MENU_STATE_ACTIVE && menu_state != MENU_STATE_ENTER) {
               menu_state = MENU_STATE_ENTER;
               hyper_enter_long_press_start_ms = board_millis();
+              last_menu_key = KEY_ENTER;
             }
           }
 
