@@ -1053,6 +1053,8 @@ static bool pd_handle_msg_from_power_sink(union pd_msg *msg, [[maybe_unused]] ba
   }
 }
 
+static int pd_src_attempts = 0;
+
 // Returns if state was "changed" in some form and we expect to maybe be called again.
 static bool pd_comm_pd(battery_info_s* battery_info) {
   uint8_t status1;
@@ -1061,10 +1063,14 @@ static bool pd_comm_pd(battery_info_s* battery_info) {
       printf("# [pd] status1: 0b%08b\n", status1);
       if (status1 & 0b00100100) {
         // TODO: handle the right bit!
-        //pd_state = PD_STATE_SETUP;
         printf("# [pd] ~~ tx flush / pd reset ~~\n");
         fusb_write_byte(FUSB_CONTROL0, (pd_host_current << FUSB_CONTROL0_HOST_CUR_SHIFT) | FUSB_CONTROL0_TX_FLUSH);
         fusb_write_byte(FUSB_RESET, FUSB_RESET_PD_RESET);
+        if (pd_src_attempts++ > 4) {
+          // give up retrying in the current state (probably PD_STATE_UNATTACHED_SRC)
+          pd_state = PD_STATE_SETUP;
+          pd_src_attempts = 0;
+        }
         return true;
       }
     }
@@ -1096,6 +1102,7 @@ bool pd_tick(battery_info_s* battery_info) {
     // role defaults
     pd_powerrole = PD_POWERROLE_SINK;
     pd_datarole = PD_DATAROLE_UFP;
+    pd_src_attempts = 0;
     swap_dr_after_goodcrc = false;
     pd_ccpin = 0;
     pd_host_current = 0b10;
