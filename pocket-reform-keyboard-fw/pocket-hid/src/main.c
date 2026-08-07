@@ -422,23 +422,20 @@ static int process_keyboard(uint8_t* resulting_scancodes) {
         // hyper + enter? open OLED menu
         if (keycode == KEY_ENTER && hyper_key) {
           if (!last_menu_key) {
-            if (menu_state != MENU_STATE_ACTIVE) {
+            // TODO: what about raw?
+            if (menu_state != MENU_STATE_ACTIVE && menu_state != MENU_STATE_ENTER) {
               menu_state = MENU_STATE_ENTER;
+              hyper_enter_long_press_start_ms = board_millis();
             }
-            uint32_t now_ms = board_millis();
-            if (!now_ms) now_ms++;
+          }
 
-            if (!hyper_enter_long_press_start_ms) {
-              hyper_enter_long_press_start_ms = now_ms;
-              // edge case
-            }
-            if (now_ms - hyper_enter_long_press_start_ms > 1000) {
-              // turn on computer after 2 seconds of holding hyper + enter
-              buffer_menu_key = KEY_1;
-              menu_state = MENU_STATE_EXIT;
-              last_menu_key = KEY_1;
-              hyper_enter_long_press_start_ms = 0;
-            }
+          // handle long press of hyper + enter
+          uint32_t now_ms = board_millis();
+          if (now_ms - hyper_enter_long_press_start_ms > 1000) {
+            // turn on computer after 2 seconds of holding hyper + enter
+            buffer_menu_key = KEY_1;
+            last_menu_key = KEY_1;
+            hyper_enter_long_press_start_ms = 0;
           }
         } else if (keycode == KEY_COMPOSE) {
           hyper_key = 1;
@@ -479,13 +476,9 @@ static int process_keyboard(uint8_t* resulting_scancodes) {
         } else if (keycode == KEY_ENTER) {
           hyper_enter_long_press_start_ms = 0;
         }
-
         if (keycode == KEY_LEFTSHIFT) {
           shift_key = 0;
         }
-	if (keycode == buffer_menu_key) {
-	  buffer_menu_key = 0;
-	}
       }
     }
   }
