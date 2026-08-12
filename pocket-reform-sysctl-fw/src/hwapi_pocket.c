@@ -92,7 +92,7 @@ uint64_t hwapi_set_backlight([[maybe_unused]] struct cli_context* ctx, uint64_t 
   if (brightness > 100) brightness = 100;
   // rescale 0..100% to 0..70% with a nice curve that has more detail/steps in the dark area
   double scaled = 0.72 + 23.1 * tan(0.0125 * ((double)brightness));
-  if (scaled > 70.0) scaled = 70.0;
+  if (scaled > 69.0) scaled = 69.0;
 
   // it could be that sysctl fw was updated without a reboot.
   // if there is a driver running that sends this command,
