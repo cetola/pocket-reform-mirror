@@ -100,6 +100,10 @@ static int display_v2_backlight_function = 0;
 
 void set_display_v2_backlight_unlock(int on) {
   display_v2_backlight_function = on;
+  // starting at a low brightness recovers from any
+  // flicker resulting from initial higher-than-max
+  // setting
+  set_display_backlight(30);
 }
 
 void set_display_backlight_freq(int freq) {
