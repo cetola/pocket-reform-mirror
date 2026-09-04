@@ -91,6 +91,7 @@ void matrix_write_char(struct char_matrix *matrix, uint8_t c);
 void matrix_write(struct char_matrix *matrix, const char *data);
 void matrix_render(struct char_matrix *matrix);
 void matrix_render_direct(const uint8_t* bitmap);
+void matrix_render_direct_offset(uint8_t* bytes, uint16_t bufsize);
 
 void oled_brightness_inc(void);
 void oled_brightness_dec(void);

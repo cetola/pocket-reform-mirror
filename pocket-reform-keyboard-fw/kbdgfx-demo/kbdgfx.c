@@ -11,37 +11,64 @@
 #include <math.h>
 #include <unistd.h>
 
-#define ROWS 6
-#define COLS 12
-#define BUFSZ (6+COLS*3)
-#define FBUFSZ COLS*ROWS*3
+#define ROWS 4
+#define COLS 128
+#define BUFSZ COLS*ROWS
+#define FBUFSZ COLS*ROWS*8
+#define CHUNKSZ 43 // max value 64-7
+#define MSGBUFSZ 5+2+CHUNKSZ // xWBIO + page:u8 + col:u8 + CHUNKSZ data
 
-// our unpacked, wasteful framebuffer (3 bytes per pixel)
+// our unpacked, wasteful framebuffer (one byte per pixel, 128x32)
 uint8_t fb[FBUFSZ];
-// the buffer we send over HID
+
+// the raw buffer coded for the OLED display (bit packed and column byte order)
 uint8_t buf[BUFSZ];
 
-void draw_sine(float t, uint8_t* dst, uint8_t r, uint8_t g, uint8_t b, float brite) {
-  for (int x=0; x<COLS; x++) {
-    float fy = 2.5 + sin(t + ((float)x/12.0 * 3.141))*2;
-    for (int y=0; y<ROWS; y++) {
-      float d = 1.0 / (10.0 * (abs((float)y - fy)));
-      if (d > 1) d = 1;
+// buffer for sending chunk commands
+uint8_t msgbuf[MSGBUFSZ];
 
-      dst[3*(y*COLS + x)]   |= (uint8_t)(r * d * brite);
-      dst[3*(y*COLS + x)+1] |= (uint8_t)(g * d * brite);
-      dst[3*(y*COLS + x)+2] |= (uint8_t)(b * d * brite);
+void oled_blit(uint8_t* src, uint8_t* dst) {
+  for (int y = 0; y < ROWS; y++) {
+    // right-to-left
+    for (int x = 0; x < COLS; x++) {
+      uint8_t column = 0;
+
+      for (int z = 0; z < 8; z++) {
+        // look up the pixel and threshold it to black and white at 127
+        uint8_t bit = src[((y * 8 + 7 - z)*COLS + x)] > 127;
+
+        // bitshift the column byte to the left to make room for new pixel
+        column <<= 1;
+        // OR the bit (the pixel) to the column byte
+        column |= bit;
+      }
+
+      // store in the destination buffer
+      dst[y*COLS + x] = column;
     }
   }
 }
 
-void draw_box(uint8_t* dst, uint8_t r, uint8_t g, uint8_t b, float brite) {
-  for (int x=0; x<COLS; x++) {
-    for (int y=0; y<ROWS; y++) {
-      dst[3*(y*COLS + x)]   |= (uint8_t)(r * brite);
-      dst[3*(y*COLS + x)+1] |= (uint8_t)(g * brite);
-      dst[3*(y*COLS + x)+2] |= (uint8_t)(b * brite);
+// unused
+void fill_pattern(uint8_t bitpattern, uint8_t* dst) {
+  int i = 0;
+  for (int y = 0; y < 32; y++) {
+    for (int x = 0; x < COLS; x++) {
+      uint8_t pos = x % 8;
+      uint8_t b = bitpattern & (1<<pos);
+
+      dst[i++] = b ? 1 : 0;
     }
+  }
+}
+
+void draw_sine(float t, uint8_t* dst) {
+  for (int x=0; x<128; x++) {
+    int y = 16 + sin(t + ((float)x/128.0 * 3.141))*12;
+    if (y < 0) y = 0;
+    if (y > 31) y = 31;
+
+    dst[y*COLS + x] = 0xff;
   }
 }
 
@@ -56,13 +83,12 @@ int main(int argc, char** argv) {
 
   // loop forever
   while (1) {
+    FILE* f = fopen(argv[1],"w");
 
-    // start with the command
-    buf[0] = 'x';
-    buf[1] = 'X';
-    buf[2] = 'R';
-    buf[3] = 'G';
-    buf[4] = 'B';
+    if (!f) {
+      printf("Couldn't open %s. Try sudo.\n", argv[1]);
+      exit(1);
+    }
 
     // clear
     memset(fb, 0, FBUFSZ);
@@ -72,6 +98,7 @@ int main(int argc, char** argv) {
       FILE* bmf = fopen(argv[2],"r");
       if (!bmf) {
         printf("Couldn't open bitmap %s!\n", argv[2]);
+        fclose(f);
         exit(2);
       }
 
@@ -80,47 +107,55 @@ int main(int argc, char** argv) {
 
       if (res<1) {
         printf("Couldn't read bitmap or wrong size.\n", argv[2]);
+        fclose(f);
         exit(3);
       }
     } else {
       // graphics demo
 
       // paint
-      //draw_sine((float)t*0.03, fb);
-      if (t>500) {
-        draw_sine((float)t*0.025+1.0, fb, 0xff, 0x00, 0x00, fmaxf(0.0, fminf(1.0, (700-((float)t/1.6))/200.0)));
-        draw_sine((float)t*0.025, fb, 0x00, 0x00, 0xff, fmaxf(0.0, fminf(1.0, (700-((float)t/1.5))/200.0)));
-        draw_sine((float)t*0.025-1.0, fb, 0x00, 0xff, 0x00, fmaxf(0.0, fminf(1.0, (700-((float)t/1.2))/200.0)));
+      draw_sine((float)t*0.03, fb);
+      draw_sine((float)t*0.05, fb);
+    }
 
-        if (t>700) {
-          draw_box(fb, 0xff, 0xff, 0xff, fmaxf(0.0, fminf(1.0, (((float)t/1.5)-500.0)/200.0)));
+    // convert to weird OLED buffer format
+    oled_blit(fb, buf);
+
+    // send buf to the keyboard: split in chunks and send each as a xWBIO command
+
+    // start with the command
+    msgbuf[0] = 'x';
+    msgbuf[1] = 'W';
+    msgbuf[2] = 'B';
+    msgbuf[3] = 'I';
+    msgbuf[4] = 'O';
+
+    // Get underlying file descriptor for polling
+    int fd = fileno(f);
+
+    for (uint8_t page = 0; page < ROWS; page++) {
+        for (uint8_t col = 0; col < COLS; col += CHUNKSZ) {
+            msgbuf[5] = page;
+            msgbuf[6] = col;
+
+            uint8_t bufsize = CHUNKSZ;
+            if (col + bufsize > COLS) bufsize = COLS - col;
+
+            // copy bytes of data
+            memcpy(&msgbuf[7], &buf[page*COLS + col], bufsize);
+
+            fwrite(msgbuf, 7+bufsize, 1, f);
+            fflush(f);
         }
-      } else {
-        draw_sine((float)t*0.025+1.0, fb, 0xff, 0x00, 0x00, fmaxf(0.0, fminf(1.0, (((float)t)-100)/200.0)));
-        draw_sine((float)t*0.025, fb, 0x00, 0x00, 0xff, fmaxf(0.0, fminf(1.0, (((float)t/1.2)-200)/200.0)));
-        draw_sine((float)t*0.025-1.0, fb, 0x00, 0xff, 0x00, fmaxf(0.0, fminf(1.0, (((float)t/1.1)-300)/200.0)));
-      }
     }
 
-    // send our buffer to the keyboard, one line at a time
-
-    for (int row = 0; row < 6; row++) {
-      FILE* f = fopen(argv[1],"w");
-      if (!f) {
-        printf("Couldn't open %s. Try sudo.\n", argv[1]);
-        exit(1);
-      }
-      buf[5] = row;
-      memcpy(buf+6, fb+row*(COLS*3), COLS*3);
-      fwrite(buf, BUFSZ, 1, f);
-      fclose(f);
-    }
+    fclose(f);
 
     // if we're in bitmap file mode, exit now
     if (argc == 3) exit(0);
 
     // ~50 FPS
-    usleep(100*20);
+    usleep(1000*20);
     // ~2 FPS
     //usleep(1000*500);
     t++;
