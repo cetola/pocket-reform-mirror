@@ -337,6 +337,14 @@ void hwapi_pd_cap([[maybe_unused]] struct cli_context* ctx, uint64_t prime) {
   send_source_cap(prime);
 }
 
+void hwapi_pd_dr_swap([[maybe_unused]] struct cli_context* ctx) {
+  pd_send_dr_swap();
+}
+
+void hwapi_pd_pr_swap([[maybe_unused]] struct cli_context* ctx) {
+  pd_send_pr_swap();
+}
+
 void hwapi_pd_send_reset([[maybe_unused]] struct cli_context* ctx) {
   pd_send_reset();
 }
@@ -377,10 +385,12 @@ void hwapi_pocket_init(battery_info_s *binfo) {
   cli_add_func("pwrsave\0", enter_powersave, 0, CLI_TYPE_VOID);
   cli_add_func("vdm\0\0\0\0\0", hwapi_vdm, 2, CLI_TYPE_VOID);
   cli_add_func("vdm2\0\0\0\0", hwapi_vdm2, 2, CLI_TYPE_VOID);
-  cli_add_func("pdcap\0\0\0", hwapi_pd_cap, 1, CLI_TYPE_VOID);
-  cli_add_func("pdreset\0", hwapi_pd_send_reset, 1, CLI_TYPE_VOID);
+  cli_add_func("pdcap\0\0\0", hwapi_pd_cap, 0, CLI_TYPE_VOID);
+  cli_add_func("pdreset\0", hwapi_pd_send_reset, 0, CLI_TYPE_VOID);
   cli_add_func("pdvolt\0\0", hwapi_pd_set_max_voltage, 1, CLI_TYPE_VOID);
   cli_add_func("pdsink\0\0", hwapi_pd_set_force_sink, 1, CLI_TYPE_VOID);
+  cli_add_func("pdprswap\0\0", hwapi_pd_pr_swap, 0, CLI_TYPE_VOID);
+  cli_add_func("pddrswap\0\0", hwapi_pd_dr_swap, 0, CLI_TYPE_VOID);
   cli_add_func("wdog-scr\0\0", hwapi_get_wdog_scratch, 2, CLI_TYPE_UINT64);
 
   // TODO: DP/altmode_set configs

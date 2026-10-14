@@ -78,6 +78,8 @@ static int source_pdo_ready_acked = 0;
 static bool alt_mode_requested = false;
 static bool pd_force_sink = false;
 static bool pd_source_cap_acked = false;
+static bool swap_dr_after_goodcrc = false;
+static bool swap_pr_after_goodcrc = false;
 
 int factory_turn_on_once = 1;
 
@@ -97,6 +99,7 @@ unsigned int pd_get_state_for_debug() {
 
 void pd_set_force_sink(bool force) {
   pd_force_sink = force;
+  pd_send_reset();
 }
 
 #define PD_VERSION PD_SPECREV_2_0
@@ -109,7 +112,7 @@ void send_source_cap(uint8_t prime) {
   tx.obj[0] = 0x26019064;  // 5V/1A with DRP and DRD
   //tx.obj[0] = 0x36019096;
 
-  int res = -1;
+  [[maybe_unused]] int res = -1;
   if (prime == 2) {
     res = fusb_send_message_prime_prime(&tx);
   }
@@ -119,7 +122,7 @@ void send_source_cap(uint8_t prime) {
   else {
     res = fusb_send_message(&tx);
   }
-  printf("# [pd]   result: %d\n", res);
+  //printf("# [pd]   result: %d\n", res);
   tx_id_count++;
 }
 
@@ -151,6 +154,31 @@ void send_source_accept() {
   tx.hdr |= (tx_id_count % 8) << PD_HDR_MESSAGEID_SHIFT;
   fusb_send_message(&tx);
   tx_id_count++;
+}
+
+void pd_send_dr_swap() {
+  printf("# [pd]   send_dr_swap\n");
+  tx.hdr = PD_MSGTYPE_C_DR_SWAP | pd_datarole | (pd_powerrole << PD_HDR_POWERROLE_SHIFT) | PD_VERSION;
+  tx.hdr |= (tx_id_count % 8) << PD_HDR_MESSAGEID_SHIFT;
+  fusb_send_message(&tx);
+  tx_id_count++;
+
+  swap_dr_after_goodcrc = true;
+}
+
+void pd_send_pr_swap() {
+  printf("# [pd]   send_pr_swap\n");
+  tx.hdr = PD_MSGTYPE_C_PR_SWAP | pd_datarole | (pd_powerrole << PD_HDR_POWERROLE_SHIFT) | PD_VERSION;
+  tx.hdr |= (tx_id_count % 8) << PD_HDR_MESSAGEID_SHIFT;
+  fusb_send_message(&tx);
+  tx_id_count++;
+
+  // TODO only after other side accepts!
+  if (pd_powerrole == PD_POWERROLE_SINK) {
+    pd_powerrole = PD_POWERROLE_SOURCE;
+  } else {
+    pd_powerrole = PD_POWERROLE_SINK;
+  }
 }
 
 void send_ps_ready() {
@@ -204,6 +232,12 @@ void pd_send_reset() {
   printf("# [pd]   sent reset, result: %d\n", res);
 
   pd_state = PD_STATE_SETUP;
+}
+
+void pd_attempt_dp_alt_mode() {
+  printf("# [pd]   pd_attempt_dp_alt_mode()\n");
+  send_vdm(0xff008002, 0);
+  alt_mode_requested = true;
 }
 
 static bool enable_vconn = false;
@@ -731,8 +765,6 @@ static void debug_status0(uint8_t status0) {
   }
 }
 
-bool swap_dr_after_goodcrc = false;
-
 static bool pd_handle_msg_from_power_source(union pd_msg *msg, [[maybe_unused]] battery_info_s* battery_info) {
   uint32_t msgtype = PD_MSGTYPE_GET(msg);
   uint32_t numobj = PD_NUMOBJ_GET(msg);
@@ -759,12 +791,10 @@ static bool pd_handle_msg_from_power_source(union pd_msg *msg, [[maybe_unused]] 
           pd_datarole = PD_DATAROLE_DFP;
           printf("# [pd]     switched our data role to DFP.\n");
 
-          // TODO: only on mb2
-          if (!alt_mode_requested) {
+          /*if (!alt_mode_requested && mb_version() >= 2) {
             printf("# [pd]     attempting DP Alt-Mode trigger...\n");
-            send_vdm(0xff008002, 0);
-            alt_mode_requested = true;
-          }
+            pd_attempt_dp_alt_mode();
+          }*/
         } else {
           pd_datarole = PD_DATAROLE_UFP;
           printf("# [pd]     switched our data role to UFP.\n");
@@ -781,6 +811,13 @@ static bool pd_handle_msg_from_power_source(union pd_msg *msg, [[maybe_unused]] 
       // power supply is ready
       printf("# [pd]   power supply ready.\n");
       charger_enable_charge(requested_current);
+      /*if (mb_version() >= 2) {
+        if (pd_datarole == PD_DATAROLE_UFP) {
+          // perhaps a dock? lets try to enter dp alt-mode and switch
+          // our datarole to DFP (host)
+          pd_send_dr_swap();
+        }
+      }*/
       return true;
 
     case PD_MSGTYPE_C_DR_SWAP:
@@ -811,6 +848,7 @@ static bool pd_handle_msg_from_power_source(union pd_msg *msg, [[maybe_unused]] 
       printf("# [pd]   power supply wants to swap power role.\n");
       printf("# [pd]   accepting power-role swap snk->src\n");
       send_source_accept();
+      // TODO: after goodcrc?
       pd_powerrole = PD_POWERROLE_SOURCE;
       pd_state = PD_STATE_UNATTACHED_SRC;
       return true;
@@ -821,14 +859,10 @@ static bool pd_handle_msg_from_power_source(union pd_msg *msg, [[maybe_unused]] 
       return true;
 
     case PD_MSGTYPE_C_VCONN_SWAP:
-      printf("# [pd]   accepting PD_MSGTYPE_C_VCONN_SWAP\n");
-      //pd_send_not_supported();
-      enable_vconn = true;
-      send_source_accept();
-
-      // try triggering alt mode
-      // TODO: weird place
-      //send_vdm(0xff008002, 0);
+      printf("# [pd]   rejecting PD_MSGTYPE_C_VCONN_SWAP\n");
+      pd_send_not_supported();
+      //enable_vconn = true;
+      //send_source_accept();
       return true;
     case PD_MSGTYPE_C_SOFT_RESET:
       printf("# [pd]   accepting PD_MSGTYPE_C_SOFT_RESET\n");
@@ -966,15 +1000,22 @@ static bool pd_handle_msg_from_power_sink(union pd_msg *msg, [[maybe_unused]] ba
     switch (msgtype) {
     case PD_MSGTYPE_C_GOODCRC:
       printf("# [pd]   [rx from sink] goodcrc.\n");
-      pd_source_cap_acked = true;
 
-      if (source_pdo_accept_sent && !source_pdo_ready_sent) {
-        send_ps_ready();
-        source_pdo_accept_sent = 0;
-        source_pdo_ready_sent = 1;
-        source_pdo_ready_acked = 0;
-      } else if (source_pdo_ready_sent) {
-        source_pdo_ready_acked = 1;
+      if (swap_pr_after_goodcrc) {
+        pd_powerrole = PD_POWERROLE_SINK;
+        printf("# [pd]     switched our power role to SNK.\n");
+        swap_pr_after_goodcrc = false;
+      } else {
+        pd_source_cap_acked = true;
+
+        if (source_pdo_accept_sent && !source_pdo_ready_sent) {
+          send_ps_ready();
+          source_pdo_accept_sent = 0;
+          source_pdo_ready_sent = 1;
+          source_pdo_ready_acked = 0;
+        } else if (source_pdo_ready_sent) {
+          source_pdo_ready_acked = 1;
+        }
       }
       return true;
     case PD_MSGTYPE_C_GET_SOURCE_CAP:
@@ -1011,8 +1052,9 @@ static bool pd_handle_msg_from_power_sink(union pd_msg *msg, [[maybe_unused]] ba
       return false;
     case PD_MSGTYPE_C_PR_SWAP:
       printf("# [pd]   [rx from sink] pr_swap.\n");
+      printf("# [pd]   accepting power-role swap src->snk\n");
       send_source_accept();
-      pd_powerrole = PD_POWERROLE_SINK;
+      swap_pr_after_goodcrc = true;
       pd_state = PD_STATE_UNATTACHED_SNK;
       return true;
     case PD_MSGTYPE_C_VCONN_SWAP:
@@ -1054,24 +1096,31 @@ static bool pd_handle_msg_from_power_sink(union pd_msg *msg, [[maybe_unused]] ba
 }
 
 static int pd_src_attempts = 0;
+static uint8_t pd_status1_old = 0;
 
 // Returns if state was "changed" in some form and we expect to maybe be called again.
 static bool pd_comm_pd(battery_info_s* battery_info) {
   uint8_t status1;
   if (fusb_read_buf(FUSB_STATUS1, 1, &status1)) {
+    if (pd_status1_old != status1) printf("# [pd] status1 change: 0b%08b\n", status1);
+    pd_status1_old = status1;
     if (status1 & 0b11010111) {
-      printf("# [pd] status1: 0b%08b\n", status1);
       if (status1 & 0b00100100) {
         // TODO: handle the right bit!
-        printf("# [pd] ~~ tx flush / pd reset ~~\n");
         fusb_write_byte(FUSB_CONTROL0, (pd_host_current << FUSB_CONTROL0_HOST_CUR_SHIFT) | FUSB_CONTROL0_TX_FLUSH);
-        fusb_write_byte(FUSB_RESET, FUSB_RESET_PD_RESET);
-        if (pd_src_attempts++ > 4) {
-          // give up retrying in the current state (probably PD_STATE_UNATTACHED_SRC)
-          pd_state = PD_STATE_SETUP;
-          pd_src_attempts = 0;
+        if (pd_src_attempts < 5) {
+          printf("# [pd] ~~ tx flush / pd reset ~~\n");
+          fusb_write_byte(FUSB_RESET, FUSB_RESET_PD_RESET);
+          pd_src_attempts++;
+          return true;
+        } else {
+          /*if (pd_src_attempts++ > 4) {
+            // give up retrying in the current state (probably PD_STATE_UNATTACHED_SRC)
+            pd_state = PD_STATE_SETUP;
+            pd_src_attempts = 0;
+          }*/
+          return true;
         }
-        return true;
       }
     }
   }
@@ -1104,6 +1153,7 @@ bool pd_tick(battery_info_s* battery_info) {
     pd_datarole = PD_DATAROLE_UFP;
     pd_src_attempts = 0;
     swap_dr_after_goodcrc = false;
+    swap_pr_after_goodcrc = false;
     pd_ccpin = 0;
     pd_host_current = 0b10;
     source_pdo_accept_sent = 0;
@@ -1288,6 +1338,10 @@ bool pd_tick(battery_info_s* battery_info) {
         tx.hdr |= (tx_id_count % 8) << PD_HDR_MESSAGEID_SHIFT;
         fusb_send_message(&tx);
         tx_id_count++;
+      } else if (t > 500 && !alt_mode_requested) {
+        if (mb_version() >= 2) {
+          pd_attempt_dp_alt_mode();
+        }
       }
     }
 
@@ -1355,8 +1409,7 @@ bool pd_tick(battery_info_s* battery_info) {
       // TODO WIP
       // works for xreal, club3d, apple hdmi
       printf("# [pd] PD_STATE_ATTACHED_SRC: trying to trigger DP alt-mode...\n");
-      send_vdm(0xff008002, 0);
-      alt_mode_requested = true;
+      pd_attempt_dp_alt_mode();
     }
 
     // detect detach
