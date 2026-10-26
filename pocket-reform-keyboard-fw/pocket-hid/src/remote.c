@@ -47,6 +47,9 @@ void insert_bat_icon(char* str, int x, double v) {
 }
 
 int remote_get_power_state() {
+#if (KBD_MODE == KBD_MODE_STANDALONE)
+  soc_power_on = 1;
+#endif
   return soc_power_on;
 }
 
@@ -93,6 +96,11 @@ void remote_on_uart_rx() {
 
 int remote_try_command(const char* cmd, int print_response) {
   int ok = 1;
+
+#if KBD_MODE == KBD_MODE_STANDALONE
+  // there's no remote
+  return 0;
+#endif
 
   memset(response, 0, RESPONSE_MAX);
   uart_rx_i = 0;

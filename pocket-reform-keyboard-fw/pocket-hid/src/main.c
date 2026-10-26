@@ -168,6 +168,9 @@ int main(void)
     gpio_put(PIN_LEDS_PWR_EN, 1);
     sleep_ms(100);
     led_set_rgb(KBD_DEFAULT_BACKLIGHT_COLOR);
+#if KBD_MODE == KBD_MODE_STANDALONE
+    anim_hello();
+#endif
   } else {
     gpio_put(PIN_LEDS_PWR_EN, 0);
   }
@@ -196,6 +199,7 @@ int main(void)
     if (cycles%50 == 0) {
       refresh_menu_page();
 
+#if (KBD_MODE != KBD_MODE_STANDALONE)
       // if device is off and user is pressing random keys,
       // show a hint for turning on the device
       if (!remote_get_power_state()) {
@@ -204,6 +208,7 @@ int main(void)
           input_menu_key(KEY_H, 0);
         }
       }
+#endif
     }
 
     // backlight hue/value wheel

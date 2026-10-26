@@ -23,8 +23,15 @@ static int current_scroll_y = 0;
 static int current_menu_page = 0;
 static int8_t logo_timeout_ticks = 0;
 
-#ifdef KBD_MODE_STANDALONE
-// TODO
+#if KBD_MODE == KBD_MODE_STANDALONE
+#define MENU_NUM_ITEMS 5
+const struct menu_item menu_items[MENU_NUM_ITEMS] = {
+  { "Exit Menu         ESC", KEY_ESC },
+  { "System Status       s", KEY_S },
+  { "Reset Keyboard      r", KEY_R },
+  { "Reset USB           u", KEY_U },
+  { "USB Flashing Mode   x", KEY_X },
+};
 #else
 #define MENU_NUM_ITEMS 9
 const struct menu_item menu_items[MENU_NUM_ITEMS] = {
