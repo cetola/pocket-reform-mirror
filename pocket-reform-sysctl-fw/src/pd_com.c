@@ -1121,17 +1121,6 @@ bool pd_tick(battery_info_s* battery_info) {
       gpio_put(PIN_V20_DP_HPD, 0);
     }
 
-    // setup/timeout state
-    if (battery_info->emergency_charge_necessary) {
-      printf("# [pd] PD_STATE_SETUP - emergency_charge_necessary - not initializing PD\n");
-      // TODO: don't read mps registers directly!
-      if (mps_reg_config.config0.chg_en != 1) {
-        // 500mA, should be safe and get us to at least a minimal charge.
-        charger_enable_charge(50);
-      }
-      goto out;
-    }
-    charger_disable_charge();
     // TODO naming
     request_sent = 0;
 
