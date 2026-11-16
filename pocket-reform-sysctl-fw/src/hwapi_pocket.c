@@ -19,6 +19,15 @@ static battery_info_s *battery_info;
 static char legacy_buf[LEGACY_BUF_SZ];
 static char legacy_spi_buf[LEGACY_SPI_SZ];
 
+static uint64_t version_word(size_t offset) {
+  const char *version = MNTRE_FIRMWARE_VERSION;
+  uint64_t word = 0;
+  for (size_t i = 0; i < 8 && offset + i < strlen(version); i++) {
+    word |= (uint64_t)(uint8_t)version[offset + i] << (8 * i);
+  }
+  return word;
+}
+
 uint64_t hwapi_legacy_q() {
   // execute status query command
   memset(legacy_spi_buf, 0, LEGACY_SPI_SZ);
@@ -408,8 +417,8 @@ void hwapi_pocket_init(battery_info_s *binfo) {
   cli_add_func("0c\0\0\0\0\0\0\0", hwapi_legacy_c, 0, CLI_TYPE_UINT64);
   cli_add_func("1w\0\0\0\0\0\0\0", som_wake, 0, CLI_TYPE_VOID);
   cli_add_word("0f\0\0\0\0\0\0\0", eightcc("MNT PRSC"));
-  cli_add_word("1f\0\0\0\0\0\0\0", eightcc("20260801"));
-  cli_add_word("2f\0\0\0\0\0\0\0", eightcc("00000000"));
+  cli_add_word("1f\0\0\0\0\0\0\0", version_word(0));
+  cli_add_word("2f\0\0\0\0\0\0\0", version_word(8));
   cli_add_func("s\0\0\0\0\0\0\0", hwapi_legacy_kbd_s, 0, CLI_TYPE_STR128);
   cli_add_func("c\0\0\0\0\0\0\0", hwapi_legacy_kbd_c, 0, CLI_TYPE_STR128);
 }
