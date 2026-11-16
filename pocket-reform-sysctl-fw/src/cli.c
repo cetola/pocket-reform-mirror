@@ -137,15 +137,7 @@ void cli_show_word(struct cli_context* ctx, uint64_t idx) {
   cli_out_str(ctx, ")");
 }
 
-uint64_t cli_set_var_uint64(struct cli_context* ctx, uint64_t word, uint64_t value) {
-#ifdef CLI_DEBUG_EVAL
-  char buf[9];
-  printf("[cli_set_var_uint64] %s 0x%llx\n", eightcc_to_str(word, buf), value);
-#endif
-  if (!cli_word_valid(word)) {
-    if (ctx) cli_error(ctx, CLI_ERR_ARGS);
-    return 0;
-  }
+static uint64_t cli_store_var_uint64(struct cli_context* ctx, uint64_t word, uint64_t value) {
   for (uint32_t i = 0; i < cli_num_vars; i++) {
     if (cli_vars[i].word == word) {
       // prevent overwriting of funcs
@@ -171,6 +163,18 @@ uint64_t cli_set_var_uint64(struct cli_context* ctx, uint64_t word, uint64_t val
   return value;
 }
 
+uint64_t cli_set_var_uint64(struct cli_context* ctx, uint64_t word, uint64_t value) {
+#ifdef CLI_DEBUG_EVAL
+  char buf[9];
+  printf("[cli_set_var_uint64] %s 0x%llx\n", eightcc_to_str(word, buf), value);
+#endif
+  if (!cli_word_valid(word)) {
+    if (ctx) cli_error(ctx, CLI_ERR_ARGS);
+    return 0;
+  }
+  return cli_store_var_uint64(ctx, word, value);
+}
+
 // TODO signature!
 int cli_add_func(char word[static 9], void* funcptr, uint8_t num_args, uint8_t return_type) {
   if (cli_num_vars >= CLI_MAX_VARS) {
@@ -188,7 +192,8 @@ int cli_add_func(char word[static 9], void* funcptr, uint8_t num_args, uint8_t r
 }
 
 int cli_add_word(char word[static 9], uint64_t value) {
-  return cli_set_var_uint64(NULL, eightcc(word), value);
+  // skips cli_word_valid: legacy words such as "0f" start with a digit
+  return cli_store_var_uint64(NULL, eightcc(word), value);
 }
 
 void cli_init_env() {
