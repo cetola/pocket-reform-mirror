@@ -18,8 +18,6 @@
 #include "hardware/xosc.h"
 #include "tusb.h"
 #include "reform_stdio_usb.h"
-//#include "altmode.h"
-//#include "kvstore.h"
 #include "cli.h"
 #include "spi_com.h"
 #include "uart_com.h"
@@ -112,7 +110,8 @@ void set_display_backlight_freq(int freq) {
 }
 
 // this functionality is only for the second type of display for Pocket Reform
-// that will ship in late 2024 (TOP070F01A)
+// that shipped starting in late 2024 (TOP070F01A)
+//
 // called from timer interrupt, no sleep allowed here!
 void set_display_backlight(int percent) {
   if (!display_v2_backlight_function) {
@@ -135,16 +134,22 @@ void set_display_backlight(int percent) {
   }
 }
 
-void charger_tick();
-
-// Assumes mps_reg_status and battery_info->charge_percentage were recently updated.
-//
-static void derive_emergency_charge_necessary(void) {
-  if (mps_reg_status.status.chg_stat == MPS_CHGSTAT_TRICKLE && battery_info.charge_percentage == 0) {
-    battery_info.emergency_charge_necessary = true;
+void charger_tick() {
+  uint8_t old_config3 = mps_reg_config.config3.reg_byte;
+  if (battery_info.som_is_powered) {
+    mps_reg_config.config3.prochot_psys_cfg = 0b11;  // enable PSYS/ADC feature, even on battery
   } else {
-    battery_info.emergency_charge_necessary = false;
+    mps_reg_config.config3.prochot_psys_cfg = 0;  // save power
   }
+
+  if (old_config3 != mps_reg_config.config3.reg_byte) {
+    mps_write_byte(MPS_REG_CONFIG3, mps_reg_config.config3.reg_byte);
+  }
+
+  // TODO: do this only every X seconds, maybe up to 100?
+  // clear watchdog
+  mps_reg_config.config0.wtd_rst = 1;
+  mps_write_byte(MPS_REG_CONFIG0, mps_reg_config.config0.reg_byte);
 }
 
 void charger_init() {
@@ -152,7 +157,6 @@ void charger_init() {
   mps_fault_last = 0;
 
   mps_read_buf(MPS_REGSTART_STATUS, sizeof(mps_reg_status.all_regs), mps_reg_status.all_regs);
-  derive_emergency_charge_necessary();
 
   // reset all registers
   mps_reg_config.config0.reg_rst = 1;
@@ -162,16 +166,7 @@ void charger_init() {
   // It should be possible to read this after writing to MPS_REG_CONFIG0 below, but apparently then we read the resetted registers (again?).
   mps_read_buf(MPS_REGSTART_CONFIG, sizeof(mps_reg_config.all_regs), mps_reg_config.all_regs);
 
-  if (battery_info.emergency_charge_necessary) {
-    // continue emergency charging
-    mps_reg_config.config0.chg_en = 1;
-  } else {
-    // turn off charging until PD allows it
-    mps_reg_config.config0.chg_en = 0;
-  }
-  mps_reg_config.config0.susp_en = 0;
-  mps_reg_config.config0.ntc_gcomp_sel = 0;  // disable OTG pin
-  mps_write_byte(MPS_REG_CONFIG0, mps_reg_config.config0.reg_byte);
+  charger_enable_charge(50);
 
   // 160sec watchdog
   mps_reg_config.config1.wtd = 3;
@@ -194,26 +189,6 @@ void charger_init() {
   charger_tick();
 }
 
-void charger_tick() {
-  derive_emergency_charge_necessary();
-
-  uint8_t old_config3 = mps_reg_config.config3.reg_byte;
-  if (battery_info.som_is_powered) {
-    mps_reg_config.config3.prochot_psys_cfg = 0b11;  // enable PSYS/ADC feature, even on battery
-  } else {
-    mps_reg_config.config3.prochot_psys_cfg = 0;  // save power
-  }
-
-  if (old_config3 != mps_reg_config.config3.reg_byte) {
-    mps_write_byte(MPS_REG_CONFIG3, mps_reg_config.config3.reg_byte);
-  }
-
-  // TODO: do this only every X seconds, maybe up to 100?
-  // clear watchdog
-  mps_reg_config.config0.wtd_rst = 1;
-  mps_write_byte(MPS_REG_CONFIG0, mps_reg_config.config0.reg_byte);
-}
-
 // current in 10mA units
 void charger_enable_charge(int current) {
   int current_reg_value = current / 5;
@@ -225,6 +200,7 @@ void charger_enable_charge(int current) {
   mps_write_byte(0x0F, current_reg_value);
 
   mps_reg_config.config0.chg_en = 1;
+  mps_reg_config.config0.ntc_gcomp_sel = 0;  // disable OTG pin
   mps_reg_config.config0.susp_en = 0;
   mps_write_byte(MPS_REG_CONFIG0, mps_reg_config.config0.reg_byte);
   mps_fault_last = 0;
