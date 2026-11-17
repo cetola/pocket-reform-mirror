@@ -62,13 +62,17 @@ float mps_word_to_temp(uint16_t w) {
 }
 
 void mps_read_buf(uint8_t addr, uint8_t size, uint8_t *buf) {
+  sysctl_disable_irqs();
   i2c_write_timeout_us(i2c0, MPS_ADDR, &addr, 1, true, I2C_TIMEOUT);
   i2c_read_timeout_us(i2c0, MPS_ADDR, buf, size, false, I2C_TIMEOUT);
+  sysctl_enable_irqs();
 }
 
 void mps_write_byte(uint8_t addr, uint8_t byte) {
   uint8_t buf[2] = {addr, byte};
+  sysctl_disable_irqs();
   i2c_write_timeout_us(i2c0, MPS_ADDR, buf, 2, false, I2C_TIMEOUT);
+  sysctl_enable_irqs();
 }
 
 void mps_write_buf(uint8_t addr, uint8_t size, const uint8_t *buf) {
@@ -77,5 +81,7 @@ void mps_write_buf(uint8_t addr, uint8_t size, const uint8_t *buf) {
   for (int i = 0; i < size; i++) {
     txbuf[i + 1] = buf[i];
   }
+  sysctl_disable_irqs();
   i2c_write_timeout_us(i2c0, MPS_ADDR, txbuf, size + 1, false, I2C_TIMEOUT);
+  sysctl_enable_irqs();
 }
