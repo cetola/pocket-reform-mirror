@@ -249,13 +249,72 @@ void charger_disable_charge() {
   gpio_put(PIN_LED_R, 0);
 }
 
+static bool i2c_bus_stuck(void) {
+  return !gpio_get(PIN_SDA) || !gpio_get(PIN_SCL);
+}
+
+// A chip that lost track of a transfer can hold SDA low until it has seen
+// enough clocks. Clock it free, end with a STOP, then bring the block back up.
+// Runs with the SPI interrupt masked because it takes the block down.
+static bool i2c_bus_recover(void) {
+  bool irqs_were_on = irq_is_enabled(IO_IRQ_BANK0);
+  sysctl_disable_irqs();
+  i2c_deinit(i2c0);
+
+  gpio_init(PIN_SDA);
+  gpio_init(PIN_SCL);
+  gpio_set_dir(PIN_SDA, GPIO_IN);
+  gpio_set_dir(PIN_SCL, GPIO_IN);
+
+  bool clocked = false;
+  for (int i = 0; i < 9 && !gpio_get(PIN_SDA); i++) {
+    clocked = true;
+    gpio_set_dir(PIN_SCL, GPIO_OUT);
+    busy_wait_us(5);
+    gpio_set_dir(PIN_SCL, GPIO_IN);
+    busy_wait_us(5);
+  }
+
+  if (clocked) {
+    gpio_set_dir(PIN_SDA, GPIO_OUT);
+    busy_wait_us(5);
+    gpio_set_dir(PIN_SDA, GPIO_IN);
+    busy_wait_us(5);
+  }
+
+  bool released = !i2c_bus_stuck();
+
+  gpio_set_function(PIN_SDA, GPIO_FUNC_I2C);
+  gpio_set_function(PIN_SCL, GPIO_FUNC_I2C);
+  i2c_init(i2c0, 100 * 1000);
+  if (irqs_were_on) {
+    sysctl_enable_irqs();
+  }
+
+  if (clocked) {
+    printf("# [i2c] bus was stuck, clocked it %s\n", released ? "free" : "but it is still held");
+  }
+  return released;
+}
+
 void gauge_tick(battery_info_s *batinfo) {
+  static int stuck_ticks = 0;
   // read devname to identify if communication works
   uint16_t max17320_devname = max_read_word(0x21);
   if (max17320_devname == 0x4209 || max17320_devname == 0x420a || max17320_devname == 0x420b) {
     batinfo->max17320_devname = max17320_devname;
+    stuck_ticks = 0;
   } else {
     //printf("# [battery] [ERROR] gauge did not respond\n");
+    // Three ticks in a row, so a transfer in progress is not mistaken for a stuck bus.
+    if (i2c_bus_stuck()) {
+      if (++stuck_ticks >= 3) {
+        i2c_bus_recover();
+        stuck_ticks = 0;
+      }
+    } else {
+      stuck_ticks = 0;
+    }
     batinfo->max17320_devname = 0;
     batinfo->input_volts = -1;
     batinfo->time_to_empty = 0;
@@ -860,6 +919,10 @@ void setup_gpios() {
   gpio_set_function(PIN_SCL, GPIO_FUNC_I2C);
   bi_decl(bi_2pins_with_func(PIN_SDA, PIN_SCL, GPIO_FUNC_I2C));
   i2c_init(i2c0, 100 * 1000);
+  // A reset of this chip does not reset the chips on the bus.
+  if (i2c_bus_stuck()) {
+    i2c_bus_recover();
+  }
 
   // RGB LED
   gpio_init(PIN_LED_R);  // Red is used as charge indicator
